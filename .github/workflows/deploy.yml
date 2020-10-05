@@ -1,31 +1,19 @@
 name: Build and Deploy
-
 on:
   push:
     branches:
       - master
 jobs:
-  build-and-deploy:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - uses: actions/setup-node@v1 #this installs node and npm for us
+    - uses: actions/checkout@v2
+    - name: All things angular
+      uses: AhsanAyaz/angular-deploy-gh-pages-actions@[version] ## replace by latest version without it you will see Expected format {org}/{repo}[/path]@ref. Actual 'AhsanAyaz/angular-deploy-gh-pages-actions',Input string was not in a correct format.
       with:
-        node-version: '10.x'
-    - uses: actions/cache@v1 # this allows for re-using node_modules caching, making builds a bit faster.
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-    
-    - name: Build
-      run: |
-        npm install
-        npm run-script deploy
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: dist/my-first-project
+        github_access_token: ${{ secrets.GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
+        base_href: /eduadmin/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+        deploy_branch: gh-pages # The branch the action should deploy to.
+        angular_dist_build_folder: dist/my-first-project # The folder where your project is supposed to be after running ng build by the action.
