@@ -131,7 +131,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
             i0.ɵɵelementEnd();
             i0.ɵɵnamespaceHTML();
             i0.ɵɵelementStart(21, "h2");
-            i0.ɵɵtext(22, "Edu App 4");
+            i0.ɵɵtext(22, "Edu App Please HELpppp...");
             i0.ɵɵelementEnd();
             i0.ɵɵelementStart(23, "p");
             i0.ɵɵtext(24, "Here are some links to help you get started:");
