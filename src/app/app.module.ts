@@ -153,6 +153,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component'
         useClass: HttpInterceptor,
         multi: true
       },
+      NumberOnlyDirective
     ],
   bootstrap: [AppComponent]
 })
