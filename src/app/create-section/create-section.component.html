@@ -10,7 +10,7 @@
 
             <div class="d-flex justify-content-end">
                 <button class="inputCancel" (click)="dialogRef.close()">Cancel</button>
-                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'" (click)="formSubmit()">Create</button>
+                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'">Create</button>
             </div>
             <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                 {{responseMessage && responseMessage}}</div>

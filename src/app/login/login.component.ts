@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   success:boolean;
   emailFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', Validators.required);
-
+  hide
   loginForm: FormGroup = new FormGroup({
     username: this.emailFormControl,
     password: this.passwordFormControl
