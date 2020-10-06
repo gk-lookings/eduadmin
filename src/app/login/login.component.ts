@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LOGIN } from '../config/endpoints';
 
-//login dfdsxcz
+//login dfdsxcz ted
 
 @Component({
   selector: 'app-login',
