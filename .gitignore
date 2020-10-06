@@ -1,7 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
 /tmp
 /out-tsc
 # Only exists if Bazel was run
@@ -36,7 +35,7 @@ speed-measure-plugin*.json
 /connect.lock
 /coverage
 /libpeerconnection.log
-npm-debug.log
+npm-debug.loga
 yarn-error.log
 testem.log
 /typings

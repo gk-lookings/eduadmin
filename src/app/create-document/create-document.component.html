@@ -63,7 +63,7 @@
                                         {{ file?.name }}
                                     </h4>
                                     <p class="size">
-                                        {{ formatBytes(file?.size) }}
+                                        {{ formatBytes(file?.size, 2) }}
                                     </p>
                                     <app-progress [progress]="file?.progress"></app-progress>
                                 </div>
@@ -80,7 +80,7 @@
                     </div>
 
 
-                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'" (click)="formSubmit()">Create</button>
+                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'">Create</button>
                     <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                         {{responseMessage && responseMessage}}</div>
                 </form>

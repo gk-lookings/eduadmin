@@ -19,7 +19,7 @@ export class CreateSubjectComponent implements OnInit {
   isLoading: boolean;
   success: boolean;
   subNameFormControl = new FormControl('', Validators.required);
-
+  subInstructor
   createForm: FormGroup = new FormGroup({
     subName: this.subNameFormControl
   });
