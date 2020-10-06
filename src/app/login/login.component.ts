@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LOGIN } from '../config/endpoints';
 
-//login
+//login dfds
 
 @Component({
   selector: 'app-login',
@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   responseMessage: string;
-  isLoading:boolean;
-  success:boolean;
+  isLoading: boolean;
+  success: boolean;
   emailFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', Validators.required);
 
@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit {
     password: this.passwordFormControl
   });
 
-  constructor(private apiService: ApiService, private router:Router, private authService: AuthenticationService, private http: HttpClient) { }
- 
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient) { }
+
   ngOnInit() {
   }
-  
+
   getEmailErrorMessage() {
     return this.emailFormControl.hasError('required') ? 'You must enter a value' :
       this.emailFormControl.hasError('email') ? 'Not a valid email' :
@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
 
   getPasswordErrorMessage() {
     return this.passwordFormControl.hasError('required') ? 'You must enter a value' :
-        '';
+      '';
   }
-  
+
   loginSubmit() {
-    this.isLoading=true;
+    this.isLoading = true;
     let params = {
       "email": this.username,
       "password": this.password,
@@ -57,15 +57,15 @@ export class LoginComponent implements OnInit {
     }
     this.apiService.getResponse('post', LOGIN, params).
       then(res => {
-        this.isLoading=false;
+        this.isLoading = false;
         if (res.status === 200) {
-          this.success=true;
+          this.success = true;
           this.authService.setCurrentUser(res)
           this.router.navigate(['dashboard/home']);
         }
         else {
           this.responseMessage = res.error.message
-          this.success=false;
+          this.success = false;
         }
       })
   }
