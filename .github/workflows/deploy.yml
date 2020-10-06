@@ -23,5 +23,5 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ANGULAR_ACCESS_TOKEN }}
           TARGET_FOLDER: .
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: dist/my-first-project # The folder the action should deploy.
+          FOLDER: dist/edu-app # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
