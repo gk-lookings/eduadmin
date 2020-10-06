@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="row">
+        <mat-toolbar color="primary" class="__header justify-content-between">
+            <h1 style="font-size: 20px;">
+                <mat-icon matRipple [routerLink]="['/dashboard/users']" title="Go back">keyboard_arrow_left</mat-icon>User Detail</h1>
+        </mat-toolbar>
+    </div>
+
+
+    <div class="__content_sec">
+        <div class="d-flex justify-content-between align-items-center mb-4 pt-4">
+            <h1 class="comm_title_small_h1 " style="margin: 0;">Details </h1>
+            <button class="inputSubmit" style="background-color: brown; margin: 0;">Deactivate</button>
+        </div>
+        <p>Joined On : <b>24 Sep 2020</b></p>
+        <p>Status : <b>Active</b></p>
+        <h1 class="comm_title_h1">Classrooms</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="textT">
+                <img src="./../../assets/images/user.png" alt="">
+                <h1>Cusat cse s6</h1>
+            </div>
+            <div class="action">
+                <p>Admin</p>
+                <mat-icon>visibility</mat-icon>
+            </div>
+        </div>
+        <h1 class="comm_title_h1">Activities</h1>
+        <div class="recent_set">
+            <p>Today</p>
+            <ul>
+                <li>Cusat cse s6 template created</li>
+                <li>User tom@gmail.com is deactivated</li>
+                <li>New classroom iitcses6madras created </li>
+            </ul>
+        </div>
+    </div>
+</div>

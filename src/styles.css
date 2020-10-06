@@ -1,1 +1,334 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+.inputField {
+    margin: 7% 0;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.inputField label {
+    font-family: 'Poppins SemiBold';
+    font-size: 16px;
+}
+
+.inputField span {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 17px;
+}
+
+.inputField input {
+    width: 100%;
+    height: 55px;
+    border: 2px solid #4DCCBD;
+    border-radius: 3px;
+    padding: 10px 15px;
+}
+
+.fileUploadSet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #4dccbd;
+    border-style: dashed;
+    border-radius: 3px;
+    margin: 15px 0px;
+    position: relative;
+}
+
+.fileUploadSet h1 {
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+.fileUploadSet p {
+    font-size: 13px;
+    max-width: 70%;
+    margin: 0;
+    margin-bottom: 7px;
+}
+
+.fileUploadSet .icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #4dccbd1f;
+    cursor: pointer;
+}
+
+.icon img {
+    width: 33%;
+}
+
+.fileUploadSet input {
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.errorInput {
+    font-size: 13px;
+    margin-left: 10px;
+    color: #FF5722;
+    padding-top: 2px;
+    opacity: 0;
+    animation: opacitSho 0.5s;
+}
+
+.errorShow {
+    display: block;
+    opacity: 1;
+}
+
+@keyframes opacitSho {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.inputSubmit {
+    background: #4dccbd;
+    border: none;
+    padding: 8px 0px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 3px;
+    font-family: 'Poppins SemiBold';
+    margin-top: 30px;
+    transition: 0.5s;
+    cursor: pointer;
+    width: 195px;
+}
+
+.inputCancel {
+    background: #ffffff;
+    border: 2px solid #000;
+    padding: 8px 0px;
+    font-size: 18px;
+    border-radius: 3px;
+    margin-top: 30px;
+    transition: 0.5s;
+    width: 155px;
+    text-align: center;
+}
+
+.inputSubmit:hover,
+.inputCancel:hover {
+    box-shadow: 0px 0px 15px #0003;
+}
+
+.inputSubmit:disabled {
+    background: #ddd;
+    color: #00000038;
+    cursor: default;
+}
+
+.inputSubmit:disabled:hover {
+    box-shadow: none;
+}
+
+.__header {
+    color: #fff !important;
+    padding: 0 35px !important;
+    height: 75px !important;
+    box-shadow: 0px 5px 10px #0003;
+    position: fixed;
+    z-index: 111111;
+}
+
+.__header.home h1 {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'Poppins';
+}
+
+.__header h1 {
+    font-size: 20px;
+    font-family: 'Poppins SemiBold';
+    display: flex;
+    align-items: center;
+}
+
+.__header h1 mat-icon {
+    margin-right: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.__content_sec {
+    padding: 0 15px;
+    margin-top: 100px;
+}
+
+.comm_title_h1 {
+    font-size: 30px;
+    font-family: 'Poppins SemiBold';
+    margin: 40px 0;
+}
+
+.comm_title_small_h1 {
+    font-size: 22px;
+    font-family: 'Poppins SemiBold';
+    margin-bottom: 10px;
+}
+
+.comm_sub_title_small_p {
+    margin-bottom: 40px;
+    font-size: 17px;
+    color: #777;
+}
+
+.grid-column_set {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 15px;
+}
+
+.periodic_block {
+    height: 160px;
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px #0003;
+    cursor: pointer;
+    transition: 0.5s;
+    float: left;
+}
+
+.periodic_block:hover {
+    box-shadow: 2px 2px 8px #0005;
+}
+
+.periodic_block h2 {
+    font-size: 35px;
+    font-family: 'Poppins SemiBold';
+    margin: 0;
+}
+
+.periodic_block p {
+    font-size: 20px;
+    font-family: 'Poppins SemiBold';
+    margin: 0;
+    text-align: right;
+}
+
+@media only screen and (max-width:575px) {
+    .__header {
+        padding: 0 25px !important;
+    }
+    .__content_sec {
+        padding: 0 5px;
+    }
+    .periodic_block h2 {
+        font-size: 27px;
+    }
+    .periodic_block p {
+        font-size: 15px;
+    }
+}
+
+.recent_set p {
+    font-size: 20px;
+    font-family: 'Poppins SemiBold';
+    color: #7E7E7E;
+}
+
+.recent_set li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 17px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #eee;
+}
+
+.recent_set li:before {
+    content: "•";
+    font-size: 35px;
+    line-height: .5;
+    padding-right: 40px;
+    margin-bottom: 3px;
+    color: #7E7E7E;
+}
+
+.files-list {
+    margin-top: 1.5rem;
+}
+
+.files-list .single-file {
+    display: flex;
+    padding: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    border: dashed 1px #979797;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-grow: 1;
+}
+
+.files-list .single-file .delete {
+    display: flex;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.files-list .single-file .name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #353f4a;
+    margin: 0;
+}
+
+.files-list .single-file .size {
+    font-size: 12px;
+    font-weight: 500;
+    color: #a4a4a4;
+    margin: 0;
+    margin-bottom: 0.25rem;
+}
+
+.files-list .single-file .info {
+    width: 100%;
+}

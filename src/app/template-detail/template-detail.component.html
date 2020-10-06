@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row">
+        <mat-toolbar color="primary" class="__header justify-content-between">
+            <h1 style="font-size: 20px;">
+                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon>
+                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon> Templete View</h1>
+            <!-- <mat-icon>share</mat-icon> -->
+        </mat-toolbar>
+    </div>
+
+
+    <div class="__content_sec">
+        <h1 class="comm_title_small_h1 ">Modules </h1>
+        <p class="comm_sub_title_small_p ">Modules of CUSAT S6</p>
+        <div class="grid-column_set">
+            <div class="periodic_block" matRipple [routerLink]="['/dashboard/subject-listing']">
+                <h2 class="primaryColor">11</h2>
+                <p>Subjects</p>
+            </div>
+            <div class="periodic_block" matRipple [routerLink]="['/dashboard/curriculam']">
+                <h2 class="primaryColor">23</h2>
+                <p>Curriculum </p>
+            </div>
+            <div class="periodic_block" matRipple [routerLink]="['/dashboard/documents']">
+                <h2 class="primaryColor">87</h2>
+                <p>Documents </p>
+            </div>
+            <div class="periodic_block" matRipple [routerLink]="['/dashboard/notes']" routerLinkActive="router-link-active">
+                <h2 class="primaryColor">120</h2>
+                <p>Notes </p>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>

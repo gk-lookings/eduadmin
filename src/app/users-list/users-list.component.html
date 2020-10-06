@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row">
+        <mat-toolbar color="primary" class="__header justify-content-between">
+            <h1 style="font-size: 20px;">
+                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon>Users</h1>
+            <!-- <mat-icon>share</mat-icon> -->
+        </mat-toolbar>
+    </div>
+
+
+    <div class="__content_sec">
+        <div class="inputField">
+            <input [(ngModel)]="searchkey" required type="text" autocomplete="off" matInput placeholder="Searc user" name="searchkey">
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center border-bottom mb-2 mt-2 pb-2 pt-2" matRipple>
+            <div class="userSet">
+                <img src="./../../assets/images/user.png" alt="">
+                <h1>Tom Curran</h1>
+            </div>
+            <mat-icon [routerLink]="['/dashboard/user', '123']" routerLinkActive="router-link-active">visibility</mat-icon>
+        </div>
+        <div class="d-flex justify-content-between align-items-center border-bottom mb-2 mt-2 pb-2 pt-2" matRipple>
+            <div class="userSet">
+                <img src="./../../assets/images/user.png" alt="">
+                <h1>Tom Curran</h1>
+            </div>
+            <mat-icon [routerLink]="['/dashboard/user', '123']" routerLinkActive="router-link-active">visibility</mat-icon>
+        </div>
+        <div class="d-flex justify-content-between align-items-center border-bottom mb-2 mt-2 pb-2 pt-2" matRipple>
+            <div class="userSet">
+                <img src="./../../assets/images/user.png" alt="">
+                <h1>Tom Curran</h1>
+            </div>
+            <mat-icon [routerLink]="['/dashboard/user', '123']" routerLinkActive="router-link-active">visibility</mat-icon>
+        </div>
+
+    </div>
+</div>

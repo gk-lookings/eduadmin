@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height: 95vh;">
+        <div class="col-md-5">
+            <h1 class="logTitle">EduApp</h1>
+            <p class="logSubTitle">Administrator</p>
+            <form name="loginForm" class="login_form" [formGroup]="loginForm">
+                <div class="inputField">
+                    <input [(ngModel)]="username" required type="text" autocomplete="off" [formControl]="emailFormControl" matInput placeholder="Username" name="username">
+                    <p class="errorInput" [ngClass]="(emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)) ? 'errorShow' : ''" *ngIf="emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)">{{getEmailErrorMessage()}}</p>
+                </div>
+
+                <div class="inputField">
+                    <input [(ngModel)]="password" autocomplete="off" style="padding-right: 50px;" required [type]="hide  ? 'text' : 'password'" name="password" [formControl]="passwordFormControl" matInput id="current-passwor" placeholder="Password">
+                    <mat-icon class="visbLchange" matSuffix (click)="hide  = !hide ">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    <p class="errorInput" [ngClass]="(passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)) ? 'errorShow' : ''" *ngIf="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)">{{getPasswordErrorMessage()}}</p>
+                </div>
+                <button class="inputSubmit" [disabled]="loginForm.status !== 'VALID'" (click)="loginSubmit()">{{isLoading?'Logging in...':'Log in'}}</button>
+                <div class="responseMessage" [ngClass]="success ? 'success' : ''">
+                    {{responseMessage && responseMessage}}</div>
+            </form>
+        </div>
+    </div>
+</div>

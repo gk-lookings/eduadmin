@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="row">
+        <mat-toolbar color="primary" class="__header justify-content-between">
+            <h1 style="font-size: 20px;">
+                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon>Subjects View</h1>
+            <!-- <mat-icon>share</mat-icon> -->
+        </mat-toolbar>
+    </div>
+
+
+    <div class="__content_sec">
+        <h1 class="comm_title_small_h1 ">Subjects </h1>
+        <p class="comm_sub_title_small_p ">Modules of CUSAT S6</p>
+        <div class="subjects_set">
+            <div class="sub_sin_block" matRipple>
+                <h2 class="primaryColor">M</h2>
+                <p>Maths</p>
+            </div>
+            <div class="sub_sin_block" matRipple>
+                <h2 class="primaryColor">C</h2>
+                <p>Computer Science </p>
+            </div>
+            <div class="sub_sin_block" matRipple>
+                <h2 class="primaryColor">E</h2>
+                <p>Electronics Engineering </p>
+            </div>
+            <div>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <button class="inputSubmit" (click)="createSub()">Create</button>
+
+    </div>
+</div>

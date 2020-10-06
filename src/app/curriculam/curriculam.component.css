@@ -1,0 +1,33 @@
+.subjects_set {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 15px;
+}
+
+.sub_sin_block {
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px #0003;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.sub_sin_block:hover {
+    box-shadow: 2px 2px 8px #0005;
+}
+
+.sub_sin_block h2 {
+    font-size: 35px;
+    font-family: 'Poppins SemiBold';
+    margin: 0;
+    margin-right: 40px;
+}
+
+.sub_sin_block p {
+    font-size: 17px;
+    font-family: 'Poppins SemiBold';
+    margin: 0;
+}

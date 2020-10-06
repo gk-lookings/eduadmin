@@ -1,0 +1,40 @@
+.logTitle {
+    font-size: 60px;
+    font-family: 'Poppins';
+    font-weight: bold;
+    color: #494D5C;
+    text-align: center;
+    margin: 0;
+}
+
+.logSubTitle {
+    text-align: right;
+    font-family: 'Poppins SemiBold';
+    font-size: 21px;
+    color: #494D5C45;
+    margin-right: 10%;
+}
+
+.login_form {
+    text-align: center;
+    margin-top: 20%;
+}
+
+.responseMessage {
+    padding: 10px;
+    font-size: 14px;
+    color: #E91E63;
+}
+
+.success {
+    color: #8BC34A !important;
+}
+
+.visbLchange {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    bottom: 0;
+    z-index: 11;
+    cursor: pointer;
+}

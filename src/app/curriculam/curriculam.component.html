@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="row">
+        <mat-toolbar color="primary" class="__header justify-content-between">
+            <h1 style="font-size: 20px;">
+                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon>Curriculam</h1>
+            <!-- <mat-icon>share</mat-icon> -->
+        </mat-toolbar>
+    </div>
+
+
+    <div class="__content_sec">
+        <h1 class="comm_title_small_h1 ">Curriculam </h1>
+        <p class="comm_sub_title_small_p ">Curriculam of Maths</p>
+        <div class="subjects_set">
+            <div class="sub_sin_block" matRipple>
+                <h2 class="primaryColor">A</h2>
+                <p>Algebra</p>
+            </div>
+            <div class="sub_sin_block" matRipple>
+                <h2 class="primaryColor">C</h2>
+                <p>Calculus </p>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <button class="inputSubmit" (click)="createSub()">Create</button>
+
+    </div>
+</div>

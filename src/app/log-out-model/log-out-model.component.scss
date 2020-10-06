@@ -1,0 +1,57 @@
+.confirmClasBlk {
+    width: 300px;
+}
+
+.contentSec {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.contentSec p {
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+    color: #666666;
+    margin: 10px 0px 10px 0px;
+}
+
+.cancelBut {
+    border-right: 1px solid #aaa9;
+}
+
+.confirmBut a,
+.cancelBut a {
+    font-family: 'Rubik', sans-serif;
+    cursor: pointer;
+}
+
+.actionSec {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    border-top: 1px solid #aaa9;
+    height: 50px;
+    align-items: center;
+    padding-bottom: 8px;
+}
+
+.actionSec div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+.actionSec button {
+    box-shadow: none;
+    font-weight: bold;
+}
+
+::ng-deep .mat-dialog-container {
+    padding: 15px;
+    padding-bottom: 0;
+}

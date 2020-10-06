@@ -1,0 +1,16 @@
+.userSet img {
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
+}
+
+.userSet h1 {
+    font-size: 19px;
+    margin: 0;
+    margin-left: 15px;
+}
+
+.userSet {
+    display: flex;
+    align-items: center;
+}
