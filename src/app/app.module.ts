@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
-import { ApiService, NumberOnlyDirective } from './services';
+import { ApiService } from './services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor, HttpInterceptor } from './helpers';
 
@@ -153,7 +153,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component'
         useClass: HttpInterceptor,
         multi: true
       },
-      NumberOnlyDirective
+      
     ],
   bootstrap: [AppComponent]
 })
