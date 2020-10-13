@@ -2,7 +2,7 @@
     <div class="row">
         <mat-toolbar color="primary" class="__header justify-content-between">
             <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon> Create Templete</h1>
+                <mat-icon matRipple [routerLink]="['/dashboard/template-list']" title="Go Back">keyboard_arrow_left</mat-icon> Create Templete</h1>
             <!-- <mat-icon>share</mat-icon> -->
         </mat-toolbar>
     </div>
@@ -25,12 +25,24 @@
                         <input [(ngModel)]="tempName" autocomplete="off" required name="tempName" [formControl]="tempNameFormControl" matInput placeholder="Name">
                         <p class="errorInput" [ngClass]="(tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)">{{getNameErrorMessage()}}</p>
                     </div>
-                    <div class="inputField">
+                    <div class="inputField" style="margin-bottom: 3%;">
+                        <label for="tempName">Description Tags <span>(optional)</span></label>
+                        <span><i>Used for SEO (use ENTER or COMMA to seperate)</i></span>
+                        <input [matChipInputFor]="chipList" style="width: 100% !important; flex: 1 !important; margin: 0;" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" matInput placeholder="Tags">
+                    </div>
+                    <mat-chip-list #chipList aria-label="Tag selection">
+                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                            {{tag}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+
+                    <div class="inputField" style="margin-top: 3%;">
                         <label for="tempLogo">Logo <span>(optional)</span></label>
                         <div class="fileUploadSet" appDnd (fileDropped)="onFileDropped($event)">
                             <div>
                                 <h1>Upload a photo</h1>
-                                <p>You can either upload photo from your mobile or take it now</p>
+                                <p>You can either upload photo or drag it here</p>
                             </div>
                             <div class="icon">
                                 <img src="./../../assets/images/icons/photo_cam.png" alt="">
@@ -80,7 +92,7 @@
                     </div>
 
 
-                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'">Create</button>
+                    <button class="inputSubmit" style="margin-top: 0;" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()">Create</button>
                     <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                         {{responseMessage && responseMessage}}</div>
                 </form>

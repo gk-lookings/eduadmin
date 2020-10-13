@@ -6,6 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LOGIN } from '../config/endpoints';
 
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+
+
 @Component({
   selector: 'app-create-template',
   templateUrl: './create-template.component.html',
@@ -27,10 +31,33 @@ export class CreateTemplateComponent implements OnInit {
   });
 
   files: any[] = [];
+
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  tags = [];
+
+
+
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient) { }
 
   ngOnInit() {
   }
+
+  submitForm() {
+    console.log("name", this.tempName);
+    console.log("ID", this.tempId);
+    console.log("tags", JSON.stringify(this.tags));
+    console.log("logo", this.files);
+    
+    
+
+  }
+
+
 
   getNameErrorMessage() {
     return this.tempNameFormControl.hasError('required') ? '*You must enter a value' :
@@ -89,6 +116,26 @@ export class CreateTemplateComponent implements OnInit {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+    if ((value || '').trim()) {
+      this.tags.push(value.trim());
+    }
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(tag): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
   }
 
 }

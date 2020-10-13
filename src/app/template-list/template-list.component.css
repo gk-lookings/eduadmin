@@ -1,0 +1,29 @@
+.single-temp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 15px 30px;
+    box-shadow: 2px 2px 3px #0002;
+    border-radius: 8px;
+    margin-top: 15px;
+    position: relative;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.single-temp:hover {
+    box-shadow: 2px 2px 3px #0003;
+}
+
+.single-temp h1 {
+    margin: 0;
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+.single-temp img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}

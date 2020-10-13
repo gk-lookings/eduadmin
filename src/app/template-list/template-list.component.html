@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row">
+        <mat-toolbar color="primary" class="__header justify-content-between">
+            <h1 style="font-size: 20px;">
+                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon> Templete </h1>
+            <!-- <mat-icon>share</mat-icon> -->
+        </mat-toolbar>
+    </div>
+
+
+    <div class="__content_sec">
+        <div class="d-flex justify-content-end">
+            <button class="inputSubmit" style="margin-left: 10px;" [routerLink]="['/dashboard/create-template']" routerLinkActive="router-link-active">Create</button>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <div class="single-temp" [routerLink]="['/dashboard/template', 'id1']" routerLinkActive="router-link-active" matRipple>
+                    <div class="d-flex align-items-center">
+                        <img src="./../../assets/images/user.png" alt="">
+                        <h1>Cusat special supply</h1>
+                    </div>
+                    <div class="d-flex align-items-center">View
+                        <mat-icon style="margin-left: 10px;">visibility</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <div class="single-temp" [routerLink]="['/dashboard/template', 'id2']" routerLinkActive="router-link-active" matRipple>
+                    <div class="d-flex align-items-center">
+                        <img src="./../../assets/images/user.png" alt="">
+                        <h1>Cusat Regular supply</h1>
+                    </div>
+                    <div class="d-flex align-items-center">View
+                        <mat-icon style="margin-left: 10px;">visibility</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <div class="single-temp" [routerLink]="['/dashboard/template', 'id3']" routerLinkActive="router-link-active" matRipple>
+                    <div class="d-flex align-items-center">
+                        <img src="./../../assets/images/user.png" alt="">
+                        <h1>One time Chance</h1>
+                    </div>
+                    <div class="d-flex align-items-center">View
+                        <mat-icon style="margin-left: 10px;">visibility</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

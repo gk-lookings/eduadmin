@@ -68,7 +68,8 @@ import { NotesComponent } from './notes/notes.component';
 import { CreateNoteComponent } from './create-note/create-note.component';
 import { LogOutModelComponent } from './log-out-model/log-out-model.component';
 import { UsersListComponent } from './users-list/users-list.component';
-import { UserDetailComponent } from './user-detail/user-detail.component'
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { TemplateListComponent } from './template-list/template-list.component'
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component'
     CreateNoteComponent,
     LogOutModelComponent,
     UsersListComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    TemplateListComponent
   ],
   imports: [
     BrowserModule,
