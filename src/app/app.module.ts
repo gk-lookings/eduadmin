@@ -47,6 +47,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule} from '@angular/material';
 
 
+// extraplugins
+
+import { NgxSpinnerModule } from "ngx-spinner";
+
 // components
 
 import { LoginComponent } from './login/login.component';
@@ -136,6 +140,7 @@ import { TemplateListComponent } from './template-list/template-list.component'
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    NgxSpinnerModule
   ],
   entryComponents: [
     CreateSubjectComponent,

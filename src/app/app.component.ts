@@ -23,6 +23,7 @@ export class AppComponent {
     const currentUser = this.authenticationService.getcurrentUser();
     if (!currentUser)
     this.router.navigate(['/login']);
-      // this.router.navigate(['dashboard/home']);    
+    // else
+    // this.router.navigate(['dashboard/home']);    
   }
 }

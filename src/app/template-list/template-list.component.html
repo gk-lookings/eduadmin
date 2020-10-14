@@ -13,44 +13,23 @@
             <button class="inputSubmit" style="margin-left: 10px;" [routerLink]="['/dashboard/create-template']" routerLinkActive="router-link-active">Create</button>
         </div>
 
-        <div class="row">
-            <div class="col-sm-6 col-md-6">
-                <div class="single-temp" [routerLink]="['/dashboard/template', 'id1']" routerLinkActive="router-link-active" matRipple>
-                    <div class="d-flex align-items-center">
-                        <img src="./../../assets/images/user.png" alt="">
-                        <h1>Cusat special supply</h1>
-                    </div>
-                    <div class="d-flex align-items-center">View
-                        <mat-icon style="margin-left: 10px;">visibility</mat-icon>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-md-6">
-                <div class="single-temp" [routerLink]="['/dashboard/template', 'id2']" routerLinkActive="router-link-active" matRipple>
-                    <div class="d-flex align-items-center">
-                        <img src="./../../assets/images/user.png" alt="">
-                        <h1>Cusat Regular supply</h1>
-                    </div>
-                    <div class="d-flex align-items-center">View
-                        <mat-icon style="margin-left: 10px;">visibility</mat-icon>
+        <ng-container *ngIf="!isLoading">
+            <div class="row" *ngFor="let item of templates">
+                <div class="col-sm-6 col-md-6">
+                    <div class="single-temp" [routerLink]="['/dashboard/template', item._id]" routerLinkActive="router-link-active" matRipple>
+                        <div class="d-flex align-items-center">
+                            <img src="./../../assets/images/user.png" alt="">
+                            <h1>{{item && item.name}}</h1>
+                        </div>
+                        <div class="d-flex align-items-center">View
+                            <mat-icon style="margin-left: 10px;">visibility</mat-icon>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-md-6">
-                <div class="single-temp" [routerLink]="['/dashboard/template', 'id3']" routerLinkActive="router-link-active" matRipple>
-                    <div class="d-flex align-items-center">
-                        <img src="./../../assets/images/user.png" alt="">
-                        <h1>One time Chance</h1>
-                    </div>
-                    <div class="d-flex align-items-center">View
-                        <mat-icon style="margin-left: 10px;">visibility</mat-icon>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </ng-container>
+
+        <ngx-spinner bdColor="rgba(255, 255, 255, 1)" size="medium" color="#000" type="timer" [fullScreen]="true">
+        </ngx-spinner>
     </div>
 </div>

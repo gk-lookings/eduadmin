@@ -4,9 +4,9 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { LOGIN } from '../config/endpoints';
+import { LOGIN, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
 
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 
@@ -41,6 +41,23 @@ export class CreateTemplateComponent implements OnInit {
   tags = [];
 
 
+  subjects: any[] = [
+    {
+      "subjectId": "5f8057b5ab27d80017fdd2f1"
+    },
+    {
+      "subjectId": "dd",
+      "sections": [
+        {
+          "title": "module 1",
+          "description": "module 1 descrption"
+        }
+      ]
+    }
+  ];
+
+  categorys = [];
+  subSelected = [];
 
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient) { }
 
@@ -48,12 +65,72 @@ export class CreateTemplateComponent implements OnInit {
   }
 
   submitForm() {
-    console.log("name", this.tempName);
-    console.log("ID", this.tempId);
-    console.log("tags", JSON.stringify(this.tags));
-    console.log("logo", this.files);
-    
-    
+    let params = {
+      "templateId": this.tempId,
+      "name": this.tempName,
+      "descriptionTags": this.tags,
+      "active": true,
+      "about": "string",
+    }
+    this.apiService.getResponse('post', TEMPLATE_CREATE, params).
+      then(res => {
+        this.isLoading = false;
+        console.log("res", res);
+
+        if (res.status === 200) {
+          this.success =true
+          this.responseMessage = 'Template created succefully..!'
+          setTimeout(() => {
+            this.responseMessage = ''
+          }, 3000);
+          this.tags = []
+          this.files = []
+          this.createTemplateForm.reset();
+        }
+        else {
+          this.responseMessage = res.message
+        }
+      })
+
+
+
+
+    /*
+    {
+      "templateId": "5f7f3e9ee45368b9b5794548",
+      "name": "my template",
+      "descriptionTags": [
+        "chemistry",
+        "bTech"
+      ],
+      "active": true,
+      "about": "string",
+      "subjects": [
+        {
+          "subjectId": "5f8057b5ab27d80017fdd2f1",
+          "sections": [
+            {
+              "title": "module 1",
+              "description": "module 1 descrption"
+            }
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "document title",
+          "files": [
+            {
+              "name": "string",
+              "size": 0,
+              "type": "string",
+              "url": "string"
+            }
+          ]
+        }
+      ]
+    }
+    */
 
   }
 
@@ -101,7 +178,7 @@ export class CreateTemplateComponent implements OnInit {
   prepareFilesList(files: Array<any>) {
     for (const item of files) {
       item.progress = 0;
-      this.files.push(item);
+      this.files = files;
     }
     this.uploadFilesSimulator(0);
   }
@@ -132,7 +209,6 @@ export class CreateTemplateComponent implements OnInit {
 
   remove(tag): void {
     const index = this.tags.indexOf(tag);
-
     if (index >= 0) {
       this.tags.splice(index, 1);
     }

@@ -11,10 +11,12 @@ const EVENTS                        = HOST + 'event'
 
 const TEMPLATE_LIST                 = HOST + 'template/list'
 const TEMPLATE_CREATE               = HOST + 'template'
+const GET_TEMPLATE                  = HOST + 'template/'
 
 export {
     LOGIN,
     EVENTS,
     TEMPLATE_LIST,
-    TEMPLATE_CREATE
+    TEMPLATE_CREATE,
+    GET_TEMPLATE
 }
