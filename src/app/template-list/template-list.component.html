@@ -16,13 +16,15 @@
         <ng-container *ngIf="!isLoading">
             <div class="row" *ngFor="let item of templates">
                 <div class="col-sm-6 col-md-6">
-                    <div class="single-temp" [routerLink]="['/dashboard/template', item._id]" routerLinkActive="router-link-active" matRipple>
+                    <div class="single-temp" matRipple>
                         <div class="d-flex align-items-center">
                             <img src="./../../assets/images/user.png" alt="">
                             <h1>{{item && item.name}}</h1>
                         </div>
-                        <div class="d-flex align-items-center">View
-                            <mat-icon style="margin-left: 10px;">visibility</mat-icon>
+                        <div class="d-flex align-items-center">
+                            <mat-icon style="margin-left: 20px;" [routerLink]="['/dashboard/edit-template', item._id]">edit</mat-icon>
+                            <mat-icon style="margin-left: 20px;" [routerLink]="['/dashboard/template', item._id]">visibility</mat-icon>
+                            <mat-icon style="margin-left: 20px;" (click)="deleteTemp(item._id)">delete</mat-icon>
                         </div>
                     </div>
                 </div>

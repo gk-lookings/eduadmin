@@ -6,8 +6,10 @@ const USERS_LIST                    = HOST + 'user/list'
 const CLASSROOM_LIST                = HOST + 'class-room/list'
 const CLASSROOM                     = HOST + 'class-room'
 const VERIFY_CLASSROOM              = HOST + "class-room/check"
-const SUBJECT                       = HOST + 'subject'
+
 const EVENTS                        = HOST + 'event'
+
+const SUBJECT                       = HOST + 'subject'
 
 const TEMPLATE_LIST                 = HOST + 'template/list'
 const TEMPLATE_CREATE               = HOST + 'template'
@@ -18,5 +20,6 @@ export {
     EVENTS,
     TEMPLATE_LIST,
     TEMPLATE_CREATE,
-    GET_TEMPLATE
+    GET_TEMPLATE,
+    SUBJECT
 }

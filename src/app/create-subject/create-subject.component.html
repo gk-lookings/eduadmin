@@ -9,13 +9,13 @@
             </div>
             <div class="inputField">
                 <label for="subInstructor">Instructor <span>(optional)</span></label>
-                <input [(ngModel)]="subInstructor" type="text" autocomplete="off" matInput placeholder="Instructor" name="subInstructor">
+                <input [(ngModel)]="subInstructor" [ngModelOptions]="{standalone: true}" type="text" autocomplete="off" matInput placeholder="Instructor" name="subInstructor">
 
             </div>
 
             <div class="d-flex justify-content-end">
                 <button class="inputCancel" (click)="dialogRef.close()">Cancel</button>
-                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'">Create</button>
+                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'" (click)="submitForm()">Create</button>
             </div>
             <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                 {{responseMessage && responseMessage}}</div>

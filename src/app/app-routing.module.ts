@@ -15,6 +15,7 @@ import { CreateNoteComponent } from './create-note/create-note.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { TemplateListComponent } from './template-list/template-list.component';
+import { EditTemplateComponent } from './edit-template/edit-template.component';
 
 
 const routes: Routes = [
@@ -26,8 +27,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
+
       { path: 'template-list', component: TemplateListComponent },
       { path: 'create-template', component: CreateTemplateComponent },
+      { path: 'edit-template/:tempId', component: EditTemplateComponent },
       { path: 'template/:tempId', component: TemplateDetailComponent },
       
       { path: 'subject-listing', component: SubjectListingComponent },

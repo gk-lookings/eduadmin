@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TEMPLATE_LIST } from '../config/endpoints';
+import { GET_TEMPLATE, TEMPLATE_LIST } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -30,10 +30,25 @@ export class TemplateListComponent implements OnInit {
         if (res.status === 200) {
           this.templates = res.data.templates
         }
-        else {
-
-        }
       })
+  }
+
+  deleteTemp(id){
+    let params ={}
+    this.apiService.getResponse('delete', GET_TEMPLATE + id, params).
+    then(res => {
+      console.log("res", res);
+      if (res.status === 200) {
+        let par = { text: '', offset: 0 }
+        this.apiService.getResponse('get', TEMPLATE_LIST, par).
+          then(res => {
+            console.log("res", res);
+            if (res.status === 200) {
+              this.templates = res.data.templates
+            }
+          })
+      }
+    })
   }
 
 }

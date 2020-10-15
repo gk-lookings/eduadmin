@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
+import { SUBJECT } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 
 @Component({
@@ -32,6 +33,25 @@ export class CreateSubjectComponent implements OnInit {
   getNameErrorMessage() {
     return this.subNameFormControl.hasError('required') ? '*You must enter a value' :
       '';
+  }
+
+  submitForm() {
+    let params = {
+      "name": this.subName,
+    }
+    this.apiService.getResponse('post', SUBJECT, params).
+      then(res => {
+        this.isLoading = false;
+        console.log("res", res);
+
+        if (res.status === 200) {
+          this.dialogRef.close()
+          this.createForm.reset();
+        }
+        else {
+          this.responseMessage = res.message
+        }
+      })
   }
 
 }

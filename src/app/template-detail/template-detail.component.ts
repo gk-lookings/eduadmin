@@ -11,7 +11,7 @@ import { ApiService, AuthenticationService } from '../services';
 export class TemplateDetailComponent implements OnInit {
 
   template
-  courseId = this.activatedRoute.snapshot.params['tempId'];
+  tempId = this.activatedRoute.snapshot.params['tempId'];
 
   subjects_count = 0
   document_count = 0
@@ -26,7 +26,7 @@ export class TemplateDetailComponent implements OnInit {
 
   fetchList() {
     let params = {}
-    this.apiService.getResponse('get', GET_TEMPLATE + this.courseId, params).
+    this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
       then(res => {
         console.log("res", res);
         if (res.status === 200) {
