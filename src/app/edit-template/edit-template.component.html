@@ -51,8 +51,8 @@
                                   (+{{subSelected.length - 1}} {{subSelected?.length === 2 ? 'other' : 'others'}})
                                 </span>
                                 </mat-select-trigger>
-                                <mat-option class="brandSelect" *ngFor="let sub of subjects; let i= index;" [value]="sub.subjectId">
-                                    {{sub?.subjectId}}
+                                <mat-option class="brandSelect" *ngFor="let sub of subjects; let i= index;" [value]="sub.name">
+                                    {{sub?.name}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>

@@ -1,6 +1,6 @@
 .subjects_set {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
 }
 

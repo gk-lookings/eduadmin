@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GET_TEMPLATE, LOGIN, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
+import { GET_TEMPLATE, LOGIN, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
 
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -44,18 +44,7 @@ export class EditTemplateComponent implements OnInit {
 
 
   subjects= [
-    {
-      "subjectId": "5f8057b5ab27d80017fdd2f1"
-    },
-    {
-      "subjectId": "5e9893e99298a12bb4a483d0",
-      "sections": [
-        {
-          "title": "module 1",
-          "description": "module 1 descrption"
-        }
-      ]
-    }
+    
   ];
 
   categorys = [];
@@ -64,6 +53,7 @@ export class EditTemplateComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getSubjects()
     this.getDetail()
   }
 
@@ -91,13 +81,23 @@ export class EditTemplateComponent implements OnInit {
         }
       })
   }
+  getSubjects(){
+    let params = { text: '', offset: 0 }
+      this.apiService.getResponse('get', SUBJECT, params).
+        then(res => {
+          this.isLoading = false;
+          if (res.status === 200) {
+            this.subjects = res.data.subject
+          }
+        })
+  }
 
   submitForm() {
    
     let subpush = []
     this.subjects.forEach((element) => {
       this.subSelected.forEach(el => {
-        if (element.subjectId === el) {
+        if (element.name === el) {
           // if (!this.naviDash.includes(el))
           subpush.push(element)
         }

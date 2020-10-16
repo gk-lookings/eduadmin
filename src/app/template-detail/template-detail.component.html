@@ -8,9 +8,17 @@
     </div>
 
 
-    <div class="__content_sec">
-        <h1 class="comm_title_small_h1 ">Modules </h1>
-        <p class="comm_sub_title_small_p ">Modules of CUSAT S6</p>
+    <div class="__content_sec" *ngIf="!isLoading">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="comm_title_small_h1 ">{{template && template.name}} </h1>
+                <p class="comm_sub_title_small_p ">{{template && template.templateId}}</p>
+            </div>
+            <div class="d-flex align-items-center">
+                Edit
+                <mat-icon style="margin-left: 20px;" [routerLink]="['/dashboard/edit-template', template && template._id]">edit</mat-icon>
+            </div>
+        </div>
         <div class="grid-column_set">
             <div class="periodic_block" matRipple [routerLink]="['/dashboard/subject-listing']">
                 <h2 class="primaryColor">{{subjects_count && subjects_count}}</h2>
@@ -35,4 +43,7 @@
             <div></div>
         </div>
     </div>
+
+    <ngx-spinner bdColor="rgba(255, 255, 255, 1)" size="medium" color="#000" type="timer" [fullScreen]="true">
+    </ngx-spinner>
 </div>

@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from './../services';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { LOGIN, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
+import { LOGIN, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
 
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-
 
 @Component({
   selector: 'app-create-template',
@@ -40,21 +39,7 @@ export class CreateTemplateComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   tags = [];
 
-
-  subjects: any[] = [
-    {
-      "subjectId": "5f8057b5ab27d80017fdd2f1"
-    },
-    {
-      "subjectId": "dd",
-      "sections": [
-        {
-          "title": "module 1",
-          "description": "module 1 descrption"
-        }
-      ]
-    }
-  ];
+  subjects: any[] = [];
 
   categorys = [];
   subSelected = [];
@@ -62,6 +47,8 @@ export class CreateTemplateComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.getSubjects();
+    
   }
 
   submitForm() {
@@ -71,6 +58,7 @@ export class CreateTemplateComponent implements OnInit {
       "descriptionTags": this.tags,
       "active": true,
       "about": "string",
+      "subjects" : this.subSelected
     }
     this.apiService.getResponse('post', TEMPLATE_CREATE, params).
       then(res => {
@@ -134,7 +122,16 @@ export class CreateTemplateComponent implements OnInit {
 
   }
 
-
+  getSubjects(){
+    let params = { text: '', offset: 0 }
+      this.apiService.getResponse('get', SUBJECT, params).
+        then(res => {
+          this.isLoading = false;
+          if (res.status === 200) {
+            this.subjects = res.data.subject
+          }
+        })
+  }
 
   getNameErrorMessage() {
     return this.tempNameFormControl.hasError('required') ? '*You must enter a value' :
