@@ -16,6 +16,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { EditTemplateComponent } from './edit-template/edit-template.component';
+import { TemplateSubjectsComponent } from './template-subjects/template-subjects.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'create-template', component: CreateTemplateComponent },
       { path: 'edit-template/:tempId', component: EditTemplateComponent },
       { path: 'template/:tempId', component: TemplateDetailComponent },
+      { path: 'template/subject/:tempId', component: TemplateSubjectsComponent },
       
       { path: 'subject-listing', component: SubjectListingComponent },
     

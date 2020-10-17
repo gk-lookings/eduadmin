@@ -47,7 +47,7 @@ export class CreateTemplateComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.getSubjects();
+    // this.getSubjects();
     
   }
 
@@ -58,7 +58,6 @@ export class CreateTemplateComponent implements OnInit {
       "descriptionTags": this.tags,
       "active": true,
       "about": "string",
-      "subjects" : this.subSelected
     }
     this.apiService.getResponse('post', TEMPLATE_CREATE, params).
       then(res => {

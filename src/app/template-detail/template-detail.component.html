@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="grid-column_set">
-            <div class="periodic_block" matRipple [routerLink]="['/dashboard/subject-listing']">
+            <div class="periodic_block" matRipple [routerLink]="['/dashboard/template/subject', template && template._id]">
                 <h2 class="primaryColor">{{subjects_count && subjects_count}}</h2>
                 <p>Subjects</p>
             </div>

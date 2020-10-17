@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-4 col-sm-5">
 
-                    <div class="inputField">
+                    <div class="inputField" style="margin-top: 3%;">
                         <label for="tempId">ID*</label>
                         <span><i>Unique Id that used to identity the template</i></span>
                         <input [(ngModel)]="tempId" required type="text" autocomplete="off" [formControl]="tempIdControl" matInput placeholder="ID" name="tempId">
@@ -37,27 +37,6 @@
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
                     </mat-chip-list>
-                </div>
-                <div class="col-md-1 col-sm-1"></div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="inputField">
-                        <label for="subject">Subjects <span>(optional)</span></label>
-                        <mat-form-field>
-                            <mat-label>{{(subSelected.length > 0) ? '' :'Select subject/s'}}</mat-label>
-                            <mat-select [(ngModel)]="subSelected" multiple [ngModelOptions]="{standalone: true}">
-                                <mat-select-trigger>
-                                    {{(subSelected.length > 0) ? subSelected[0] : ''}}
-                                    <span *ngIf="subSelected?.length > 1" class="example-additional-selection">
-                                  (+{{subSelected.length - 1}} {{subSelected?.length === 2 ? 'other' : 'others'}})
-                                </span>
-                                </mat-select-trigger>
-                                <mat-option class="brandSelect" *ngFor="let sub of subjects; let i= index;" [value]="sub.name">
-                                    {{sub?.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
                     <div class="inputField" style="margin-top: 3%;">
                         <label for="tempLogo">Logo <span>(optional)</span></label>
                         <div class="fileUploadSet" appDnd (fileDropped)="onFileDropped($event)">
@@ -110,11 +89,30 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()">Update</button>
+                    <button class="inputSubmit" style="margin: 0;" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()">Update</button>
                     <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                         {{responseMessage && responseMessage}}</div>
+
+                    <!-- <div class="col-md-1 col-sm-1"></div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="inputField">
+                        <label for="subject">Subjects <span>(optional)</span></label>
+                        <mat-form-field>
+                            <mat-label>{{(subSelected.length > 0) ? '' :'Select subject/s'}}</mat-label>
+                            <mat-select [(ngModel)]="subSelected" multiple [ngModelOptions]="{standalone: true}">
+                                <mat-select-trigger>
+                                    {{(subSelected.length > 0) ? subSelected[0] : ''}}
+                                    <span *ngIf="subSelected?.length > 1" class="example-additional-selection">
+                                  (+{{subSelected.length - 1}} {{subSelected?.length === 2 ? 'other' : 'others'}})
+                                </span>
+                                </mat-select-trigger>
+                                <mat-option class="brandSelect" *ngFor="let sub of subjects; let i= index;" [value]="sub.name">
+                                    {{sub?.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div> -->
                 </div>
             </div>
 

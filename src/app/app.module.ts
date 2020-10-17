@@ -74,7 +74,8 @@ import { LogOutModelComponent } from './log-out-model/log-out-model.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { TemplateListComponent } from './template-list/template-list.component';
-import { EditTemplateComponent } from './edit-template/edit-template.component'
+import { EditTemplateComponent } from './edit-template/edit-template.component';
+import { TemplateSubjectsComponent } from './template-subjects/template-subjects.component'
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { EditTemplateComponent } from './edit-template/edit-template.component'
     UsersListComponent,
     UserDetailComponent,
     TemplateListComponent,
-    EditTemplateComponent
+    EditTemplateComponent,
+    TemplateSubjectsComponent
   ],
   imports: [
     BrowserModule,

@@ -53,7 +53,6 @@ export class EditTemplateComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getSubjects()
     this.getDetail()
   }
 
@@ -63,7 +62,6 @@ export class EditTemplateComponent implements OnInit {
     let arr = []
     this.apiService.getResponse('get', GET_TEMPLATE + this.__tempId, params).
       then(res => {
-        console.log("getDetail", res);
         this.spinner.hide();
         if(res.status === 200)
         {
@@ -93,40 +91,39 @@ export class EditTemplateComponent implements OnInit {
   }
 
   submitForm() {
-   
-    let subpush = []
-    this.subjects.forEach((element) => {
-      this.subSelected.forEach(el => {
-        if (element.name === el) {
-          // if (!this.naviDash.includes(el))
-          subpush.push(element)
-        }
-      });
-    });
-    console.log("subelected", subpush);
-    // let params = {
-    //   "templateId": this.tempId,
-    //   "name": this.tempName,
-    //   "descriptionTags": this.tags,
-    //   "active": true,
-    //   "about": "string",
-    // }
-    // this.apiService.getResponse('put', GET_TEMPLATE + this.__tempId, params).
-    //   then(res => {
-    //     this.isLoading = false;
-    //     console.log("res", res);
+    // let subpush = []
+    // this.subjects.forEach((element) => {
+    //   this.subSelected.forEach(el => {
+    //     if (element.name === el) {
+    //       // if (!this.naviDash.includes(el))
+    //       subpush.push(element)
+    //     }
+    //   });
+    // });
+    // console.log("subelected", subpush);
+    let params = {
+      "templateId": this.tempId,
+      "name": this.tempName,
+      "descriptionTags": this.tags,
+      "active": true,
+      "about": "string",
+    }
+    this.apiService.getResponse('put', GET_TEMPLATE + this.__tempId, params).
+      then(res => {
+        this.isLoading = false;
+        console.log("res", res);
 
-    //     if (res.status === 200) {
-    //       this.success =true
-    //       this.responseMessage = 'Template has been updated succefully..!'
-    //       setTimeout(() => {
-    //         this.responseMessage = ''
-    //       }, 3000);
-    //     }
-    //     else {
-    //       this.responseMessage = res.message
-    //     }
-    //   })
+        if (res.status === 200) {
+          this.success =true
+          this.responseMessage = 'Template has been updated succefully..!'
+          setTimeout(() => {
+            this.responseMessage = ''
+          }, 3000);
+        }
+        else {
+          this.responseMessage = res.message
+        }
+      })
 
 
 
