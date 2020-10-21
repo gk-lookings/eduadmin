@@ -52,6 +52,9 @@ export class SubjectListingComponent implements OnInit {
     }
   }
 
+
+  
+
   editSub(sub) {
     const open = this.dialog.open(CreateSubjectComponent, { data: sub })
     open.afterClosed().subscribe(result => {

@@ -10,33 +10,34 @@
 
     <div class="__content_sec">
 
-        <div class="row justify-content-between ">
-            <div class="col-sm-7">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
                 <h1 class="comm_title_small_h1 ">Subjects </h1>
                 <p class="comm_sub_title_small_p ">Subjects under {{template && template.name}}</p>
-                <div class="subjects_set">
-                    <div class="sub_sin_block justify-content-between align-items-center" matRipple *ngFor="let item of subjects">
-                        <div class="align-items-center d-flex">
-                            <h2 class="primaryColor text-uppercase">{{item && item.subjectId | slice:0:1}}</h2>
-                            <p>{{item && item.subjectId | slice:0:18}}</p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <mat-icon style="margin-left: 10px;" (click)="deleteSub(item)">close</mat-icon>
-                        </div>
-                    </div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-
             </div>
-            <div class="col-sm-3">
+            <button class="inputSubmit" style="margin-bottom: 40px;" (click)="createSub()">Create</button>
+        </div>
+        <div class="subjects_set">
+            <div class="sub_sin_block justify-content-between align-items-center" matRipple *ngFor="let item of subjects">
+                <div class="align-items-center d-flex">
+                    <h2 class="primaryColor text-uppercase">{{item && item.subject | slice:0:1}}</h2>
+                    <p>{{item && item.subject | slice:0:18}}</p>
+                </div>
+                <div class="d-flex align-items-center">
+                    <mat-icon style="margin-left: 10px;" (click)="deleteSub(item)">close</mat-icon>
+                </div>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <!-- <div class="col-sm-3">
                 <div class="subs">
                     <h1 class="comm_title_small_h1 ">Subjects</h1>
                     <p class="comm_sub_title_small_p ">Add subjects to the template</p>
                     <form [formGroup]="subCheckBox">
+                        <input [(ngModel)]="searchkey" (ngModelChange)="searchSubject($event)" type="text" id="keyword" class="searchKey" placeholder="Search" [ngModelOptions]="{standalone: true}" />
                         <div class="checker_List d-flex flex-column" (scroll)="scrollMe($event)">
                             <mat-checkbox class="example-margin" (change)="addSub($event.checked, sub)" *ngFor="let sub of subjects_list" [formControl]="chck">
                                 {{sub.name}}
@@ -48,7 +49,7 @@
                     </form>
                     <button class="inputSubmit" (click)="createSub()">Add</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

@@ -15,7 +15,8 @@
 
             <div class="d-flex justify-content-end">
                 <button class="inputCancel" (click)="dialogRef.close()">Cancel</button>
-                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'" (click)="submitForm()">{{data ? 'Update' : 'Create'}}</button>
+                <button class="inputSubmit" style="margin-left: 10px;" *ngIf="!isLoading" [disabled]="createForm.status !== 'VALID'" (click)="submitForm()">Create</button>
+                <button class="inputSubmit" style="margin-left: 10px;" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
             </div>
             <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                 {{responseMessage && responseMessage}}</div>

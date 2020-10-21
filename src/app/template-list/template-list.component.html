@@ -13,7 +13,7 @@
             <button class="inputSubmit" style="margin-left: 10px;" [routerLink]="['/dashboard/create-template']" routerLinkActive="router-link-active">Create</button>
         </div>
 
-        <ng-container *ngIf="!isLoading">
+        <!-- <ng-container *ngIf="!isLoading">
             <div class="row" *ngFor="let item of templates">
                 <div class="col-sm-6 col-md-6">
                     <div class="single-temp" matRipple [routerLink]="['/dashboard/template', item._id]">
@@ -29,7 +29,22 @@
                     </div>
                 </div>
             </div>
-        </ng-container>
+        </ng-container> -->
+
+        <div class="templates_set">
+            <div class="single-temp" *ngFor="let item of templates" matRipple [routerLink]="['/dashboard/template', item._id]">
+                <!-- <div class="d-flex align-items-center"> -->
+                <img src="./assets/images/user.png" alt="">
+                <h1>{{item && item.name}}</h1>
+                <!-- </div> -->
+                <div class="d-flex align-items-center" style="z-index: 1;">
+                    <mat-icon style="margin: 0 10px;" [routerLink]="['/dashboard/edit-template', item._id]">edit</mat-icon>
+                    <mat-icon style="margin: 0 10px;" [routerLink]="['/dashboard/template', item._id]">visibility</mat-icon>
+                    <mat-icon style="margin: 0 10px;" (click)="deleteTemp(item._id)">delete</mat-icon>
+                </div>
+            </div>
+        </div>
+
 
         <ngx-spinner bdColor="rgba(255, 255, 255, 1)" size="medium" color="#000" type="timer" [fullScreen]="true">
         </ngx-spinner>

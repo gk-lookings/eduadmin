@@ -1,6 +1,6 @@
 .subjects_set {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     grid-gap: 15px;
 }
 
@@ -30,6 +30,7 @@
     font-size: 17px;
     font-family: 'Poppins SemiBold';
     margin: 0;
+    text-transform: capitalize;
 }
 
 .subs {
@@ -38,6 +39,19 @@
 }
 
 .checker_List {
-    max-height: 60vh;
+    max-height: 50vh;
     overflow-y: scroll;
+}
+
+.searchKey {
+    margin-bottom: 10%;
+    width: 100%;
+    padding: 7px;
+    border: 2px solid #666;
+    border-radius: 7px;
+    background-image: url(./../../assets/images/icons/search.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 30px;
+    padding-right: 35px;
 }

@@ -10,20 +10,16 @@
         <h1 class="comm_title_h1 ">Dashboard</h1>
         <div class="grid-column_set">
             <div class="periodic_block" matRipple>
-                <h2 class="primaryColor">211</h2>
+                <h2 class="primaryColor">{{classCount && classCount}}</h2>
                 <p>Classroom</p>
             </div>
             <div class="periodic_block" matRipple [routerLink]="['/dashboard/users']">
-                <h2 class="primaryColor">21</h2>
+                <h2 class="primaryColor">{{stdCount && stdCount}}</h2>
                 <p>Students</p>
             </div>
             <div class="periodic_block" matRipple [routerLink]="['/dashboard/template-list']" routerLinkActive="router-link-active">
-                <h2 class="primaryColor">74</h2>
+                <h2 class="primaryColor">{{tempCount && tempCount}}</h2>
                 <p>Templates</p>
-            </div>
-            <div class="periodic_block" matRipple [routerLink]="['/dashboard/subject-listing']">
-                <h2 class="primaryColor">20</h2>
-                <p>Subjects</p>
             </div>
             <div></div>
             <div></div>
