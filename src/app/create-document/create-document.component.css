@@ -1,0 +1,4 @@
+::ng-deep .docForm .mat-progress-spinner circle,
+ ::ng-deep .docForm .mat-spinner circle {
+    stroke: #ffffff;
+}

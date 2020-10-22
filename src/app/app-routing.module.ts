@@ -32,13 +32,13 @@ const routes: Routes = [
       { path: 'template-list', component: TemplateListComponent },
       { path: 'create-template', component: CreateTemplateComponent },
       { path: 'edit-template/:tempId', component: EditTemplateComponent },
-      { path: 'template/:tempId', component: TemplateDetailComponent },
+      { path: 'subject/:subName/:tempId', component: TemplateDetailComponent },
       { path: 'template/subject/:tempId', component: TemplateSubjectsComponent },
       
       { path: 'subject-listing', component: SubjectListingComponent },
     
-      { path: 'documents', component: DocumentListComponent },
-      { path: 'create-document', component: CreateDocumentComponent },
+      { path: 'documents/:subName/:tempId', component: DocumentListComponent },
+      { path: 'create-document/:subName/:tempId', component: CreateDocumentComponent },
       { path: 'curriculam', component: CurriculamComponent },
     
       { path: 'users', component: UsersListComponent },

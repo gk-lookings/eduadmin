@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -13,14 +14,15 @@ export class TemplateDetailComponent implements OnInit {
 
   template
   tempId = this.activatedRoute.snapshot.params['tempId'];
+  subjectName = this.activatedRoute.snapshot.params['subName'];
   isLoading
 
-  subjects_count = 0
+  subject_detail
   document_count = 0
   curriculum_count = 0
   notes_count = 0
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService) { }
+  constructor(private apiService: ApiService,public _location: Location, private router: Router, private authService: AuthenticationService, private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.fetchList()
@@ -37,7 +39,6 @@ export class TemplateDetailComponent implements OnInit {
           this.isLoading = false;
           this.spinner.hide();
           this.template = res.data
-          this.subjects_count = res.data.subjects.length
         }
       })
   }

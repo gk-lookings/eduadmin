@@ -2,7 +2,7 @@
     <div class="row">
         <mat-toolbar color="primary" class="__header justify-content-between">
             <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon> Create Document </h1>
+                <mat-icon matRipple (click)="_location.back()" title="Go Back">keyboard_arrow_left</mat-icon>Create Document </h1>
             <!-- <mat-icon>share</mat-icon> -->
         </mat-toolbar>
     </div>
@@ -11,7 +11,7 @@
     <div class="__content_sec">
         <div class="row">
             <div class="col-md-4">
-                <form name="createTemplateForm" [formGroup]="createTemplateForm">
+                <form name="createTemplateForm" [formGroup]="createTemplateForm" class="docForm">
 
                     <div class="inputField">
                         <label for="tempName">Name*</label>
@@ -80,7 +80,8 @@
                     </div>
 
 
-                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'">Create</button>
+                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Create</button>
+                    <button class="inputSubmit" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
                     <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                         {{responseMessage && responseMessage}}</div>
                 </form>
