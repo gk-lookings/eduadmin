@@ -27,7 +27,7 @@ export class CreateDocumentComponent implements OnInit {
   });
 
   tempId = this.activatedRoute.snapshot.params['tempId'];
-  subjectName = this.activatedRoute.snapshot.params['subName'].replace(/\d+% ?/g, "");
+  subjectName = this.activatedRoute.snapshot.params['subName'];
 
   subject_detail
   template
@@ -55,7 +55,7 @@ export class CreateDocumentComponent implements OnInit {
         if (res.status === 200) {
           this.template = res.data
           for (let i = 0; i < res.data.subjects.length; i++) {
-            if (res.data.subjects[i].subject == this.subjectName) {
+            if (res.data.subjects[i]._id == this.subjectName) {
               this.subject_detail = res.data.subjects[i];
             }
             else
@@ -87,7 +87,11 @@ export class CreateDocumentComponent implements OnInit {
       then(res => {
         if (res.status === 200) {
           this.isLoading = false
+          this.success= true
           this.responseMessage = 'Document has been created succefully.!'
+          setTimeout(() => {
+            this.responseMessage = ''
+          }, 3000);
           this.createTemplateForm.reset()
         }
       })

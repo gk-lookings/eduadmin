@@ -2,3 +2,11 @@
  ::ng-deep .docForm .mat-spinner circle {
     stroke: #ffffff;
 }
+
+.responseMessage {
+    margin-top: 20px;
+}
+
+.success {
+    color: #8BC34A !important;
+}

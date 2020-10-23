@@ -18,7 +18,7 @@
             <button class="inputSubmit" style="margin-bottom: 40px;" (click)="createSub()">Create</button>
         </div>
         <div class="subjects_set">
-            <div class="sub_sin_block justify-content-between align-items-center" matRipple *ngFor="let item of subjects" [routerLink]="['/dashboard/subject',item.subject,tempId ]" routerLinkActive="router-link-active">
+            <div class="sub_sin_block justify-content-between align-items-center" matRipple *ngFor="let item of subjects" [routerLink]="['/dashboard/subject',item._id,tempId ]" routerLinkActive="router-link-active">
                 <div class="align-items-center d-flex">
                     <h2 class="primaryColor text-uppercase">{{item && item.subject | slice:0:1}}</h2>
                     <p>{{item && item.subject | slice:0:18}}</p>
