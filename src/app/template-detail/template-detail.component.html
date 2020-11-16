@@ -32,7 +32,7 @@
                 <h2 class="primaryColor">{{document_count && document_count}}</h2>
                 <p>Documents </p>
             </div>
-            <div class="periodic_block" matRipple [routerLink]="['/dashboard/notes']" routerLinkActive="router-link-active">
+            <div class="periodic_block" matRipple [routerLink]="['/dashboard/notes',subjectName,tempId]" routerLinkActive="router-link-active">
                 <h2 class="primaryColor">{{notes_count && notes_count}}</h2>
                 <p>Notes</p>
             </div>

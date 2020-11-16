@@ -2,7 +2,6 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { CreateDocumentComponent } from '../create-document/create-document.component';
 
 @Component({
   selector: 'app-document-list',

@@ -2,7 +2,7 @@
     <div class="row">
         <mat-toolbar color="primary" class="__header justify-content-between">
             <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon> Create Note </h1>
+                <mat-icon matRipple (click)="_location.back()" title="Go Back">keyboard_arrow_left</mat-icon>Create Note </h1>
             <!-- <mat-icon>share</mat-icon> -->
         </mat-toolbar>
     </div>
@@ -11,7 +11,7 @@
     <div class="__content_sec">
         <div class="row">
             <div class="col-md-4">
-                <form name="createTemplateForm" [formGroup]="createTemplateForm">
+                <form name="createTemplateForm" [formGroup]="createTemplateForm" class="docForm">
 
                     <div class="inputField">
                         <label for="tempName">Name*</label>
@@ -20,8 +20,7 @@
                         <p class="errorInput" [ngClass]="(tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)">{{getNameErrorMessage()}}</p>
                     </div>
                     <div class="inputField">
-                        <label for="tempSubject">Subject *</label>
-                        <span><i>Subject that used to identity the document</i></span>
+                        <label for="tempSubject">Description*</label>
                         <input [(ngModel)]="tempSubject" required type="text" autocomplete="off" matInput [formControl]="tempSubjectControl" placeholder="Subject" name="tempSubject">
                         <p class="errorInput" [ngClass]="(tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)) ? 'errorShow' : ''" *ngIf="tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)">{{getSubErrorMessage()}}</p>
                     </div>
@@ -80,7 +79,8 @@
                     </div>
 
 
-                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'">Create</button>
+                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Create</button>
+                    <button class="inputSubmit" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
                     <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                         {{responseMessage && responseMessage}}</div>
                 </form>

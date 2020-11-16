@@ -2,14 +2,14 @@
     <div class="row">
         <mat-toolbar color="primary" class="__header justify-content-between">
             <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon>Notes</h1>
+                <mat-icon matRipple (click)="_location.back()" title="Go Back">keyboard_arrow_left</mat-icon>Notes</h1>
         </mat-toolbar>
     </div>
 
 
     <div class="__content_sec">
         <div class="d-flex justify-content-end">
-            <button class="inputSubmit" style="margin-left: 10px;" [routerLink]="['/dashboard/create-note']" routerLinkActive="router-link-active">Create</button>
+            <button class="inputSubmit" style="margin-left: 10px;" [routerLink]="['/dashboard/create-note',subjectName,tempId]" routerLinkActive="router-link-active">Create</button>
         </div>
         <div class="recent_set">
             <p>Today</p>

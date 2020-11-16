@@ -34,11 +34,17 @@ export class TemplateDetailComponent implements OnInit {
     this.spinner.show();
     this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
       then(res => {
-        console.log("res", res);
         if (res.status === 200) {
           this.isLoading = false;
           this.spinner.hide();
           this.template = res.data
+          for (let i = 0; i < res.data.subjects.length; i++) {
+            if (res.data.subjects[i]._id == this.subjectName) {
+              this.subject_detail = res.data.subjects[i];
+              this.notes_count = res.data.subjects[i].notes.length
+              this.document_count = res.data.subjects[i].documents.length
+            }
+          }
         }
       })
   }

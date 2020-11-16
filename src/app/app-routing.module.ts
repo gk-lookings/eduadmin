@@ -43,8 +43,9 @@ const routes: Routes = [
     
       { path: 'users', component: UsersListComponent },
       { path: 'user/:id', component: UserDetailComponent },
-      { path: 'notes', component: NotesComponent },
-      { path: 'create-note', component: CreateNoteComponent },
+
+      { path: 'notes/:subName/:tempId', component: NotesComponent },
+      { path: 'create-note/:subName/:tempId', component: CreateNoteComponent },
     ]
   },
  { path: '**', redirectTo: '/login', pathMatch: 'full' },

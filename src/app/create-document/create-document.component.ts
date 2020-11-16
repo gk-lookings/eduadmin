@@ -150,33 +150,4 @@ export class CreateDocumentComponent implements OnInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
-
-
-  /* 
-  for (let i = 0; i < res.data.subjects.length; i++) {
-            if (res.data.subjects[i].subject == this.subjectName) {
-              this.subject_detail = res.data.subjects[i];
-            }
-          }          
-          this.subject_detail = {
-            ...this.subject_detail, documents: [{
-              "title": "new docs",
-              "files": [
-                {
-                  "url": "https://image.com",
-                  "name": "new image"
-                }
-              ]
-            }, {
-              "title": "new docs2",
-              "files": [
-                {
-                  "url": "https://image.com",
-                  "name": "new image"
-                }
-              ]
-            }]
-          }
-  
-  */
 }
