@@ -75,7 +75,8 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { EditTemplateComponent } from './edit-template/edit-template.component';
-import { TemplateSubjectsComponent } from './template-subjects/template-subjects.component'
+import { TemplateSubjectsComponent } from './template-subjects/template-subjects.component';
+import { ConfirmDeleteModelComponent } from './confirm-delete-model/confirm-delete-model.component'
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { TemplateSubjectsComponent } from './template-subjects/template-subjects
     UserDetailComponent,
     TemplateListComponent,
     EditTemplateComponent,
-    TemplateSubjectsComponent
+    TemplateSubjectsComponent,
+    ConfirmDeleteModelComponent
   ],
   imports: [
     BrowserModule,
@@ -149,7 +151,8 @@ import { TemplateSubjectsComponent } from './template-subjects/template-subjects
   entryComponents: [
     CreateSubjectComponent,
     CreateSectionComponent,
-    LogOutModelComponent
+    LogOutModelComponent,
+    ConfirmDeleteModelComponent
   ],
   providers: 
     [

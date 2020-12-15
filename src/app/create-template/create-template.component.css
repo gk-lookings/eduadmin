@@ -5,3 +5,8 @@
 .success {
     color: #8BC34A !important;
 }
+
+::ng-deep .temPlateFrm .mat-progress-spinner circle,
+ ::ng-deep .temPlateFrm .mat-spinner circle {
+    stroke: #ffffff;
+}

@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { CreateSubjectComponent } from '../create-subject/create-subject.component';
+import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
 
 @Component({
   selector: 'app-template-subjects',
@@ -123,22 +124,25 @@ export class TemplateSubjectsComponent implements OnInit {
 
 
   deleteSub(sub) {
-    var index = this.subjects.indexOf(sub)
-    this.subjects.splice(index, 1)
-    let params = {
-      "templateId": this.tempId,
-      "name": this.template.name,
-      "descriptionTags": this.template.descriptionTags,
-      "active": this.template.active,
-      "about": this.template.about,
-      "subjects": this.subjects
-    }
-    this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
-      then(res => {
-      })
 
+    const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
+      if (result) {
+        var index = this.subjects.indexOf(sub)
+        this.subjects.splice(index, 1)
+        let params = {
+          "templateId": this.tempId,
+          "name": this.template.name,
+          "descriptionTags": this.template.descriptionTags,
+          "active": this.template.active,
+          "about": this.template.about,
+          "subjects": this.subjects
+        }
+        this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
+          then(res => {
+          })
+      }
+    })
   }
-
   // searchSubject(query:string) {
   //   this.txtQueryChanged.next(query);
   // }

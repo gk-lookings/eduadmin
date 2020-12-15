@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GET_TEMPLATE } from '../config/endpoints';
+import { GET_TEMPLATE, HOST } from '../config/endpoints';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-create-note',
@@ -15,32 +15,32 @@ export class CreateNoteComponent implements OnInit {
 
   tempSubject: string;
   tempName: string;
-  
+
   responseMessage: string;
   isLoading: boolean;
   success: boolean;
 
   tempNameFormControl = new FormControl('', Validators.required);
-  tempSubjectControl  = new FormControl('', Validators.required);
+  tempSubjectControl = new FormControl('', Validators.required);
 
   createTemplateForm: FormGroup = new FormGroup({
     tempName: this.tempNameFormControl,
-    tempSubject :this.tempSubjectControl
+    tempSubject: this.tempSubjectControl
   });
 
   tempId = this.activatedRoute.snapshot.params['tempId'];
   subjectName = this.activatedRoute.snapshot.params['subName'];
   template
   subject_detail
-  subjects=[]
+  subjects = []
 
   files: any[] = [];
-  
+
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public _location: Location,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.fetchTemplate()    
+    this.fetchTemplate()
   }
 
   fetchTemplate() {
@@ -53,44 +53,103 @@ export class CreateNoteComponent implements OnInit {
             if (res.data.subjects[i]._id == this.subjectName) {
               this.subject_detail = res.data.subjects[i];
             }
-            else
-            {
+            else {
               this.subjects.push(res.data.subjects[i])
             }
-          }          
+          }
         }
       })
   }
 
   submitForm() {
     this.isLoading = true
-    let tempArr = this.subject_detail.notes.concat({
-      "title": this.tempName,
-      "descripiton" : this.tempSubject,
-      "files": []
-    })
-    this.subject_detail.notes = tempArr
-
-    let params = {
-      "templateId": this.template.id,
-      "name": this.template.name,
-      "descriptionTags": this.template.descriptionTags,
-      "active": this.template.active,
-      "about": this.template.about,
-      "subjects": this.subjects.concat(this.subject_detail)
-    }
-    this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
-      then(res => {
-        if (res.status === 200) {
-          this.isLoading = false
-          this.success= true
-          this.responseMessage = 'Note has been created succefully.!'
-          setTimeout(() => {
-            this.responseMessage = ''
-          }, 3000);
-          this.createTemplateForm.reset()
+    let newArray = []
+    var fileArray = []
+    var re = /(?:\.([^.]+))?$/;
+    if (this.files.length != 0) {
+      for (let i = 0; i < this.files.length; i++) {
+        const formData = new FormData();
+        formData.append('file', this.files[i]);
+        let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/notes/' + this.files[i].lastModified + '.' + re.exec(this.files[i].name)[1], formData)
+        fileArray.push(elem)
+      }
+      Promise.all(fileArray).then(res => {
+        for (let m = 0; m < this.files.length; m++) {
+          for (let n = 0; n < res.length; n++) {
+            newArray.push({
+              // "_id": this.files[m].lastModified + '.' + re.exec(this.files[m].name)[1],
+              "name": this.files[m].name,
+              "size": this.files[m].size,
+              "type": this.files[m].type,
+              "url": res[n].data.imageURL,
+              "createdAt": new Date()
+            })
+          }
         }
+
+        let tempArr = this.subject_detail.notes.concat({
+          "title": this.tempName,
+          "descripiton": this.tempSubject,
+          "files": newArray
+        })
+        this.subject_detail.notes = tempArr
+
+        let params = {
+          "templateId": this.template.id,
+          "name": this.template.name,
+          "descriptionTags": this.template.descriptionTags,
+          "active": this.template.active,
+          "about": this.template.about,
+          "subjects": this.subjects.concat(this.subject_detail)
+        }
+        this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+          then(res => {
+            if (res.status === 200) {
+              this.isLoading = false
+              this.success = true
+              this.responseMessage = 'Note has been created succefully.!'
+              setTimeout(() => {
+                this.responseMessage = ''
+              }, 3000);
+              this.createTemplateForm.reset()
+              this.files = []
+            }
+          })
+
+      }).catch(err => {
+        console.log("error", err);
       })
+    }
+    else {
+      let tempArr = this.subject_detail.notes.concat({
+        "title": this.tempName,
+        "descripiton": this.tempSubject,
+      })
+      this.subject_detail.notes = tempArr
+
+      let params = {
+        "templateId": this.template.id,
+        "name": this.template.name,
+        "descriptionTags": this.template.descriptionTags,
+        "active": this.template.active,
+        "about": this.template.about,
+        "subjects": this.subjects.concat(this.subject_detail)
+      }
+      this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+        then(res => {
+          if (res.status === 200) {
+            this.isLoading = false
+            this.success = true
+            this.responseMessage = 'Note has been created succefully.!'
+            setTimeout(() => {
+              this.responseMessage = ''
+            }, 3000);
+            this.createTemplateForm.reset()
+            this.files = []
+          }
+        })
+    }
+
   }
 
   getNameErrorMessage() {

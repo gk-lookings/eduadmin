@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GET_TEMPLATE, LOGIN } from '../config/endpoints';
+import { GET_TEMPLATE, HOST, LOGIN } from '../config/endpoints';
 import { Location } from '@angular/common';
 
 @Component({
@@ -67,34 +67,157 @@ export class CreateDocumentComponent implements OnInit {
       })
   }
 
+  // submitForm() {
+  //   this.isLoading = true
+  //   let tempArr = this.subject_detail.documents.concat({
+  //     "title": this.tempName,
+  //     "files": []
+  //   })
+  //   this.subject_detail.documents = tempArr
+
+  //   let params = {
+  //     "templateId": this.template.id,
+  //     "name": this.template.name,
+  //     "descriptionTags": this.template.descriptionTags,
+  //     "active": this.template.active,
+  //     "about": this.template.about,
+  //     "subjects": this.subjects.concat(this.subject_detail)
+  //   }
+
+
+  //   var fileArray =[]
+
+  //   for (let j = 0; j < this.files.length; j++) {
+  //     this.files[j].name = Date.now() + 1;
+  //   }
+
+  //   for (let i = 0; i < this.files.length; i++) {
+  //     const element = this.files[i];
+  //     const formData = new FormData();
+  //     formData.append('file', this.files[i]);
+  //     let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/document/'+ this.files[i].name, formData)
+  //     fileArray.push(elem)
+  //   }
+  //   Promise.all(fileArray).then(res => {
+  //     console.log("data", res);
+  //     let tempS = {
+  //       "_id": "string",
+  //       "name": "string",
+  //       "size": 0,
+  //       "type": "string",
+  //       "url": "string",
+  //       "createdAt": "string"
+  //     }
+
+  //   }).catch(err => {
+  //     console.log("error", err);
+  //   })
+
+
+
+  //   this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+  //     then(res => {
+  //       if (res.status === 200) {
+  //         this.isLoading = false
+  //         this.success= true
+  //         this.responseMessage = 'Document has been created succefully.!'
+  //         setTimeout(() => {
+  //           this.responseMessage = ''
+  //         }, 3000);
+  //         this.createTemplateForm.reset()
+  //       }
+  //     })
+  // }
+
+
   submitForm() {
     this.isLoading = true
-    let tempArr = this.subject_detail.documents.concat({
-      "title": this.tempName,
-      "files": []
-    })
-    this.subject_detail.documents = tempArr
-
-    let params = {
-      "templateId": this.template.id,
-      "name": this.template.name,
-      "descriptionTags": this.template.descriptionTags,
-      "active": this.template.active,
-      "about": this.template.about,
-      "subjects": this.subjects.concat(this.subject_detail)
-    }
-    this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
-      then(res => {
-        if (res.status === 200) {
-          this.isLoading = false
-          this.success= true
-          this.responseMessage = 'Document has been created succefully.!'
-          setTimeout(() => {
-            this.responseMessage = ''
-          }, 3000);
-          this.createTemplateForm.reset()
+    let newArray = []
+    var fileArray = []
+    var re = /(?:\.([^.]+))?$/;
+    if (this.files.length != 0) {
+      for (let i = 0; i < this.files.length; i++) {
+        const formData = new FormData();
+        formData.append('file', this.files[i]);
+        let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/document/' + this.files[i].lastModified + '.' + re.exec(this.files[i].name)[1], formData)
+        fileArray.push(elem)
+      }
+      Promise.all(fileArray).then(res => {
+        for (let m = 0; m < this.files.length; m++) {
+          for (let n = 0; n < res.length; n++) {
+            newArray.push({
+              // "_id": this.files[m].lastModified,
+              "name": this.files[m].name,
+              "size": this.files[m].size,
+              "type": this.files[m].type,
+              "url": res[n].data.imageURL,
+              "createdAt": new Date()
+            })
+          }
         }
+
+        let tempArr = this.subject_detail.documents.concat({
+          "title": this.tempName,
+          "descripiton": this.tempSubject,
+          "files": newArray
+        })
+        this.subject_detail.documents = tempArr
+
+        let params = {
+          "templateId": this.template.id,
+          "name": this.template.name,
+          "descriptionTags": this.template.descriptionTags,
+          "active": this.template.active,
+          "about": this.template.about,
+          "subjects": this.subjects.concat(this.subject_detail)
+        }
+        this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+          then(res => {
+            if (res.status === 200) {
+              this.isLoading = false
+              this.success = true
+              this.responseMessage = 'Document has been created succefully.!'
+              setTimeout(() => {
+                this.responseMessage = ''
+              }, 3000);
+              this.createTemplateForm.reset()
+              this.files = []
+            }
+          })
+
+      }).catch(err => {
+        console.log("error", err);
       })
+    }
+    else {
+      let tempArr = this.subject_detail.documents.concat({
+        "title": this.tempName,
+        "descripiton": this.tempSubject,
+      })
+      this.subject_detail.documents = tempArr
+
+      let params = {
+        "templateId": this.template.id,
+        "name": this.template.name,
+        "descriptionTags": this.template.descriptionTags,
+        "active": this.template.active,
+        "about": this.template.about,
+        "subjects": this.subjects.concat(this.subject_detail)
+      }
+      this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+        then(res => {
+          if (res.status === 200) {
+            this.isLoading = false
+            this.success = true
+            this.responseMessage = 'Document has been created succefully.!'
+            setTimeout(() => {
+              this.responseMessage = ''
+            }, 3000);
+            this.createTemplateForm.reset()
+          }
+        })
+    }
+
   }
 
   getNameErrorMessage() {

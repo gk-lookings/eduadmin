@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { LOGIN, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
+import { HOST, LOGIN, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
 
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -52,34 +52,70 @@ export class CreateTemplateComponent implements OnInit {
   }
 
   submitForm() {
-    let params = {
-      "templateId": this.tempId,
-      "name": this.tempName,
-      "descriptionTags": this.tags,
-      "active": true,
-      "about": "string",
+    this.isLoading = true
+    var image
+    var re = /(?:\.([^.]+))?$/;
+    if (this.files.length != 0) {
+        const formData = new FormData();
+        formData.append('file', this.files[0]);
+        this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/template/logo/' + this.tempId + '.' + re.exec(this.files[0].name)[1], formData).then(res => {
+          console.log("Image", res);
+          image = res.data.imageURL
+          if(res.status === 200){
+            let params = {
+              "templateId": this.tempId,
+              "name": this.tempName,
+              "descriptionTags": this.tags,
+              "logo" : image
+            }
+            this.apiService.getResponse('post', TEMPLATE_CREATE, params).
+              then(res => {
+                this.isLoading = false;
+                if (res.status === 200) {
+                  this.success = true
+                  this.responseMessage = 'Template created succefully..!'
+                  setTimeout(() => {
+                    this.responseMessage = ''
+                  }, 3000);
+                  this.tags = []
+                  this.files = []
+                  this.createTemplateForm.reset();
+                }
+                else {
+                  this.responseMessage = res.error.message
+                }
+              })
+          }
+        }).catch(err => {
+          this.isLoading = false
+          console.log("error", err);
+        })
     }
-    this.apiService.getResponse('post', TEMPLATE_CREATE, params).
-      then(res => {
-        this.isLoading = false;
-        console.log("res", res);
-
-        if (res.status === 200) {
-          this.success =true
-          this.responseMessage = 'Template created succefully..!'
-          setTimeout(() => {
-            this.responseMessage = ''
-          }, 3000);
-          this.tags = []
-          this.files = []
-          this.createTemplateForm.reset();
-        }
-        else {
-          this.responseMessage = res.message
-        }
-      })
-
-
+    else
+    {
+      let params = {
+        "templateId": this.tempId,
+        "name": this.tempName,
+        "descriptionTags": this.tags,
+      }
+      this.apiService.getResponse('post', TEMPLATE_CREATE, params).
+        then(res => {
+          this.isLoading = false;
+          if (res.status === 200) {
+            this.success = true
+            this.responseMessage = 'Template created succefully..!'
+            setTimeout(() => {
+              this.responseMessage = ''
+            }, 3000);
+            this.tags = []
+            this.files = []
+            this.createTemplateForm.reset();
+          }
+          else {
+            this.responseMessage = res.error.message
+          }
+        })
+    }
 
 
     /*

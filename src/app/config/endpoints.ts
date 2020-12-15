@@ -16,6 +16,7 @@ const TEMPLATE_CREATE               = HOST + 'template'
 const GET_TEMPLATE                  = HOST + 'template/'
 
 export {
+    HOST,
     LOGIN,
     EVENTS,
     TEMPLATE_LIST,

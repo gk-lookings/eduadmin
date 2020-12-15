@@ -6,11 +6,10 @@
     padding: 15px 30px;
     box-shadow: 2px 2px 3px #0002;
     border-radius: 8px;
-    flex-direction: column;
-    text-align: center;
     position: relative;
     transition: 0.5s;
     cursor: pointer;
+    margin: 10px 0;
 }
 
 .single-temp:hover {
@@ -18,15 +17,18 @@
 }
 
 .single-temp h1 {
-    margin: 15px 0;
-    font-size: 18px;
+    margin: 0;
+    font-size: 16px;
     text-align: center;
+    font-weight: 300;
 }
 
 .single-temp img {
-    width: 140px;
-    height: 140px;
+    width: 60px;
+    height: 60px;
+    -o-object-fit: contain;
     object-fit: contain;
+    margin-right: 20px;
 }
 
 .templates_set {
@@ -34,4 +36,13 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 15px;
     margin-top: 25px;
+}
+
+.options mat-icon {
+    color: #999;
+    transition: 0.3s;
+}
+
+.options mat-icon:hover {
+    color: #444;
 }
