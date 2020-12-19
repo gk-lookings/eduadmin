@@ -126,7 +126,7 @@ mat-icon {
     font-size: 18px;
     border-radius: 3px;
     font-family: 'Poppins SemiBold';
-    margin-top: 30px;
+    margin: 30px 0;
     transition: 0.5s;
     cursor: pointer;
     width: 195px;
@@ -138,7 +138,7 @@ mat-icon {
     padding: 8px 0px;
     font-size: 18px;
     border-radius: 3px;
-    margin-top: 30px;
+    margin: 30px 0;
     transition: 0.5s;
     width: 155px;
     text-align: center;

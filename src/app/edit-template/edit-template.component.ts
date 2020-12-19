@@ -54,7 +54,7 @@ export class EditTemplateComponent implements OnInit {
     let arr = []
     this.apiService.getResponse('get', GET_TEMPLATE + this.__tempId, params).
       then(res => {
-        this.spinner.hide();
+        this.spinner.hide();        
         if (res.status === 200) {
           this.tempName = res.data.name
           this.tempId = res.data.templateId
@@ -81,7 +81,7 @@ export class EditTemplateComponent implements OnInit {
             "descriptionTags": this.tags,
             "logo": image
           }
-          this.apiService.getResponse('post', TEMPLATE_CREATE, params).
+          this.apiService.getResponse('put', GET_TEMPLATE + this.__tempId, params).
             then(res => {
               this.isLoading = false;
               if (res.status === 200) {
@@ -90,12 +90,20 @@ export class EditTemplateComponent implements OnInit {
                 setTimeout(() => {
                   this.responseMessage = ''
                 }, 3000);
-                this.tags = []
                 this.files = []
-                this.createTemplateForm.reset();
+                this.apiService.getResponse('get', GET_TEMPLATE + this.__tempId, {}).
+                  then(res => {
+                    this.spinner.hide();
+                    if (res.status === 200) {
+                      this.tempName = res.data.name
+                      this.tempId = res.data.templateId
+                      this.tags = res.data.descriptionTags
+                      this.logo = res.data.logo
+                    }
+                  })
               }
               else {
-                this.responseMessage = res.error.message
+                this.responseMessage = res.error.data
               }
             })
         }
@@ -121,7 +129,7 @@ export class EditTemplateComponent implements OnInit {
             }, 3000);
           }
           else {
-            this.responseMessage = res.error
+            this.responseMessage = res.error.data
           }
         })
     }

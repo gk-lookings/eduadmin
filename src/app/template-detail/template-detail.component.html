@@ -7,12 +7,11 @@
         </mat-toolbar>
     </div>
 
-
     <div class="__content_sec" *ngIf="!isLoading">
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h1 class="comm_title_small_h1 ">{{template && template.name}} </h1>
-                <p class="comm_sub_title_small_p ">{{subjectName && subjectName}}</p>
+                <p class="comm_sub_title_small_p ">{{subject_detail && subject_detail.subject}}</p>
             </div>
             <!-- <div class="d-flex align-items-center">
                 Edit
@@ -44,6 +43,8 @@
         </div>
     </div>
 
-    <ngx-spinner bdColor="rgba(255, 255, 255, 1)" size="medium" color="#000" type="timer" [fullScreen]="true">
-    </ngx-spinner>
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh;" *ngIf="isLoading">
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>
+
 </div>

@@ -22,13 +22,10 @@ export class TemplateListComponent implements OnInit {
 
   fetchList() {
     this.isLoading = true;
-    this.spinner.show();
     let params = { text: '', offset: 0 }
     this.apiService.getResponse('get', TEMPLATE_LIST, params).
       then(res => {
         this.isLoading = false;
-        this.spinner.hide();
-        console.log("res", res);
         if (res.status === 200) {
           this.templates = res.data.templates
         }

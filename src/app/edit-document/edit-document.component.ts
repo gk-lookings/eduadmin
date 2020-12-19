@@ -8,11 +8,11 @@ import { GET_TEMPLATE, HOST, LOGIN } from '../config/endpoints';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-create-document',
-  templateUrl: './create-document.component.html',
-  styleUrls: ['./create-document.component.css']
+  selector: 'app-edit-document',
+  templateUrl: './edit-document.component.html',
+  styleUrls: ['./edit-document.component.css']
 })
-export class CreateDocumentComponent implements OnInit {
+export class EditDocumentComponent implements OnInit {
 
   tempSubject: string;
   tempName: string;
@@ -67,74 +67,15 @@ export class CreateDocumentComponent implements OnInit {
       })
   }
 
-  // submitForm() {
-  //   this.isLoading = true
-  //   let tempArr = this.subject_detail.documents.concat({
-  //     "title": this.tempName,
-  //     "files": []
-  //   })
-  //   this.subject_detail.documents = tempArr
-
-  //   let params = {
-  //     "templateId": this.template.id,
-  //     "name": this.template.name,
-  //     "descriptionTags": this.template.descriptionTags,
-  //     "active": this.template.active,
-  //     "about": this.template.about,
-  //     "subjects": this.subjects.concat(this.subject_detail)
-  //   }
-
-
-  //   var fileArray =[]
-
-  //   for (let j = 0; j < this.files.length; j++) {
-  //     this.files[j].name = Date.now() + 1;
-  //   }
-
-  //   for (let i = 0; i < this.files.length; i++) {
-  //     const element = this.files[i];
-  //     const formData = new FormData();
-  //     formData.append('file', this.files[i]);
-  //     let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/document/'+ this.files[i].name, formData)
-  //     fileArray.push(elem)
-  //   }
-  //   Promise.all(fileArray).then(res => {
-  //     console.log("data", res);
-  //     let tempS = {
-  //       "_id": "string",
-  //       "name": "string",
-  //       "size": 0,
-  //       "type": "string",
-  //       "url": "string",
-  //       "createdAt": "string"
-  //     }
-
-  //   }).catch(err => {
-  //     console.log("error", err);
-  //   })
-
-
-
-  //   this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
-  //     then(res => {
-  //       if (res.status === 200) {
-  //         this.isLoading = false
-  //         this.success= true
-  //         this.responseMessage = 'Document has been created succefully.!'
-  //         setTimeout(() => {
-  //           this.responseMessage = ''
-  //         }, 3000);
-  //         this.createTemplateForm.reset()
-  //       }
-  //     })
-  // }
-
-
   submitForm() {
     this.isLoading = true
     let newArray = []
     var fileArray = []
     var re = /(?:\.([^.]+))?$/;
+
+    // var index = this.subject_detail.documents.indexOf(item)
+    //     this.subject_detail.documents.splice(index, 1)
+
     if (this.files.length != 0) {
       for (let i = 0; i < this.files.length; i++) {
         const formData = new FormData();
@@ -176,11 +117,10 @@ export class CreateDocumentComponent implements OnInit {
             if (res.status === 200) {
               this.isLoading = false
               this.success = true
-              this.responseMessage = 'Document has been created succefully.!'
+              this.responseMessage = 'Document has been updated succefully.!'
               setTimeout(() => {
                 this.responseMessage = ''
               }, 3000);
-              this.createTemplateForm.reset()
               this.files = []
             }
             else {
@@ -212,11 +152,10 @@ export class CreateDocumentComponent implements OnInit {
           if (res.status === 200) {
             this.isLoading = false
             this.success = true
-            this.responseMessage = 'Document has been created succefully.!'
+            this.responseMessage = 'Document has been updated succefully.!'
             setTimeout(() => {
               this.responseMessage = ''
             }, 3000);
-            this.createTemplateForm.reset()
           }
           else {
             this.responseMessage = res.error.data

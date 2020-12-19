@@ -50,6 +50,7 @@ import { MatNativeDateModule} from '@angular/material';
 // extraplugins
 
 import { NgxSpinnerModule } from "ngx-spinner";
+import { DateAgoPipe } from './pipe/date-ago.pipe';
 
 // components
 
@@ -76,10 +77,13 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { EditTemplateComponent } from './edit-template/edit-template.component';
 import { TemplateSubjectsComponent } from './template-subjects/template-subjects.component';
-import { ConfirmDeleteModelComponent } from './confirm-delete-model/confirm-delete-model.component'
+import { ConfirmDeleteModelComponent } from './confirm-delete-model/confirm-delete-model.component';
+import { EditDocumentComponent } from './edit-document/edit-document.component';
+import { EditNoteComponent } from './edit-note/edit-note.component'
 
 @NgModule({
   declarations: [
+    DateAgoPipe,
     AppComponent,
     LoginComponent,
     DashboardComponent,
@@ -103,7 +107,9 @@ import { ConfirmDeleteModelComponent } from './confirm-delete-model/confirm-dele
     TemplateListComponent,
     EditTemplateComponent,
     TemplateSubjectsComponent,
-    ConfirmDeleteModelComponent
+    ConfirmDeleteModelComponent,
+    EditDocumentComponent,
+    EditNoteComponent
   ],
   imports: [
     BrowserModule,

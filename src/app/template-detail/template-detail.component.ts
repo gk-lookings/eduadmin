@@ -15,7 +15,7 @@ export class TemplateDetailComponent implements OnInit {
   template
   tempId = this.activatedRoute.snapshot.params['tempId'];
   subjectName = this.activatedRoute.snapshot.params['subName'];
-  isLoading
+  isLoading = true
 
   subject_detail
   document_count = 0
@@ -31,12 +31,10 @@ export class TemplateDetailComponent implements OnInit {
   fetchList() {
     this.isLoading = true;
     let params = {}
-    this.spinner.show();
     this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
       then(res => {
         if (res.status === 200) {
           this.isLoading = false;
-          this.spinner.hide();
           this.template = res.data
           for (let i = 0; i < res.data.subjects.length; i++) {
             if (res.data.subjects[i]._id == this.subjectName) {

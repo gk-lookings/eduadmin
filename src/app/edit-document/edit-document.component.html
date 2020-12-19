@@ -2,50 +2,40 @@
     <div class="row">
         <mat-toolbar color="primary" class="__header justify-content-between">
             <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/template-list']" title="Go Back">keyboard_arrow_left</mat-icon> Edit Templete</h1>
+                <mat-icon matRipple (click)="_location.back()" title="Go Back">keyboard_arrow_left</mat-icon>Create Document </h1>
             <!-- <mat-icon>share</mat-icon> -->
         </mat-toolbar>
     </div>
 
 
     <div class="__content_sec">
-        <form name="createTemplateForm" class="temPlateFrm" [formGroup]="createTemplateForm">
-            <div class="row">
-                <div class="col-md-4 col-sm-5">
-                    <div class="inputField" style="margin-top: 3%;">
-                        <label for="tempId">ID*</label>
-                        <span><i>Unique Id that used to identify the template</i></span>
-                        <input [(ngModel)]="tempId" required type="text" autocomplete="off" [formControl]="tempIdControl" matInput placeholder="ID" name="tempId">
-                        <p class="errorInput" [ngClass]="(tempIdControl.invalid && (tempIdControl.dirty || tempIdControl.touched)) ? 'errorShow' : ''" *ngIf="tempIdControl.invalid && (tempIdControl.dirty || tempIdControl.touched)">{{getIDErrorMessage()}}</p>
-                    </div>
+        <div class="row">
+            <div class="col-md-4">
+                <form name="createTemplateForm" [formGroup]="createTemplateForm" class="docForm">
+
                     <div class="inputField">
                         <label for="tempName">Name*</label>
-                        <span><i>Name that used to identify the template</i></span>
+                        <span><i>Name that used to identity the document</i></span>
                         <input [(ngModel)]="tempName" autocomplete="off" required name="tempName" [formControl]="tempNameFormControl" matInput placeholder="Name">
                         <p class="errorInput" [ngClass]="(tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)">{{getNameErrorMessage()}}</p>
                     </div>
-                    <div class="inputField" style="margin-bottom: 3%;">
-                        <label for="tempName">Description Tags <span>(optional)</span></label>
-                        <span><i>Used for SEO (use ENTER or COMMA to seperate)</i></span>
-                        <input [matChipInputFor]="chipList" style="width: 100% !important; flex: 1 !important; margin: 0;" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" matInput placeholder="Tags">
+                    <div class="inputField">
+                        <label for="tempSubject">Subject <span>(optional)</span></label>
+                        <span><i>Subject that used to identity the document</i></span>
+                        <input [(ngModel)]="tempSubject" type="text" autocomplete="off" matInput [formControl]="tempSubjectControl" placeholder="Subject" name="tempSubject">
+                        <!-- <p class="errorInput" [ngClass]="(tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)) ? 'errorShow' : ''" *ngIf="tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)">{{getSubErrorMessage()}}</p> -->
                     </div>
-                    <mat-chip-list #chipList aria-label="Tag selection">
-                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
-                            {{tag}}
-                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                        </mat-chip>
-                    </mat-chip-list>
-                    <div class="inputField" style="margin-top: 3%;">
-                        <label for="tempLogo">Logo <span>(optional)</span></label>
+                    <div class="inputField">
+                        <label for="tempLogo">File <span>(optional)</span></label>
                         <div class="fileUploadSet" appDnd (fileDropped)="onFileDropped($event)">
                             <div>
-                                <h1>Upload a photo</h1>
-                                <p>You can either upload photo or drag it here</p>
+                                <h1>Upload Document</h1>
+                                <p>You can upload either .pdf or .doc file</p>
                             </div>
                             <div class="icon">
                                 <img src="./../../assets/images/icons/photo_cam.png" alt="">
                             </div>
-                            <input type="file" class="hidInput" [multiple]="false" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)" />
+                            <input type="file" class="hidInput" accept=".pdf, .doc, .docx" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)" />
                         </div>
 
                         <div class="files-list">
@@ -73,7 +63,7 @@
                                         {{ file?.name }}
                                     </h4>
                                     <p class="size">
-                                        {{ formatBytes(file?.size,2) }}
+                                        {{ formatBytes(file?.size, 2) }}
                                     </p>
                                     <app-progress [progress]="file?.progress"></app-progress>
                                 </div>
@@ -86,21 +76,16 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
-                    <button class="inputSubmit" style="margin: 0;" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Update</button>
+
+                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Create</button>
                     <button class="inputSubmit" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
                     <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                         {{responseMessage && responseMessage}}</div>
-                </div>
-                <div class="col-md-2 col-sm-2">
-                    <label for="logo">Current Logo</label>
-                    <img src="{{logo && logo}}" alt="" style="width: 100%; object-fit: contain;">
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
-
-    <ngx-spinner bdColor="rgba(255, 255, 255, 1)" size="medium" color="#000" type="timer" [fullScreen]="true">
-    </ngx-spinner>
 </div>

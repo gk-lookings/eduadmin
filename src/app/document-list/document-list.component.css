@@ -6,3 +6,67 @@
     font-size: 16px;
     border-radius: 3px;
 }
+
+.subjects_set {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-gap: 15px;
+}
+
+.sub_sin_block {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px #0003;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.sub_sin_block:hover {
+    box-shadow: 2px 2px 8px #0005;
+}
+
+.sub_sin_block h2 {
+    font-size: 35px;
+    font-family: 'Poppins SemiBold';
+    margin: 0;
+    margin-right: 40px;
+}
+
+.sub_sin_block p {
+    font-size: 17px;
+    font-family: 'Poppins SemiBold';
+    margin: 0;
+    text-transform: capitalize;
+}
+
+.subs {
+    padding: 20px;
+    border-left: 1px solid #777;
+}
+
+.checker_List {
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.searchKey {
+    margin-bottom: 10%;
+    width: 100%;
+    padding: 7px;
+    border: 2px solid #666;
+    border-radius: 7px;
+    background-image: url(./../../assets/images/icons/search.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 30px;
+    padding-right: 35px;
+}
+
+.empty {
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    color: #999;
+}

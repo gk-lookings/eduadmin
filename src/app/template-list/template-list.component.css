@@ -12,7 +12,9 @@
     margin: 10px 0;
 }
 
-.single-temp:hover {
+.single-temp.mat-ripple:hover {
+    right: 1px;
+    transition: 0.5s;
     box-shadow: 2px 2px 3px #0003;
 }
 
@@ -36,6 +38,13 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 15px;
     margin-top: 25px;
+}
+
+.options {
+    flex: 1;
+    position: absolute;
+    right: 20px;
+    z-index: 111;
 }
 
 .options mat-icon {
