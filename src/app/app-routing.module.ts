@@ -39,7 +39,7 @@ const routes: Routes = [
     
       { path: 'documents/:subName/:tempId', component: DocumentListComponent },
       { path: 'create-document/:subName/:tempId', component: CreateDocumentComponent },
-      { path: 'curriculam', component: CurriculamComponent },
+      { path: 'curriculam/:subName/:tempId', component: CurriculamComponent },
     
       { path: 'users', component: UsersListComponent },
       { path: 'user/:id', component: UserDetailComponent },

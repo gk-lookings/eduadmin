@@ -8,9 +8,15 @@
                 <p class="errorInput" [ngClass]="(subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)">{{getNameErrorMessage()}}</p>
             </div>
 
+            <div class="inputField">
+                <label for="subName">Description</label>
+                <input [(ngModel)]="subDesc" autocomplete="off" required name="subDesc" [formControl]="subNameFormControl" matInput placeholder="Name">
+            </div>
+
             <div class="d-flex justify-content-end">
-                <button class="inputCancel" (click)="dialogRef.close()">Cancel</button>
-                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'">Create</button>
+                <button class="inputCancel" (click)="dialogRef.close(true)">Close</button>
+                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Create</button>
+                <button class="inputSubmit" style="margin-left: 10px;" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
             </div>
             <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                 {{responseMessage && responseMessage}}</div>

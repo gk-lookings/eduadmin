@@ -41,6 +41,7 @@ export class TemplateDetailComponent implements OnInit {
               this.subject_detail = res.data.subjects[i];
               this.notes_count = res.data.subjects[i].notes.length
               this.document_count = res.data.subjects[i].documents.length
+              this.curriculum_count = res.data.subjects[i].sections.length
             }
           }
         }
