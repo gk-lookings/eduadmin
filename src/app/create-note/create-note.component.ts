@@ -89,7 +89,7 @@ export class CreateNoteComponent implements OnInit {
 
         let tempArr = this.subject_detail.notes.concat({
           "title": this.tempName,
-          "descripiton": this.tempSubject,
+          "description": this.tempSubject,
           "files": newArray
         })
         this.subject_detail.notes = tempArr
@@ -123,7 +123,7 @@ export class CreateNoteComponent implements OnInit {
     else {
       let tempArr = this.subject_detail.notes.concat({
         "title": this.tempName,
-        "descripiton": this.tempSubject,
+        "description": this.tempSubject,
       })
       this.subject_detail.notes = tempArr
 

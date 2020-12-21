@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GET_TEMPLATE } from '../config/endpoints';
 import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
 import { CreateSectionComponent } from '../create-section/create-section.component';
+import { EditSectionComponent } from '../edit-section/edit-section.component';
 import { ApiService } from '../services';
 
 @Component({
@@ -31,6 +32,7 @@ export class CurriculamComponent implements OnInit {
   createSub() {
     const open = this.dialog.open(CreateSectionComponent, { data: { tempId: this.tempId, subjectName: this.subjectName } })
     open.afterClosed().subscribe(result => {
+      this.isEmpty = false
       if(result)
       this.fetchTemplate()
     })
@@ -55,8 +57,10 @@ export class CurriculamComponent implements OnInit {
       })
   }
   editDocument(item) {
-    console.log("item", item);
-
+    const opendial = this.dialog.open(EditSectionComponent, { data : {tempId : this.tempId, item : item, subjectName : this.subjectName}}).afterClosed().subscribe(result => {
+      if(result)
+      this.fetchTemplate()
+    })
   }
 
   deleteTemp(item, i) {
@@ -64,14 +68,14 @@ export class CurriculamComponent implements OnInit {
       if (result) {
         var index = this.sections.indexOf(item)
         this.sections.splice(index, 1)
-        this.template.subjects[i].sections = this.sections
+        this.subject_detail.sections = this.sections
         let params = {
           "templateId": this.tempId,
           "name": this.template.name,
           "descriptionTags": this.template.descriptionTags,
           "active": this.template.active,
           "about": this.template.about,
-          "subjects": this.template.subjects
+          "subjects": this.subject_detail
         }
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {

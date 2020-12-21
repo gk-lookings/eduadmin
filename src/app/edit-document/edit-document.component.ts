@@ -25,14 +25,20 @@ export class EditDocumentComponent implements OnInit {
     tempName: this.tempNameFormControl,
     tempSubject: this.tempSubjectControl
   });
+ 
+  isFetchLoading = false
 
   tempId = this.activatedRoute.snapshot.params['tempId'];
   subjectName = this.activatedRoute.snapshot.params['subName'];
+  documentId = this.activatedRoute.snapshot.params['documentId'];
 
   subject_detail
   template
 
   subjects=[]
+  index
+
+  documentData
 
   files: any[] = [];
   constructor(
@@ -49,6 +55,7 @@ export class EditDocumentComponent implements OnInit {
   }
 
   fetchTemplate() {
+    this.isFetchLoading  =true
     let params = {}
     this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
       then(res => {
@@ -57,12 +64,22 @@ export class EditDocumentComponent implements OnInit {
           for (let i = 0; i < res.data.subjects.length; i++) {
             if (res.data.subjects[i]._id == this.subjectName) {
               this.subject_detail = res.data.subjects[i];
-            }
+            } 
             else
             {
               this.subjects.push(res.data.subjects[i])
             }
           }
+          this.index = this.subject_detail.documents.findIndex((element, index) => {
+            if (element._id === this.documentId) {
+              return true
+            }
+          })
+          this.documentData = this.subject_detail.documents[this.index]
+          this.tempName = this.subject_detail.documents[this.index].title
+          this.tempSubject = this.subject_detail.documents[this.index].description
+          this.isFetchLoading= false
+
         }
       })
   }
@@ -72,10 +89,9 @@ export class EditDocumentComponent implements OnInit {
     let newArray = []
     var fileArray = []
     var re = /(?:\.([^.]+))?$/;
-
-    // var index = this.subject_detail.documents.indexOf(item)
-    //     this.subject_detail.documents.splice(index, 1)
-
+    this.subject_detail.documents[this.index]._id = this.documentData._id
+    this.subject_detail.documents[this.index].title = this.tempName
+    this.subject_detail.documents[this.index].description = this.tempSubject
     if (this.files.length != 0) {
       for (let i = 0; i < this.files.length; i++) {
         const formData = new FormData();
@@ -97,12 +113,7 @@ export class EditDocumentComponent implements OnInit {
           }
         }
 
-        let tempArr = this.subject_detail.documents.concat({
-          "title": this.tempName,
-          "descripiton": this.tempSubject,
-          "files": newArray
-        })
-        this.subject_detail.documents = tempArr
+        this.subject_detail.documents[this.index].files= this.subject_detail.documents[this.index].files.concat(newArray)
 
         let params = {
           "templateId": this.template.id,
@@ -133,12 +144,10 @@ export class EditDocumentComponent implements OnInit {
       })
     }
     else {
-      let tempArr = this.subject_detail.documents.concat({
-        "title": this.tempName,
-        "descripiton": this.tempSubject,
-      })
-      this.subject_detail.documents = tempArr
-
+      this.subject_detail.documents[this.index]._id = this.documentData._id
+      this.subject_detail.documents[this.index].title = this.tempName
+      this.subject_detail.documents[this.index].files =  this.documentData.files
+      this.subject_detail.documents[this.index].description = this.tempSubject
       let params = {
         "templateId": this.template.id,
         "name": this.template.name,

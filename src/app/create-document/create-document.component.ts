@@ -158,7 +158,7 @@ export class CreateDocumentComponent implements OnInit {
 
         let tempArr = this.subject_detail.documents.concat({
           "title": this.tempName,
-          "descripiton": this.tempSubject,
+          "description": this.tempSubject,
           "files": newArray
         })
         this.subject_detail.documents = tempArr
@@ -195,7 +195,7 @@ export class CreateDocumentComponent implements OnInit {
     else {
       let tempArr = this.subject_detail.documents.concat({
         "title": this.tempName,
-        "descripiton": this.tempSubject,
+        "description": this.tempSubject,
       })
       this.subject_detail.documents = tempArr
 

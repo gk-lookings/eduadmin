@@ -7,16 +7,16 @@ import { GET_TEMPLATE } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 
 @Component({
-  selector: 'app-create-section',
-  templateUrl: './create-section.component.html',
-  styleUrls: ['./create-section.component.css']
+  selector: 'app-edit-section',
+  templateUrl: './edit-section.component.html',
+  styleUrls: ['./edit-section.component.css']
 })
-export class CreateSectionComponent implements OnInit {
+export class EditSectionComponent implements OnInit {
 
 
-  subId: string;
-  subName: string;
-  subDesc
+  subId: string
+  subName: string = this.data.item.title
+  subDesc = this.data.item.description
   responseMessage: string;
   isLoading: boolean;
   success: boolean;
@@ -29,40 +29,43 @@ export class CreateSectionComponent implements OnInit {
     subName: this.subNameFormControl,
     subDesc: this.subDesControl
   });
-
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public ids: any, public dialogRef: MatDialogRef<CreateSectionComponent>) { }
+  sections = []
+  index
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<EditSectionComponent>) { }
 
   ngOnInit() {
-    console.log("ids", this.ids);
     this.fetchTemplate()
   }
 
   fetchTemplate() {
     let params = {}
-    this.apiService.getResponse('get', GET_TEMPLATE + this.ids.tempId, params).
+    this.apiService.getResponse('get', GET_TEMPLATE + this.data.tempId, params).
       then(res => {
         if (res.status === 200) {
           this.template = res.data
           for (let i = 0; i < res.data.subjects.length; i++) {
-            if (res.data.subjects[i]._id == this.ids.subjectName) {
+            if (res.data.subjects[i]._id == this.data.subjectName) {
+              this.sections = res.data.subjects[i].sections;
               this.subject_detail = res.data.subjects[i];
             }
             else {
               this.subjects.push(res.data.subjects[i])
             }
           }
+          this.index = this.subject_detail.sections.findIndex((element, index) => {
+            if (element._id === this.data.item._id) {
+              return true
+            }
+          })
         }
       })
   }
 
   submitForm() {
     this.isLoading = true
-    let tempArr = this.subject_detail.sections.concat({
-      "title": this.subName,
-      "description": this.subDesc
-    })
-    this.subject_detail.sections = tempArr
-
+    this.subject_detail.sections[this.index]._id = this.data.item._id
+    this.subject_detail.sections[this.index].title = this.subName
+    this.subject_detail.sections[this.index].description = this.subDesc
     let params = {
       "templateId": this.template.id,
       "name": this.template.name,
@@ -76,11 +79,10 @@ export class CreateSectionComponent implements OnInit {
         if (res.status === 200) {
           this.isLoading = false
           this.success = true
-          this.responseMessage = 'Section has been created succefully.!'
+          this.responseMessage = 'Section has been updated succefully.!'
           setTimeout(() => {
             this.responseMessage = ''
           }, 3000);
-          this.createForm.reset()
         }
       })
   }
@@ -88,5 +90,4 @@ export class CreateSectionComponent implements OnInit {
     return this.subNameFormControl.hasError('required') ? '*You must enter a value' :
       '';
   }
-
 }

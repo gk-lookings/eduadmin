@@ -2,14 +2,14 @@
     <div class="row">
         <mat-toolbar color="primary" class="__header justify-content-between">
             <h1 style="font-size: 20px;">
-                <mat-icon matRipple (click)="_location.back()" title="Go Back">keyboard_arrow_left</mat-icon>Create Document </h1>
+                <mat-icon matRipple (click)="_location.back()" title="Go Back">keyboard_arrow_left</mat-icon>Update Document </h1>
             <!-- <mat-icon>share</mat-icon> -->
         </mat-toolbar>
     </div>
 
 
     <div class="__content_sec">
-        <div class="row">
+        <div class="row" *ngIf="!isFetchLoading">
             <div class="col-md-4">
                 <form name="createTemplateForm" [formGroup]="createTemplateForm" class="docForm">
 
@@ -76,16 +76,23 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-
-                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Create</button>
+                    <button class="inputSubmit" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Update</button>
                     <button class="inputSubmit" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
                     <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                         {{responseMessage && responseMessage}}</div>
                 </form>
             </div>
+            <div class="col-md-4" *ngIf="documentData.files.length>0">
+                <label>Files</label>
+                <div class="fileItem" *ngFor="let item of documentData.files">
+                    <span>{{item && item.name}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center" style="height: 60vh;" *ngIf="isFetchLoading">
+            <mat-spinner diameter="50"></mat-spinner>
         </div>
     </div>
 </div>

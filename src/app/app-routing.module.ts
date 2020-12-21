@@ -17,6 +17,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { EditTemplateComponent } from './edit-template/edit-template.component';
 import { TemplateSubjectsComponent } from './template-subjects/template-subjects.component';
+import { EditDocumentComponent } from './edit-document/edit-document.component';
+import { EditNoteComponent } from './edit-note/edit-note.component';
 
 
 const routes: Routes = [
@@ -39,6 +41,8 @@ const routes: Routes = [
     
       { path: 'documents/:subName/:tempId', component: DocumentListComponent },
       { path: 'create-document/:subName/:tempId', component: CreateDocumentComponent },
+      { path: 'edit-document/:subName/:tempId/:documentId', component: EditDocumentComponent },
+
       { path: 'curriculam/:subName/:tempId', component: CurriculamComponent },
     
       { path: 'users', component: UsersListComponent },
@@ -46,6 +50,7 @@ const routes: Routes = [
 
       { path: 'notes/:subName/:tempId', component: NotesComponent },
       { path: 'create-note/:subName/:tempId', component: CreateNoteComponent },
+      { path: 'edit-note/:subName/:tempId/:noteId', component: EditNoteComponent },
     ]
   },
  { path: '**', redirectTo: '/login', pathMatch: 'full' },

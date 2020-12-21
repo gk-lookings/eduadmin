@@ -54,7 +54,6 @@ export class NotesComponent implements OnInit {
   }
   editNote(item) {
     console.log("item", item);
-
   }
 
   deleteTemp(item, i) {
@@ -62,14 +61,14 @@ export class NotesComponent implements OnInit {
       if (result) {
         var index = this.notes.indexOf(item)
         this.notes.splice(index, 1)
-        this.template.subjects[i].notes = this.notes
+        this.subject_detail.notes = this.notes
         let params = {
           "templateId": this.tempId,
           "name": this.template.name,
           "descriptionTags": this.template.descriptionTags,
           "active": this.template.active,
           "about": this.template.about,
-          "subjects": this.template.subjects
+          "subjects": this.subject_detail
         }
 
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).

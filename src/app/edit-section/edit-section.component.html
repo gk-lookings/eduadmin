@@ -1,0 +1,25 @@
+<div class="container">
+    <h1 class="comm_title_small_h1 " style="margin-top: 10px;">Create Section</h1>
+    <div class="subFrm">
+        <form name="createForm" [formGroup]="createForm">
+            <div class="inputField">
+                <label for="subName">Name*</label>
+                <input [(ngModel)]="subName" autocomplete="off" required name="subName" [formControl]="subNameFormControl" matInput placeholder="Name">
+                <p class="errorInput" [ngClass]="(subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)">{{getNameErrorMessage()}}</p>
+            </div>
+
+            <div class="inputField">
+                <label for="subDesc">Description</label>
+                <input [(ngModel)]="subDesc" autocomplete="off" required name="subDesc" [formControl]="subDesControl" matInput placeholder="Name">
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button class="inputCancel" (click)="dialogRef.close(true)">Close</button>
+                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Update</button>
+                <button class="inputSubmit" style="margin-left: 10px;" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
+            </div>
+            <div class="responseMessage" [ngClass]="success ? 'success' : ''">
+                {{responseMessage && responseMessage}}</div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+::ng-deep .docForm .mat-progress-spinner circle,
+ ::ng-deep .docForm .mat-spinner circle {
+    stroke: #ffffff;
+}
+
+.responseMessage {
+    margin-top: 20px;
+}
+
+.success {
+    color: #8BC34A !important;
+}
+
+.fileItem span {
+    border-left: 3px solid #777;
+    padding-left: 20px;
+    font-weight: 500;
+}
+
+.fileItem {
+    padding: 10px;
+}

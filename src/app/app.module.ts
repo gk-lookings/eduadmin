@@ -79,7 +79,8 @@ import { EditTemplateComponent } from './edit-template/edit-template.component';
 import { TemplateSubjectsComponent } from './template-subjects/template-subjects.component';
 import { ConfirmDeleteModelComponent } from './confirm-delete-model/confirm-delete-model.component';
 import { EditDocumentComponent } from './edit-document/edit-document.component';
-import { EditNoteComponent } from './edit-note/edit-note.component'
+import { EditNoteComponent } from './edit-note/edit-note.component';
+import { EditSectionComponent } from './edit-section/edit-section.component'
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { EditNoteComponent } from './edit-note/edit-note.component'
     TemplateSubjectsComponent,
     ConfirmDeleteModelComponent,
     EditDocumentComponent,
-    EditNoteComponent
+    EditNoteComponent,
+    EditSectionComponent
   ],
   imports: [
     BrowserModule,
@@ -158,7 +160,8 @@ import { EditNoteComponent } from './edit-note/edit-note.component'
     CreateSubjectComponent,
     CreateSectionComponent,
     LogOutModelComponent,
-    ConfirmDeleteModelComponent
+    ConfirmDeleteModelComponent,
+    EditSectionComponent
   ],
   providers: 
     [

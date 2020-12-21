@@ -60,14 +60,14 @@ console.log("item", item);
       if (result) {
         var index = this.documents.indexOf(item)
         this.documents.splice(index, 1)
-        this.template.subjects[i].documents = this.documents
+        this.subject_detail.documents = this.documents
         let params = {
           "templateId": this.tempId,
           "name": this.template.name,
           "descriptionTags": this.template.descriptionTags,
           "active": this.template.active,
           "about": this.template.about,
-          "subjects": this.template.subjects
+          "subjects": this.subject_detail
         }
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
