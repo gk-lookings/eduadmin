@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <div class="row">
+        <mat-toolbar color="primary" class="__header justify-content-between">
+            <h1 style="font-size: 20px;">
+                <mat-icon matRipple (click)="_location.back()" title="Go Back">keyboard_arrow_left</mat-icon>{{class && class.name}} </h1>
+            <img *ngIf="!isLoading" class="logoIm" src="{{class && class.logo ? class.logo : './../../assets/images/unavailable.png'}}" alt="">
+        </mat-toolbar>
+    </div>
+
+    <div class="__content_sec" *ngIf="!isLoading">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="comm_title_small_h1 ">Details</h1>
+                <p class="comm_sub_title_small_p " style="margin-bottom: 0;">Created on : <b>{{class && class.createdAt | dateAgo}}</b></p>
+                <p class="comm_sub_title_small_p " style="margin-bottom: 0;">Last Updated : <b>{{class && class.updatedAt | dateAgo}}</b></p>
+                <p class="comm_sub_title_small_p ">Status : <b>{{class && class.active ? 'Active' : 'In Active'}}</b></p>
+            </div>
+            <div>
+                <button class="activate" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
+            </div>
+        </div>
+        <h1 class="comm_title_small_h1 " *ngIf="class.about">About</h1>
+        <p class="comm_sub_title_small_p ">{{class && class.about}}</p>
+        <h1 class="comm_title_small_h1 ">Modules</h1>
+        <div class="grid-column_set">
+            <div class="periodic_block" matRipple>
+                <h2 class="primaryColor">{{classMeta && classMeta.subjects}}</h2>
+                <p>Subjects</p>
+            </div>
+            <div class="periodic_block" matRipple>
+                <h2 class="primaryColor">{{classMeta && classMeta.posts}}</h2>
+                <p>Posts</p>
+            </div>
+            <div class="periodic_block" matRipple>
+                <h2 class="primaryColor">{{classMeta && classMeta.docs}}</h2>
+                <p>Documents </p>
+            </div>
+            <div class="periodic_block" matRipple>
+                <h2 class="primaryColor">{{classMeta && classMeta.notes}}</h2>
+                <p>Notes</p>
+            </div>
+            <div class="periodic_block" matRipple>
+                <h2 class="primaryColor">{{classMeta && classMeta.members}}</h2>
+                <p>Members</p>
+            </div>
+            <!-- <div class="periodic_block" matRipple >
+                <h2 class="primaryColor">{{classMeta && classMeta}}</h2>
+                <p>Board</p>
+            </div> -->
+            <!-- <div class="periodic_block" matRipple >
+                <h2 class="primaryColor">{{classMeta && classMeta}}</h2>
+                <p>Events</p>
+            </div> -->
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- <h1 class="comm_title_h1">Activities</h1>
+        <div class="recent_set">
+            <p>Today</p>
+            <ul>
+                <li>Cusat cse s6 template created</li>
+                <li>User tom@gmail.com is deactivated</li>
+                <li>New classroom iitcses6madras created </li>
+            </ul>
+        </div>
+        <div class="recent_set">
+            <p>22 Sep 2020</p>
+            <ul>
+                <li>Cusat cse s6 template created</li>
+                <li>User tom@gmail.com is deactivated</li>
+            </ul>
+        </div> -->
+    </div>
+
+    <div class="d-flex flex-column justify-content-center align-items-center" style="height: 70vh;" *ngIf="isLoading">
+        <mat-spinner style="margin:0 auto;" diameter="50"></mat-spinner>
+    </div>
+</div>

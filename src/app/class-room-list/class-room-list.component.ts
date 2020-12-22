@@ -1,18 +1,17 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { CLASSROOM_LIST, USERS_LIST } from '../config/endpoints';
+import { CLASSROOM_LIST } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
-
 @Component({
-  selector: 'app-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css']
+  selector: 'app-class-room-list',
+  templateUrl: './class-room-list.component.html',
+  styleUrls: ['./class-room-list.component.css']
 })
-export class UsersListComponent implements OnInit {
+export class ClassRoomListComponent implements OnInit {
   searchkey
   isLoading = true
-  users = []
+  classes = []
   isLastpage = false
   currentPage = 0
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) { }
@@ -28,12 +27,10 @@ export class UsersListComponent implements OnInit {
       this.apiService.getResponse('get', CLASSROOM_LIST, params).
         then(res => {
           this.isLoading = false;
-          console.log("res", res);
-          
-          // if (res.status === 200) {
-          //   this.users = this.users.concat(res.data.subject)
-          //   this.isLastpage = res.data.isLastPage
-          // }
+          if (res.status === 200) {
+            this.classes = this.classes.concat(res.data.classRooms)
+            this.isLastpage = res.data.isLastPage
+          }
         })
     }
   }

@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <mat-toolbar color="primary" class="__header home justify-content-between">
-            <h1>EduApp</h1>
+            <h1>Classteam</h1>
             <button mat-raised-button (click)="logOut()" class="logOut">Log Out<mat-icon>power_settings_new</mat-icon></button>
         </mat-toolbar>
     </div>
@@ -9,7 +9,7 @@
     <div class="__content_sec">
         <h1 class="comm_title_h1 ">Dashboard</h1>
         <div class="grid-column_set">
-            <div class="periodic_block" matRipple>
+            <div class="periodic_block" matRipple [routerLink]="['/dashboard/class-rooms']">
                 <h2 class="primaryColor">{{classCount && classCount}}</h2>
                 <p>Classroom</p>
             </div>

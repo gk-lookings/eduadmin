@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { TEMPLATE_LIST } from '../config/endpoints';
+import { CLASSROOM_LIST, TEMPLATE_LIST } from '../config/endpoints';
 import { LogOutModelComponent } from '../log-out-model/log-out-model.component';
 import { ApiService } from '../services';
 
@@ -16,17 +16,27 @@ export class HomeComponent implements OnInit {
   constructor(private dialog: MatDialog, private apiService: ApiService,) { }
 
   ngOnInit() {
-    this.fetchList()
+    this.fetchTempList()
+    this.fetchClassList()
   }
   logOut() {
     const abc = this.dialog.open(LogOutModelComponent)
   }
 
-  fetchList() {
+  fetchTempList() {
     let params = { text: '', offset: 0 }
     this.apiService.getResponse('get', TEMPLATE_LIST, params).
       then(res => {
         this.tempCount = res.data.templates.length
+      })
+  }
+  fetchClassList() {
+    let params = { text: '', offset: 0 }
+    this.apiService.getResponse('get', CLASSROOM_LIST, params).
+      then(res => {
+        if (res.status === 200) {
+          this.classCount = res.data.classRooms.length
+        }
       })
   }
 }

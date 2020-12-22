@@ -51,6 +51,7 @@ import { MatNativeDateModule} from '@angular/material';
 
 import { NgxSpinnerModule } from "ngx-spinner";
 import { DateAgoPipe } from './pipe/date-ago.pipe';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 // components
 
@@ -80,7 +81,10 @@ import { TemplateSubjectsComponent } from './template-subjects/template-subjects
 import { ConfirmDeleteModelComponent } from './confirm-delete-model/confirm-delete-model.component';
 import { EditDocumentComponent } from './edit-document/edit-document.component';
 import { EditNoteComponent } from './edit-note/edit-note.component';
-import { EditSectionComponent } from './edit-section/edit-section.component'
+import { EditSectionComponent } from './edit-section/edit-section.component';
+import { ClassRoomListComponent } from './class-room-list/class-room-list.component';
+import { ClassRoomDetailComponent } from './class-room-detail/class-room-detail.component';
+import { ClassSingleComponent } from './class-single/class-single.component'
 
 @NgModule({
   declarations: [
@@ -111,7 +115,10 @@ import { EditSectionComponent } from './edit-section/edit-section.component'
     ConfirmDeleteModelComponent,
     EditDocumentComponent,
     EditNoteComponent,
-    EditSectionComponent
+    EditSectionComponent,
+    ClassRoomListComponent,
+    ClassRoomDetailComponent,
+    ClassSingleComponent
   ],
   imports: [
     BrowserModule,
@@ -154,7 +161,10 @@ import { EditSectionComponent } from './edit-section/edit-section.component'
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger', // set defaults here
+    })
   ],
   entryComponents: [
     CreateSubjectComponent,

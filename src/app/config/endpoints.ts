@@ -4,7 +4,7 @@ const LOGIN                         = HOST + 'auth/login'
 const USER_DETAILS                  = HOST + 'user'
 const USERS_LIST                    = HOST + 'user/list'
 const CLASSROOM_LIST                = HOST + 'class-room/list'
-const CLASSROOM                     = HOST + 'class-room'
+const CLASSROOM                     = HOST + 'class-room/'
 const VERIFY_CLASSROOM              = HOST + "class-room/check"
 
 const EVENTS                        = HOST + 'event'
@@ -22,5 +22,9 @@ export {
     TEMPLATE_LIST,
     TEMPLATE_CREATE,
     GET_TEMPLATE,
-    SUBJECT
+    SUBJECT,
+    USERS_LIST,
+    CLASSROOM_LIST,
+    CLASSROOM
+
 }

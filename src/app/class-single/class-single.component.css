@@ -1,0 +1,62 @@
+.single-temp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 2px 30px;
+    box-shadow: 2px 2px 3px #0002;
+    border-radius: 8px;
+    position: relative;
+    transition: 0.5s;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.single-temp h1 {
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.single-temp img {
+    width: 60px;
+    height: 60px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    margin-right: 20px;
+}
+
+.options {
+    flex: 1;
+    position: absolute;
+    right: 20px;
+    z-index: 111;
+}
+
+.options mat-icon {
+    color: #999;
+    transition: 0.3s;
+}
+
+.options mat-icon:hover {
+    color: #444;
+}
+
+.activate {
+    background: #CC4D4D;
+    border: none;
+    padding: 8px 0px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 3px;
+    font-family: 'Poppins SemiBold';
+    margin: 30px 0;
+    transition: 0.5s;
+    cursor: pointer;
+    width: 145px;
+}
+
+.deactivated {
+    background: #4dccbd !important;
+}

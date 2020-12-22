@@ -19,6 +19,8 @@ import { EditTemplateComponent } from './edit-template/edit-template.component';
 import { TemplateSubjectsComponent } from './template-subjects/template-subjects.component';
 import { EditDocumentComponent } from './edit-document/edit-document.component';
 import { EditNoteComponent } from './edit-note/edit-note.component';
+import { ClassRoomListComponent } from './class-room-list/class-room-list.component';
+import { ClassRoomDetailComponent } from './class-room-detail/class-room-detail.component';
 
 
 const routes: Routes = [
@@ -46,7 +48,10 @@ const routes: Routes = [
       { path: 'curriculam/:subName/:tempId', component: CurriculamComponent },
     
       { path: 'users', component: UsersListComponent },
-      { path: 'user/:id', component: UserDetailComponent },
+      { path: 'user/:userId', component: UserDetailComponent },
+
+      { path: 'class-rooms', component: ClassRoomListComponent },
+      { path: 'class-room/:classId', component: ClassRoomDetailComponent },
 
       { path: 'notes/:subName/:tempId', component: NotesComponent },
       { path: 'create-note/:subName/:tempId', component: CreateNoteComponent },

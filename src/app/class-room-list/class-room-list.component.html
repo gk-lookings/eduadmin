@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <div class="row">
+        <mat-toolbar color="primary" class="__header justify-content-between">
+            <h1 style="font-size: 20px;">
+                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon> Classroom </h1>
+            <!-- <mat-icon>share</mat-icon> -->
+        </mat-toolbar>
+    </div>
+
+
+    <div class="__content_sec">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h1 class="comm_title_small_h1 ">Class roooms</h1>
+            </div>
+
+        </div>
+        <ng-container *ngIf="!isLoading">
+            <div class="row justify-content-start" style="padding-bottom: 35px;">
+                <div class="col-md-8">
+                    <div class="single-temp">
+                        <span style="flex: 3; font-weight: bold;">Classroom</span>
+                        <span style="flex: 3; font-weight: bold;">Class ID</span>
+                        <span style="flex: 2; font-weight: bold;">Strength</span>
+                        <span style="flex: 2; font-weight: bold;">Action</span>
+                    </div>
+                </div>
+                <div class="col-md-8" *ngFor="let item of classes">
+                    <app-class-single [item]="item"></app-class-single>
+                </div>
+            </div>
+        </ng-container>
+        <div class="d-flex justify-content-center align-items-center" style="height: 60vh;" *ngIf="isLoading">
+            <mat-spinner diameter="50"></mat-spinner>
+        </div>
+    </div>
+</div>
