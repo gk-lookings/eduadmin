@@ -25,16 +25,26 @@ export class UsersListComponent implements OnInit {
     if (!this.isLastpage) {
       this.isLoading = true;
       let params = { text: '', offset: this.currentPage }
-      this.apiService.getResponse('get', CLASSROOM_LIST, params).
+      this.apiService.getResponse('get', USERS_LIST, params).
         then(res => {
           this.isLoading = false;
-          console.log("res", res);
+          console.log("useres", res);
           
-          // if (res.status === 200) {
-          //   this.users = this.users.concat(res.data.subject)
-          //   this.isLastpage = res.data.isLastPage
-          // }
+          if (res.status === 200) {
+            this.users = this.users.concat(res.data.users)
+            this.isLastpage = res.data.isLastPage
+          }
         })
+    }
+  }
+
+  @HostListener("window:scroll", ['$event'])
+  scrollMe(event) {
+    if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight)) {
+      if (!this.isLastpage) {
+        this.currentPage++
+        this.fetchList()
+      }
     }
   }
 

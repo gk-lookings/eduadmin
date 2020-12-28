@@ -15,6 +15,8 @@ const TEMPLATE_LIST                 = HOST + 'template/list'
 const TEMPLATE_CREATE               = HOST + 'template'
 const GET_TEMPLATE                  = HOST + 'template/'
 
+const DASHBOARD                     = HOST + 'misc/global-stats'
+
 export {
     HOST,
     LOGIN,
@@ -25,6 +27,7 @@ export {
     SUBJECT,
     USERS_LIST,
     CLASSROOM_LIST,
-    CLASSROOM
+    CLASSROOM,
+    DASHBOARD
 
 }

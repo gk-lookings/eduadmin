@@ -11,7 +11,7 @@
         [popoverTitle]="popoverTitle"
         [popoverMessage]="popoverMessage"
         placement="left"
-        (confirm)="deactivate(item.classRoomId)"
+        (confirm)="deactivate(item._id)"
         (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
     </span>
 </div>

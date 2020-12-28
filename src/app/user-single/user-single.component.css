@@ -1,0 +1,35 @@
+.userSet img {
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
+}
+
+.userSet h1 {
+    font-size: 19px;
+    margin: 0;
+    margin-left: 15px;
+}
+
+.userSet {
+    display: flex;
+    align-items: center;
+    flex: 9;
+}
+
+.activator {
+    background: #CC4D4D;
+    border: none;
+    padding: 8px 0px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 3px;
+    font-family: 'Poppins SemiBold';
+    margin: 15px 0;
+    transition: 0.5s;
+    cursor: pointer;
+    width: 145px;
+}
+
+.deactivator {
+    background: #4dccbd !important;
+}

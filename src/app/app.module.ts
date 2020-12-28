@@ -84,7 +84,8 @@ import { EditNoteComponent } from './edit-note/edit-note.component';
 import { EditSectionComponent } from './edit-section/edit-section.component';
 import { ClassRoomListComponent } from './class-room-list/class-room-list.component';
 import { ClassRoomDetailComponent } from './class-room-detail/class-room-detail.component';
-import { ClassSingleComponent } from './class-single/class-single.component'
+import { ClassSingleComponent } from './class-single/class-single.component';
+import { UserSingleComponent } from './user-single/user-single.component'
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { ClassSingleComponent } from './class-single/class-single.component'
     EditSectionComponent,
     ClassRoomListComponent,
     ClassRoomDetailComponent,
-    ClassSingleComponent
+    ClassSingleComponent,
+    UserSingleComponent
   ],
   imports: [
     BrowserModule,

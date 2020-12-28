@@ -7,33 +7,14 @@
         </mat-toolbar>
     </div>
 
-
-    <div class="__content_sec">
-        <div class="inputField">
-            <input [(ngModel)]="searchkey" required type="text" autocomplete="off" matInput placeholder="Searc user" name="searchkey">
+    <div class="__content_sec" style="padding-bottom: 50px;">
+        <div class="inputField" style="margin-bottom: 2%; margin-top: 9%;">
+            <input [(ngModel)]="searchkey" required type="text" autocomplete="off" matInput placeholder="Search user" name="searchkey" style="padding-right: 50px;">
+            <mat-icon class="searchIcon">search</mat-icon>
         </div>
-
-        <div class="d-flex justify-content-between align-items-center border-bottom mb-2 mt-2 pb-2 pt-2" matRipple>
-            <div class="userSet">
-                <img src="./../../assets/images/user.png" alt="">
-                <h1>Tom Curran</h1>
-            </div>
-            <mat-icon [routerLink]="['/dashboard/user', '123']" routerLinkActive="router-link-active">visibility</mat-icon>
+        <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
+        <div class="d-flex justify-content-center" *ngIf="isLoading">
+            <mat-spinner style="margin:0 auto;" diameter="50"></mat-spinner>
         </div>
-        <div class="d-flex justify-content-between align-items-center border-bottom mb-2 mt-2 pb-2 pt-2" matRipple>
-            <div class="userSet">
-                <img src="./../../assets/images/user.png" alt="">
-                <h1>Tom Curran</h1>
-            </div>
-            <mat-icon [routerLink]="['/dashboard/user', '123']" routerLinkActive="router-link-active">visibility</mat-icon>
-        </div>
-        <div class="d-flex justify-content-between align-items-center border-bottom mb-2 mt-2 pb-2 pt-2" matRipple>
-            <div class="userSet">
-                <img src="./../../assets/images/user.png" alt="">
-                <h1>Tom Curran</h1>
-            </div>
-            <mat-icon [routerLink]="['/dashboard/user', '123']" routerLinkActive="router-link-active">visibility</mat-icon>
-        </div>
-
     </div>
 </div>
