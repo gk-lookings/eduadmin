@@ -21,7 +21,7 @@
             </div>
         </div>
         <h1 class="comm_title_h1" style="margin-bottom: 10px;" *ngIf="classRooms.length > 0">Classrooms</h1>
-        <div style="max-height: 40vh; overflow-y: scroll;" *ngIf="classRooms.length > 0">
+        <div style="max-height: 40vh; overflow-y: auto;" *ngIf="classRooms.length > 0">
             <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom" *ngFor="let item of classRooms">
                 <div class="textT" style="flex: 1;">
                     <img src="{{item && item.logo ? item.logo : './../../assets/images/unavailable.png'}}" alt="">
@@ -37,7 +37,7 @@
         <h1 class="comm_title_h1" *ngIf="actvities.length > 0">Activities</h1>
         <div class="recent_set pb-3">
             <!-- <p>Today</p> -->
-            <ul style="max-height: 40vh; overflow-y: scroll;">
+            <ul style="max-height: 40vh; overflow-y: auto;">
                 <li *ngFor="let item of actvities">
                     <div class="d-flex flex-column">
                         <span><h6 style="margin: 0; margin-right: 5px;">{{item && item.title}}</h6> <i >{{item && item.description}}</i></span>
