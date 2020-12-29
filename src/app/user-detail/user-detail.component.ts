@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CLASSROOM } from '../config/endpoints';
+import { CLASSROOM, ACTIVITY, USER_DETAILS } from '../config/endpoints';
 import { ApiService } from '../services';
 
 @Component({
@@ -19,33 +19,65 @@ export class UserDetailComponent implements OnInit {
   confirmClicked = false;
   cancelClicked = false;
 
+  currentPage = 0
+  actvities =[]
+  isLastpage
+  loadMore = false
+
+  isLoadActvity = false
+
+  classRooms=[]
   userId = this.activatedRoute.snapshot.params['userId'];
 
   constructor(private apiService: ApiService, public _location: Location, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.fetchUserActivity()
+    this.fetchUser()
   }
-  fetchCalss() {
+  fetchUser() {
     this.isLoading = true;
-    let params = {}
-    this.apiService.getResponse('get', CLASSROOM + this.userId, params).
+    let params = {userId : this.userId}
+    this.apiService.getResponse('get', USER_DETAILS, params).
       then(res => {
         this.isLoading = false;
-        console.log("res", res);
         if (res.status === 200) {
-          this.user = res.data
-          this.isActive  = res.data.active
+          this.user = res.data.data
+          this.isActive = res.data.data.active
+          this.classRooms = res.data.data.classRooms
         }
       })
   }
   deactivate() {
     let params = { 'active': !this.isActive }
-    this.apiService.getResponse('put', CLASSROOM + this.userId, params).
+    this.apiService.getResponse('put', USER_DETAILS +'/'+this.userId, params).
       then(res => {
         if (res.status === 200) {
           this.isActive = !this.isActive
         }
       })
+  }
+
+  fetchUserActivity() {
+    if(!this.isLastpage){
+      this.isLoadActvity = true
+    let params = { userId: this.userId, offset: this.currentPage }
+    this.apiService.getResponse('get', ACTIVITY, params).
+      then(res => {
+        if (res.status === 200) {
+          this.isLoadActvity = false
+          this.actvities = this.actvities.concat(res.data.activity)
+          this.isLastpage = res.data.isLastPage
+          if(!res.data.isLastPage)
+          this.loadMore = true
+        }
+      })
+    }
+  }
+  showMore()
+  {
+    this.currentPage++
+    this.fetchUserActivity()
   }
 
 }

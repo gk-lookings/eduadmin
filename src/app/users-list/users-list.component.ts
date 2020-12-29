@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CLASSROOM_LIST, USERS_LIST } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 
@@ -10,12 +12,25 @@ import { ApiService, AuthenticationService } from '../services';
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
-  searchkey
+  searchkey=''
   isLoading = true
   users = []
   isLastpage = false
   currentPage = 0
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) { }
+
+  txtQueryChanged = new Subject<string>();
+  
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) {
+    this.txtQueryChanged.pipe(debounceTime(1000), distinctUntilChanged())
+            .subscribe(model => {
+              this.searchkey = model;
+              this.users= []
+              this.isLastpage = false
+              this.currentPage = 0
+              this.isLoading = false
+              this.fetchList()
+             });
+   }
 
   ngOnInit() {
     this.fetchList()
@@ -24,12 +39,10 @@ export class UsersListComponent implements OnInit {
   fetchList() {
     if (!this.isLastpage) {
       this.isLoading = true;
-      let params = { text: '', offset: this.currentPage }
+      let params = { text: this.searchkey, offset: this.currentPage }
       this.apiService.getResponse('get', USERS_LIST, params).
         then(res => {
           this.isLoading = false;
-          console.log("useres", res);
-          
           if (res.status === 200) {
             this.users = this.users.concat(res.data.users)
             this.isLastpage = res.data.isLastPage
@@ -37,6 +50,11 @@ export class UsersListComponent implements OnInit {
         })
     }
   }
+
+  searchResults(query:string) {
+    this.txtQueryChanged.next(query);
+  }
+
 
   @HostListener("window:scroll", ['$event'])
   scrollMe(event) {

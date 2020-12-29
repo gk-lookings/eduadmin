@@ -8,31 +8,48 @@
 
 
     <div class="__content_sec">
-        <div class="d-flex justify-content-between align-items-center mb-4 pt-4">
-            <h1 class="comm_title_small_h1 " style="margin: 0;">Details </h1>
-            <button class="inputSubmit" style="background-color: brown; margin: 0;">Deactivate</button>
-        </div>
-        <p>Joined On : <b>26 Sep 2020</b></p>
-        <p>Status : <b>Active</b></p>
-        <h1 class="comm_title_h1">Classrooms</h1>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="textT">
-                <img src="./../../assets/images/user.png" alt="">
-                <h1>Cusat cse s6</h1>
+        <div class="d-flex justify-content-between align-items-start mb-4 pt-4">
+            <div>
+                <h1 class="comm_title_small_h1 " style="margin-bottom: 30px;">Details </h1>
+                <p>Name : <b>{{user && user.firstName}} {{user && user.lastName}}</b></p>
+                <p>Email : <b>{{user && user.email}}</b></p>
+                <p>Joined On : <b>{{user && user.createdAt | dateAgo}}</b></p>
+                <p>Status : <b>{{isActive ? 'Active' : 'In Active'}}</b></p>
             </div>
-            <div class="action">
-                <p>Admin</p>
-                <mat-icon>visibility</mat-icon>
+            <div>
+                <button class="activate" style="margin: 0;" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
             </div>
         </div>
-        <h1 class="comm_title_h1">Activities</h1>
-        <div class="recent_set">
-            <p>Today</p>
-            <ul>
-                <li>Cusat cse s6 template created</li>
-                <li>User tom@gmail.com is deactivated</li>
-                <li>New classroom iitcses6madras created </li>
+        <h1 class="comm_title_h1" style="margin-bottom: 10px;" *ngIf="classRooms.length > 0">Classrooms</h1>
+        <div style="max-height: 40vh; overflow-y: scroll;" *ngIf="classRooms.length > 0">
+            <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom" *ngFor="let item of classRooms">
+                <div class="textT" style="flex: 1;">
+                    <img src="{{item && item.logo ? item.logo : './../../assets/images/unavailable.png'}}" alt="">
+                    <h1>{{item && item.name}}</h1>
+                </div>
+                <span style="flex: 1;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>
+                <span style="flex: 1;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.members.length}} nos</span>
+                <div style="flex: 1;" class="action">
+                    <mat-icon [routerLink]="['/dashboard/class-room', item._id]">visibility</mat-icon>
+                </div>
+            </div>
+        </div>
+        <h1 class="comm_title_h1" *ngIf="actvities.length > 0">Activities</h1>
+        <div class="recent_set pb-3">
+            <!-- <p>Today</p> -->
+            <ul style="max-height: 40vh; overflow-y: scroll;">
+                <li *ngFor="let item of actvities">
+                    <div class="d-flex flex-column">
+                        <span><h6 style="margin: 0; margin-right: 5px;">{{item && item.title}}</h6> <i >{{item && item.description}}</i></span>
+                        <span style="font-size: 14px;">{{item && item.createdAt | dateAgo}}</span>
+                    </div>
+                </li>
             </ul>
+            <div *ngIf="isLoadActvity">
+                <mat-spinner style="margin:0 auto;" diameter="50"></mat-spinner>
+            </div>
+            <a (click)="showMore()" *ngIf="loadMore">Load More</a>
+
         </div>
     </div>
 </div>

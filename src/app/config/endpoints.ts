@@ -3,6 +3,8 @@ const LOGIN                         = HOST + 'auth/login'
 
 const USER_DETAILS                  = HOST + 'user'
 const USERS_LIST                    = HOST + 'user/list'
+const ACTIVITY                      = HOST + 'activity'
+
 const CLASSROOM_LIST                = HOST + 'class-room/list'
 const CLASSROOM                     = HOST + 'class-room/'
 const VERIFY_CLASSROOM              = HOST + "class-room/check"
@@ -28,6 +30,8 @@ export {
     USERS_LIST,
     CLASSROOM_LIST,
     CLASSROOM,
-    DASHBOARD
+    DASHBOARD,
+    ACTIVITY,
+    USER_DETAILS
 
 }

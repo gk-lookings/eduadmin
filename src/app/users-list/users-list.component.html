@@ -9,7 +9,7 @@
 
     <div class="__content_sec" style="padding-bottom: 50px;">
         <div class="inputField" style="margin-bottom: 2%; margin-top: 9%;">
-            <input [(ngModel)]="searchkey" required type="text" autocomplete="off" matInput placeholder="Search user" name="searchkey" style="padding-right: 50px;">
+            <input [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search user" name="searchkey" style="padding-right: 50px;">
             <mat-icon class="searchIcon">search</mat-icon>
         </div>
         <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
