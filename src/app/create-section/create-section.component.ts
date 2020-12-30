@@ -33,7 +33,6 @@ export class CreateSectionComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public ids: any, public dialogRef: MatDialogRef<CreateSectionComponent>) { }
 
   ngOnInit() {
-    console.log("ids", this.ids);
     this.fetchTemplate()
   }
 

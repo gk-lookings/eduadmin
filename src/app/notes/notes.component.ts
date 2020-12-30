@@ -53,7 +53,6 @@ export class NotesComponent implements OnInit {
       })
   }
   editNote(item) {
-    console.log("item", item);
   }
 
   deleteTemp(item, i) {

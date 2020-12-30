@@ -8,11 +8,15 @@
     </div>
 
     <div class="__content_sec" style="padding-bottom: 50px;">
-        <div class="inputField" style="margin-bottom: 2%; margin-top: 9%;">
-            <input [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search user" name="searchkey" style="padding-right: 50px;">
-            <mat-icon class="searchIcon">search</mat-icon>
+        <div class="tpSec">
+            <div class="inputField" style="margin-bottom: 15px; margin-top: 110px;">
+                <input [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search user" name="searchkey" style="padding-right: 50px;">
+                <mat-icon class="searchIcon">search</mat-icon>
+            </div>
         </div>
-        <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
+        <div style="padding-bottom: 35px; padding-top: 80px;">
+            <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
+        </div>
         <div class="d-flex justify-content-center" *ngIf="isLoading">
             <mat-spinner style="margin:0 auto;" diameter="50"></mat-spinner>
         </div>

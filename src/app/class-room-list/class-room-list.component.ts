@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CLASSROOM_LIST } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 @Component({
@@ -9,21 +11,36 @@ import { ApiService, AuthenticationService } from '../services';
   styleUrls: ['./class-room-list.component.css']
 })
 export class ClassRoomListComponent implements OnInit {
-  searchkey
+  searchkey=''
   isLoading = true
   classes = []
   isLastpage = false
   currentPage = 0
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) { }
+  txtQueryChanged = new Subject<string>();
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) {
+    this.txtQueryChanged.pipe(debounceTime(1000), distinctUntilChanged())
+    .subscribe(model => {
+      this.searchkey = model;
+      this.classes= []
+      this.isLastpage = false
+      this.currentPage = 0
+      this.isLoading = false
+      this.fetchList()
+     });
+   }
 
   ngOnInit() {
     this.fetchList()
   }
 
+  searchResults(query:string) {
+    this.txtQueryChanged.next(query);
+  }
+
   fetchList() {
     if (!this.isLastpage) {
       this.isLoading = true;
-      let params = { text: '', offset: this.currentPage }
+      let params = { text: this.searchkey, offset: this.currentPage }
       this.apiService.getResponse('get', CLASSROOM_LIST, params).
         then(res => {
           this.isLoading = false;
@@ -32,6 +49,16 @@ export class ClassRoomListComponent implements OnInit {
             this.isLastpage = res.data.isLastPage
           }
         })
+    }
+  }
+
+  @HostListener("window:scroll", ['$event'])
+  scrollMe(event) {
+    if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight)) {
+      if (!this.isLastpage) {
+        this.currentPage++
+        this.fetchList()
+      }
     }
   }
 

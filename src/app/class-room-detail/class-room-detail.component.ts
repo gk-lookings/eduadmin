@@ -36,7 +36,6 @@ export class ClassRoomDetailComponent implements OnInit {
     this.apiService.getResponse('get', CLASSROOM + this.classId, params).
       then(res => {
         this.isLoading = false;
-        console.log("res", res);
         if (res.status === 200) {
           this.class = res.data
           this.isActive  = res.data.active

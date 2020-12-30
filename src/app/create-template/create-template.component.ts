@@ -59,7 +59,6 @@ export class CreateTemplateComponent implements OnInit {
         const formData = new FormData();
         formData.append('file', this.files[0]);
         this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/template/logo/' + this.tempId + '.' + re.exec(this.files[0].name)[1], formData).then(res => {
-          console.log("Image", res);
           image = res.data.imageURL
           if(res.status === 200){
             let params = {

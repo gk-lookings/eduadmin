@@ -3,3 +3,14 @@
     right: 15px;
     top: 15px;
 }
+
+.tpSec {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 0 50px;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+}

@@ -16,7 +16,7 @@
     position: relative;
     transition: 0.5s;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 25px 0;
 }
 
 .single-temp h1 {
@@ -48,4 +48,21 @@
 
 .options mat-icon:hover {
     color: #444;
+}
+
+.searchIcon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.tpSec {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 0 50px;
+    top: 0;
+    background: #fff;
+    z-index: 1;
 }

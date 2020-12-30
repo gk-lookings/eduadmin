@@ -45,14 +45,11 @@ export class DocumentListComponent implements OnInit {
           }
           if(this.documents.length == 0)
           this.isEmpty = true
-          console.log("documents", this.documents);
           
         }
       })
   }
   editDocument(item) {
-console.log("item", item);
-
   }
 
   deleteTemp(item, i) {
