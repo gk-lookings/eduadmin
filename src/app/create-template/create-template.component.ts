@@ -4,10 +4,14 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { HOST, LOGIN, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
+import { FILTER, HOST, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
 
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { MatDialog } from '@angular/material';
+import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 
 @Component({
   selector: 'app-create-template',
@@ -23,14 +27,15 @@ export class CreateTemplateComponent implements OnInit {
   success: boolean;
   tempIdControl = new FormControl('', [Validators.required]);
   tempNameFormControl = new FormControl('', Validators.required);
+  boardFormControl = new FormControl('', Validators.required);
 
   createTemplateForm: FormGroup = new FormGroup({
     tempId: this.tempIdControl,
-    tempName: this.tempNameFormControl
+    tempName: this.tempNameFormControl,
+    board:this.boardFormControl
   });
 
   files: any[] = [];
-
 
   visible = true;
   selectable = true;
@@ -44,11 +49,211 @@ export class CreateTemplateComponent implements OnInit {
   categorys = [];
   subSelected = [];
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient) { }
+  dropdownList = [];
+  selectedItems=[];
+  dropdownSettings: IDropdownSettings = {};
+  filterId
+  board
+
+
+  isDepartment
+  isClass
+  isSemester
+  isGrade
+
+
+
+  departments = [];
+  departmentArray = []
+
+  classes = [];
+  classArray = []
+
+  semesters = [];
+  semesterArray = []
+
+  grades = [];
+  gradesArray = []
+
+  selectedIndexs = []
+
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
     // this.getSubjects();
-    
+    this.dropdownSettings = {
+      singleSelection: true,
+      idField: 'id',
+      textField: 'board',
+      defaultOpen: false,
+      allowSearchFilter: false
+    };
+
+    this.getFIlterItems()
+  }
+
+  createBoard(){
+    const open = this.dialog.open(FilterAddModelComponent, { data: 'Board/University', disableClose: true }).afterClosed().subscribe(result => {
+      if (result)
+        {
+          let params = {
+            "board": result,
+          }
+          this.apiService.getResponse('post', FILTER, params).
+            then(res => {
+              if (res.status === 200) {
+                this.getFIlterItems()
+              }
+            })
+        }
+      
+    })
+  }
+
+  createArray(type, obj, i) {
+    if (type == 'department') {
+      if (!this.departmentArray.includes(obj)) {
+        this.departmentArray.push(obj);
+        (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.add('add')
+      }
+      else {
+        let index = this.departmentArray.findIndex(element => element == obj)
+        this.departmentArray.splice(index, 1);
+        (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.remove('add')
+      }
+    }
+    if (type == 'class') {
+      if (!this.classArray.includes(obj)) {
+        this.classArray.push(obj);
+        (<HTMLInputElement>document.getElementById("classId_" + i)).classList.add('add')
+      }
+      else {
+        let index = this.classArray.findIndex(element => element == obj);
+        this.classArray.splice(index, 1);
+        (<HTMLInputElement>document.getElementById("classId_" + i)).classList.remove('add')
+      }
+    }
+    if (type == 'semester') {
+      if (!this.semesterArray.includes(obj)) {
+        this.semesterArray.push(obj);
+        (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.add('add')
+      }
+      else {
+        let index = this.semesterArray.findIndex(element => element == obj)
+        this.semesterArray.splice(index, 1);
+        (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.remove('add')
+      }
+    }
+    if (type == 'grades') {
+      if (!this.gradesArray.includes(obj)) {
+        this.gradesArray.push(obj);
+        (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.add('add')
+      }
+      else {
+        let index = this.gradesArray.findIndex(element => element == obj);
+        this.gradesArray.splice(index, 1);
+        (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.remove('add')
+      }
+    }
+  }
+
+  addFilterElement(type) {
+    if (type == 'department') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.departments.push(result)
+            let params = {
+              department : this.departments,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
+    if (type == 'class') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.classes.push(result)
+            let params = {
+              class : this.classes,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
+    if (type == 'semester') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.semesters.push(result)
+            let params = {
+              semester : this.semesters,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
+    if (type == 'grade') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.grades.push(result)
+            let params = {
+              grade : this.grades,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
+  }
+
+  getFIlterItems(){
+    let params = {}
+    this.apiService.getResponse('get', FILTER, params).
+      then(res => {
+        if (res.status === 200) {
+        console.log("resulrt  filt", res);
+        this.dropdownList = res.data.filters
+        }
+      })
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+    this.filterId = item.id
+    this.board = item.board
+    for (let i = 0; i < this.dropdownList.length; i++) {
+      const element = this.dropdownList[i];
+      if(element.id == item.id)
+      {
+        this.departments = this.dropdownList[i].department
+        this.classes = this.dropdownList[i].class;
+        this.semesters = this.dropdownList[i].semester;
+        this.grades = this.dropdownList[i].grade
+      }
+    }    
+
   }
 
   submitForm() {
@@ -56,46 +261,59 @@ export class CreateTemplateComponent implements OnInit {
     var image
     var re = /(?:\.([^.]+))?$/;
     if (this.files.length != 0) {
-        const formData = new FormData();
-        formData.append('file', this.files[0]);
-        this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/template/logo/' + this.tempId + '.' + re.exec(this.files[0].name)[1], formData).then(res => {
-          image = res.data.imageURL
-          if(res.status === 200){
-            let params = {
-              "templateId": this.tempId,
-              "name": this.tempName,
-              "descriptionTags": this.tags,
-              "logo" : image
+      const formData = new FormData();
+      formData.append('file', this.files[0]);
+      this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/template/logo/' + this.tempId + '.' + re.exec(this.files[0].name)[1], formData).then(res => {
+        image = res.data.imageURL
+        if (res.status === 200) {
+          let params = {
+            "templateId": this.tempId,
+            "name": this.tempName,
+            "descriptionTags": this.tags,
+            "logo": image,
+            "filters" : {
+              "board": this.board,
+              "department": JSON.stringify(this.departmentArray),
+              "semester": JSON.stringify(this.semesterArray),
+              "grade": JSON.stringify(this.gradesArray),
+              "class": JSON.stringify(this.classArray),
             }
-            this.apiService.getResponse('post', TEMPLATE_CREATE, params).
-              then(res => {
-                this.isLoading = false;
-                if (res.status === 200) {
-                  this.success = true
-                  this.responseMessage = 'Template created succefully..!'
-                  setTimeout(() => {
-                    this.responseMessage = ''
-                  }, 3000);
-                  this.tags = []
-                  this.files = []
-                  this.createTemplateForm.reset();
-                }
-                else {
-                  this.responseMessage = res.error.message
-                }
-              })
           }
-        }).catch(err => {
-          this.isLoading = false
-          console.log("error", err);
-        })
+          this.apiService.getResponse('post', TEMPLATE_CREATE, params).
+            then(res => {
+              this.isLoading = false;
+              if (res.status === 200) {
+                this.success = true
+                this.responseMessage = 'Template created succefully..!'
+                setTimeout(() => {
+                  this.responseMessage = ''
+                }, 3000);
+                this.tags = []
+                this.files = []
+                this.createTemplateForm.reset();
+              }
+              else {
+                this.responseMessage = res.error.message
+              }
+            })
+        }
+      }).catch(err => {
+        this.isLoading = false
+        console.log("error", err);
+      })
     }
-    else
-    {
+    else {
       let params = {
         "templateId": this.tempId,
         "name": this.tempName,
         "descriptionTags": this.tags,
+        "filters" : {
+          "board": this.board,
+          "department": JSON.stringify(this.departmentArray),
+          "semester": JSON.stringify(this.semesterArray),
+          "grade": JSON.stringify(this.gradesArray),
+          "class": JSON.stringify(this.classArray),
+        }
       }
       this.apiService.getResponse('post', TEMPLATE_CREATE, params).
         then(res => {
@@ -108,6 +326,7 @@ export class CreateTemplateComponent implements OnInit {
             }, 3000);
             this.tags = []
             this.files = []
+            this.selectedItems= []
             this.createTemplateForm.reset();
           }
           else {
@@ -156,15 +375,15 @@ export class CreateTemplateComponent implements OnInit {
 
   }
 
-  getSubjects(){
+  getSubjects() {
     let params = { text: '', offset: 0 }
-      this.apiService.getResponse('get', SUBJECT, params).
-        then(res => {
-          this.isLoading = false;
-          if (res.status === 200) {
-            this.subjects = res.data.subject
-          }
-        })
+    this.apiService.getResponse('get', SUBJECT, params).
+      then(res => {
+        this.isLoading = false;
+        if (res.status === 200) {
+          this.subjects = res.data.subject
+        }
+      })
   }
 
   getNameErrorMessage() {
@@ -174,6 +393,11 @@ export class CreateTemplateComponent implements OnInit {
 
   getIDErrorMessage() {
     return this.tempIdControl.hasError('required') ? '*You must enter a value' :
+      '';
+  }
+
+  getBoardErrorMessage() {
+    return this.boardFormControl.hasError('required') ? '*You must select an option' :
       '';
   }
 

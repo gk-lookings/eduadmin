@@ -1,0 +1,16 @@
+<div class="filtClasBlk">
+    <h4 style="margin: 3% 0;">Create {{data && data}}</h4>
+    <div class="contentSec">
+        <form name="createForm" [formGroup]="createForm" style="width: 100%;">
+            <div class="inputField" style="text-align: left;margin: 3% 0;">
+                <label for="tempId">Title*</label>
+                <input [(ngModel)]="title" autocomplete="off" required name="title" [formControl]="titleFormControl" matInput placeholder="Name">
+                <p class="errorInput" [ngClass]="(titleFormControl.invalid && (titleFormControl.dirty || titleFormControl.touched)) ? 'errorShow' : ''" *ngIf="titleFormControl.invalid && (titleFormControl.dirty || titleFormControl.touched)">{{getNameErrorMessage()}}</p>
+            </div>
+        </form>
+    </div>
+    <div class="actionSecr">
+        <div><a class="cancelBut" (click)="close()">Close</a></div>
+        <div class="confirmBut"><a class="inpuS" (click)="submit()">Submit</a></div>
+    </div>
+</div>

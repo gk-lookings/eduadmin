@@ -52,6 +52,7 @@ import { MatNativeDateModule} from '@angular/material';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { DateAgoPipe } from './pipe/date-ago.pipe';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 // components
 
@@ -85,7 +86,8 @@ import { EditSectionComponent } from './edit-section/edit-section.component';
 import { ClassRoomListComponent } from './class-room-list/class-room-list.component';
 import { ClassRoomDetailComponent } from './class-room-detail/class-room-detail.component';
 import { ClassSingleComponent } from './class-single/class-single.component';
-import { UserSingleComponent } from './user-single/user-single.component'
+import { UserSingleComponent } from './user-single/user-single.component';
+import { FilterAddModelComponent } from './filter-add-model/filter-add-model.component'
 
 @NgModule({
   declarations: [
@@ -120,7 +122,8 @@ import { UserSingleComponent } from './user-single/user-single.component'
     ClassRoomListComponent,
     ClassRoomDetailComponent,
     ClassSingleComponent,
-    UserSingleComponent
+    UserSingleComponent,
+    FilterAddModelComponent
   ],
   imports: [
     BrowserModule,
@@ -166,14 +169,16 @@ import { UserSingleComponent } from './user-single/user-single.component'
     NgxSpinnerModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here
-    })
+    }),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   entryComponents: [
     CreateSubjectComponent,
     CreateSectionComponent,
     LogOutModelComponent,
     ConfirmDeleteModelComponent,
-    EditSectionComponent
+    EditSectionComponent,
+    FilterAddModelComponent
   ],
   providers: 
     [

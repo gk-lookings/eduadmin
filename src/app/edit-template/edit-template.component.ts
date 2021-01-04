@@ -4,12 +4,15 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GET_TEMPLATE, HOST, LOGIN, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
+import { FILTER, GET_TEMPLATE, HOST, LOGIN, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
 
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { MatDialog } from '@angular/material';
+import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 
 @Component({
   selector: 'app-edit-template',
@@ -23,12 +26,15 @@ export class EditTemplateComponent implements OnInit {
   responseMessage: string;
   isLoading: boolean;
   success: boolean;
+
   tempIdControl = new FormControl('', [Validators.required]);
   tempNameFormControl = new FormControl('', Validators.required);
+  boardFormControl = new FormControl('', Validators.required);
 
   createTemplateForm: FormGroup = new FormGroup({
     tempId: this.tempIdControl,
-    tempName: this.tempNameFormControl
+    tempName: this.tempNameFormControl,
+    board:this.boardFormControl
   });
 
   files: any[] = [];
@@ -42,10 +48,215 @@ export class EditTemplateComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   tags = [];
   logo
-  constructor(private apiService: ApiService, private router: Router, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute) { }
+
+
+  
+  dropdownList = [];
+  selectedItems=[];
+  dropdownSettings: IDropdownSettings = {};
+  filterId
+  board
+
+
+  isDepartment
+  isClass
+  isSemester
+  isGrade
+
+
+
+  departments = [];
+  departmentArray = []
+
+  classes = [];
+  classArray = []
+
+  semesters = [];
+  semesterArray = []
+
+  grades = [];
+  gradesArray = []
+
+  selectedIndexs = []
+
+
+
+  constructor(private apiService: ApiService, private router: Router, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getDetail()
+    this.dropdownSettings = {
+      singleSelection: true,
+      idField: 'id',
+      textField: 'board',
+      defaultOpen: false,
+      allowSearchFilter: false
+    };
+    this.getFIlterItems()
+  }
+
+  createBoard(){
+    const open = this.dialog.open(FilterAddModelComponent, { data: 'Board/University', disableClose: true }).afterClosed().subscribe(result => {
+      if (result)
+        {
+          let params = {
+            "board": result,
+          }
+          this.apiService.getResponse('post', FILTER, params).
+            then(res => {
+              if (res.status === 200) {
+                this.getFIlterItems()
+              }
+            })
+        }
+      
+    })
+  }
+
+  createArray(type, obj, i) {
+    if (type == 'department') {
+      if (!this.departmentArray.includes(obj)) {
+        this.departmentArray.push(obj);
+        (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.add('add')
+      }
+      else {
+        let index = this.departmentArray.findIndex(element => element == obj)
+        this.departmentArray.splice(index, 1);
+        (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.remove('add')
+      }
+    }
+    if (type == 'class') {
+      if (!this.classArray.includes(obj)) {
+        this.classArray.push(obj);
+        (<HTMLInputElement>document.getElementById("classId_" + i)).classList.add('add')
+      }
+      else {
+        let index = this.classArray.findIndex(element => element == obj);
+        this.classArray.splice(index, 1);
+        (<HTMLInputElement>document.getElementById("classId_" + i)).classList.remove('add')
+      }
+    }
+    if (type == 'semester') {
+      if (!this.semesterArray.includes(obj)) {
+        this.semesterArray.push(obj);
+        (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.add('add')
+      }
+      else {
+        let index = this.semesterArray.findIndex(element => element == obj)
+        this.semesterArray.splice(index, 1);
+        (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.remove('add')
+      }
+    }
+    if (type == 'grades') {
+      if (!this.gradesArray.includes(obj)) {
+        this.gradesArray.push(obj);
+        (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.add('add')
+      }
+      else {
+        let index = this.gradesArray.findIndex(element => element == obj);
+        this.gradesArray.splice(index, 1);
+        (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.remove('add')
+      }
+    }
+  }
+
+  addFilterElement(type) {
+    if (type == 'department') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.departments.push(result)
+            let params = {
+              department : this.departments,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
+    if (type == 'class') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.classes.push(result)
+            let params = {
+              class : this.classes,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
+    if (type == 'semester') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.semesters.push(result)
+            let params = {
+              semester : this.semesters,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
+    if (type == 'grade') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.grades.push(result)
+            let params = {
+              grade : this.grades,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
+  }
+
+  getFIlterItems(){
+    let params = {}
+    this.apiService.getResponse('get', FILTER, params).
+      then(res => {
+        if (res.status === 200) {
+        console.log("resulrt  filt", res);
+        this.dropdownList = res.data.filters
+        }
+      })
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+    this.filterId = item.id
+    this.board = item.board
+    for (let i = 0; i < this.dropdownList.length; i++) {
+      const element = this.dropdownList[i];
+      if(element.id == item.id)
+      {
+        this.departments = this.dropdownList[i].department
+        this.classes = this.dropdownList[i].class;
+        this.semesters = this.dropdownList[i].semester;
+        this.grades = this.dropdownList[i].grade
+      }
+    }    
+
   }
 
   getDetail() {
@@ -60,6 +271,7 @@ export class EditTemplateComponent implements OnInit {
           this.tempId = res.data.templateId
           this.tags = res.data.descriptionTags
           this.logo = res.data.logo
+          this.selectedItems = res.data.filters
         }
       })
   }
@@ -143,6 +355,12 @@ export class EditTemplateComponent implements OnInit {
 
   getIDErrorMessage() {
     return this.tempIdControl.hasError('required') ? '*You must enter a value' :
+      '';
+  }
+
+
+  getBoardErrorMessage() {
+    return this.boardFormControl.hasError('required') ? '*You must select an option' :
       '';
   }
 

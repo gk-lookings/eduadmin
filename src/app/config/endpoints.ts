@@ -19,6 +19,9 @@ const GET_TEMPLATE                  = HOST + 'template/'
 
 const DASHBOARD                     = HOST + 'misc/global-stats'
 
+const FILTER                        = HOST + 'filter'
+
+
 export {
     HOST,
     LOGIN,
@@ -32,6 +35,7 @@ export {
     CLASSROOM,
     DASHBOARD,
     ACTIVITY,
-    USER_DETAILS
+    USER_DETAILS,
+    FILTER
 
 }

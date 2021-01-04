@@ -10,3 +10,113 @@
  ::ng-deep .temPlateFrm .mat-spinner circle {
     stroke: #ffffff;
 }
+
+.inputFieldSelect {
+    margin: 7% 0;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+::ng-deep .inputFieldSelect .multiselect-dropdown .dropdown-btn {
+    display: flex !important;
+    border: 2px solid #4DCCBD !important;
+    align-items: center !important;
+    height: 55px !important;
+}
+
+::ng-deep .inputFieldSelect .multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret {
+    width: 45px !important;
+    height: 55px !important;
+}
+
+::ng-deep .inputFieldSelect .multiselect-dropdown .dropdown-btn .selected-item {
+    border: none !important;
+    background: transparent !important;
+    color: #888 !important;
+    margin-right: 10px !important;
+}
+
+::ng-deep .inputFieldSelect .multiselect-dropdown .dropdown-btn .selected-item a {
+    color: #313030 !important;
+    font-size: 17px;
+}
+
+::ng-deep .inputFieldSelect .multiselect-dropdown .dropdown-btn .selected-item:hover {
+    box-shadow: none !important;
+}
+
+.inputFieldSelect label {
+    font-family: 'Poppins SemiBold';
+    font-size: 16px;
+    margin: 0;
+}
+
+.inputFieldSelect button {
+    border: navajowhite;
+    background: #4dccbd;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px 15px;
+    margin-left: 20px;
+}
+
+::ng-deep .inputFieldSelect .multiselect-item-checkbox input[type=checkbox]:checked+div:before {
+    background: #4dccbd !important;
+}
+
+::ng-deep .inputFieldSelect .multiselect-item-checkbox input[type=checkbox]+div:before {
+    color: #4dccbd !important;
+    border: 2px solid #4dccbd !important;
+}
+
+.filterSec a {
+    margin-right: 10px;
+    background: white;
+    border: 2px solid #4DCCBD;
+    border-radius: 3px;
+    padding: 5px 15px;
+    color: #07b39f;
+    float: left;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.filterSec a:hover {
+    text-decoration: none;
+}
+
+.filterSec {
+    display: inline-block;
+    padding: 10px;
+}
+
+.add {
+    background: #4dccbd !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.highLightGreen {
+    background: #4dccbd !important;
+    color: #fff !important;
+}
+
+.sm {
+    font-size: 14px;
+}
+
+.smD mat-icon {
+    font-size: 11px;
+    height: 18px;
+    width: 18px;
+    margin-left: 10px;
+    color: #fff;
+    background: #848080;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

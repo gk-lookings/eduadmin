@@ -24,13 +24,13 @@
                     </div>
                 </div>
                 <div class="col-md-8" *ngFor="let item of templates">
-                    <div class="single-temp" matRipple [routerLink]="['/dashboard/template/subject', item._id]">
-                        <div class="d-flex align-items-center" style="flex: 3;">
+                    <div class="single-temp" matRipple>
+                        <div class="d-flex align-items-center" style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">
                             <img src="{{item && item.logo}}" alt="">
                             <h1>{{item && item.name}}</h1>
                         </div>
-                        <span style="flex: 3;">{{item && item.templateId}}</span>
-                        <span style="flex: 3;">{{item && item.createdAt | dateAgo}}</span>
+                        <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.templateId}}</span>
+                        <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.createdAt | dateAgo}}</span>
                         <span style="flex: 1;"></span>
                         <div class="d-flex align-items-center options" style="flex:1">
                             <mat-icon style="margin-left: 20px;" [routerLink]="['/dashboard/edit-template', item._id]" #tooltip="matTooltip" matTooltip="Edit">edit</mat-icon>
