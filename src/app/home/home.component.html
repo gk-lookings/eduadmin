@@ -34,18 +34,18 @@
                 <li>User tom@gmail.com is deactivated</li>
                 <li>New classroom iitcses6madras created </li>
             </ul> -->
-            <ul style="max-height: 40vh; overflow-y: auto;">
+            <ul style="max-height: 40vh; overflow-y: auto; padding-bottom: 30px;">
                 <li *ngFor="let item of actvities">
                     <div class="d-flex flex-column">
                         <span><h6 style="margin: 0; margin-right: 5px;">{{item && item.title}}</h6> <i >{{item && item.description}}</i></span>
                         <span style="font-size: 14px;">{{item && item.createdAt | dateAgo}}</span>
                     </div>
                 </li>
+                <div *ngIf="isLoadActvity">
+                    <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+                </div>
+                <a class="ldmr" (click)="showMore()" *ngIf="loadMore">Load More</a>
             </ul>
-            <div *ngIf="isLoadActvity">
-                <mat-spinner style="margin:0 auto;" diameter="50"></mat-spinner>
-            </div>
-            <a (click)="showMore()" *ngIf="loadMore">Load More</a>
 
 
         </div>

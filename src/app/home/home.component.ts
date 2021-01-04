@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit {
   }
   showMore()
   {
+    this.loadMore= false
     this.currentPage++
     this.fetchGlobalActivity()
   }

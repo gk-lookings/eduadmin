@@ -16,7 +16,7 @@
                 <p class="comm_sub_title_small_p ">Status : <b>{{class && class.active ? 'Active' : 'In Active'}}</b></p>
             </div>
             <div>
-                <button class="activate" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
+                <button class="activates" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
             </div>
         </div>
         <h1 class="comm_title_small_h1 " *ngIf="class.about">About</h1>

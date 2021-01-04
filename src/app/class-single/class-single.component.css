@@ -10,6 +10,7 @@
     transition: 0.5s;
     cursor: pointer;
     margin: 10px 0;
+    height: 90px;
 }
 
 .single-temp h1 {
@@ -51,7 +52,6 @@
     font-size: 18px;
     border-radius: 3px;
     font-family: 'Poppins SemiBold';
-    margin: 30px 0;
     transition: 0.5s;
     cursor: pointer;
     width: 145px;
@@ -59,4 +59,10 @@
 
 .deactivated {
     background: #4dccbd !important;
+}
+
+.setup {
+    display: flex;
+    height: 100%;
+    align-items: center;
 }
