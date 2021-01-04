@@ -272,6 +272,8 @@ export class EditTemplateComponent implements OnInit {
           this.tags = res.data.descriptionTags
           this.logo = res.data.logo
           this.selectedItems = res.data.filters
+          console.log('sele', this.selectedItems);
+          
         }
       })
   }

@@ -3,7 +3,7 @@
         <mat-toolbar color="primary" class="__header justify-content-between">
             <h1 style="font-size: 20px;">
                 <mat-icon matRipple (click)="_location.back()" title="Go Back">keyboard_arrow_left</mat-icon>{{class && class.name}} </h1>
-            <img *ngIf="!isLoading" class="logoIm" src="{{class && class.logo ? class.logo : './../../assets/images/unavailable.png'}}" alt="">
+            <img *ngIf="!isLoading" class="logoIm" src="{{class && class.logo ? class.logo : './assets/images/unavailable.png'}}" alt="">
         </mat-toolbar>
     </div>
 

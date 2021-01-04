@@ -33,3 +33,8 @@
 .deactivator {
     background: #4dccbd !important;
 }
+
+.deactivated {
+    background: #888 !important;
+    cursor: not-allowed;
+}

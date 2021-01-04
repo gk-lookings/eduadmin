@@ -3,7 +3,10 @@ const LOGIN                         = HOST + 'auth/login'
 
 const USER_DETAILS                  = HOST + 'user'
 const USERS_LIST                    = HOST + 'user/list'
+const USER_DEACTIVATE               = HOST + 'user/deactivate'
+
 const ACTIVITY                      = HOST + 'activity'
+
 
 const CLASSROOM_LIST                = HOST + 'class-room/list'
 const CLASSROOM                     = HOST + 'class-room/'
@@ -36,6 +39,7 @@ export {
     DASHBOARD,
     ACTIVITY,
     USER_DETAILS,
-    FILTER
+    FILTER,
+    USER_DEACTIVATE
 
 }

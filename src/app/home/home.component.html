@@ -28,19 +28,33 @@
         </div>
         <h1 class="comm_title_h1">Activities</h1>
         <div class="recent_set">
-            <p>Today</p>
+            <!-- <p>Today</p>
             <ul>
                 <li>Cusat cse s6 template created</li>
                 <li>User tom@gmail.com is deactivated</li>
                 <li>New classroom iitcses6madras created </li>
+            </ul> -->
+            <ul style="max-height: 40vh; overflow-y: auto;">
+                <li *ngFor="let item of actvities">
+                    <div class="d-flex flex-column">
+                        <span><h6 style="margin: 0; margin-right: 5px;">{{item && item.title}}</h6> <i >{{item && item.description}}</i></span>
+                        <span style="font-size: 14px;">{{item && item.createdAt | dateAgo}}</span>
+                    </div>
+                </li>
             </ul>
+            <div *ngIf="isLoadActvity">
+                <mat-spinner style="margin:0 auto;" diameter="50"></mat-spinner>
+            </div>
+            <a (click)="showMore()" *ngIf="loadMore">Load More</a>
+
+
         </div>
-        <div class="recent_set">
+        <!-- <div class="recent_set">
             <p>22 Sep 2020</p>
             <ul>
                 <li>Cusat cse s6 template created</li>
                 <li>User tom@gmail.com is deactivated</li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="single-temp">
     <div class="d-flex align-items-center" style="flex: 3;" [routerLink]="['/dashboard/class-room', item._id]">
-        <img src="{{item && item.logo ? item.logo : './../../assets/images/unavailable.png'}}">
+        <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}">
         <h1>{{item && item.name}}</h1>
     </div>
     <span style="flex: 3;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>

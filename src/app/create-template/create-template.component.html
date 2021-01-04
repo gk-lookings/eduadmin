@@ -103,10 +103,10 @@
                         </div>
 
                         <div class="filterSec">
-                            <a (click)="isDepartment=true" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
-                            <a (click)="isClass=true" [ngClass]="{'highLightGreen': isClass}">Class</a>
-                            <a (click)="isSemester=true" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
-                            <a (click)="isGrade=true" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
+                            <a (click)="isDepartment=!isDepartment" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
+                            <a (click)="isClass=!isClass" [ngClass]="{'highLightGreen': isClass}">Class</a>
+                            <a (click)="isSemester=!isSemester" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
+                            <a (click)="isGrade=!isGrade" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
                         </div>
                         <div style="padding: 0 10px;">
                             <div class="d-flex flex-column" *ngIf="isDepartment" style="transition: 0.5s;">
