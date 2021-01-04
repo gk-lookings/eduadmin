@@ -56,7 +56,7 @@ export class CreateTemplateComponent implements OnInit {
   board
 
 
-  isDepartment
+  isDepartment = false
   isClass
   isSemester
   isGrade
@@ -64,16 +64,20 @@ export class CreateTemplateComponent implements OnInit {
 
 
   departments = [];
-  departmentArray = []
+  departmentArray=''
+  departIndex
 
   classes = [];
-  classArray = []
+  classArray = ''
+  classIndex
 
   semesters = [];
-  semesterArray = []
+  semesterArray = ''
+  semesterIndex
 
   grades = [];
-  gradesArray = []
+  gradesArray =''
+  gradeIndex
 
   selectedIndexs = []
 
@@ -83,7 +87,6 @@ export class CreateTemplateComponent implements OnInit {
     // this.getSubjects();
     this.dropdownSettings = {
       singleSelection: true,
-      idField: 'id',
       textField: 'board',
       defaultOpen: false,
       allowSearchFilter: false
@@ -110,50 +113,73 @@ export class CreateTemplateComponent implements OnInit {
     })
   }
 
-  createArray(type, obj, i) {
+  // createArray(type, obj, i) {
+  //   if (type == 'department') {
+  //     if (!this.departmentArray.includes(obj)) {
+  //       this.departmentArray = obj ;
+  //       (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.add('add')
+  //       console.log("added");
+        
+  //     }
+  //     else {
+  //       console.log("remoced");
+  //       let index = this.departmentArray.findIndex(element => element == obj)
+  //       this.departmentArray.splice(index, 1);
+  //       (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.remove('add')
+  //     }
+  //   }
+  //   if (type == 'class') {
+  //     if (!this.classArray.includes(obj)) {
+  //       this.classArray.push(obj);
+  //       (<HTMLInputElement>document.getElementById("classId_" + i)).classList.add('add')
+  //     }
+  //     else {
+  //       let index = this.classArray.findIndex(element => element == obj);
+  //       this.classArray.splice(index, 1);
+  //       (<HTMLInputElement>document.getElementById("classId_" + i)).classList.remove('add')
+  //     }
+  //   }
+  //   if (type == 'semester') {
+  //     if (!this.semesterArray.includes(obj)) {
+  //       this.semesterArray.push(obj);
+  //       (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.add('add')
+  //     }
+  //     else {
+  //       let index = this.semesterArray.findIndex(element => element == obj)
+  //       this.semesterArray.splice(index, 1);
+  //       (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.remove('add')
+  //     }
+  //   }
+  //   if (type == 'grades') {
+  //     if (!this.gradesArray.includes(obj)) {
+  //       this.gradesArray.push(obj);
+  //       (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.add('add')
+  //     }
+  //     else {
+  //       let index = this.gradesArray.findIndex(element => element == obj);
+  //       this.gradesArray.splice(index, 1);
+  //       (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.remove('add')
+  //     }
+  //   }
+  // }
+
+  setRow(type, obj, i){
+
     if (type == 'department') {
-      if (!this.departmentArray.includes(obj)) {
-        this.departmentArray.push(obj);
-        (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.add('add')
-      }
-      else {
-        let index = this.departmentArray.findIndex(element => element == obj)
-        this.departmentArray.splice(index, 1);
-        (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.remove('add')
-      }
+      this.departIndex = i
+      this.departmentArray = obj
     }
     if (type == 'class') {
-      if (!this.classArray.includes(obj)) {
-        this.classArray.push(obj);
-        (<HTMLInputElement>document.getElementById("classId_" + i)).classList.add('add')
-      }
-      else {
-        let index = this.classArray.findIndex(element => element == obj);
-        this.classArray.splice(index, 1);
-        (<HTMLInputElement>document.getElementById("classId_" + i)).classList.remove('add')
-      }
+      this.classIndex = i
+      this.classArray = obj
     }
     if (type == 'semester') {
-      if (!this.semesterArray.includes(obj)) {
-        this.semesterArray.push(obj);
-        (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.add('add')
-      }
-      else {
-        let index = this.semesterArray.findIndex(element => element == obj)
-        this.semesterArray.splice(index, 1);
-        (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.remove('add')
-      }
+      this.semesterIndex = i
+      this.semesterArray = obj
     }
-    if (type == 'grades') {
-      if (!this.gradesArray.includes(obj)) {
-        this.gradesArray.push(obj);
-        (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.add('add')
-      }
-      else {
-        let index = this.gradesArray.findIndex(element => element == obj);
-        this.gradesArray.splice(index, 1);
-        (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.remove('add')
-      }
+    if (type == 'grade') {
+      this.gradeIndex = i
+      this.gradesArray = obj
     }
   }
 
@@ -233,14 +259,12 @@ export class CreateTemplateComponent implements OnInit {
     this.apiService.getResponse('get', FILTER, params).
       then(res => {
         if (res.status === 200) {
-        console.log("resulrt  filt", res);
         this.dropdownList = res.data.filters
         }
       })
   }
 
   onItemSelect(item: any) {
-    console.log(item);
     this.filterId = item.id
     this.board = item.board
     for (let i = 0; i < this.dropdownList.length; i++) {
@@ -273,10 +297,10 @@ export class CreateTemplateComponent implements OnInit {
             "logo": image,
             "filters" : {
               "board": this.board,
-              "department": JSON.stringify(this.departmentArray),
-              "semester": JSON.stringify(this.semesterArray),
-              "grade": JSON.stringify(this.gradesArray),
-              "class": JSON.stringify(this.classArray),
+              "department": this.departmentArray,
+              "semester": this.semesterArray,
+              "grade": this.gradesArray,
+              "class": this.classArray,
             }
           }
           this.apiService.getResponse('post', TEMPLATE_CREATE, params).
@@ -288,12 +312,14 @@ export class CreateTemplateComponent implements OnInit {
                 setTimeout(() => {
                   this.responseMessage = ''
                 }, 3000);
-                this.tags = []
-                this.files = []
-                this.createTemplateForm.reset();
+                // this.tags = []
+                // this.files = []
+                // this.selectedItems= []
+                // this.createTemplateForm.reset();
               }
               else {
-                this.responseMessage = res.error.message
+                this.success = false
+                this.responseMessage = res.error.data
               }
             })
         }
@@ -309,10 +335,10 @@ export class CreateTemplateComponent implements OnInit {
         "descriptionTags": this.tags,
         "filters" : {
           "board": this.board,
-          "department": JSON.stringify(this.departmentArray),
-          "semester": JSON.stringify(this.semesterArray),
-          "grade": JSON.stringify(this.gradesArray),
-          "class": JSON.stringify(this.classArray),
+          "department": this.departmentArray,
+          "semester": this.semesterArray,
+          "grade": this.gradesArray,
+          "class": this.classArray,
         }
       }
       this.apiService.getResponse('post', TEMPLATE_CREATE, params).
@@ -324,55 +350,17 @@ export class CreateTemplateComponent implements OnInit {
             setTimeout(() => {
               this.responseMessage = ''
             }, 3000);
-            this.tags = []
-            this.files = []
-            this.selectedItems= []
-            this.createTemplateForm.reset();
+            // this.tags = []
+            // this.files = []
+            // this.selectedItems= []
+            // this.createTemplateForm.reset();
           }
           else {
-            this.responseMessage = res.error.message
+            this.success = false
+            this.responseMessage = res.error.data
           }
         })
     }
-
-
-    /*
-    {
-      "templateId": "5f7f3e9ee45368b9b5794548",
-      "name": "my template",
-      "descriptionTags": [
-        "chemistry",
-        "bTech"
-      ],
-      "active": true,
-      "about": "string",
-      "subjects": [
-        {
-          "subjectId": "5f8057b5ab27d80017fdd2f1",
-          "sections": [
-            {
-              "title": "module 1",
-              "description": "module 1 descrption"
-            }
-          ]
-        }
-      ],
-      "documents": [
-        {
-          "title": "document title",
-          "files": [
-            {
-              "name": "string",
-              "size": 0,
-              "type": "string",
-              "url": "string"
-            }
-          ]
-        }
-      ]
-    }
-    */
-
   }
 
   getSubjects() {
@@ -467,6 +455,52 @@ export class CreateTemplateComponent implements OnInit {
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+  }
+
+  
+
+
+  departmentSelect(){
+    if(this.isDepartment)
+    {
+      this.isDepartment= false
+      this.departIndex = -1
+      this.departmentArray = ''
+    }
+    else{
+      this.isDepartment=true
+    }
+  }
+  classSelect(){
+    if(this.isClass)
+    {
+      this.isClass = false
+      this.classIndex = -1
+      this.classArray =''
+    }
+    else
+    this.isClass = true
+  }
+
+  semesterSelect(){
+    if(this.isSemester)
+    {
+      this.isSemester = false
+      this.semesterIndex = -1 
+      this.semesterArray = ''
+    }
+    else
+      this.isSemester = true
+  }
+  gradeSelect(){
+    if(this.isGrade)
+    {
+      this.isGrade = false
+      this.gradeIndex = -1
+      this.gradesArray  =''
+    }
+    else
+    this.isGrade  = true
   }
 
 }

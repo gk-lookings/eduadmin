@@ -66,33 +66,38 @@ export class EditTemplateComponent implements OnInit {
 
 
   departments = [];
-  departmentArray = []
+  departmentArray=''
+  departIndex
 
   classes = [];
-  classArray = []
+  classArray = ''
+  classIndex
 
   semesters = [];
-  semesterArray = []
+  semesterArray = ''
+  semesterIndex
 
   grades = [];
-  gradesArray = []
+  gradesArray =''
+  gradeIndex
 
   selectedIndexs = []
 
-
+  currentFilter
 
   constructor(private apiService: ApiService, private router: Router, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.getFIlterItems()
     this.getDetail()
     this.dropdownSettings = {
       singleSelection: true,
-      idField: 'id',
+      idField: 'board',
       textField: 'board',
       defaultOpen: false,
       allowSearchFilter: false
-    };
-    this.getFIlterItems()
+    };   
+
   }
 
   createBoard(){
@@ -113,52 +118,52 @@ export class EditTemplateComponent implements OnInit {
     })
   }
 
-  createArray(type, obj, i) {
-    if (type == 'department') {
-      if (!this.departmentArray.includes(obj)) {
-        this.departmentArray.push(obj);
-        (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.add('add')
-      }
-      else {
-        let index = this.departmentArray.findIndex(element => element == obj)
-        this.departmentArray.splice(index, 1);
-        (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.remove('add')
-      }
-    }
-    if (type == 'class') {
-      if (!this.classArray.includes(obj)) {
-        this.classArray.push(obj);
-        (<HTMLInputElement>document.getElementById("classId_" + i)).classList.add('add')
-      }
-      else {
-        let index = this.classArray.findIndex(element => element == obj);
-        this.classArray.splice(index, 1);
-        (<HTMLInputElement>document.getElementById("classId_" + i)).classList.remove('add')
-      }
-    }
-    if (type == 'semester') {
-      if (!this.semesterArray.includes(obj)) {
-        this.semesterArray.push(obj);
-        (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.add('add')
-      }
-      else {
-        let index = this.semesterArray.findIndex(element => element == obj)
-        this.semesterArray.splice(index, 1);
-        (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.remove('add')
-      }
-    }
-    if (type == 'grades') {
-      if (!this.gradesArray.includes(obj)) {
-        this.gradesArray.push(obj);
-        (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.add('add')
-      }
-      else {
-        let index = this.gradesArray.findIndex(element => element == obj);
-        this.gradesArray.splice(index, 1);
-        (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.remove('add')
-      }
-    }
-  }
+  // createArray(type, obj, i) {
+  //   if (type == 'department') {
+  //     if (!this.departmentArray.includes(obj)) {
+  //       this.departmentArray.push(obj);
+  //       (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.add('add')
+  //     }
+  //     else {
+  //       let index = this.departmentArray.findIndex(element => element == obj)
+  //       this.departmentArray.splice(index, 1);
+  //       (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.remove('add')
+  //     }
+  //   }
+  //   if (type == 'class') {
+  //     if (!this.classArray.includes(obj)) {
+  //       this.classArray.push(obj);
+  //       (<HTMLInputElement>document.getElementById("classId_" + i)).classList.add('add')
+  //     }
+  //     else {
+  //       let index = this.classArray.findIndex(element => element == obj);
+  //       this.classArray.splice(index, 1);
+  //       (<HTMLInputElement>document.getElementById("classId_" + i)).classList.remove('add')
+  //     }
+  //   }
+  //   if (type == 'semester') {
+  //     if (!this.semesterArray.includes(obj)) {
+  //       this.semesterArray.push(obj);
+  //       (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.add('add')
+  //     }
+  //     else {
+  //       let index = this.semesterArray.findIndex(element => element == obj)
+  //       this.semesterArray.splice(index, 1);
+  //       (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.remove('add')
+  //     }
+  //   }
+  //   if (type == 'grades') {
+  //     if (!this.gradesArray.includes(obj)) {
+  //       this.gradesArray.push(obj);
+  //       (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.add('add')
+  //     }
+  //     else {
+  //       let index = this.gradesArray.findIndex(element => element == obj);
+  //       this.gradesArray.splice(index, 1);
+  //       (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.remove('add')
+  //     }
+  //   }
+  // }
 
   addFilterElement(type) {
     if (type == 'department') {
@@ -243,12 +248,11 @@ export class EditTemplateComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
     this.filterId = item.id
     this.board = item.board
     for (let i = 0; i < this.dropdownList.length; i++) {
       const element = this.dropdownList[i];
-      if(element.id == item.id)
+      if(element.board == item.board)
       {
         this.departments = this.dropdownList[i].department
         this.classes = this.dropdownList[i].class;
@@ -271,8 +275,13 @@ export class EditTemplateComponent implements OnInit {
           this.tempId = res.data.templateId
           this.tags = res.data.descriptionTags
           this.logo = res.data.logo
-          this.selectedItems = res.data.filters
-          console.log('sele', this.selectedItems);
+          this.selectedItems =  res.data.filters.board
+          this.departmentArray = res.data.filters.department
+          this.semesterArray = res.data.filters.semester
+          this.classArray = res.data.filters.class
+          this.gradesArray = res.data.filters.grade
+          this.currentFilter =  res.data.filters
+          this.onItemSelect({id : '5fef3a6c09606167e2308e6b',board : res.data.filters.board})
           
         }
       })
@@ -292,7 +301,14 @@ export class EditTemplateComponent implements OnInit {
             "templateId": this.tempId,
             "name": this.tempName,
             "descriptionTags": this.tags,
-            "logo": image
+            "logo": image,
+            "filters" : {
+              "board": this.board,
+              "department": this.departmentArray,
+              "semester": this.semesterArray,
+              "grade": this.gradesArray,
+              "class": this.classArray,
+            }
           }
           this.apiService.getResponse('put', GET_TEMPLATE + this.__tempId, params).
             then(res => {
@@ -330,6 +346,13 @@ export class EditTemplateComponent implements OnInit {
         "templateId": this.tempId,
         "name": this.tempName,
         "descriptionTags": this.tags,
+        "filters" : {
+          "board": this.board,
+          "department": this.departmentArray,
+          "semester": this.semesterArray,
+          "grade": this.gradesArray,
+          "class": this.classArray,
+        }
       }
       this.apiService.getResponse('put', GET_TEMPLATE + this.__tempId, params).
         then(res => {
@@ -432,6 +455,69 @@ export class EditTemplateComponent implements OnInit {
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+  }
+
+  setRow(type, obj, i){
+
+    if (type == 'department') {
+      this.departIndex = i
+      this.departmentArray = obj
+    }
+    if (type == 'class') {
+      this.classIndex = i
+      this.classArray = obj
+    }
+    if (type == 'semester') {
+      this.semesterIndex = i
+      this.semesterArray = obj
+    }
+    if (type == 'grade') {
+      this.gradeIndex = i
+      this.gradesArray = obj
+    }
+  }
+
+  departmentSelect(){
+    if(this.isDepartment)
+    {
+      this.isDepartment= false
+      this.departIndex = -1
+      this.departmentArray = ''
+    }
+    else{
+      this.isDepartment=true
+    }
+  }
+  classSelect(){
+    if(this.isClass)
+    {
+      this.isClass = false
+      this.classIndex = -1
+      this.classArray =''
+    }
+    else
+    this.isClass = true
+  }
+
+  semesterSelect(){
+    if(this.isSemester)
+    {
+      this.isSemester = false
+      this.semesterIndex = -1 
+      this.semesterArray = ''
+    }
+    else
+      this.isSemester = true
+  }
+  gradeSelect(){
+    if(this.isGrade)
+    {
+      this.isGrade = false
+      this.gradeIndex = -1
+      this.gradesArray  =''
+    }
+    else
+    this.isGrade  = true
   }
 
 }

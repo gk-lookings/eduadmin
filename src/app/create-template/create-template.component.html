@@ -103,39 +103,39 @@
                         </div>
 
                         <div class="filterSec">
-                            <a (click)="isDepartment=!isDepartment" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
-                            <a (click)="isClass=!isClass" [ngClass]="{'highLightGreen': isClass}">Class</a>
-                            <a (click)="isSemester=!isSemester" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
-                            <a (click)="isGrade=!isGrade" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
+                            <a (click)="departmentSelect()" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
+                            <a (click)="classSelect()" [ngClass]="{'highLightGreen': isClass}">Class</a>
+                            <a (click)="semesterSelect()" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
+                            <a (click)="gradeSelect()" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
                         </div>
                         <div style="padding: 0 10px;">
                             <div class="d-flex flex-column" *ngIf="isDepartment" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Departments <mat-icon (click)="isDepartment=false">close</mat-icon></label>
+                                <label for="" class="d-flex align-items-center smD">Departments <mat-icon (click)="departmentSelect()">close</mat-icon></label>
                                 <div class="filterSec">
-                                    <a *ngFor="let item of departments; let i = index;" (click)="createArray('department',item,i)" id="departmentId_{{i}}">{{item && item}}</a>
+                                    <a *ngFor="let item of departments; let i = index;" id="departmentId_{{i}}" (click)="setRow('department', item, i)" [ngClass]="{'add': departIndex === i}">{{item && item}}</a>
                                     <a class="add" (click)="addFilterElement('department')">Add +</a>
                                 </div>
                             </div>
 
                             <div class="d-flex flex-column" *ngIf="isClass" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Class <mat-icon (click)="isClass=false">close</mat-icon></label>
+                                <label for="" class="d-flex align-items-center smD">Class <mat-icon (click)="classSelect()">close</mat-icon></label>
                                 <div class="filterSec">
-                                    <a *ngFor="let item of classes; let i = index;" (click)="createArray('class',item,i)" id="classId_{{i}}">{{item && item}}</a>
+                                    <a *ngFor="let item of classes; let i = index;" (click)="setRow('class',item,i)" id="classId_{{i}}" [ngClass]="{'add': classIndex === i}">{{item && item}}</a>
                                     <a class="add" (click)="addFilterElement('class')">Add +</a>
                                 </div>
                             </div>
 
                             <div class="d-flex flex-column" *ngIf="isSemester" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Semester <mat-icon (click)="isSemester=false">close</mat-icon></label>
+                                <label for="" class="d-flex align-items-center smD">Semester <mat-icon (click)="semesterSelect()">close</mat-icon></label>
                                 <div class="filterSec">
-                                    <a *ngFor="let item of semesters; let i = index;" (click)="createArray('semester',item,i)" id="semestersId_{{i}}">{{item && item}}</a>
+                                    <a *ngFor="let item of semesters; let i = index;" (click)="setRow('semester',item,i)" id="semesterId_{{i}}" [ngClass]="{'add': semesterIndex === i}">{{item && item}}</a>
                                     <a class="add" (click)="addFilterElement('semester')">Add +</a>
                                 </div>
                             </div>
                             <div class="d-flex flex-column" *ngIf="isGrade" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Grade <mat-icon (click)="isGrade=false">close</mat-icon></label>
+                                <label for="" class="d-flex align-items-center smD">Grade <mat-icon (click)="gradeSelect()">close</mat-icon></label>
                                 <div class="filterSec">
-                                    <a *ngFor="let item of grades; let i = index;" (click)="createArray('grade',item,i)" id="gradeId_{{i}}">{{item && item}}</a>
+                                    <a *ngFor="let item of grades; let i = index;" (click)="setRow('grade',item,i)" id="gradeId_{{i}}" [ngClass]="{'add': gradeIndex === i}">{{item && item}}</a>
                                     <a class="add" (click)="addFilterElement('grade')">Add +</a>
                                 </div>
                             </div>

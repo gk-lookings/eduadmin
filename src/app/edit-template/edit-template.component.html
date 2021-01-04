@@ -35,7 +35,7 @@
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
                     </mat-chip-list>
-                    <div class="inputField" style="margin-top: 3%;">
+                    <div class="inputField" style="margin-top: 3%; margin-bottom: 0%;">
                         <label for="tempLogo">Logo <span>(optional)</span></label>
                         <div class="fileUploadSet" appDnd (fileDropped)="onFileDropped($event)">
                             <div>
@@ -91,11 +91,20 @@
                 <div class="col-md-4 col-sm-5">
                     <div class="inputFieldSelect" style="margin-top: 0;">
                         <div class="align-items-center d-flex mb-3"><label for="tempId">Select Board/University</label> <button matRipple (click)="createBoard()">Create</button> </div>
-                        <ng-multiselect-dropdown placeholder="Select your option" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" [formControl]="boardFormControl" (onSelect)="onItemSelect($event)">
+                        <!-- <ng-multiselect-dropdown placeholder="Select your option" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" [formControl]="boardFormControl" (onSelect)="onItemSelect($event)">
                         </ng-multiselect-dropdown>
+                        <p class="errorInput" [ngClass]="boardFormControl.invalid ? 'errorShow' : ''" *ngIf="boardFormControl.invalid">{{getBoardErrorMessage()}}</p> -->
+
+                        <div class="nm">
+                            <mat-select [(value)]="selectedItems" [(ngModel)]="selectedItems" [formControl]="boardFormControl" placeholder="Select your option">
+                                <mat-option [value]="option.board" *ngFor="let option of dropdownList" (click)="onItemSelect(option)">{{ option.board }}</mat-option>
+                            </mat-select>
+
+                        </div>
                         <p class="errorInput" [ngClass]="boardFormControl.invalid ? 'errorShow' : ''" *ngIf="boardFormControl.invalid">{{getBoardErrorMessage()}}</p>
+
                     </div>
-                    <ng-container *ngIf="selectedItems.length > 0">
+                    <!-- <ng-container *ngIf="selectedItems.length > 0">
                         <div class="inputFieldSelect" style="margin-bottom: 5px;">
                             <label for="tempId">Filters</label>
                         </div>
@@ -126,7 +135,7 @@
                             <div class="d-flex flex-column" *ngIf="isSemester" style="transition: 0.5s;">
                                 <label for="" class="d-flex align-items-center smD">Semester <mat-icon (click)="isSemester=false">close</mat-icon></label>
                                 <div class="filterSec">
-                                    <a *ngFor="let item of semesters; let i = index;" (click)="createArray('semester',item,i)" id="semestersId_{{i}}">{{item && item}}</a>
+                                    <a *ngFor="let item of semesters; let i = index;" (click)="createArray('semester',item,i)" id="semesterId_{{i}}">{{item && item}}</a>
                                     <a class="add" (click)="addFilterElement('semester')">Add +</a>
                                 </div>
                             </div>
@@ -138,15 +147,71 @@
                                 </div>
                             </div>
                         </div>
+                    </ng-container> -->
+                    <ng-container *ngIf="selectedItems">
+                        <div class="inputFieldSelect" style="margin-bottom: 5px;">
+                            <label for="tempId">Filters</label>
+                        </div>
+
+                        <div class="filterSec">
+                            <a (click)="departmentSelect()" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
+                            <a (click)="classSelect()" [ngClass]="{'highLightGreen': isClass}">Class</a>
+                            <a (click)="semesterSelect()" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
+                            <a (click)="gradeSelect()" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
+                        </div>
+                        <div style="padding: 0 10px;">
+                            <div class="d-flex flex-column" *ngIf="isDepartment" style="transition: 0.5s;">
+                                <label for="" class="d-flex align-items-center smD">Departments <mat-icon (click)="departmentSelect()">close</mat-icon></label>
+                                <div class="filterSec">
+                                    <a *ngFor="let item of departments; let i = index;" id="departmentId_{{i}}" (click)="setRow('department', item, i)" [ngClass]="{'add': departmentArray === item}">{{item && item}}</a>
+                                    <a class="add" (click)="addFilterElement('department')">Add +</a>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column" *ngIf="isClass" style="transition: 0.5s;">
+                                <label for="" class="d-flex align-items-center smD">Class <mat-icon (click)="classSelect()">close</mat-icon></label>
+                                <div class="filterSec">
+                                    <a *ngFor="let item of classes; let i = index;" (click)="setRow('class',item,i)" id="classId_{{i}}" [ngClass]="{'add': classArray === item}">{{item && item}}</a>
+                                    <a class="add" (click)="addFilterElement('class')">Add +</a>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column" *ngIf="isSemester" style="transition: 0.5s;">
+                                <label for="" class="d-flex align-items-center smD">Semester <mat-icon (click)="semesterSelect()">close</mat-icon></label>
+                                <div class="filterSec">
+                                    <a *ngFor="let item of semesters; let i = index;" (click)="setRow('semester',item,i)" id="semesterId_{{i}}" [ngClass]="{'add': semesterArray === item}">{{item && item}}</a>
+                                    <a class="add" (click)="addFilterElement('semester')">Add +</a>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column" *ngIf="isGrade" style="transition: 0.5s;">
+                                <label for="" class="d-flex align-items-center smD">Grade <mat-icon (click)="gradeSelect()">close</mat-icon></label>
+                                <div class="filterSec">
+                                    <a *ngFor="let item of grades; let i = index;" (click)="setRow('grade',item,i)" id="gradeId_{{i}}" [ngClass]="{'add': gradesArray === item}">{{item && item}}</a>
+                                    <a class="add" (click)="addFilterElement('grade')">Add +</a>
+                                </div>
+                            </div>
+                        </div>
                     </ng-container>
                 </div>
                 <div class="col-md-1 col-sm-1">
-                    <label for="logo">Current Logo</label>
+                    <label for="logo" *ngIf="logo">Current Logo</label>
                     <img src="{{logo && logo}}" alt="" style="width: 100%; object-fit: contain;">
+                    <!-- <div class="d-flex flex-column">
+                        <span>Current Board/University</span>
+                        <p style="font-weight: bold;">{{currentFilter && currentFilter.board}}</p>
+                        <span>Current Department</span>
+                        <p style="font-weight: bold;">{{currentFilter && currentFilter.department}}</p>
+                        <span>Current Class</span>
+                        <p style="font-weight: bold;">{{currentFilter && currentFilter.class}}</p>
+                        <span>Current Semester</span>
+                        <p style="font-weight: bold;">{{currentFilter && currentFilter.semester}}</p>
+                        <span>Current Grade</span>
+                        <p style="font-weight: bold;">{{currentFilter && currentFilter.grade}}</p>
+                    </div> -->
                 </div>
                 <div class="col-md-12">
                     <button class="inputSubmit" style="margin: 0;" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Update</button>
-                    <button class="inputSubmit" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
+                    <button class="inputSubmit" style="margin: 0;" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
                     <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                         {{responseMessage && responseMessage}}</div>
                 </div>
