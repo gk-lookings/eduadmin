@@ -8,7 +8,7 @@
     </div>
 
 
-    <div class="__content_sec">
+    <div class="__content_sec" *ngIf="!isLoadingTotal">
         <form name="createTemplateForm" class="temPlateFrm" [formGroup]="createTemplateForm">
             <div class="row">
                 <div class="col-md-4 col-sm-5">
@@ -219,6 +219,7 @@
         </form>
     </div>
 
-    <ngx-spinner bdColor="rgba(255, 255, 255, 1)" size="medium" color="#000" type="timer" [fullScreen]="true">
-    </ngx-spinner>
+    <div class="d-flex flex-column justify-content-center align-items-center" style="height: 70vh;" *ngIf="isLoadingTotal">
+        <mat-spinner style="margin:0 auto;" diameter="50"></mat-spinner>
+    </div>
 </div>

@@ -301,6 +301,7 @@ export class CreateTemplateComponent implements OnInit {
               "semester": this.semesterArray,
               "grade": this.gradesArray,
               "class": this.classArray,
+              'filterId':this.filterId
             }
           }
           this.apiService.getResponse('post', TEMPLATE_CREATE, params).
@@ -339,6 +340,7 @@ export class CreateTemplateComponent implements OnInit {
           "semester": this.semesterArray,
           "grade": this.gradesArray,
           "class": this.classArray,
+          'filterId':this.filterId
         }
       }
       this.apiService.getResponse('post', TEMPLATE_CREATE, params).

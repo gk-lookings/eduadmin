@@ -49,7 +49,7 @@ export class EditTemplateComponent implements OnInit {
   tags = [];
   logo
 
-
+  isLoadingTotal
   
   dropdownList = [];
   selectedItems=[];
@@ -266,22 +266,23 @@ export class EditTemplateComponent implements OnInit {
   getDetail() {
     let params = {}
     this.spinner.show();
-    let arr = []
+    this.isLoadingTotal = true
     this.apiService.getResponse('get', GET_TEMPLATE + this.__tempId, params).
       then(res => {
         this.spinner.hide();        
         if (res.status === 200) {
+          this.isLoadingTotal = false
           this.tempName = res.data.name
           this.tempId = res.data.templateId
           this.tags = res.data.descriptionTags
           this.logo = res.data.logo
-          this.selectedItems =  res.data.filters.board
+          this.selectedItems = res.data.filters.board
           this.departmentArray = res.data.filters.department
           this.semesterArray = res.data.filters.semester
           this.classArray = res.data.filters.class
           this.gradesArray = res.data.filters.grade
           this.currentFilter =  res.data.filters
-          this.onItemSelect({id : '5fef3a6c09606167e2308e6b',board : res.data.filters.board})
+          this.onItemSelect({id : res.data.filters.filterId ? res.data.filters.filterId : '',board : res.data.filters.board})
           
         }
       })
@@ -308,6 +309,7 @@ export class EditTemplateComponent implements OnInit {
               "semester": this.semesterArray,
               "grade": this.gradesArray,
               "class": this.classArray,
+              'filterId':this.filterId
             }
           }
           this.apiService.getResponse('put', GET_TEMPLATE + this.__tempId, params).
@@ -352,6 +354,7 @@ export class EditTemplateComponent implements OnInit {
           "semester": this.semesterArray,
           "grade": this.gradesArray,
           "class": this.classArray,
+          'filterId':this.filterId
         }
       }
       this.apiService.getResponse('put', GET_TEMPLATE + this.__tempId, params).
