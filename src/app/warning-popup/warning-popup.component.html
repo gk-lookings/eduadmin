@@ -1,0 +1,27 @@
+<!-- <div class="alerModel">
+    <mat-icon>
+        error_outline
+    </mat-icon>
+    <h1>Alert</h1>
+    <p></p>
+    <div class="submitBtnOkey">
+        <button matRipple (click)="dialog.close()">Ok</button>
+    </div>
+</div> -->
+
+<div class="confirmModel">
+    <h1 class="">
+        Alert
+    </h1>
+    <div class="contenSide">
+        <mat-icon>
+            error_outline
+        </mat-icon>
+        <p>
+            {{data && data}}
+        </p>
+    </div>
+    <div class="buttons">
+        <button class="save" (click)="dialog.close()">Ok</button>
+    </div>
+</div>

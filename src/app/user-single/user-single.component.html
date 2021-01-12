@@ -6,6 +6,6 @@
     </div>
     <span>
         <span style="margin-right: 20px;">{{item && item.verified ? 'Verified' : 'Not Verified'}}</span>
-    <button class="activator" [ngClass]="isActive ? '' : 'deactivated'" [disabled]="!isActive" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate(item._id)" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Deactivated'}}</button>
+    <button class="activator" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate(item._id)" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
     </span>
 </div>

@@ -12,6 +12,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { MatDialog } from '@angular/material';
 import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
+import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
 @Component({
   selector: 'app-create-template',
@@ -312,7 +313,8 @@ export class CreateTemplateComponent implements OnInit {
                 this.responseMessage = 'Template created succefully..!'
                 setTimeout(() => {
                   this.responseMessage = ''
-                }, 3000);
+                  this.router.navigate(['dashboard/template-list']);
+                }, 2000);
                 // this.tags = []
                 // this.files = []
                 // this.selectedItems= []
@@ -392,15 +394,28 @@ export class CreateTemplateComponent implements OnInit {
   }
 
   onFileDropped($event) {
-    this.prepareFilesList($event);
+    if ($event[0].type.indexOf("image") != -1) {
+      this.files = []
+      this.prepareFilesList($event);
+    }
+    else {
+      let open = this.dialog.open(WarningPopupComponent, { data: 'Only "image" files are allowed.' })
+    }
+
   }
 
   fileBrowseHandler(files) {
-    this.prepareFilesList(files);
+    if (files[0].type.indexOf("image") != -1) {
+      this.files = []
+      this.prepareFilesList(files);
+    }
+    else {
+      let open = this.dialog.open(WarningPopupComponent, { data: 'Only "image" files are allowed.' })
+    }
   }
 
   deleteFile(index: number) {
-    this.files.splice(index, 1);
+    this.files = []
   }
 
   uploadFilesSimulator(index: number) {
@@ -419,7 +434,6 @@ export class CreateTemplateComponent implements OnInit {
       }
     }, 1000);
   }
-
   prepareFilesList(files: Array<any>) {
     for (const item of files) {
       item.progress = 0;
@@ -427,7 +441,6 @@ export class CreateTemplateComponent implements OnInit {
     }
     this.uploadFilesSimulator(0);
   }
-
 
   formatBytes(bytes, decimals) {
     if (bytes === 0) {
@@ -439,7 +452,6 @@ export class CreateTemplateComponent implements OnInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
-
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -460,8 +472,6 @@ export class CreateTemplateComponent implements OnInit {
   }
 
   
-
-
   departmentSelect(){
     if(this.isDepartment)
     {

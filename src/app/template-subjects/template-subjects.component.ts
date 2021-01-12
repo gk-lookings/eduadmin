@@ -56,6 +56,7 @@ export class TemplateSubjectsComponent implements OnInit {
   createSub() {
     const open = this.dialog.open(CreateSubjectComponent, { data: this.template })
     open.afterClosed().subscribe(result => {
+      this.isEmpty = false
       if (result)
         this.fetchSubjects()
     })

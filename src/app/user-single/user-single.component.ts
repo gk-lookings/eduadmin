@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { USERS_LIST, USER_DEACTIVATE } from '../config/endpoints';
+import { USERS_LIST, USER_ACTIVATE, USER_DEACTIVATE, USER_DETAILS } from '../config/endpoints';
 import { ApiService } from '../services';
 
 @Component({
@@ -24,12 +24,23 @@ export class UserSingleComponent implements OnInit {
 
   deactivate(id)
   {
-    let params = { userId : id }
-    this.apiService.getResponse('get', USER_DEACTIVATE, params).
-      then(res => {
-        if (res.status === 200) {
-          this.isActive = !this.isActive
-        }
-      })
+    if (this.isActive) {
+      let params = { userId: id }
+      this.apiService.getResponse('get', USER_DEACTIVATE, params).
+        then(res => {
+          if (res.status === 200) {
+            this.isActive = !this.isActive
+          }
+        })
+    }
+    else {
+      let params = { userId: id }
+      this.apiService.getResponse('get', USER_DETAILS +'/'+ id +'/activate' ,).
+        then(res => {
+          if (res.status === 200) {
+            this.isActive = !this.isActive
+          }
+        })
+    }
   }
 }

@@ -39,13 +39,13 @@ export class UsersListComponent implements OnInit {
   fetchList() {
     if (!this.isLastpage) {
       this.isLoading = true;
-      let params = { text: this.searchkey, offset: this.currentPage }
+      let params = { term: this.searchkey, offset: this.currentPage, count :10 }
       this.apiService.getResponse('get', USERS_LIST, params).
         then(res => {
           this.isLoading = false;
           if (res.status === 200) {
             this.users = this.users.concat(res.data.users)
-            this.isLastpage = res.data.isLastPage
+            this.isLastpage = (res.data.users.length == 0) ? true : false
           }
         })
     }

@@ -49,3 +49,10 @@
 .deactivated {
     background: #4dccbd !important;
 }
+
+.empty {
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    color: #999;
+}

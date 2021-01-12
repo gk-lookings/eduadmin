@@ -2,13 +2,13 @@ const HOST                          = 'https://obscure-springs-41892.herokuapp.c
 const LOGIN                         = HOST + 'auth/login'
 
 const USER_DETAILS                  = HOST + 'user'
-const USERS_LIST                    = HOST + 'user/list'
+const USERS_LIST                    = HOST + 'user/search'
 const USER_DEACTIVATE               = HOST + 'user/deactivate'
-
+const USER_ACTIVATE                 = HOST + 'user/activateUser'
 const ACTIVITY                      = HOST + 'activity'
 
 
-const CLASSROOM_LIST                = HOST + 'class-room/list'
+const CLASSROOM_LIST                = HOST + 'class-room/search'
 const CLASSROOM                     = HOST + 'class-room/'
 const VERIFY_CLASSROOM              = HOST + "class-room/check"
 
@@ -16,7 +16,7 @@ const EVENTS                        = HOST + 'event'
 
 const SUBJECT                       = HOST + 'subject'
 
-const TEMPLATE_LIST                 = HOST + 'template/list'
+const TEMPLATE_LIST                 = HOST + 'template/search'
 const TEMPLATE_CREATE               = HOST + 'template'
 const GET_TEMPLATE                  = HOST + 'template/'
 
@@ -40,6 +40,7 @@ export {
     ACTIVITY,
     USER_DETAILS,
     FILTER,
-    USER_DEACTIVATE
+    USER_DEACTIVATE,
+    USER_ACTIVATE
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ACTIVITY, DASHBOARD } from '../config/endpoints';
 import { LogOutModelComponent } from '../log-out-model/log-out-model.component';
@@ -48,23 +48,31 @@ export class HomeComponent implements OnInit {
   fetchGlobalActivity() {
     if(!this.isLastpage){
       this.isLoadActvity = true
-    let params = {offset: this.currentPage }
-    this.apiService.getResponse('get', ACTIVITY, params).
+    let params = {offset: this.currentPage,  }
+    this.apiService.getResponse('get', ACTIVITY + '?modules=CLASSROOM&modules=USER', params).
       then(res => {
         if (res.status === 200) {
           this.isLoadActvity = false
           this.actvities = this.actvities.concat(res.data.activity)
           this.isLastpage = res.data.isLastPage
-          if(!res.data.isLastPage)
-          this.loadMore = true
         }
       })
     }
   }
-  showMore()
-  {
-    this.loadMore= false
-    this.currentPage++
-    this.fetchGlobalActivity()
+  // showMore()
+  // {
+  //   this.loadMore = false
+  //   this.currentPage++
+  //   this.fetchGlobalActivity()
+  // }
+
+  @HostListener("window:scroll", ['$event'])
+  scrollMe(event) {
+    if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight)) {
+      if (!this.isLastpage) {
+        this.currentPage++
+        this.fetchGlobalActivity()
+      }
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CLASSROOM, ACTIVITY, USER_DETAILS } from '../config/endpoints';
+import { CLASSROOM, ACTIVITY, USER_DETAILS, USER_DEACTIVATE } from '../config/endpoints';
 import { ApiService } from '../services';
 
 @Component({
@@ -49,13 +49,24 @@ export class UserDetailComponent implements OnInit {
       })
   }
   deactivate() {
-    let params = { 'active': !this.isActive }
-    this.apiService.getResponse('put', USER_DETAILS +'/'+this.userId, params).
-      then(res => {
-        if (res.status === 200) {
-          this.isActive = !this.isActive
-        }
-      })
+    if (this.isActive) {
+      let params = { userId: this.userId }
+      this.apiService.getResponse('get', USER_DEACTIVATE, params).
+        then(res => {
+          if (res.status === 200) {
+            this.isActive = !this.isActive
+          }
+        })
+    }
+    else {
+      let params = { 'active': !this.isActive }
+      this.apiService.getResponse('get', USER_DETAILS +'/'+ this.userId +'/activate',).
+        then(res => {
+          if (res.status === 200) {
+            this.isActive = !this.isActive
+          }
+        })
+    }
   }
 
   fetchUserActivity() {
@@ -74,10 +85,21 @@ export class UserDetailComponent implements OnInit {
       })
     }
   }
-  showMore()
-  {
-    this.currentPage++
-    this.fetchUserActivity()
+  // showMore()
+  // {
+  //   this.currentPage++
+  //   this.fetchUserActivity()
+  // }
+
+  @HostListener("window:scroll", ['$event'])
+  scrollMe(event) {
+    if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight)) {
+      if (!this.isLastpage) {
+        this.currentPage++
+        this.fetchUserActivity()
+      }
+    }
   }
+  
 
 }

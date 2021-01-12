@@ -15,6 +15,7 @@ export class ClassRoomListComponent implements OnInit {
   isLoading = true
   classes = []
   isLastpage = false
+  isEmpty = false
   currentPage = 0
   txtQueryChanged = new Subject<string>();
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) {
@@ -40,13 +41,16 @@ export class ClassRoomListComponent implements OnInit {
   fetchList() {
     if (!this.isLastpage) {
       this.isLoading = true;
-      let params = { text: this.searchkey, offset: this.currentPage }
+      this.isEmpty = false
+      let params = { term: this.searchkey, offset: this.currentPage, count :10 }
       this.apiService.getResponse('get', CLASSROOM_LIST, params).
         then(res => {
           this.isLoading = false;
           if (res.status === 200) {
             this.classes = this.classes.concat(res.data.classRooms)
-            this.isLastpage = res.data.isLastPage
+            this.isLastpage = (res.data.classRooms.length == 0) ? true : false
+            if(res.data.classRooms.length == 0)
+            this.isEmpty = true
           }
         })
     }

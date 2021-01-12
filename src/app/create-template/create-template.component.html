@@ -45,7 +45,7 @@
                             <div class="icon">
                                 <img src="./../../assets/images/icons/photo_cam.png" alt="">
                             </div>
-                            <input type="file" class="hidInput" [multiple]="false" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)" />
+                            <input type="file" class="hidInput" accept="image/*" [multiple]="false" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)" />
                         </div>
 
                         <div class="files-list">

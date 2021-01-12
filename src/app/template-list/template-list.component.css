@@ -55,3 +55,9 @@
 .options mat-icon:hover {
     color: #444;
 }
+
+.searchIcon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}

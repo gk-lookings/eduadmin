@@ -66,3 +66,10 @@
     background: #fff;
     z-index: 1;
 }
+
+.empty {
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    color: #999;
+}

@@ -6,30 +6,6 @@
             <!-- <mat-icon>share</mat-icon> -->
         </mat-toolbar>
     </div>
-
-
-    <!-- <div class="__content_sec">
-        <h1 class="comm_title_small_h1 ">Curriculam </h1>
-        <p class="comm_sub_title_small_p ">Curriculam of Maths</p>
-        <div class="subjects_set">
-            <div class="sub_sin_block" matRipple>
-                <h2 class="primaryColor">A</h2>
-                <p>Algebra</p>
-            </div>
-            <div class="sub_sin_block" matRipple>
-                <h2 class="primaryColor">C</h2>
-                <p>Calculus </p>
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <button class="inputSubmit" (click)="createSub()">Create</button>
-
-    </div> -->
-
     <div class="__content_sec">
         <div class="d-flex justify-content-between">
             <div>
@@ -42,7 +18,11 @@
             <div class="sub_sin_block justify-content-between align-items-center" matRipple *ngFor="let item of sections; let i = index;">
                 <div class="align-items-center d-flex" style="flex: 9; padding: 20px;">
                     <h2 class="primaryColor text-uppercase">{{item && item.title | slice:0:1}}</h2>
-                    <p>{{item && item.title}}</p>
+                    <div>
+                        <p style="font-weight: 600; font-size: 17px;">{{item && item.title}}</p>
+                        <p style="font-weight: 400; font-size: 13px;">{{item && item.description}}</p>
+                    </div>
+
                 </div>
                 <div class="d-flex align-items-center">
                     <mat-icon style="margin-right: 10px;" (click)="editDocument(item)">edit</mat-icon>
@@ -56,7 +36,7 @@
             <div></div>
         </div>
         <div *ngIf="isLoading">
-            <mat-spinner style="margin:0 auto;" diameter="50"></mat-spinner>
+            <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
         </div>
 
 

@@ -88,6 +88,7 @@ import { ClassRoomDetailComponent } from './class-room-detail/class-room-detail.
 import { ClassSingleComponent } from './class-single/class-single.component';
 import { UserSingleComponent } from './user-single/user-single.component';
 import { FilterAddModelComponent } from './filter-add-model/filter-add-model.component'
+import { WarningPopupComponent } from './warning-popup/warning-popup.component';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,8 @@ import { FilterAddModelComponent } from './filter-add-model/filter-add-model.com
     ClassRoomDetailComponent,
     ClassSingleComponent,
     UserSingleComponent,
-    FilterAddModelComponent
+    FilterAddModelComponent,
+    WarningPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -178,7 +180,8 @@ import { FilterAddModelComponent } from './filter-add-model/filter-add-model.com
     LogOutModelComponent,
     ConfirmDeleteModelComponent,
     EditSectionComponent,
-    FilterAddModelComponent
+    FilterAddModelComponent,
+    WarningPopupComponent
   ],
   providers: 
     [
