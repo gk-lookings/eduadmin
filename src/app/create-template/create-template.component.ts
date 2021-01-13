@@ -353,6 +353,7 @@ export class CreateTemplateComponent implements OnInit {
             this.responseMessage = 'Template created succefully..!'
             setTimeout(() => {
               this.responseMessage = ''
+              this.router.navigate(['dashboard/template-list']);
             }, 3000);
             // this.tags = []
             // this.files = []

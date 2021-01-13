@@ -146,7 +146,7 @@ export class CreateDocumentComponent implements OnInit {
         for (let m = 0; m < this.files.length; m++) {
           for (let n = 0; n < res.length; n++) {
             newArray.push({
-              // "_id": this.files[m].lastModified,
+              "_id": this.files[m].lastModified + this.files[m].name,
               "name": this.files[m].name,
               "size": this.files[m].size,
               "type": this.files[m].type,
@@ -179,6 +179,7 @@ export class CreateDocumentComponent implements OnInit {
               this.responseMessage = 'Document has been created succefully.!'
               setTimeout(() => {
                 this.responseMessage = ''
+                this._location.back()
               }, 3000);
               this.createTemplateForm.reset()
               this.files = []
@@ -215,6 +216,7 @@ export class CreateDocumentComponent implements OnInit {
             this.responseMessage = 'Document has been created succefully.!'
             setTimeout(() => {
               this.responseMessage = ''
+              this._location.back()
             }, 3000);
             this.createTemplateForm.reset()
           }

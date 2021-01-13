@@ -66,6 +66,7 @@ export class CreateNoteComponent implements OnInit {
     let newArray = []
     var fileArray = []
     var re = /(?:\.([^.]+))?$/;
+   
     if (this.files.length != 0) {
       for (let i = 0; i < this.files.length; i++) {
         const formData = new FormData();
@@ -77,7 +78,7 @@ export class CreateNoteComponent implements OnInit {
         for (let m = 0; m < this.files.length; m++) {
           for (let n = 0; n < res.length; n++) {
             newArray.push({
-              // "_id": this.files[m].lastModified + '.' + re.exec(this.files[m].name)[1],
+              "_id": this.files[m].lastModified + this.files[m].name,
               "name": this.files[m].name,
               "size": this.files[m].size,
               "type": this.files[m].type,
@@ -110,9 +111,11 @@ export class CreateNoteComponent implements OnInit {
               this.responseMessage = 'Note has been created succefully.!'
               setTimeout(() => {
                 this.responseMessage = ''
+                this._location.back()
               }, 3000);
               this.createTemplateForm.reset()
               this.files = []
+
             }
           })
 
@@ -143,6 +146,7 @@ export class CreateNoteComponent implements OnInit {
             this.responseMessage = 'Note has been created succefully.!'
             setTimeout(() => {
               this.responseMessage = ''
+              this._location.back()
             }, 3000);
             this.createTemplateForm.reset()
             this.files = []
