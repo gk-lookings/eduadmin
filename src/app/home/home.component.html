@@ -23,8 +23,8 @@
         <ul>
             <li *ngFor="let item of actvities" class="single_activity">
                 <div class="iconSet">
-                    <img src="/../../assets/images/icons/user.png" *ngIf="item && item.module == 'USER'">
-                    <img src="/../../assets/images/icons/class.png" *ngIf="item && item.module == 'CLASSROOM'">
+                    <img src="./assets/images/icons/user.png" *ngIf="item && item.module == 'USER'">
+                    <img src="./assets/images/icons/class.png" *ngIf="item && item.module == 'CLASSROOM'">
                 </div>
                 <div class="d-flex flex-column">
                     <h6 style="margin: 0;">{{item && item.title}}</h6>
