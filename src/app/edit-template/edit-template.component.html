@@ -1,225 +1,216 @@
-<div class="container-fluid">
-    <div class="row">
-        <mat-toolbar color="primary" class="__header justify-content-between">
-            <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/template-list']" title="Go Back">keyboard_arrow_left</mat-icon> Edit Templete</h1>
-            <!-- <mat-icon>share</mat-icon> -->
-        </mat-toolbar>
-    </div>
-
-
-    <div class="__content_sec" *ngIf="!isLoadingTotal">
-        <form name="createTemplateForm" class="temPlateFrm" [formGroup]="createTemplateForm">
-            <div class="row">
-                <div class="col-md-4 col-sm-5">
-                    <div class="inputField" style="margin-top: 3%;">
-                        <label for="tempId">ID*</label>
-                        <span><i>Unique Id that used to identify the template</i></span>
-                        <input [(ngModel)]="tempId" required type="text" autocomplete="off" [formControl]="tempIdControl" matInput placeholder="ID" name="tempId">
-                        <p class="errorInput" [ngClass]="(tempIdControl.invalid && (tempIdControl.dirty || tempIdControl.touched)) ? 'errorShow' : ''" *ngIf="tempIdControl.invalid && (tempIdControl.dirty || tempIdControl.touched)">{{getIDErrorMessage()}}</p>
-                    </div>
-                    <div class="inputField">
-                        <label for="tempName">Name*</label>
-                        <span><i>Name that used to identify the template</i></span>
-                        <input [(ngModel)]="tempName" autocomplete="off" required name="tempName" [formControl]="tempNameFormControl" matInput placeholder="Name">
-                        <p class="errorInput" [ngClass]="(tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)">{{getNameErrorMessage()}}</p>
-                    </div>
-                    <div class="inputField" style="margin-bottom: 3%;">
-                        <label for="tempName">Description Tags <span>(optional)</span></label>
-                        <span><i>Used for SEO (use ENTER or COMMA to seperate)</i></span>
-                        <input [matChipInputFor]="chipList" style="width: 100% !important; flex: 1 !important; margin: 0;" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" matInput placeholder="Tags">
-                    </div>
-                    <mat-chip-list #chipList aria-label="Tag selection">
-                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
-                            {{tag}}
-                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                        </mat-chip>
-                    </mat-chip-list>
-                    <div class="inputField" style="margin-top: 3%; margin-bottom: 0%;">
-                        <label for="tempLogo">Logo <span>(optional)</span></label>
-                        <div class="fileUploadSet" appDnd (fileDropped)="onFileDropped($event)">
-                            <div>
-                                <h1>Upload a photo</h1>
-                                <p>You can either upload photo or drag it here</p>
-                            </div>
-                            <div class="icon">
-                                <img src="./../../assets/images/icons/photo_cam.png" alt="">
-                            </div>
-                            <input type="file" class="hidInput" [multiple]="false" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)" />
-                        </div>
-
-                        <div class="files-list">
-                            <div class="single-file" *ngFor="let file of files; let i = index">
-                                <div class="file-icon" style="width: 50px">
-                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
-                                        <polygon style="fill:#EDEADA;" points="51.5,14 37.5,0 6.5,0 6.5,58 51.5,58 " />
-                                        <g>
-                                            <path style="fill:#CEC9AE;"
-                                                d="M16.5,23h25c0.552,0,1-0.447,1-1s-0.448-1-1-1h-25c-0.552,0-1,0.447-1,1S15.948,23,16.5,23z" />
-                                            <path style="fill:#CEC9AE;"
-                                                d="M16.5,15h10c0.552,0,1-0.447,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.447-1,1S15.948,15,16.5,15z" />
-                                            <path style="fill:#CEC9AE;"
-                                                d="M41.5,29h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,29,41.5,29z" />
-                                            <path style="fill:#CEC9AE;"
-                                                d="M41.5,37h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,37,41.5,37z" />
-                                            <path style="fill:#CEC9AE;"
-                                                d="M41.5,45h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,45,41.5,45z" />
-                                        </g>
-                                        <polygon style="fill:#CEC9AE;" points="37.5,0 37.5,14 51.5,14 " />
-                                    </svg>
-                                </div>
-                                <div class="info">
-                                    <h4 class="name">
-                                        {{ file?.name }}
-                                    </h4>
-                                    <p class="size">
-                                        {{ formatBytes(file?.size,2) }}
-                                    </p>
-                                    <app-progress [progress]="file?.progress"></app-progress>
-                                </div>
-
-                                <div class="delete" (click)="deleteFile(i)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18">
-                                        <path fill="#B1B1B1" fill-rule="nonzero"
-                                            d="M1 16c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v10zm3.17-7.83a.996.996 0 0 1 1.41 0L7 9.59l1.42-1.42a.996.996 0 1 1 1.41 1.41L8.41 11l1.42 1.42a.996.996 0 1 1-1.41 1.41L7 12.41l-1.42 1.42a.996.996 0 1 1-1.41-1.41L5.59 11 4.17 9.58a.996.996 0 0 1 0-1.41zM10.5 1L9.79.29C9.61.11 9.35 0 9.09 0H4.91c-.26 0-.52.11-.7.29L3.5 1H1c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1h-2.5z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="__content_sec" *ngIf="!isLoadingTotal">
+    <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
+        <mat-icon matRipple [routerLink]="['/dashboard/template-list']" title="Go back" style="margin-right: 20px;">west</mat-icon>Edit Templete </h1>
+    <form name="createTemplateForm" class="temPlateFrm" [formGroup]="createTemplateForm">
+        <div class="row">
+            <div class="col-md-4 col-sm-5">
+                <div class="inputField" style="margin-top: 3%;">
+                    <label for="tempId">ID*</label>
+                    <span><i>Unique Id that used to identify the template</i></span>
+                    <input [(ngModel)]="tempId" required type="text" autocomplete="off" [formControl]="tempIdControl" matInput placeholder="ID" name="tempId">
+                    <p class="errorInput" [ngClass]="(tempIdControl.invalid && (tempIdControl.dirty || tempIdControl.touched)) ? 'errorShow' : ''" *ngIf="tempIdControl.invalid && (tempIdControl.dirty || tempIdControl.touched)">{{getIDErrorMessage()}}</p>
                 </div>
-                <div class="col-md-4 col-sm-5">
-                    <div class="inputFieldSelect" style="margin-top: 0;">
-                        <div class="align-items-center d-flex mb-3"><label for="tempId">Select Board/University</label> <button matRipple (click)="createBoard()">Create</button> </div>
-                        <!-- <ng-multiselect-dropdown placeholder="Select your option" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" [formControl]="boardFormControl" (onSelect)="onItemSelect($event)">
-                        </ng-multiselect-dropdown>
-                        <p class="errorInput" [ngClass]="boardFormControl.invalid ? 'errorShow' : ''" *ngIf="boardFormControl.invalid">{{getBoardErrorMessage()}}</p> -->
-
-                        <div class="nm">
-                            <mat-select [(value)]="selectedItems" [(ngModel)]="selectedItems" [formControl]="boardFormControl" placeholder="Select your option">
-                                <mat-option [value]="option.board" *ngFor="let option of dropdownList" (click)="onItemSelect(option)">{{ option.board }}</mat-option>
-                            </mat-select>
-
+                <div class="inputField">
+                    <label for="tempName">Name*</label>
+                    <span><i>Name that used to identify the template</i></span>
+                    <input [(ngModel)]="tempName" autocomplete="off" required name="tempName" [formControl]="tempNameFormControl" matInput placeholder="Name">
+                    <p class="errorInput" [ngClass]="(tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)">{{getNameErrorMessage()}}</p>
+                </div>
+                <div class="inputField" style="margin-bottom: 3%;">
+                    <label for="tempName">Description Tags <span>(optional)</span></label>
+                    <span><i>Used for SEO (use ENTER or COMMA to seperate)</i></span>
+                    <input [matChipInputFor]="chipList" style="width: 100% !important; flex: 1 !important; margin: 0;" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" matInput placeholder="Tags">
+                </div>
+                <mat-chip-list #chipList aria-label="Tag selection">
+                    <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                        {{tag}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+                <div class="inputField" style="margin-top: 3%; margin-bottom: 0%;">
+                    <label for="tempLogo">Logo <span>(optional)</span></label>
+                    <div class="fileUploadSet" appDnd (fileDropped)="onFileDropped($event)">
+                        <div>
+                            <h1>Upload a photo</h1>
+                            <p>You can either upload photo or drag it here</p>
                         </div>
-                        <p class="errorInput" [ngClass]="boardFormControl.invalid ? 'errorShow' : ''" *ngIf="boardFormControl.invalid">{{getBoardErrorMessage()}}</p>
-
+                        <div class="icon">
+                            <img src="./../../assets/images/icons/photo_cam.png" alt="">
+                        </div>
+                        <input type="file" class="hidInput" [multiple]="false" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)" />
                     </div>
-                    <!-- <ng-container *ngIf="selectedItems.length > 0">
-                        <div class="inputFieldSelect" style="margin-bottom: 5px;">
-                            <label for="tempId">Filters</label>
-                        </div>
 
-                        <div class="filterSec">
-                            <a (click)="isDepartment=true" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
-                            <a (click)="isClass=true" [ngClass]="{'highLightGreen': isClass}">Class</a>
-                            <a (click)="isSemester=true" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
-                            <a (click)="isGrade=true" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
-                        </div>
-                        <div style="padding: 0 10px;">
-                            <div class="d-flex flex-column" *ngIf="isDepartment" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Departments <mat-icon (click)="isDepartment=false">close</mat-icon></label>
-                                <div class="filterSec">
-                                    <a *ngFor="let item of departments; let i = index;" (click)="createArray('department',item,i)" id="departmentId_{{i}}">{{item && item}}</a>
-                                    <a class="add" (click)="addFilterElement('department')">Add +</a>
-                                </div>
+                    <div class="files-list">
+                        <div class="single-file" *ngFor="let file of files; let i = index">
+                            <div class="file-icon" style="width: 50px">
+                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
+                                    <polygon style="fill:#EDEADA;" points="51.5,14 37.5,0 6.5,0 6.5,58 51.5,58 " />
+                                    <g>
+                                        <path style="fill:#CEC9AE;"
+                                            d="M16.5,23h25c0.552,0,1-0.447,1-1s-0.448-1-1-1h-25c-0.552,0-1,0.447-1,1S15.948,23,16.5,23z" />
+                                        <path style="fill:#CEC9AE;"
+                                            d="M16.5,15h10c0.552,0,1-0.447,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.447-1,1S15.948,15,16.5,15z" />
+                                        <path style="fill:#CEC9AE;"
+                                            d="M41.5,29h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,29,41.5,29z" />
+                                        <path style="fill:#CEC9AE;"
+                                            d="M41.5,37h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,37,41.5,37z" />
+                                        <path style="fill:#CEC9AE;"
+                                            d="M41.5,45h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S42.052,45,41.5,45z" />
+                                    </g>
+                                    <polygon style="fill:#CEC9AE;" points="37.5,0 37.5,14 51.5,14 " />
+                                </svg>
                             </div>
-
-                            <div class="d-flex flex-column" *ngIf="isClass" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Class <mat-icon (click)="isClass=false">close</mat-icon></label>
-                                <div class="filterSec">
-                                    <a *ngFor="let item of classes; let i = index;" (click)="createArray('class',item,i)" id="classId_{{i}}">{{item && item}}</a>
-                                    <a class="add" (click)="addFilterElement('class')">Add +</a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column" *ngIf="isSemester" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Semester <mat-icon (click)="isSemester=false">close</mat-icon></label>
-                                <div class="filterSec">
-                                    <a *ngFor="let item of semesters; let i = index;" (click)="createArray('semester',item,i)" id="semesterId_{{i}}">{{item && item}}</a>
-                                    <a class="add" (click)="addFilterElement('semester')">Add +</a>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column" *ngIf="isGrade" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Grade <mat-icon (click)="isGrade=false">close</mat-icon></label>
-                                <div class="filterSec">
-                                    <a *ngFor="let item of grades; let i = index;" (click)="createArray('grade',item,i)" id="gradeId_{{i}}">{{item && item}}</a>
-                                    <a class="add" (click)="addFilterElement('grade')">Add +</a>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container> -->
-                    <ng-container *ngIf="selectedItems">
-                        <div class="inputFieldSelect" style="margin-bottom: 5px;">
-                            <label for="tempId">Filters</label>
-                        </div>
-
-                        <div class="filterSec">
-                            <a (click)="departmentSelect()" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
-                            <a (click)="classSelect()" [ngClass]="{'highLightGreen': isClass}">Class</a>
-                            <a (click)="semesterSelect()" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
-                            <a (click)="gradeSelect()" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
-                        </div>
-                        <div style="padding: 0 10px;">
-                            <div class="d-flex flex-column" *ngIf="isDepartment" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Departments <mat-icon (click)="departmentSelect()">close</mat-icon></label>
-                                <div class="filterSec">
-                                    <a *ngFor="let item of departments; let i = index;" id="departmentId_{{i}}" (click)="setRow('department', item, i)" [ngClass]="{'add': departmentArray === item}">{{item && item}}</a>
-                                    <a class="add" (click)="addFilterElement('department')">Add +</a>
-                                </div>
+                            <div class="info">
+                                <h4 class="name">
+                                    {{ file?.name }}
+                                </h4>
+                                <p class="size">
+                                    {{ formatBytes(file?.size,2) }}
+                                </p>
+                                <app-progress [progress]="file?.progress"></app-progress>
                             </div>
 
-                            <div class="d-flex flex-column" *ngIf="isClass" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Class <mat-icon (click)="classSelect()">close</mat-icon></label>
-                                <div class="filterSec">
-                                    <a *ngFor="let item of classes; let i = index;" (click)="setRow('class',item,i)" id="classId_{{i}}" [ngClass]="{'add': classArray === item}">{{item && item}}</a>
-                                    <a class="add" (click)="addFilterElement('class')">Add +</a>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-column" *ngIf="isSemester" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Semester <mat-icon (click)="semesterSelect()">close</mat-icon></label>
-                                <div class="filterSec">
-                                    <a *ngFor="let item of semesters; let i = index;" (click)="setRow('semester',item,i)" id="semesterId_{{i}}" [ngClass]="{'add': semesterArray === item}">{{item && item}}</a>
-                                    <a class="add" (click)="addFilterElement('semester')">Add +</a>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column" *ngIf="isGrade" style="transition: 0.5s;">
-                                <label for="" class="d-flex align-items-center smD">Grade <mat-icon (click)="gradeSelect()">close</mat-icon></label>
-                                <div class="filterSec">
-                                    <a *ngFor="let item of grades; let i = index;" (click)="setRow('grade',item,i)" id="gradeId_{{i}}" [ngClass]="{'add': gradesArray === item}">{{item && item}}</a>
-                                    <a class="add" (click)="addFilterElement('grade')">Add +</a>
-                                </div>
+                            <div class="delete" (click)="deleteFile(i)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18">
+                                    <path fill="#B1B1B1" fill-rule="nonzero"
+                                        d="M1 16c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v10zm3.17-7.83a.996.996 0 0 1 1.41 0L7 9.59l1.42-1.42a.996.996 0 1 1 1.41 1.41L8.41 11l1.42 1.42a.996.996 0 1 1-1.41 1.41L7 12.41l-1.42 1.42a.996.996 0 1 1-1.41-1.41L5.59 11 4.17 9.58a.996.996 0 0 1 0-1.41zM10.5 1L9.79.29C9.61.11 9.35 0 9.09 0H4.91c-.26 0-.52.11-.7.29L3.5 1H1c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1h-2.5z" />
+                                </svg>
                             </div>
                         </div>
-                    </ng-container>
-                </div>
-                <div class="col-md-1 col-sm-1">
-                    <label for="logo" *ngIf="logo">Current Logo</label>
-                    <img src="{{logo && logo}}" alt="" style="width: 100%; object-fit: contain;">
-                    <!-- <div class="d-flex flex-column">
-                        <span>Current Board/University</span>
-                        <p style="font-weight: bold;">{{currentFilter && currentFilter.board}}</p>
-                        <span>Current Department</span>
-                        <p style="font-weight: bold;">{{currentFilter && currentFilter.department}}</p>
-                        <span>Current Class</span>
-                        <p style="font-weight: bold;">{{currentFilter && currentFilter.class}}</p>
-                        <span>Current Semester</span>
-                        <p style="font-weight: bold;">{{currentFilter && currentFilter.semester}}</p>
-                        <span>Current Grade</span>
-                        <p style="font-weight: bold;">{{currentFilter && currentFilter.grade}}</p>
-                    </div> -->
-                </div>
-                <div class="col-md-12">
-                    <button class="inputSubmit" style="margin: 0;" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Update</button>
-                    <button class="inputSubmit" style="margin: 0;" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
-                    <div class="responseMessage" [ngClass]="success ? 'success' : ''">
-                        {{responseMessage && responseMessage}}</div>
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
+            <div class="col-md-4 col-sm-5">
+                <div class="inputFieldSelect" style="margin-top: 0;">
+                    <div class="align-items-center d-flex mb-3"><label for="tempId">Select Board/University</label> <button matRipple (click)="createBoard()">Create</button> </div>
+                    <!-- <ng-multiselect-dropdown placeholder="Select your option" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" [formControl]="boardFormControl" (onSelect)="onItemSelect($event)">
+                    </ng-multiselect-dropdown>
+                    <p class="errorInput" [ngClass]="boardFormControl.invalid ? 'errorShow' : ''" *ngIf="boardFormControl.invalid">{{getBoardErrorMessage()}}</p> -->
 
-    <div class="d-flex flex-column justify-content-center align-items-center" style="height: 70vh;" *ngIf="isLoadingTotal">
-        <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
-    </div>
+                    <div class="nm">
+                        <mat-select [(value)]="selectedItems" [(ngModel)]="selectedItems" [formControl]="boardFormControl" placeholder="Select your option">
+                            <mat-option [value]="option.board" *ngFor="let option of dropdownList" (click)="onItemSelect(option)">{{ option.board }}</mat-option>
+                        </mat-select>
+
+                    </div>
+                    <p class="errorInput" [ngClass]="boardFormControl.invalid ? 'errorShow' : ''" *ngIf="boardFormControl.invalid">{{getBoardErrorMessage()}}</p>
+
+                </div>
+                <!-- <ng-container *ngIf="selectedItems.length > 0">
+                    <div class="inputFieldSelect" style="margin-bottom: 5px;">
+                        <label for="tempId">Filters</label>
+                    </div>
+
+                    <div class="filterSec">
+                        <a (click)="isDepartment=true" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
+                        <a (click)="isClass=true" [ngClass]="{'highLightGreen': isClass}">Class</a>
+                        <a (click)="isSemester=true" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
+                        <a (click)="isGrade=true" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
+                    </div>
+                    <div style="padding: 0 10px;">
+                        <div class="d-flex flex-column" *ngIf="isDepartment" style="transition: 0.5s;">
+                            <label for="" class="d-flex align-items-center smD">Departments <mat-icon (click)="isDepartment=false">close</mat-icon></label>
+                            <div class="filterSec">
+                                <a *ngFor="let item of departments; let i = index;" (click)="createArray('department',item,i)" id="departmentId_{{i}}">{{item && item}}</a>
+                                <a class="add" (click)="addFilterElement('department')">Add +</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column" *ngIf="isClass" style="transition: 0.5s;">
+                            <label for="" class="d-flex align-items-center smD">Class <mat-icon (click)="isClass=false">close</mat-icon></label>
+                            <div class="filterSec">
+                                <a *ngFor="let item of classes; let i = index;" (click)="createArray('class',item,i)" id="classId_{{i}}">{{item && item}}</a>
+                                <a class="add" (click)="addFilterElement('class')">Add +</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column" *ngIf="isSemester" style="transition: 0.5s;">
+                            <label for="" class="d-flex align-items-center smD">Semester <mat-icon (click)="isSemester=false">close</mat-icon></label>
+                            <div class="filterSec">
+                                <a *ngFor="let item of semesters; let i = index;" (click)="createArray('semester',item,i)" id="semesterId_{{i}}">{{item && item}}</a>
+                                <a class="add" (click)="addFilterElement('semester')">Add +</a>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column" *ngIf="isGrade" style="transition: 0.5s;">
+                            <label for="" class="d-flex align-items-center smD">Grade <mat-icon (click)="isGrade=false">close</mat-icon></label>
+                            <div class="filterSec">
+                                <a *ngFor="let item of grades; let i = index;" (click)="createArray('grade',item,i)" id="gradeId_{{i}}">{{item && item}}</a>
+                                <a class="add" (click)="addFilterElement('grade')">Add +</a>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container> -->
+                <ng-container *ngIf="selectedItems">
+                    <div class="inputFieldSelect" style="margin-bottom: 5px;">
+                        <label for="tempId">Filters</label>
+                    </div>
+
+                    <div class="filterSec">
+                        <a (click)="departmentSelect()" [ngClass]="{'highLightGreen': isDepartment}">Departments</a>
+                        <a (click)="classSelect()" [ngClass]="{'highLightGreen': isClass}">Class</a>
+                        <a (click)="semesterSelect()" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
+                        <a (click)="gradeSelect()" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
+                    </div>
+                    <div style="padding: 0 10px;">
+                        <div class="d-flex flex-column" *ngIf="isDepartment" style="transition: 0.5s;">
+                            <label for="" class="d-flex align-items-center smD">Departments <mat-icon (click)="departmentSelect()">close</mat-icon></label>
+                            <div class="filterSec">
+                                <a *ngFor="let item of departments; let i = index;" id="departmentId_{{i}}" (click)="setRow('department', item, i)" [ngClass]="{'add': departmentArray === item}">{{item && item}}</a>
+                                <a class="add" (click)="addFilterElement('department')">Add +</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column" *ngIf="isClass" style="transition: 0.5s;">
+                            <label for="" class="d-flex align-items-center smD">Class <mat-icon (click)="classSelect()">close</mat-icon></label>
+                            <div class="filterSec">
+                                <a *ngFor="let item of classes; let i = index;" (click)="setRow('class',item,i)" id="classId_{{i}}" [ngClass]="{'add': classArray === item}">{{item && item}}</a>
+                                <a class="add" (click)="addFilterElement('class')">Add +</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column" *ngIf="isSemester" style="transition: 0.5s;">
+                            <label for="" class="d-flex align-items-center smD">Semester <mat-icon (click)="semesterSelect()">close</mat-icon></label>
+                            <div class="filterSec">
+                                <a *ngFor="let item of semesters; let i = index;" (click)="setRow('semester',item,i)" id="semesterId_{{i}}" [ngClass]="{'add': semesterArray === item}">{{item && item}}</a>
+                                <a class="add" (click)="addFilterElement('semester')">Add +</a>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column" *ngIf="isGrade" style="transition: 0.5s;">
+                            <label for="" class="d-flex align-items-center smD">Grade <mat-icon (click)="gradeSelect()">close</mat-icon></label>
+                            <div class="filterSec">
+                                <a *ngFor="let item of grades; let i = index;" (click)="setRow('grade',item,i)" id="gradeId_{{i}}" [ngClass]="{'add': gradesArray === item}">{{item && item}}</a>
+                                <a class="add" (click)="addFilterElement('grade')">Add +</a>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="col-md-1 col-sm-1">
+                <label for="logo" *ngIf="logo">Current Logo</label>
+                <img src="{{logo && logo}}" alt="" style="width: 100%; object-fit: contain;">
+                <!-- <div class="d-flex flex-column">
+                    <span>Current Board/University</span>
+                    <p style="font-weight: bold;">{{currentFilter && currentFilter.board}}</p>
+                    <span>Current Department</span>
+                    <p style="font-weight: bold;">{{currentFilter && currentFilter.department}}</p>
+                    <span>Current Class</span>
+                    <p style="font-weight: bold;">{{currentFilter && currentFilter.class}}</p>
+                    <span>Current Semester</span>
+                    <p style="font-weight: bold;">{{currentFilter && currentFilter.semester}}</p>
+                    <span>Current Grade</span>
+                    <p style="font-weight: bold;">{{currentFilter && currentFilter.grade}}</p>
+                </div> -->
+            </div>
+            <div class="col-md-12">
+                <button class="inputSubmit" style="margin: 0;" [disabled]="createTemplateForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Update</button>
+                <button class="inputSubmit" style="margin: 0;" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
+                <div class="responseMessage" [ngClass]="success ? 'success' : ''">
+                    {{responseMessage && responseMessage}}</div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="d-flex flex-column justify-content-center align-items-center" style="height: 70vh;" *ngIf="isLoadingTotal">
+    <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
 </div>

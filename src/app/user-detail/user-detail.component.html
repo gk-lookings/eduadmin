@@ -1,64 +1,76 @@
-<div class="container-fluid">
-    <div class="row">
-        <mat-toolbar color="primary" class="__header justify-content-between">
-            <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/users']" title="Go back">keyboard_arrow_left</mat-icon>User Detail</h1>
-        </mat-toolbar>
+<div class="__content_sec" *ngIf="!isLoading">
+    <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
+        <mat-icon matRipple [routerLink]="['/dashboard/users']" title="Go back" style="margin-right: 20px;">west</mat-icon>{{user && user.firstName}} {{user && user.lastName}} </h1>
+    <div class="d-flex justify-content-between align-items-center mb-4 pt-2 ">
+        <div class="d-flex justify-content-between align-items-center">
+            <img class="proPic" src="{{user && user.profilePic ? user.profilePic : './assets/images/unavailable.png'}}" alt="">
+            <div>
+                <p style="margin: 0;">{{user && user.email}}</p>
+                <p style="margin: 0;">Joined On : {{user && user.createdAt | dateAgo}}</p>
+                <p style="margin: 0;">Status : {{isActive ? 'Active' : 'In Active'}}</p>
+            </div>
+        </div>
+        <div>
+            <button class="activate" style="margin: 0;" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
+        </div>
+    </div>
+    <h1 class="comm_title_h1" style="margin-bottom: 10px;">Classrooms</h1>
+    <div style="max-height: 40vh; overflow-y: auto;" *ngIf="classRooms.length > 0">
+        <div class="userList">
+            <div class="headingLst">
+                <span>CLASSROOM</span>
+                <span style="margin-left: 20px;">ID</span>
+                <span style="margin-right: 20px;">NO.OF STUDENTS</span>
+                <div style="margin-right: 60px;">ACTIONS</div>
+            </div>
+
+            <div class="single-user" style="cursor: pointer;" *ngFor="let item of classRooms" [routerLink]="['/dashboard/class-room', item._id]">
+                <div class="userSet">
+                    <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
+                    <h1>{{item && item.name}}</h1>
+                </div>
+                <span style="margin-left: 20px;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>
+                <span style="margin-right: 20px;" [routerLink]="['/dashboard/class-room', item._id]">
+                    {{item && item.members.length}}
+                </span>
+                <button class="vieW">View</button>
+            </div>
+            <div class="d-flex justify-content-center" *ngIf="isLoading">
+                <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+            </div>
+            <div class="empty" style="height: 10vh;" *ngIf="classRooms.length == 0">
+                <mat-icon class="empty">sentiment_very_dissatisfied</mat-icon>
+                <h5>{{user && user.firstName}} {{user && user.lastName}} not present in any class room</h5>
+            </div>
+        </div>
     </div>
 
 
-    <div class="__content_sec" *ngIf="!isLoading">
-        <div class="d-flex justify-content-between align-items-start mb-4 pt-4">
-            <div>
-                <h1 class="comm_title_small_h1 " style="margin-bottom: 30px;">Details </h1>
-                <p>Name : <b>{{user && user.firstName}} {{user && user.lastName}}</b></p>
-                <p>Email : <b>{{user && user.email}}</b></p>
-                <p>Joined On : <b>{{user && user.createdAt | dateAgo}}</b></p>
-                <p>Status : <b>{{isActive ? 'Active' : 'In Active'}}</b></p>
-            </div>
-            <div>
-                <button class="activate" style="margin: 0;" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
-            </div>
-        </div>
-        <h1 class="comm_title_h1" style="margin-bottom: 10px;">Classrooms</h1>
-        <div style="max-height: 40vh; overflow-y: auto;" *ngIf="classRooms.length > 0">
-            <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom" *ngFor="let item of classRooms">
-                <div class="textT" style="flex: 1;">
-                    <img src="{{item && item.logo ? item.logo : './../../assets/images/unavailable.png'}}" alt="">
-                    <h1>{{item && item.name}}</h1>
-                </div>
-                <span style="flex: 1;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>
-                <span style="flex: 1;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.members.length}} nos</span>
-                <div style="flex: 1;" class="action">
-                    <mat-icon [routerLink]="['/dashboard/class-room', item._id]">visibility</mat-icon>
-                </div>
-            </div>
-        </div>
 
-        <div class="d-flex flex-column justify-content-center align-items-center" style="height: 10vh;" *ngIf="classRooms.length == 0">
-            <mat-icon class="empty">sentiment_very_dissatisfied</mat-icon>
-            <h5>{{user && user.firstName}} {{user && user.lastName}} not present in any class room</h5>
-        </div>
-
-        <h1 class="comm_title_h1" *ngIf="actvities.length > 0">Activities</h1>
-        <div class="recent_set pb-3">
-            <!-- <p>Today</p> -->
-            <ul>
-                <li *ngFor="let item of actvities">
-                    <div class="d-flex flex-column">
-                        <span><h6 style="margin: 0; margin-right: 5px;">{{item && item.title}}</h6> <i >{{item && item.description}}</i></span>
-                        <span style="font-size: 14px;">{{item && item.createdAt | dateAgo}}</span>
-                    </div>
-                </li>
-            </ul>
+    <h1 class="comm_title_h1" *ngIf="actvities.length > 0">Activities</h1>
+    <div class="recent_set pb-3">
+        <ul>
+            <li *ngFor="let item of actvities" class="single_activity">
+                <div class="iconSet">
+                    <img src="/../../assets/images/icons/user.png" *ngIf="item && item.module == 'USER'">
+                    <img src="/../../assets/images/icons/class.png" *ngIf="item && item.module == 'CLASSROOM'">
+                </div>
+                <div class="d-flex flex-column">
+                    <h6 style="margin: 0;">{{item && item.title}}</h6>
+                    <span style="font-weight: bold;">{{item && item.description}}</span>
+                    <span style="font-size: 14px; margin-top: 7px; color: #C4C4C4;">{{item && item.createdAt | dateAgo}}</span>
+                </div>
+            </li>
             <div *ngIf="isLoadActvity">
                 <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
             </div>
-            <!-- <a (click)="showMore()" *ngIf="loadMore">Load More</a> -->
-
+        </ul>
+        <div *ngIf="isLoadActvity">
+            <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
         </div>
+
     </div>
-    <div class="d-flex justify-content-center align-items-center" style="height: 60vh;" *ngIf="isLoading">
-        <mat-spinner diameter="30"></mat-spinner>
-    </div>
+</div>
+<div class="d-flex justify-content-center align-items-center" style="height: 60vh;" *ngIf="isLoading">
+    <mat-spinner diameter="30"></mat-spinner>
 </div>

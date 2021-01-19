@@ -1,52 +1,38 @@
-<div class="container-fluid">
-    <div class="row">
-        <mat-toolbar color="primary" class="__header justify-content-between">
-            <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon> Templete </h1>
-            <!-- <mat-icon>share</mat-icon> -->
-        </mat-toolbar>
+<div class="__content_sec">
+    <h1 class="comm_title_h1 ">Template</h1>
+    <div class="d-flex align-content-center">
+        <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search classrooms" name="searchkey">
+        <button class="inputSubmit" style="margin: 0; margin-left: 10px;" [routerLink]="['/dashboard/create-template']" routerLinkActive="router-link-active">Create</button>
     </div>
-    <div class="tpSec">
-
-    </div>
-
-    <div class="__content_sec">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="inputField" style="margin: 0;">
-                <input [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search template" name="searchkey" style="padding-right: 50px;">
-                <mat-icon class="searchIcon">search</mat-icon>
-            </div>
-            <button class="inputSubmit" style="height: 55px; margin: 0; margin-left: 10px;" [routerLink]="['/dashboard/create-template']" routerLinkActive="router-link-active">Create</button>
+    <div class="userList">
+        <div class="headingLst">
+            <span>TEMPLATE</span>
+            <span style="margin-left: 20px;">ID</span>
+            <span style="margin-right: 20px;">CREATED AT</span>
+            <span>ACTIONS</span>
         </div>
 
-        <div class="row justify-content-center" style="padding-bottom: 35px;">
-            <!-- <div class="col-md-12">
-                <div class="single-temp">
-                    <span style="flex: 3; font-weight: bold;">Template</span>
-                    <span style="flex: 3; font-weight: bold;">Temp ID</span>
-                    <span style="flex: 3; font-weight: bold;">Created at</span>
-                    <span style="flex: 1; font-weight: bold;">Actions</span>
-                </div>
-            </div> -->
-            <div class="col-md-12" *ngFor="let item of templates">
-                <div class="single-temp" matRipple>
-                    <div class="d-flex align-items-center" style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">
-                        <img src="{{item && item.logo}}" alt="">
-                        <h1>{{item && item.name}}</h1>
-                    </div>
-                    <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.templateId}}</span>
-                    <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.createdAt | dateAgo}}</span>
-                    <span style="flex: 1;"></span>
-                    <div class="d-flex align-items-center options" style="flex:1">
-                        <mat-icon style="margin-left: 20px;" [routerLink]="['/dashboard/edit-template', item._id]" #tooltip="matTooltip" matTooltip="Edit">edit</mat-icon>
-                        <mat-icon style="margin-left: 20px;" [routerLink]="['/dashboard/template/subject', item._id]" #tooltip="matTooltip" matTooltip="View">visibility</mat-icon>
-                        <mat-icon style="margin-left: 20px;" (click)="deleteTemp(item._id)" #tooltip="matTooltip" matTooltip="Delete">delete</mat-icon>
-                    </div>
-                </div>
+        <div class="single-user" style="cursor: pointer;" *ngFor="let item of templates">
+            <div class="userSet" [routerLink]="['/dashboard/template/subject', item._id]">
+                <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
+                <h1>{{item && item.name}}</h1>
             </div>
+            <span style="margin-left: 20px;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.templateId}}</span>
+            <span style="margin-right: 20px;" [routerLink]="['/dashboard/template/subject', item._id]">
+                {{item && item.createdAt | dateAgo}}
+            </span>
+            <span>
+                <button class="ediT" [routerLink]="['/dashboard/edit-template', item._id]">EDIT</button>
+                <button class="vieW" [routerLink]="['/dashboard/template/subject', item._id]" style="margin: 0 4px;">VIEW</button>
+                <button class="activator" (click)="deleteTemp(item._id)">DELETE</button>
+            </span>
         </div>
-        <div class="d-flex justify-content-center align-items-center" *ngIf="isLoading">
-            <mat-spinner diameter="30"></mat-spinner>
+
+        <div class="d-flex justify-content-center" *ngIf="isLoading">
+            <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+        </div>
+        <div class="empty" *ngIf="isEmpty">
+            Sorry. No results not found. Modify your search.
         </div>
     </div>
 </div>

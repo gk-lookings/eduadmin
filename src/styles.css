@@ -1,8 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
-
 html,
 body {
     height: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 *:focus {
@@ -11,7 +13,7 @@ body {
 
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'PT Sans', sans-serif !important;
 }
 
 mat-icon {
@@ -28,7 +30,6 @@ mat-icon {
 }
 
 .inputField label {
-    font-family: 'Poppins SemiBold';
     font-size: 16px;
 }
 
@@ -119,13 +120,12 @@ mat-icon {
 }
 
 .inputSubmit {
-    background: #4dccbd;
-    border: none;
-    padding: 8px 0px;
+    background: #22877c;
+    border: 1px solid #22877c;
+    padding: 7px 0px;
     color: #fff;
     font-size: 18px;
     border-radius: 3px;
-    font-family: 'Poppins SemiBold';
     margin: 30px 0;
     transition: 0.5s;
     cursor: pointer;
@@ -160,54 +160,25 @@ mat-icon {
 }
 
 .__header {
-    color: #fff !important;
     padding: 0 35px !important;
-    height: 75px !important;
-    box-shadow: 0px 5px 10px #0003;
-    position: fixed;
-    z-index: 111111;
-}
-
-.__header.home h1 {
-    font-size: 25px;
-    font-weight: bold;
-    font-family: 'Poppins';
-}
-
-.__header h1 {
-    font-size: 20px;
-    font-family: 'Poppins SemiBold';
-    display: flex;
-    align-items: center;
-}
-
-.__header h1 mat-icon {
-    margin-right: 20px;
-    cursor: pointer;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 5px;
+    box-shadow: 0px 3px 10px #0002;
+    height: 58px !important;
 }
 
 .__content_sec {
     padding: 0 35px;
-    margin-top: 100px;
+    width: 100%;
+    position: relative;
     margin-bottom: 30px;
 }
 
 .comm_title_h1 {
     font-size: 30px;
-    font-family: 'Poppins SemiBold';
-    margin: 40px 0;
+    margin: 20px 0;
 }
 
 .comm_title_small_h1 {
     font-size: 22px;
-    font-family: 'Poppins SemiBold';
     margin-bottom: 10px;
 }
 
@@ -215,6 +186,14 @@ mat-icon {
     margin-bottom: 40px;
     font-size: 17px;
     color: #777;
+}
+
+.searchField {
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #707070;
+    color: #707070;
 }
 
 .grid-column_set {
@@ -226,32 +205,33 @@ mat-icon {
 .periodic_block {
     height: 160px;
     background: #fff;
-    padding: 20px;
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 5px;
-    box-shadow: 2px 2px 8px #0003;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px #00000026;
     cursor: pointer;
-    transition: 0.5s;
     float: left;
-}
-
-.periodic_block:hover {
-    box-shadow: 2px 2px 8px #0005;
+    text-align: center;
+    border: 1px solid #B7EAE5;
 }
 
 .periodic_block h2 {
-    font-size: 35px;
-    font-family: 'Poppins SemiBold';
+    font-size: 45px;
     margin: 0;
+    font-weight: 600;
+    color: #4A4D5C;
 }
 
 .periodic_block p {
-    font-size: 20px;
-    font-family: 'Poppins SemiBold';
     margin: 0;
-    text-align: right;
+    padding: 7px;
+    background: #B7EAE5;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding-top: 10px;
+    color: #4a4e5c;
 }
 
 @media only screen and (max-width:575px) {
@@ -269,13 +249,17 @@ mat-icon {
     }
 }
 
+.recent_set {
+    width: 100%;
+}
+
 .recent_set p {
     font-size: 20px;
-    font-family: 'Poppins SemiBold';
     color: #7E7E7E;
 }
 
-.recent_set li {
+
+/* .recent_set li {
     list-style: none;
     display: flex;
     align-items: center;
@@ -291,6 +275,26 @@ mat-icon {
     padding-right: 40px;
     margin-bottom: 3px;
     color: #7E7E7E;
+} */
+
+.iconSet {
+    height: 100px;
+    width: 2px;
+    position: relative;
+    background: #D1CCCC;
+    margin-right: 30px;
+}
+
+.single_activity {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.iconSet img {
+    position: absolute;
+    left: -17px;
+    top: 27%;
 }
 
 .files-list {
@@ -332,4 +336,100 @@ mat-icon {
 
 .files-list .single-file .info {
     width: 100%;
+}
+
+
+/* new common */
+
+.userList {
+    border: 2px solid #b7eae5;
+    margin-top: 10px;
+    border-radius: 3px;
+}
+
+.headingLst {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: #B7EAE5;
+}
+
+.headingLst span {
+    flex: 1;
+}
+
+.userSet img {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.userSet h1 {
+    font-size: 16px;
+    margin: 0;
+    margin-left: 15px;
+}
+
+.userSet {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.activator {
+    background: #CC4D4D;
+    border: none;
+    padding: 4px 0px;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 3px;
+    transition: 0.5s;
+    cursor: pointer;
+    width: 125px;
+}
+
+.deactivator {
+    background: #4dccbd !important;
+}
+
+.single-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 0;
+    border-bottom: 2px solid #B7EAE5;
+    padding: 0 10px;
+    padding-bottom: 4px;
+    margin-bottom: 0;
+}
+
+.single-user span {
+    flex: 1;
+}
+
+.vieW {
+    padding: 2px 0;
+    width: 120px;
+    border: none;
+    border-radius: 3px;
+    background: #22877c;
+    color: #fff;
+}
+
+.ediT {
+    padding: 2px 0;
+    width: 90px;
+    border: none;
+    border-radius: 3px;
+    background: #D67238;
+    color: #fff;
+}
+
+.empty {
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
 }

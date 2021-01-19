@@ -1,11 +1,12 @@
-<div class="d-flex justify-content-between align-items-center border-bottom mb-2 mt-2 pb-2 pt-2" style="cursor: pointer;">
+<div class="single-user" style="cursor: pointer;">
     <div class="userSet" [routerLink]="['/dashboard/user', item._id]">
         <img src="{{item && item.profilePic ? item.profilePic : './assets/images/unavailable.png'}}" alt="">
         <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
-        <span style="margin-left: 20px;">{{item && item.email}}</span>
     </div>
-    <span>
-        <span style="margin-right: 20px;">{{item && item.verified ? 'Verified' : 'Not Verified'}}</span>
-    <button class="activator" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate(item._id)" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
+    <span style="margin-left: 20px;" [routerLink]="['/dashboard/user', item._id]">{{item && item.email}}</span>
+    <span style="margin-right: 20px;" [routerLink]="['/dashboard/user', item._id]">
+        <mat-icon *ngIf="item && item.verified" style="color: #22877C;">check_circle</mat-icon>
+        <mat-icon *ngIf="item && !item.verified" style="color: #D8D8D8;">cancel</mat-icon>
     </span>
+    <button class="activator" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate(item._id)" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
 </div>

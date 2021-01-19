@@ -1,1 +1,33 @@
-<router-outlet></router-outlet>
+<mat-drawer-container class="example-container" autosize style="height: 100vh;">
+    <mat-drawer #drawer class="sideNav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+        <div class="logo text-center">
+            <img src="/../../assets/images/side_logo.png" alt="">
+        </div>
+        <mat-nav-list style="margin-top: 30px;">
+            <mat-list-item [routerLink]="['/dashboard/home']" routerLinkActive="routeActive" class="matListitem">
+                <img mat-list-icon src="/../../assets/images/icons/dashboard.png" style="border-radius: 0;">
+                <h4 mat-line class="titleMenuword">Dashboard</h4>
+            </mat-list-item>
+            <mat-list-item routerLinkActive="routeActive" [routerLink]="['/dashboard/class-rooms']" class="matListitem">
+                <img mat-list-icon src="/../../assets/images/icons/class-room.png" style="border-radius: 0;">
+                <h4 mat-line class="titleMenuword">Classrooms</h4>
+            </mat-list-item>
+            <mat-list-item routerLinkActive="routeActive" [routerLink]="['/dashboard/users']" class="matListitem">
+                <img mat-list-icon src="/../../assets/images/icons/students.png" style="border-radius: 0;">
+                <h4 mat-line class="titleMenuword">Students</h4>
+            </mat-list-item>
+            <mat-list-item routerLinkActive="routeActive" [routerLink]="['/dashboard/template-list']" class="matListitem">
+                <img mat-list-icon src="/../../assets/images/icons/templates.png" style="border-radius: 0;">
+                <h4 mat-line class="titleMenuword">Templates</h4>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+    <div class="example-sidenav-content">
+        <mat-toolbar class="__header justify-content-between">
+            <mat-icon style="color: #22877C; font-weight: bold;" mat-button (click)="drawer.toggle()">menu</mat-icon>
+            <span (click)="logOut()" class="logOut">LOGOUT</span>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+        <button (click)=" topFunction() " class="scrollTop" id="myBtn " title="Go to top "><mat-icon>keyboard_arrow_up</mat-icon></button>
+    </div>
+</mat-drawer-container>

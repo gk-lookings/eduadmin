@@ -1,40 +1,19 @@
-<div class="container-fluid">
-    <div class="row">
-        <mat-toolbar color="primary" class="__header justify-content-between">
-            <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon> Classroom </h1>
-            <!-- <mat-icon>share</mat-icon> -->
-        </mat-toolbar>
-    </div>
-
-
-    <div class="__content_sec">
-        <div class="tpSec">
-            <div class="inputField" style="margin-bottom: 15px; margin-top: 110px;">
-                <input [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search classroom" name="searchkey" style="padding-right: 50px;">
-                <mat-icon class="searchIcon">search</mat-icon>
-            </div>
-            <!-- <div class="single-temp">
-                <span style="flex: 3; font-weight: bold;">Classroom</span>
-                <span style="flex: 3; font-weight: bold;">Class ID</span>
-                <span style="flex: 2; font-weight: bold;">Strength</span>
-                <span style="flex: 2; font-weight: bold;">Action</span>
-            </div> -->
+<div class="__content_sec">
+    <h1 class="comm_title_h1 ">Classroom</h1>
+    <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search classrooms" name="searchkey">
+    <div class="userList">
+        <div class="headingLst">
+            <span>CLASSROOM</span>
+            <span style="margin-left: 20px;">ID</span>
+            <span style="margin-right: 20px;">NO OF STUDENTS</span>
+            <div style="margin-right: 60px;">ACTIONS</div>
         </div>
-
-        <div class="row justify-content-start" style="padding-bottom: 35px; padding-top: 70px;">
-            <div class="col-md-12" *ngFor="let item of classes">
-                <app-class-single [item]="item"></app-class-single>
-            </div>
+        <app-class-single [item]="item" *ngFor="let item of classes"></app-class-single>
+        <div class="d-flex justify-content-center" *ngIf="isLoading">
+            <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
         </div>
-
-        <div class="d-flex justify-content-center align-items-center" style="height: 60vh;" *ngIf="isLoading">
-            <mat-spinner diameter="30"></mat-spinner>
-        </div>
-
-        <div class="d-flex flex-column justify-content-center align-items-center" style="height: 60vh;" *ngIf="isEmpty">
-            <mat-icon class="empty">hourglass_empty</mat-icon>
-            <h5>No class found.!</h5>
+        <div class="empty" *ngIf="isEmpty">
+            Sorry. No results not found. Modify your search.
         </div>
     </div>
 </div>

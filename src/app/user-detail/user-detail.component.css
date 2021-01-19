@@ -35,15 +35,13 @@
 .activate {
     background: #CC4D4D;
     border: none;
-    padding: 8px 0px;
+    padding: 4px 0px;
     color: #fff;
     font-size: 18px;
     border-radius: 3px;
-    font-family: 'Poppins SemiBold';
-    margin: 30px 0;
     transition: 0.5s;
     cursor: pointer;
-    width: 145px;
+    width: 125px;
 }
 
 .deactivated {
@@ -55,4 +53,12 @@
     width: 60px;
     height: 60px;
     color: #999;
+}
+
+.proPic {
+    width: 80px;
+    border-radius: 4px;
+    margin-right: 20px;
+    height: 80px;
+    object-fit: contain;
 }

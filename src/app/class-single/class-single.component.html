@@ -1,17 +1,11 @@
-<div class="single-temp">
-    <div class="d-flex align-items-center" style="flex: 3;     height: 100%;" [routerLink]="['/dashboard/class-room', item._id]">
-        <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}">
+<div class="single-user" style="cursor: pointer;">
+    <div class="userSet" [routerLink]="['/dashboard/class-room', item._id]">
+        <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
         <h1>{{item && item.name}}</h1>
     </div>
-    <span style="flex: 3;" class="setup" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>
-    <span style="flex: 2;" class="setup" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.members.length}}</span>
-    <span style="flex: 2; justify-content: center;" class="setup">
-        <button class="activate" [ngClass]="isActive ? '' : 'deactivated'"
-        mwlConfirmationPopover
-        [popoverTitle]="popoverTitle"
-        [popoverMessage]="popoverMessage"
-        placement="left"
-        (confirm)="deactivate(item._id)"
-        (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
+    <span style="margin-left: 20px;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>
+    <span style="margin-right: 20px;" [routerLink]="['/dashboard/class-room', item._id]">
+        {{item && item.members.length}}
     </span>
+    <button class="activator" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate(item._id)" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
 </div>

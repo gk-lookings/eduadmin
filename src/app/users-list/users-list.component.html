@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="row">
         <mat-toolbar color="primary" class="__header justify-content-between">
             <h1 style="font-size: 20px;">
@@ -6,18 +6,27 @@
         </mat-toolbar>
     </div>
 
-    <div class="__content_sec" style="padding-bottom: 50px;">
-        <div class="tpSec">
-            <div class="inputField" style="margin-bottom: 15px; margin-top: 110px;">
-                <input [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search user" name="searchkey" style="padding-right: 50px;">
-                <mat-icon class="searchIcon">search</mat-icon>
-            </div>
+    
+</div> -->
+
+
+<div class="__content_sec">
+    <h1 class="comm_title_h1 ">Students</h1>
+    <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search users" name="searchkey">
+    <div class="userList">
+        <div class="headingLst">
+            <span>NAME</span>
+            <span style="margin-left: 20px;">EMAIL</span>
+            <span style="margin-right: 20px;">STATUS</span>
+            <div style="margin-right: 60px;">ACTIONS</div>
         </div>
-        <div style="padding-bottom: 35px; padding-top: 80px;">
-            <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
-        </div>
+        <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
         <div class="d-flex justify-content-center" *ngIf="isLoading">
             <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+        </div>
+
+        <div class="empty" *ngIf="isEmpty">
+            Sorry. No results not found. Modify your search.
         </div>
     </div>
 </div>

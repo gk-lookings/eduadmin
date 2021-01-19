@@ -17,6 +17,7 @@ export class TemplateListComponent implements OnInit {
   isLoading
   templates =[]
   isLastpage = false
+  isEmpty = false
   currentPage = 0
   searchkey=''
   txtQueryChanged = new Subject<string>();
@@ -28,6 +29,7 @@ export class TemplateListComponent implements OnInit {
               this.isLastpage = false
               this.currentPage = 0
               this.isLoading = false
+              this.isEmpty= false
               this.fetchList()
              });
    }
@@ -46,6 +48,8 @@ export class TemplateListComponent implements OnInit {
           if (res.status === 200) {
             this.templates = this.templates.concat(res.data.templates)
             this.isLastpage = (res.data.templates.length == 0) ? true : false
+            if(this.templates.length == 0)
+              this.isEmpty = true
           }
         })
     }
@@ -69,6 +73,8 @@ export class TemplateListComponent implements OnInit {
                   if (res.status === 200) {
                     this.templates = res.data.templates
                     this.isLastpage = (res.data.templates.length == 0) ? true : false
+                    if(this.templates.length == 0)
+                      this.isEmpty = true
                   }
                 })
             }

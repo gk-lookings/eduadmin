@@ -17,7 +17,7 @@ export class UsersListComponent implements OnInit {
   users = []
   isLastpage = false
   currentPage = 0
-
+  isEmpty = false
   txtQueryChanged = new Subject<string>();
   
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) {
@@ -28,6 +28,7 @@ export class UsersListComponent implements OnInit {
               this.isLastpage = false
               this.currentPage = 0
               this.isLoading = false
+              this.isEmpty = false
               this.fetchList()
              });
    }
@@ -46,6 +47,8 @@ export class UsersListComponent implements OnInit {
           if (res.status === 200) {
             this.users = this.users.concat(res.data.users)
             this.isLastpage = (res.data.users.length == 0) ? true : false
+            if(this.users.length == 0)
+            this.isEmpty = true
           }
         })
     }

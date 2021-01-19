@@ -1,45 +1,40 @@
-<div class="container-fluid">
-    <div class="row">
-        <mat-toolbar color="primary" class="__header home justify-content-between">
-            <h1>Classteam</h1>
-            <button mat-raised-button (click)="logOut()" class="logOut">Log Out<mat-icon>power_settings_new</mat-icon></button>
-        </mat-toolbar>
+<div class="__content_sec">
+    <h1 class="comm_title_h1 ">Overview</h1>
+    <div class="grid-column_set">
+        <div class="periodic_block" matRipple [routerLink]="['/dashboard/class-rooms']">
+            <h2>{{classCount && classCount}}</h2>
+            <p>Classroom</p>
+        </div>
+        <div class="periodic_block" matRipple [routerLink]="['/dashboard/users']">
+            <h2>{{stdCount && stdCount}}</h2>
+            <p>Students</p>
+        </div>
+        <div class="periodic_block" matRipple [routerLink]="['/dashboard/template-list']" routerLinkActive="router-link-active">
+            <h2>{{tempCount && tempCount}}</h2>
+            <p>Templates</p>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
-
-    <div class="__content_sec">
-        <h1 class="comm_title_h1 ">Dashboard</h1>
-        <div class="grid-column_set">
-            <div class="periodic_block" matRipple [routerLink]="['/dashboard/class-rooms']">
-                <h2 class="primaryColor">{{classCount && classCount}}</h2>
-                <p>Classroom</p>
-            </div>
-            <div class="periodic_block" matRipple [routerLink]="['/dashboard/users']">
-                <h2 class="primaryColor">{{stdCount && stdCount}}</h2>
-                <p>Students</p>
-            </div>
-            <div class="periodic_block" matRipple [routerLink]="['/dashboard/template-list']" routerLinkActive="router-link-active">
-                <h2 class="primaryColor">{{tempCount && tempCount}}</h2>
-                <p>Templates</p>
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <h1 class="comm_title_h1">Activities</h1>
-        <div class="recent_set">
-            <ul>
-                <li *ngFor="let item of actvities">
-                    <div class="d-flex flex-column">
-                        <span><h6 style="margin: 0; margin-right: 5px;">{{item && item.title}}</h6> <i >{{item && item.description}}</i></span>
-                        <span style="font-size: 14px;">{{item && item.createdAt | dateAgo}}</span>
-                    </div>
-                </li>
-                <div *ngIf="isLoadActvity">
-                    <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+    <h1 class="comm_title_h1">Activities</h1>
+    <div class="recent_set">
+        <ul>
+            <li *ngFor="let item of actvities" class="single_activity">
+                <div class="iconSet">
+                    <img src="/../../assets/images/icons/user.png" *ngIf="item && item.module == 'USER'">
+                    <img src="/../../assets/images/icons/class.png" *ngIf="item && item.module == 'CLASSROOM'">
                 </div>
-                <!-- <a class="ldmr" (click)="showMore()" *ngIf="loadMore">Load More</a> -->
-            </ul>
-        </div>
+                <div class="d-flex flex-column">
+                    <h6 style="margin: 0;">{{item && item.title}}</h6>
+                    <span style="font-weight: bold;">{{item && item.description}}</span>
+                    <span style="font-size: 14px; margin-top: 7px; color: #C4C4C4;">{{item && item.createdAt | dateAgo}}</span>
+                </div>
+            </li>
+            <div *ngIf="isLoadActvity">
+                <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+            </div>
+        </ul>
     </div>
 </div>

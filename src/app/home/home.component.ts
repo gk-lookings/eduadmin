@@ -29,10 +29,6 @@ export class HomeComponent implements OnInit {
     this.fetchGlobalActivity()
   }
 
-  logOut() {
-    const abc = this.dialog.open(LogOutModelComponent)
-  }
-
   fetchActivity(){
     let params = {}
     this.apiService.getResponse('get', DASHBOARD, params).
