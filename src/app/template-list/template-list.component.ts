@@ -39,9 +39,10 @@ export class TemplateListComponent implements OnInit {
   }
 
   fetchList() {
+    this.isEmpty = false
     if (!this.isLastpage) {
       this.isLoading = true;
-      let params = { term: this.searchkey, offset: this.currentPage, count :10 }
+      let params = { term: this.searchkey, offset: this.currentPage, count :30 }
       this.apiService.getResponse('get', TEMPLATE_LIST, params).
         then(res => {
           this.isLoading = false;

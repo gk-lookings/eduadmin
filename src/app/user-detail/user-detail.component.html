@@ -5,9 +5,9 @@
         <div class="d-flex justify-content-between align-items-center">
             <img class="proPic" src="{{user && user.profilePic ? user.profilePic : './assets/images/unavailable.png'}}" alt="">
             <div>
-                <p style="margin: 0;">{{user && user.email}}</p>
-                <p style="margin: 0;">Joined On : {{user && user.createdAt | dateAgo}}</p>
-                <p style="margin: 0;">Status : {{isActive ? 'Active' : 'In Active'}}</p>
+                <p class="border-bottom mb-0">{{user && user.email}}</p>
+                <p class="border-bottom mb-0">Joined On : {{user && user.createdAt | dateAgo}}</p>
+                <p class="border-bottom mb-0">Status : {{isActive ? 'Active' : 'In Active'}}</p>
             </div>
         </div>
         <div>
@@ -44,9 +44,6 @@
             </div>
         </div>
     </div>
-
-
-
     <h1 class="comm_title_h1" *ngIf="actvities.length > 0">Activities</h1>
     <div class="recent_set pb-3">
         <ul>
@@ -54,6 +51,10 @@
                 <div class="iconSet">
                     <img src="./assets/images/icons/user.png" *ngIf="item && item.module == 'USER'">
                     <img src="./assets/images/icons/class.png" *ngIf="item && item.module == 'CLASSROOM'">
+                    <img src="./assets/images/icons/post.png" *ngIf="item && item.module == 'POST'">
+                    <img src="./assets/images/icons/note.png" *ngIf="item && item.module == 'NOTE'">
+                    <img src="./assets/images/icons/doc.png" *ngIf="item && item.module == 'DOCUMENT'">
+                    <img src="./assets/images/icons/curriculam.png" *ngIf="item && item.module == 'CURRICULUM'">
                 </div>
                 <div class="d-flex flex-column">
                     <h6 style="margin: 0;">{{item && item.title}}</h6>
@@ -65,10 +66,6 @@
                 <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
             </div>
         </ul>
-        <div *ngIf="isLoadActvity">
-            <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
-        </div>
-
     </div>
 </div>
 <div class="d-flex justify-content-center align-items-center" style="height: 60vh;" *ngIf="isLoading">

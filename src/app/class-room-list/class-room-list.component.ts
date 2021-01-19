@@ -42,14 +42,14 @@ export class ClassRoomListComponent implements OnInit {
     if (!this.isLastpage) {
       this.isLoading = true;
       this.isEmpty = false
-      let params = { term: this.searchkey, offset: this.currentPage, count :10 }
+      let params = { term: this.searchkey, offset: this.currentPage, count :30 }
       this.apiService.getResponse('get', CLASSROOM_LIST, params).
         then(res => {
           this.isLoading = false;
           if (res.status === 200) {
             this.classes = this.classes.concat(res.data.classRooms)
             this.isLastpage = (res.data.classRooms.length == 0) ? true : false
-            if(res.data.classRooms.length == 0)
+            if(this.classes.length == 0)
             this.isEmpty = true
           }
         })

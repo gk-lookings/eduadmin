@@ -5,7 +5,7 @@ import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FILTER, GET_TEMPLATE, HOST, LOGIN, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST } from '../config/endpoints';
-
+import { Location } from '@angular/common';
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -85,7 +85,7 @@ export class EditTemplateComponent implements OnInit {
 
   currentFilter
 
-  constructor(private apiService: ApiService, private router: Router, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService, public _location: Location, private router: Router, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getFIlterItems()

@@ -20,19 +20,28 @@ export class TemplateSubjectsComponent implements OnInit {
   template
   tempId = this.activatedRoute.snapshot.params['tempId'];
   isLoading
-  subjects=[]
+  subjects = []
   isLastpage = false
   currentPage = 0
   isEmpty = false
+
+  subArray = ''
+  subIndex
+  subId
+
+  documents =[]
+  notes = []
+  curriculum = []
+
   constructor(
-        private apiService: ApiService,
-        public _location: Location,
-        private router: Router,
-        private authService: AuthenticationService,
-        private activatedRoute: ActivatedRoute,
-        private spinner: NgxSpinnerService,
-        public dialog : MatDialog
-        ) { }
+    private apiService: ApiService,
+    public _location: Location,
+    private router: Router,
+    private authService: AuthenticationService,
+    private activatedRoute: ActivatedRoute,
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.fetchSubjects()
@@ -47,12 +56,12 @@ export class TemplateSubjectsComponent implements OnInit {
           this.isLoading = false
           this.template = res.data
           this.subjects = res.data.subjects
-          if(this.subjects.length==0)
-          this.isEmpty = true
+          if (this.subjects.length == 0)
+            this.isEmpty = true
         }
       })
   }
- 
+
   createSub() {
     const open = this.dialog.open(CreateSubjectComponent, { data: this.template })
     open.afterClosed().subscribe(result => {
@@ -81,6 +90,16 @@ export class TemplateSubjectsComponent implements OnInit {
           })
       }
     })
+  }
+
+  setRow(obj, i) {
+    this.subIndex = i
+    this.subArray = obj
+    console.log("objec", obj);
+    this.documents = obj.documents
+    this.curriculum  =obj.sections
+    this.notes = obj.notes
+    this.subId = obj._id
   }
 
 }

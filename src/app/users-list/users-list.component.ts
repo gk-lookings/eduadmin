@@ -40,7 +40,7 @@ export class UsersListComponent implements OnInit {
   fetchList() {
     if (!this.isLastpage) {
       this.isLoading = true;
-      let params = { term: this.searchkey, offset: this.currentPage, count :10 }
+      let params = { term: this.searchkey, offset: this.currentPage, count :30 }
       this.apiService.getResponse('get', USERS_LIST, params).
         then(res => {
           this.isLoading = false;
