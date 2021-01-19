@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container" autosize style="height: 100vh;">
+<mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="sideNav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
         <div class="logo text-center">
             <img src="./assets/images/side_logo.png" alt="">
@@ -22,7 +22,7 @@
             </mat-list-item>
         </mat-nav-list>
     </mat-drawer>
-    <div class="example-sidenav-content">
+    <div class="example-sidenav-content" style="min-height:100vh;">
         <mat-toolbar class="__header justify-content-between">
             <mat-icon style="color: #22877C; font-weight: bold;" mat-button (click)="drawer.toggle()">menu</mat-icon>
             <span (click)="logOut()" class="logOut">LOGOUT</span>
