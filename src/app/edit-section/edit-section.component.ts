@@ -83,6 +83,7 @@ export class EditSectionComponent implements OnInit {
           setTimeout(() => {
             this.responseMessage = ''
           }, 3000);
+          this.dialogRef.close(true)
         }
       })
   }

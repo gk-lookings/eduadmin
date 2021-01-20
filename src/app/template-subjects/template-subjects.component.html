@@ -1,35 +1,3 @@
-<!-- <div class="container-fluid">
-    <div class="__content_sec">
-        <div class="subjects_set">
-            <div class="sub_sin_block justify-content-between align-items-center" matRipple *ngFor="let item of subjects" routerLinkActive="router-link-active">
-                <div class="align-items-center d-flex" [routerLink]="['/dashboard/subject',item._id,tempId ]" style="flex: 9; padding: 20px;">
-                    <h2 class="primaryColor text-uppercase">{{item && item.subject | slice:0:1}}</h2>
-                    <p>{{item && item.subject | slice:0:18}}</p>
-                </div>
-                <div class="d-flex align-items-center" style="padding-right: 20px;">
-                    <mat-icon style="margin-left: 10px;" (click)="deleteSub(item)">close</mat-icon>
-                </div>
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <div class="d-flex justify-content-center align-content-center" style="height: 60vh;" *ngIf="isLoading">
-            <mat-spinner diameter="30"></mat-spinner>
-        </div>
-
-        <div class="d-flex flex-column justify-content-center align-items-center" style="height: 60vh;" *ngIf="isEmpty">
-            <mat-icon class="empty">sentiment_very_dissatisfied</mat-icon>
-            <h5>No subjects found.!</h5>
-        </div>
-    </div>
-</div>
-
- -->
-
-
 <div class="__content_sec">
     <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
         <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{template && template.name}} </h1>
@@ -48,12 +16,12 @@
         </div>
     </div>
 
-    <div class="">
+    <div *ngIf="!isLoading">
         <div class="d-inline-block">
             <div *ngFor="let item of subjects; let i = index;" (click)="setRow(item,i)" class="singleSubItem" [ngClass]="{'activeItem': subIndex === i}">
                 <span class="singleLetter">{{item && item.subject | slice:0:1}}</span>
                 <span class="text-capitalize">{{item && item.subject | slice:0:18}}</span>
-                <span *ngIf="subIndex !== i"></span>
+                <span *ngIf="subIndex !== i">&nbsp;</span>
                 <mat-icon style="color: #fff;" (click)="deleteSub(item)" *ngIf="subIndex === i">delete</mat-icon>
             </div>
             <a class="singleAdd" (click)="createSub()">+</a>
@@ -86,7 +54,7 @@
                             <span style="margin-left: 20px;"></span>
                             <div>
                                 <mat-icon style="margin-right: 10px;" [routerLink]="['/dashboard/edit-document', subId, tempId, item && item._id]">edit</mat-icon>
-                                <mat-icon style="margin-right: 20px;" (click)="deleteTemp(item, i)">delete</mat-icon>
+                                <mat-icon style="margin-right: 20px;" (click)="deleteDoc(item, i)">delete</mat-icon>
                             </div>
                         </div>
                         <div class="empty" *ngIf="documents.length == 0">
@@ -95,8 +63,28 @@
                     </div>
                 </mat-tab>
                 <mat-tab label="Curriculam">
-                    <div>
-                        <a *ngFor="let item of curriculam">{{item && item.title}}</a>
+                    <div class="d-flex justify-content-end">
+                        <a class="createItem" (click)="createSection()">Create Section</a>
+                    </div>
+                    <div class="pt-4">
+                        <mat-accordion class="example-headers-align">
+                            <mat-expansion-panel *ngFor="let item of curriculum" hideToggle class="expPanel">
+                                <mat-expansion-panel-header class="panelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+                                    <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                        <span>{{item && item.title}}</span>
+                                        <div class="d-flex justify-content-between align-items-center panelAction">
+                                            <mat-icon (click)="editSection(item)">edit</mat-icon>
+                                            <mat-icon (click)="deleteSection(item, i)">delete</mat-icon>
+                                        </div>
+                                    </div>
+
+                                </mat-expansion-panel-header>
+                                <div class="pt-4">{{item && item.description}}</div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                        <div class="empty" *ngIf="curriculum.length == 0">
+                            Sorry. No sections added yet.
+                        </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Notes">
@@ -124,11 +112,11 @@
                             <span style="margin-left: 20px;"></span>
                             <div>
                                 <mat-icon style="margin-right: 10px;" [routerLink]="['/dashboard/edit-note', subId, tempId, item && item._id]">edit</mat-icon>
-                                <mat-icon style="margin-right: 20px;" (click)="deleteTemp(item, i)">delete</mat-icon>
+                                <mat-icon style="margin-right: 20px;" (click)="deleteNote(item, i)">delete</mat-icon>
                             </div>
                         </div>
                         <div class="empty" *ngIf="notes.length == 0">
-                            Sorry. No noted added yet.
+                            Sorry. No notes added yet.
                         </div>
                     </div>
                 </mat-tab>

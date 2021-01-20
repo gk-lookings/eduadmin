@@ -71,11 +71,12 @@
     padding: 7px 13px;
     justify-content: space-between;
     float: left;
-    margin-right: 15px;
-    font-size: 17px;
-    height: 56px;
-    min-width: 190px;
+    margin-right: 14px;
+    font-size: 15px;
+    height: 45px;
+    min-width: 180px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .activeItem {
@@ -87,8 +88,8 @@
 .singleLetter {
     text-transform: uppercase;
     background: #B7EAE5;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,17 +106,33 @@
     align-items: center;
     border: 2px solid #22877c;
     border-radius: 6px;
-    padding: 7px 13px;
     justify-content: center;
     float: left;
     margin-right: 15px;
-    height: 56px;
-    width: 56px;
-    font-size: 40px;
+    height: 45px;
+    width: 45px;
+    font-size: 30px;
     color: #22877c;
     cursor: pointer;
 }
 
 .singleAdd:hover {
     text-decoration: none;
+}
+
+.panelHeader {
+    background: #B7EAE5 !important;
+}
+
+.expPanel {
+    box-shadow: none !important;
+    border: 2px solid #b7eae5;
+    color: #4A4D5C !important;
+    margin-bottom: 5px;
+}
+
+.panelAction mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
 }

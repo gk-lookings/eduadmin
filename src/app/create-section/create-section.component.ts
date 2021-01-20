@@ -80,6 +80,7 @@ export class CreateSectionComponent implements OnInit {
             this.responseMessage = ''
           }, 3000);
           this.createForm.reset()
+          this.dialogRef.close(true)
         }
       })
   }
