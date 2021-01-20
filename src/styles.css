@@ -367,9 +367,10 @@ mat-icon {
 }
 
 .userSet h1 {
-    font-size: 16px;
+    font-size: 15px;
     margin: 0;
     margin-left: 15px;
+    font-weight: 400;
 }
 
 .userSet {
@@ -387,7 +388,7 @@ mat-icon {
     border-radius: 3px;
     transition: 0.5s;
     cursor: pointer;
-    width: 125px;
+    width: 105px;
 }
 
 .deactivator {
@@ -403,6 +404,13 @@ mat-icon {
     padding: 0 10px;
     padding-bottom: 4px;
     margin-bottom: 0;
+    color: #4A4D5C;
+}
+
+.single-user mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
 }
 
 .single-user span {
@@ -411,7 +419,7 @@ mat-icon {
 
 .vieW {
     padding: 2px 0;
-    width: 120px;
+    width: 100px;
     border: none;
     border-radius: 3px;
     background: #22877c;

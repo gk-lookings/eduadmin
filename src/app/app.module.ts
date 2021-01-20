@@ -125,7 +125,8 @@ import { WarningPopupComponent } from './warning-popup/warning-popup.component';
     ClassSingleComponent,
     UserSingleComponent,
     FilterAddModelComponent,
-    WarningPopupComponent
+    WarningPopupComponent,
+
   ],
   imports: [
     BrowserModule,

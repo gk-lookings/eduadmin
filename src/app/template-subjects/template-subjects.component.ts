@@ -35,6 +35,12 @@ export class TemplateSubjectsComponent implements OnInit {
   notes = []
   curriculum = []
 
+  selectedDocument
+  selectedNote
+
+  isSelectedDoc = false
+  isSelectedNote = false
+
   constructor(
     private apiService: ApiService,
     public _location: Location,
@@ -58,6 +64,15 @@ export class TemplateSubjectsComponent implements OnInit {
           this.isLoading = false
           this.template = res.data
           this.subjects = res.data.subjects
+          if (this.subjects.length != 0)
+          {
+            this.subArray = res.data.subjects[0]
+            this.documents = res.data.subjects[0].documents
+            this.curriculum = res.data.subjects[0].sections
+            this.notes = res.data.subjects[0].notes
+            this.subId = res.data.subjects[0]._id
+            this.subIndex = 0
+          }
           if (this.subjects.length == 0)
             this.isEmpty = true
         }
@@ -143,11 +158,11 @@ export class TemplateSubjectsComponent implements OnInit {
     this.subIndex = i
     this.subArray = obj
     this.documents = obj.documents
-    console.log("Obje", obj);
-    
-    this.curriculum =obj.sections
+    this.curriculum = obj.sections
     this.notes = obj.notes
     this.subId = obj._id
+    this.isSelectedDoc = false
+    this.isSelectedNote = false
   }
 
   deleteDoc(item, i) {
@@ -215,6 +230,43 @@ export class TemplateSubjectsComponent implements OnInit {
           })
         if (this.curriculum.length == 0)
           this.isEmpty = true
+      }
+    })
+  }
+
+  selectedDoc(item)
+  {
+    this.selectedDocument = item
+    if(item.files.length > 0)
+    this.isSelectedDoc = true
+  }
+
+  selectNote(item)
+  {
+    this.selectedNote = item
+    if(item.files.length > 0)
+    this.isSelectedNote = true
+  }
+
+  deleteFile(item){
+    const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
+      if (result) {
+        var index = this.selectedDocument.files.indexOf(item)
+        this.notes.splice(index, 1)
+        this.subjects.notes = this.notes
+        let params = {
+          "templateId": this.tempId,
+          "name": this.template.name,
+          "descriptionTags": this.template.descriptionTags,
+          "active": this.template.active,
+          "about": this.template.about,
+          "subjects": this.subjects
+        }
+        this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
+          then(res => {
+          })
+          if (this.notes.length == 0)
+            this.isEmpty = true
       }
     })
   }

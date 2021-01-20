@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div *ngIf="!isLoading">
+    <div class="opacityDrop">
         <div class="d-inline-block">
             <div *ngFor="let item of subjects; let i = index;" (click)="setRow(item,i)" class="singleSubItem" [ngClass]="{'activeItem': subIndex === i}">
                 <span class="singleLetter">{{item && item.subject | slice:0:1}}</span>
@@ -24,34 +24,32 @@
                 <span *ngIf="subIndex !== i">&nbsp;</span>
                 <mat-icon style="color: #fff;" (click)="deleteSub(item)" *ngIf="subIndex === i">delete</mat-icon>
             </div>
-            <a class="singleAdd" (click)="createSub()">+</a>
+            <a class="singleAdd" (click)="createSub()" title="Create Subject">+</a>
         </div>
 
-        <div class="contentBlk" *ngIf="subArray">
+        <div class="contentBlk opacityDrop" *ngIf="subArray">
             <mat-tab-group mat-align-tabs="start">
                 <mat-tab label="Documents">
                     <div class="d-flex justify-content-end">
                         <a class="createItem" [routerLink]="['/dashboard/create-document',subId,tempId ]">Create Document</a>
                     </div>
-                    <div class="userList">
+                    <div class="userList" *ngIf="!isSelectedDoc">
                         <div class="headingLst">
                             <div class="userSet">
                                 <h1>#</h1>
                                 <h1>Name</h1>
                             </div>
                             <span style="margin-right: 20px;">Files</span>
-                            <span style="margin-left: 20px;"></span>
                             <div style="margin-right: 20px;">Actions</div>
                         </div>
                         <div class="single-user" style="cursor: pointer;" *ngFor="let item of documents; let i = index;">
-                            <div class="userSet">
+                            <div class="userSet" (click)="selectedDoc(item)">
                                 <h1>{{i + 1}}</h1>
                                 <h1>{{item && item.title}}</h1>
                             </div>
-                            <span style="margin-right: 20px;">
+                            <span style="margin-right: 20px;" (click)="selectedDoc(item)">
                                 {{item && item.files.length}}
                             </span>
-                            <span style="margin-left: 20px;"></span>
                             <div>
                                 <mat-icon style="margin-right: 10px;" [routerLink]="['/dashboard/edit-document', subId, tempId, item && item._id]">edit</mat-icon>
                                 <mat-icon style="margin-right: 20px;" (click)="deleteDoc(item, i)">delete</mat-icon>
@@ -61,12 +59,40 @@
                             Sorry. No documents added yet.
                         </div>
                     </div>
+                    <div *ngIf="isSelectedDoc" class="opacityDrop">
+                        <h1 class="comm_title_small_h1 d-flex align-items-center" style="font-size: 19px;">
+                            <mat-icon matRipple (click)="isSelectedDoc = false" title="Go back" style="margin-right: 20px;">west</mat-icon>{{selectedDocument && selectedDocument.title}}</h1>
+                        <div class="userList">
+                            <div class="headingLst">
+                                <div class="userSet">
+                                    <h1>#</h1>
+                                    <h1>Name</h1>
+                                </div>
+                                <span style="margin-right: 20px;"></span>
+                                <span style="margin-left: 20px;"></span>
+                                <div style="margin-right: 20px;">Actions</div>
+                            </div>
+                            <div class="single-user" *ngFor="let file of selectedDocument.files; let j = index;">
+                                <div class="userSet">
+                                    <h1>{{j + 1}}</h1>
+                                    <h1>{{file && file.name}}</h1>
+                                </div>
+                                <span style="margin-right: 20px;">
+                                </span>
+                                <span style="margin-left: 20px;"></span>
+                                <div>
+                                    <mat-icon style="margin-right: 10px;">visibility</mat-icon>
+                                    <mat-icon style="margin-right: 20px;">delete</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
                 <mat-tab label="Curriculam">
                     <div class="d-flex justify-content-end">
                         <a class="createItem" (click)="createSection()">Create Section</a>
                     </div>
-                    <div class="pt-4">
+                    <div class="mt-2">
                         <mat-accordion class="example-headers-align">
                             <mat-expansion-panel *ngFor="let item of curriculum" hideToggle class="expPanel">
                                 <mat-expansion-panel-header class="panelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
@@ -91,25 +117,23 @@
                     <div class="d-flex justify-content-end">
                         <a class="createItem" [routerLink]="['/dashboard/create-note',subId,tempId ]">Create Note</a>
                     </div>
-                    <div class="userList">
+                    <div class="userList" *ngIf="!isSelectedNote">
                         <div class="headingLst">
                             <div class="userSet">
                                 <h1>#</h1>
                                 <h1>Name</h1>
                             </div>
                             <span style="margin-right: 20px;">Files</span>
-                            <span style="margin-left: 20px;"></span>
                             <div style="margin-right: 20px;">Actions</div>
                         </div>
                         <div class="single-user" style="cursor: pointer;" *ngFor="let item of notes; let i = index;">
-                            <div class="userSet">
+                            <div class="userSet" (click)="selectNote(item)">
                                 <h1>{{i + 1}}</h1>
                                 <h1>{{item && item.title}}</h1>
                             </div>
-                            <span style="margin-right: 20px;">
+                            <span style="margin-right: 20px;" (click)="selectNote(item)">
                                 {{item && item.files.length}}
                             </span>
-                            <span style="margin-left: 20px;"></span>
                             <div>
                                 <mat-icon style="margin-right: 10px;" [routerLink]="['/dashboard/edit-note', subId, tempId, item && item._id]">edit</mat-icon>
                                 <mat-icon style="margin-right: 20px;" (click)="deleteNote(item, i)">delete</mat-icon>
@@ -117,6 +141,34 @@
                         </div>
                         <div class="empty" *ngIf="notes.length == 0">
                             Sorry. No notes added yet.
+                        </div>
+                    </div>
+                    <div *ngIf="isSelectedNote" class="opacityDrop">
+                        <h1 class="comm_title_small_h1 d-flex align-items-center" style="font-size: 19px;">
+                            <mat-icon matRipple (click)="isSelectedNote = false" title="Go back" style="margin-right: 20px;">west</mat-icon>{{selectedNote && selectedNote.title}}</h1>
+                        <div class="userList">
+                            <div class="headingLst">
+                                <div class="userSet">
+                                    <h1>#</h1>
+                                    <h1>Name</h1>
+                                </div>
+                                <span style="margin-right: 20px;"></span>
+                                <span style="margin-left: 20px;"></span>
+                                <div style="margin-right: 20px;">Actions</div>
+                            </div>
+                            <div class="single-user" *ngFor="let file of selectedNote.files; let j = index;">
+                                <div class="userSet">
+                                    <h1>{{j + 1}}</h1>
+                                    <h1>{{file && file.name}}</h1>
+                                </div>
+                                <span style="margin-right: 20px;">
+                                </span>
+                                <span style="margin-left: 20px;"></span>
+                                <div>
+                                    <mat-icon style="margin-right: 10px;">visibility</mat-icon>
+                                    <mat-icon style="margin-right: 20px;">delete</mat-icon>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </mat-tab>
