@@ -64,6 +64,21 @@ export class TemplateSubjectsComponent implements OnInit {
       })
   }
 
+  deleteTemp(id) {
+    const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
+      if (result) {
+        let params = {}
+        this.apiService.getResponse('delete', GET_TEMPLATE + id, params).
+          then(res => {
+            if (res.status === 200) {
+              this._location.back()
+            }
+          })
+      }
+    }
+    )
+  }
+
   createSub() {
     const open = this.dialog.open(CreateSubjectComponent, { data: this.template })
     open.afterClosed().subscribe(result => {
@@ -181,7 +196,7 @@ export class TemplateSubjectsComponent implements OnInit {
     })
   }
 
-  deleteSection(item, i) {
+  deleteSection(item) {
     const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
       if (result) {
         var index = this.curriculum.indexOf(item)
