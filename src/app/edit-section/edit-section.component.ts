@@ -27,7 +27,6 @@ export class EditSectionComponent implements OnInit {
   subjects = []
   createForm: FormGroup = new FormGroup({
     subName: this.subNameFormControl,
-    subDesc: this.subDesControl
   });
   sections = []
   index
@@ -83,7 +82,7 @@ export class EditSectionComponent implements OnInit {
           setTimeout(() => {
             this.responseMessage = ''
           }, 3000);
-          this.dialogRef.close(true)
+          this.dialogRef.close(res)
         }
       })
   }

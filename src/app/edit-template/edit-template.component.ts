@@ -248,13 +248,23 @@ export class EditTemplateComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
+    
     this.filterId = item.id
     this.board = item.board
     for (let i = 0; i < this.dropdownList.length; i++) {
-      const element = this.dropdownList[i];
-      if(element.board == item.board)
+      let element = this.dropdownList[i];
+      console.log("this.dropdownList[i].id", this.dropdownList[i].id);
+      console.log(" item.id,",  item.id);
+      
+      
+
+      if(this.dropdownList[i].id == item.id)
       {
+        
+        
         this.departments = this.dropdownList[i].department
+        console.log("sdsd", this.departments);
+        
         this.classes = this.dropdownList[i].class;
         this.semesters = this.dropdownList[i].semester;
         this.grades = this.dropdownList[i].grade
@@ -282,7 +292,7 @@ export class EditTemplateComponent implements OnInit {
           this.classArray = res.data.filters.class
           this.gradesArray = res.data.filters.grade
           this.currentFilter =  res.data.filters
-          this.onItemSelect({id : res.data.filters.filterId ? res.data.filters.filterId : '',board : res.data.filters.board})
+          this.onItemSelect({id : res.data.filters.filterId, board : res.data.filters.board})
           
         }
       })
@@ -365,7 +375,8 @@ export class EditTemplateComponent implements OnInit {
             this.responseMessage = 'Template has been updated succefully..!'
             setTimeout(() => {
               this.responseMessage = ''
-            }, 3000);
+              this._location.back()
+            }, 2000);
           }
           else {
             this.responseMessage = res.error.data

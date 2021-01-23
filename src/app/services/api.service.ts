@@ -34,5 +34,4 @@ export class ApiService {
             .then(data => { return data })
             .catch(error => {return error})
     }
-
 }

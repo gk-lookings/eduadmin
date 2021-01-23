@@ -32,7 +32,9 @@ export class CreateDocumentComponent implements OnInit {
   subject_detail
   template
 
-  subjects=[]
+  subjects = []
+
+  fileArray: any[] = []
 
   files: any[] = [];
   constructor(
@@ -58,77 +60,13 @@ export class CreateDocumentComponent implements OnInit {
             if (res.data.subjects[i]._id == this.subjectName) {
               this.subject_detail = res.data.subjects[i];
             }
-            else
-            {
+            else {
               this.subjects.push(res.data.subjects[i])
             }
           }
         }
       })
   }
-
-  // submitForm() {
-  //   this.isLoading = true
-  //   let tempArr = this.subject_detail.documents.concat({
-  //     "title": this.tempName,
-  //     "files": []
-  //   })
-  //   this.subject_detail.documents = tempArr
-
-  //   let params = {
-  //     "templateId": this.template.id,
-  //     "name": this.template.name,
-  //     "descriptionTags": this.template.descriptionTags,
-  //     "active": this.template.active,
-  //     "about": this.template.about,
-  //     "subjects": this.subjects.concat(this.subject_detail)
-  //   }
-
-
-  //   var fileArray =[]
-
-  //   for (let j = 0; j < this.files.length; j++) {
-  //     this.files[j].name = Date.now() + 1;
-  //   }
-
-  //   for (let i = 0; i < this.files.length; i++) {
-  //     const element = this.files[i];
-  //     const formData = new FormData();
-  //     formData.append('file', this.files[i]);
-  //     let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/document/'+ this.files[i].name, formData)
-  //     fileArray.push(elem)
-  //   }
-  //   Promise.all(fileArray).then(res => {
-  //     console.log("data", res);
-  //     let tempS = {
-  //       "_id": "string",
-  //       "name": "string",
-  //       "size": 0,
-  //       "type": "string",
-  //       "url": "string",
-  //       "createdAt": "string"
-  //     }
-
-  //   }).catch(err => {
-  //     console.log("error", err);
-  //   })
-
-
-
-  //   this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
-  //     then(res => {
-  //       if (res.status === 200) {
-  //         this.isLoading = false
-  //         this.success= true
-  //         this.responseMessage = 'Document has been created succefully.!'
-  //         setTimeout(() => {
-  //           this.responseMessage = ''
-  //         }, 3000);
-  //         this.createTemplateForm.reset()
-  //       }
-  //     })
-  // }
-
 
   submitForm() {
     this.isLoading = true
@@ -225,7 +163,6 @@ export class CreateDocumentComponent implements OnInit {
           }
         })
     }
-
   }
 
   getNameErrorMessage() {
@@ -263,11 +200,22 @@ export class CreateDocumentComponent implements OnInit {
   }
 
   prepareFilesList(files: Array<any>) {
+
     for (const item of files) {
       item.progress = 0;
-      this.files.push(item);
+      this.fileArray.push(item);
+    }
+    if (this.files.length > 0) {
+      this.files = this.keepUnique(this.files.concat(this.fileArray), it => it.name )
+    }
+    else {
+      this.files = this.fileArray
     }
     this.uploadFilesSimulator(0);
+  }
+
+  keepUnique(data, key) {
+    return [... new Map(data.map(x => [key(x), x])).values()]
   }
 
 

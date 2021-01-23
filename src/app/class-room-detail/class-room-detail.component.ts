@@ -22,8 +22,6 @@ export class ClassRoomDetailComponent implements OnInit {
   classId = this.activatedRoute.snapshot.params['classId'];
   classMeta
 
-  
-
   constructor(private apiService: ApiService, public _location: Location, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {

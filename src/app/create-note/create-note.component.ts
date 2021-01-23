@@ -35,7 +35,8 @@ export class CreateNoteComponent implements OnInit {
   subjects = []
 
   files: any[] = [];
-
+  fileArray: any[] = [];
+  
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public _location: Location,
     private activatedRoute: ActivatedRoute) { }
 
@@ -194,10 +195,22 @@ export class CreateNoteComponent implements OnInit {
     }, 1000);
   }
 
+  
+  keepUnique(data, key) {
+    return [... new Map(data.map(x => [key(x), x])).values()]
+  }
+
+
   prepareFilesList(files: Array<any>) {
     for (const item of files) {
       item.progress = 0;
-      this.files.push(item);
+      this.fileArray.push(item);
+    }
+    if (this.files.length > 0) {
+      this.files = this.keepUnique(this.files.concat(this.fileArray), it => it.name )
+    }
+    else {
+      this.files = this.fileArray
     }
     this.uploadFilesSimulator(0);
   }

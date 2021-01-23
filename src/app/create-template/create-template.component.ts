@@ -31,7 +31,7 @@ export class CreateTemplateComponent implements OnInit {
   boardFormControl = new FormControl('', Validators.required);
 
   createTemplateForm: FormGroup = new FormGroup({
-    tempId: this.tempIdControl,
+    // tempId: this.tempIdControl,
     tempName: this.tempNameFormControl,
     board:this.boardFormControl
   });
@@ -292,7 +292,7 @@ export class CreateTemplateComponent implements OnInit {
         image = res.data.imageURL
         if (res.status === 200) {
           let params = {
-            "templateId": this.tempId,
+            // "templateId": this.tempId,
             "name": this.tempName,
             "descriptionTags": this.tags,
             "logo": image,
@@ -333,7 +333,7 @@ export class CreateTemplateComponent implements OnInit {
     }
     else {
       let params = {
-        "templateId": this.tempId,
+        // "templateId": this.tempId,
         "name": this.tempName,
         "descriptionTags": this.tags,
         "filters" : {
@@ -353,12 +353,8 @@ export class CreateTemplateComponent implements OnInit {
             this.responseMessage = 'Template created succefully..!'
             setTimeout(() => {
               this.responseMessage = ''
-              this.router.navigate(['dashboard/template-list']);
-            }, 3000);
-            // this.tags = []
-            // this.files = []
-            // this.selectedItems= []
-            // this.createTemplateForm.reset();
+              this.router.navigate(['/dashboard/template/subject', res.data.id]);
+            }, 1000);
           }
           else {
             this.success = false

@@ -10,7 +10,7 @@
 
             <div class="inputField">
                 <label for="subDesc">Description</label>
-                <input [(ngModel)]="subDesc" autocomplete="off" required name="subDesc" [formControl]="subDesControl" matInput placeholder="Name">
+                <input [(ngModel)]="subDesc" autocomplete="off" name="subDesc" matInput placeholder="Description" [ngModelOptions]="{standalone: true}">
             </div>
 
             <div class="d-flex justify-content-end">

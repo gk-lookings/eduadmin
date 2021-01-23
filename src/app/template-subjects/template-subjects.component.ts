@@ -28,10 +28,10 @@ export class TemplateSubjectsComponent implements OnInit {
   isEmpty = false
 
   subArray = ''
-  subIndex=-1
+  subIndex = -1
   subId
 
-  documents =[]
+  documents = []
   notes = []
   curriculum = []
 
@@ -64,8 +64,7 @@ export class TemplateSubjectsComponent implements OnInit {
           this.isLoading = false
           this.template = res.data
           this.subjects = res.data.subjects
-          if (this.subjects.length != 0)
-          {
+          if (this.subjects.length != 0) {
             this.subArray = res.data.subjects[0]
             this.documents = res.data.subjects[0].documents
             this.curriculum = res.data.subjects[0].sections
@@ -98,8 +97,9 @@ export class TemplateSubjectsComponent implements OnInit {
     const open = this.dialog.open(CreateSubjectComponent, { data: this.template })
     open.afterClosed().subscribe(result => {
       this.isEmpty = false
-      if (result)
-        this.fetchSubjects()
+      if (result) {
+        this.subjects = result.data.subjects
+      }
     })
   }
 
@@ -119,6 +119,8 @@ export class TemplateSubjectsComponent implements OnInit {
         }
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
+            // this.fetchSubjects()
+            this.subArray = ''
           })
       }
     })
@@ -126,30 +128,26 @@ export class TemplateSubjectsComponent implements OnInit {
 
   createSection() {
     const open = this.dialog.open(CreateSectionComponent, { data: { tempId: this.tempId, subjectName: this.subId } })
-    open.afterClosed().subscribe(result => {
+    open.afterClosed().subscribe(res => {
       this.isEmpty = false
-      if(result)
-      {
-        this.subIndex = -1
-        this.subArray =''
-        this.curriculum =[]
-        this.notes = []
-        this.documents =[]
-        this.fetchSubjects()
+      if (res) {
+        this.subArray = res.data.subjects[this.subIndex]
+        this.documents = res.data.subjects[this.subIndex].documents
+        this.curriculum = res.data.subjects[this.subIndex].sections
+        this.notes = res.data.subjects[this.subIndex].notes
+        this.subId = res.data.subjects[this.subIndex]._id
       }
     })
   }
 
   editSection(item) {
-    const opendial = this.dialog.open(EditSectionComponent, { data : {tempId : this.tempId, item : item, subjectName : this.subId}}).afterClosed().subscribe(result => {
-      if(result)
-      {
-        this.subIndex = -1
-        this.subArray =''
-        this.curriculum =[]
-        this.notes = []
-        this.documents =[]
-        this.fetchSubjects()
+    const opendial = this.dialog.open(EditSectionComponent, { data: { tempId: this.tempId, item: item, subjectName: this.subId } }).afterClosed().subscribe(res => {
+      if (res) {
+        this.subArray = res.data.subjects[this.subIndex]
+        this.documents = res.data.subjects[this.subIndex].documents
+        this.curriculum = res.data.subjects[this.subIndex].sections
+        this.notes = res.data.subjects[this.subIndex].notes
+        this.subId = res.data.subjects[this.subIndex]._id
       }
     })
   }
@@ -182,8 +180,8 @@ export class TemplateSubjectsComponent implements OnInit {
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
           })
-          if (this.documents.length == 0)
-            this.isEmpty = true
+        if (this.documents.length == 0)
+          this.isEmpty = true
       }
     })
   }
@@ -205,8 +203,8 @@ export class TemplateSubjectsComponent implements OnInit {
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
           })
-          if (this.notes.length == 0)
-            this.isEmpty = true
+        if (this.notes.length == 0)
+          this.isEmpty = true
       }
     })
   }
@@ -234,21 +232,19 @@ export class TemplateSubjectsComponent implements OnInit {
     })
   }
 
-  selectedDoc(item)
-  {
+  selectedDoc(item) {
     this.selectedDocument = item
-    if(item.files.length > 0)
-    this.isSelectedDoc = true
+    if (item.files.length > 0)
+      this.isSelectedDoc = true
   }
 
-  selectNote(item)
-  {
+  selectNote(item) {
     this.selectedNote = item
-    if(item.files.length > 0)
-    this.isSelectedNote = true
+    if (item.files.length > 0)
+      this.isSelectedNote = true
   }
 
-  deleteFile(item){
+  deleteFile(item) {
     const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
       if (result) {
         var index = this.selectedDocument.files.indexOf(item)
@@ -265,8 +261,8 @@ export class TemplateSubjectsComponent implements OnInit {
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
           })
-          if (this.notes.length == 0)
-            this.isEmpty = true
+        if (this.notes.length == 0)
+          this.isEmpty = true
       }
     })
   }

@@ -49,7 +49,7 @@ export class CreateSubjectComponent implements OnInit {
       then(res => {
         if (res.status === 200) {
           this.isLoading = false
-          this.dialogRef.close(true)
+          this.dialogRef.close(res)
         }
       })
   }
