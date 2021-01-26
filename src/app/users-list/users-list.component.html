@@ -17,11 +17,11 @@
         <div class="headingLst">
             <span>NAME</span>
             <span style="margin-left: 20px;">EMAIL</span>
-            <span style="margin-right: 20px;">STATUS</span>
+            <span style="margin-right: 20px;">VERIFIED</span>
             <div style="margin-right: 60px;">ACTIONS</div>
         </div>
         <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
-        <div class="d-flex justify-content-center" *ngIf="isLoading">
+        <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoading">
             <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
         </div>
 

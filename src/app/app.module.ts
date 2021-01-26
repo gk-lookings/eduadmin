@@ -89,6 +89,9 @@ import { ClassSingleComponent } from './class-single/class-single.component';
 import { UserSingleComponent } from './user-single/user-single.component';
 import { FilterAddModelComponent } from './filter-add-model/filter-add-model.component'
 import { WarningPopupComponent } from './warning-popup/warning-popup.component';
+import { UploadFileComponent } from './upload-file/upload-file.component';
+import { ViewFileComponent } from './view-file/view-file.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
   declarations: [
@@ -126,6 +129,8 @@ import { WarningPopupComponent } from './warning-popup/warning-popup.component';
     UserSingleComponent,
     FilterAddModelComponent,
     WarningPopupComponent,
+    UploadFileComponent,
+    ViewFileComponent,
 
   ],
   imports: [
@@ -173,7 +178,8 @@ import { WarningPopupComponent } from './warning-popup/warning-popup.component';
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here
     }),
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxDocViewerModule
   ],
   entryComponents: [
     CreateSubjectComponent,
@@ -182,7 +188,9 @@ import { WarningPopupComponent } from './warning-popup/warning-popup.component';
     ConfirmDeleteModelComponent,
     EditSectionComponent,
     FilterAddModelComponent,
-    WarningPopupComponent
+    WarningPopupComponent,
+    UploadFileComponent,
+    ViewFileComponent
   ],
   providers: 
     [

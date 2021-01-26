@@ -69,7 +69,7 @@ export class EditNoteComponent implements OnInit {
           this.index = this.subject_detail.notes.findIndex((element, index) => {
             if (element._id === this.noteId) {
               return true
-            }
+            } 
           })
           this.noteData = this.subject_detail.notes[this.index]
           this.tempName = this.subject_detail.notes[this.index].title

@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { GET_TEMPLATE, SUBJECT } from '../config/endpoints';
+import { GET_TEMPLATE, HOST, SUBJECT } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
@@ -12,6 +12,8 @@ import { CreateSubjectComponent } from '../create-subject/create-subject.compone
 import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
 import { CreateSectionComponent } from '../create-section/create-section.component';
 import { EditSectionComponent } from '../edit-section/edit-section.component';
+import { UploadFileComponent } from '../upload-file/upload-file.component';
+import { ViewFileComponent } from '../view-file/view-file.component';
 
 @Component({
   selector: 'app-template-subjects',
@@ -38,8 +40,16 @@ export class TemplateSubjectsComponent implements OnInit {
   selectedDocument
   selectedNote
 
+  selectedNoteIndex
+  selectedDocIndex
+
+  isLoadingNoteFile =false
+  isLoadingDocFile = false
   isSelectedDoc = false
   isSelectedNote = false
+
+  isDocumentFileEmpty = false
+  isNoteFileEmpty = false
 
   constructor(
     private apiService: ApiService,
@@ -232,24 +242,154 @@ export class TemplateSubjectsComponent implements OnInit {
     })
   }
 
-  selectedDoc(item) {
+  selectedDoc(item, i) {
     this.selectedDocument = item
-    if (item.files.length > 0)
+    this.selectedDocIndex = i
+    if (item.files.length == 0)
+    this.isDocumentFileEmpty = true
+    else
+    this.isDocumentFileEmpty = false
       this.isSelectedDoc = true
   }
+  uploadDocFile()
+  {
+    let newArray = []
+    var fileArray = []
+    var re = /(?:\.([^.]+))?$/;
+    const dialo = this.dialog.open(UploadFileComponent).afterClosed().subscribe(files => {
+      if(files)
+      {
+        this.isDocumentFileEmpty = false
+        this.isLoadingDocFile = true
+        if (files.length != 0) {
+          for (let i = 0; i < files.length; i++) {
+            const formData = new FormData();
+            formData.append('file', files[i]);
+            let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/document/' + files[i].lastModified + '.' + re.exec(files[i].name)[1], formData)
+            fileArray.push(elem)
+          }
+          Promise.all(fileArray).then(res => {
+            for (let m = 0; m < files.length; m++) {
+              for (let n = 0; n < res.length; n++) {
+                newArray.push({
+                  "_id": files[m].lastModified + files[m].name,
+                  "name": files[m].name,
+                  "size": files[m].size,
+                  "type": files[m].type,
+                  "url": res[n].data.imageURL,
+                  "createdAt": new Date()
+                })
+              }
+            }
+            this.isLoadingDocFile = false
+            this.documents[this.selectedDocIndex].files= this.selectedDocument.files.concat(newArray)
+            this.subjects[this.subIndex].documents = this.documents
+            let params = {
+              "templateId": this.template.id,
+              "name": this.template.name,
+              "descriptionTags": this.template.descriptionTags,
+              "active": this.template.active,
+              "about": this.template.about,
+              "subjects": this.subjects
+            }
+            this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.subArray = res.data.subjects[this.subIndex]
+                  this.documents = res.data.subjects[this.subIndex].documents
+                  this.curriculum = res.data.subjects[this.subIndex].sections
+                  this.notes = res.data.subjects[this.subIndex].notes
+                  this.subId = res.data.subjects[this.subIndex]._id
+                }
+              })
+    
+          }).catch(err => {
+            console.log("error", err);
+          })
+        }
+      }
+    })
+  }
 
-  selectNote(item) {
+  selectNote(item, i) {
     this.selectedNote = item
-    if (item.files.length > 0)
+    this.selectedNoteIndex = i
+    if (item.files.length == 0)
+    this.isNoteFileEmpty = true
+    else
+    this.isNoteFileEmpty = false
       this.isSelectedNote = true
   }
 
-  deleteFile(item) {
+  uploadNoteFile()
+  {
+    let newArray = []
+    var fileArray = []
+    var re = /(?:\.([^.]+))?$/;
+    const dialo = this.dialog.open(UploadFileComponent).afterClosed().subscribe(files => {
+      if(files)
+      {
+        this.isNoteFileEmpty = false
+        this.isLoadingNoteFile = true
+        if (files.length != 0) {
+          for (let i = 0; i < files.length; i++) {
+            const formData = new FormData();
+            formData.append('file', files[i]);
+            let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/notes/' + files[i].lastModified + '.' + re.exec(files[i].name)[1], formData)
+            fileArray.push(elem)
+          }
+          Promise.all(fileArray).then(res => {
+            for (let m = 0; m < files.length; m++) {
+              for (let n = 0; n < res.length; n++) {
+                newArray.push({
+                  "_id": files[m].lastModified + files[m].name,
+                  "name": files[m].name,
+                  "size": files[m].size,
+                  "type": files[m].type,
+                  "url": res[n].data.imageURL,
+                  "createdAt": new Date()
+                })
+              }
+            }
+            this.isLoadingNoteFile = false
+            this.notes[this.selectedNoteIndex].files= this.selectedNote.files.concat(newArray)
+            this.subjects[this.subIndex].notes = this.notes
+            let params = {
+              "templateId": this.template.id,
+              "name": this.template.name,
+              "descriptionTags": this.template.descriptionTags,
+              "active": this.template.active,
+              "about": this.template.about,
+              "subjects": this.subjects
+            }
+            this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.subArray = res.data.subjects[this.subIndex]
+                  this.documents = res.data.subjects[this.subIndex].documents
+                  this.curriculum = res.data.subjects[this.subIndex].sections
+                  this.notes = res.data.subjects[this.subIndex].notes
+                  this.subId = res.data.subjects[this.subIndex]._id
+                }
+              })
+    
+          }).catch(err => {
+            console.log("error", err);
+          })
+        }
+
+
+      }
+    })
+  }
+  deleteDocFile(item) {
     const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
       if (result) {
         var index = this.selectedDocument.files.indexOf(item)
-        this.notes.splice(index, 1)
-        this.subjects.notes = this.notes
+        this.selectedDocument.files.splice(index, 1)
+        this.documents[this.selectedDocIndex].files= this.selectedDocument.files
+        this.subjects[this.subIndex].documents = this.documents
+
         let params = {
           "templateId": this.tempId,
           "name": this.template.name,
@@ -261,10 +401,42 @@ export class TemplateSubjectsComponent implements OnInit {
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
           })
-        if (this.notes.length == 0)
-          this.isEmpty = true
+        if (this.selectedDocument.files.length == 0)
+          this.isDocumentFileEmpty = true
+        else
+          this.isDocumentFileEmpty = false
+      }
+    })
+  }
+  deleteNoteFile(item) {
+    const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
+      if (result) {
+        var index = this.selectedNote.files.indexOf(item)
+        this.selectedNote.files.splice(index, 1)
+        this.notes[this.selectedNoteIndex].files= this.selectedNote.files
+        this.subjects[this.subIndex].notes = this.notes
+
+        let params = {
+          "templateId": this.tempId,
+          "name": this.template.name,
+          "descriptionTags": this.template.descriptionTags,
+          "active": this.template.active,
+          "about": this.template.about,
+          "subjects": this.subjects
+        }
+        this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
+          then(res => {
+          })
+        if (this.selectedNote.files.length == 0)
+          this.isNoteFileEmpty = true
+        else
+          this.isNoteFileEmpty = false
       }
     })
   }
 
+  viewFile(src, type)
+  {
+    const opendialog = this.dialog.open(ViewFileComponent, { data: { src : src, type : type }})
+  }
 }

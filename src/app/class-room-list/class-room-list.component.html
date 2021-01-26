@@ -9,7 +9,7 @@
             <div style="margin-right: 60px;">ACTIONS</div>
         </div>
         <app-class-single [item]="item" *ngFor="let item of classes"></app-class-single>
-        <div class="d-flex justify-content-center" *ngIf="isLoading">
+        <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoading">
             <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
         </div>
         <div class="empty" *ngIf="isEmpty">
