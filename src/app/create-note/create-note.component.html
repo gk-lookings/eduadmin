@@ -12,9 +12,9 @@
                     <p class="errorInput" [ngClass]="(tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)">{{getNameErrorMessage()}}</p>
                 </div>
                 <div class="inputField">
-                    <label for="tempSubject">Description*</label>
-                    <input [(ngModel)]="tempSubject" required type="text" autocomplete="off" matInput [formControl]="tempSubjectControl" placeholder="Subject" name="tempSubject">
-                    <p class="errorInput" [ngClass]="(tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)) ? 'errorShow' : ''" *ngIf="tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)">{{getSubErrorMessage()}}</p>
+                    <label for="tempSubject">Description</label>
+                    <input [(ngModel)]="tempSubject" required type="text" autocomplete="off" matInput [formControl]="tempSubjectControl" placeholder="Description" name="tempSubject">
+                    <!-- <p class="errorInput" [ngClass]="(tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)) ? 'errorShow' : ''" *ngIf="tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)">{{getSubErrorMessage()}}</p> -->
                 </div>
                 <div class="inputField">
                     <label for="tempLogo">File <span>(optional)</span></label>

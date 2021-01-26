@@ -413,7 +413,7 @@ export class CreateTemplateComponent implements OnInit {
 
   deleteFile(index: number) {
     this.files = []
-  }
+  } 
 
   uploadFilesSimulator(index: number) {
     setTimeout(() => {

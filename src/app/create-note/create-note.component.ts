@@ -21,7 +21,7 @@ export class CreateNoteComponent implements OnInit {
   success: boolean;
 
   tempNameFormControl = new FormControl('', Validators.required);
-  tempSubjectControl = new FormControl('', Validators.required);
+  tempSubjectControl = new FormControl();
 
   createTemplateForm: FormGroup = new FormGroup({
     tempName: this.tempNameFormControl,

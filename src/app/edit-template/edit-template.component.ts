@@ -13,6 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { MatDialog } from '@angular/material';
 import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
+import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
 @Component({
   selector: 'app-edit-template',
@@ -404,16 +405,29 @@ export class EditTemplateComponent implements OnInit {
   }
 
   onFileDropped($event) {
-    this.prepareFilesList($event);
+    if ($event[0].type.indexOf("image") != -1) {
+      this.files = []
+      this.prepareFilesList($event);
+    }
+    else {
+      let open = this.dialog.open(WarningPopupComponent, { data: 'Only "image" files are allowed.' })
+    }
+
   }
 
   fileBrowseHandler(files) {
-    this.prepareFilesList(files);
+    if (files[0].type.indexOf("image") != -1) {
+      this.files = []
+      this.prepareFilesList(files);
+    }
+    else {
+      let open = this.dialog.open(WarningPopupComponent, { data: 'Only "image" files are allowed.' })
+    }
   }
 
   deleteFile(index: number) {
-    this.files.splice(index, 1);
-  }
+    this.files = []
+  } 
 
   uploadFilesSimulator(index: number) {
     setTimeout(() => {
@@ -431,7 +445,6 @@ export class EditTemplateComponent implements OnInit {
       }
     }, 1000);
   }
-
   prepareFilesList(files: Array<any>) {
     for (const item of files) {
       item.progress = 0;
@@ -439,7 +452,6 @@ export class EditTemplateComponent implements OnInit {
     }
     this.uploadFilesSimulator(0);
   }
-
 
   formatBytes(bytes, decimals) {
     if (bytes === 0) {
