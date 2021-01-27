@@ -6,6 +6,9 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE, HOST } from '../config/endpoints';
 import { Location } from '@angular/common';
+import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
+import { ViewFileComponent } from '../view-file/view-file.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-edit-note',
@@ -26,7 +29,7 @@ export class EditNoteComponent implements OnInit {
 
   createTemplateForm: FormGroup = new FormGroup({
     tempName: this.tempNameFormControl,
-    tempSubject: this.tempSubjectControl
+    // tempSubject: this.tempSubjectControl
   });
 
   tempId = this.activatedRoute.snapshot.params['tempId'];
@@ -45,7 +48,7 @@ export class EditNoteComponent implements OnInit {
   noteData
 
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public _location: Location,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute, public dialog : MatDialog) { }
 
   ngOnInit() {
     this.fetchTemplate()
@@ -138,9 +141,9 @@ export class EditNoteComponent implements OnInit {
       })
     }
     else {
-      this.subject_detail.documents[this.index]._id = this.noteData._id
-      this.subject_detail.documents[this.index].title = this.tempName
-      this.subject_detail.documents[this.index].files =  this.noteData.files
+      this.subject_detail.notes[this.index]._id = this.noteData._id
+      this.subject_detail.notes[this.index].title = this.tempName
+      this.subject_detail.notes[this.index].files =  this.noteData.files
       this.subject_detail.notes[this.index].description = this.tempSubject
 
       let params = {
@@ -223,5 +226,20 @@ export class EditNoteComponent implements OnInit {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+  
+  deleteNoteFile(item) {
+    const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
+      if (result) {
+        var index = this.noteData.files.indexOf(item)
+        this.noteData.files.splice(index, 1)
+        this.subject_detail.notes[this.index].files =  this.noteData.files
+      }
+    })
+  }
+  viewFile(src, type)
+  {
+    const opendialog = this.dialog.open(ViewFileComponent, { data: { src : src, type : type }})
   }
 }

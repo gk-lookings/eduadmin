@@ -6,6 +6,9 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE, HOST, LOGIN } from '../config/endpoints';
 import { Location } from '@angular/common';
+import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
+import { MatDialog } from '@angular/material';
+import { ViewFileComponent } from '../view-file/view-file.component';
 
 @Component({
   selector: 'app-edit-document',
@@ -47,7 +50,8 @@ export class EditDocumentComponent implements OnInit {
     private authService: AuthenticationService,
     private http: HttpClient,
     public _location: Location,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog : MatDialog
   ) { }
 
   ngOnInit() {
@@ -226,5 +230,19 @@ export class EditDocumentComponent implements OnInit {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+  deleteDocFile(item) {
+    const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
+      if (result) {
+        var index = this.documentData.files.indexOf(item)
+        this.documentData.files.splice(index, 1)
+        this.subject_detail.documents[this.index].files =  this.documentData.files
+      }
+    })
+  }
+  viewFile(src, type)
+  {
+    const opendialog = this.dialog.open(ViewFileComponent, { data: { src : src, type : type }})
   }
 }

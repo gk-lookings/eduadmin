@@ -153,11 +153,17 @@ export class TemplateSubjectsComponent implements OnInit {
   editSection(item) {
     const opendial = this.dialog.open(EditSectionComponent, { data: { tempId: this.tempId, item: item, subjectName: this.subId } }).afterClosed().subscribe(res => {
       if (res) {
+        console.log("item", item);
+        
+        console.log("res", res);
+        
         this.subArray = res.data.subjects[this.subIndex]
         this.documents = res.data.subjects[this.subIndex].documents
         this.curriculum = res.data.subjects[this.subIndex].sections
         this.notes = res.data.subjects[this.subIndex].notes
         this.subId = res.data.subjects[this.subIndex]._id
+
+        
       }
     })
   }
@@ -212,6 +218,11 @@ export class TemplateSubjectsComponent implements OnInit {
         }
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
+            this.subArray = res.data.subjects[this.subIndex]
+            this.documents = res.data.subjects[this.subIndex].documents
+            this.curriculum = res.data.subjects[this.subIndex].sections
+            this.notes = res.data.subjects[this.subIndex].notes
+            this.subId = res.data.subjects[this.subIndex]._id
           })
         if (this.notes.length == 0)
           this.isEmpty = true
@@ -224,7 +235,7 @@ export class TemplateSubjectsComponent implements OnInit {
       if (result) {
         var index = this.curriculum.indexOf(item)
         this.curriculum.splice(index, 1)
-        this.subjects.sections = this.curriculum
+        this.subjects[this.subIndex].sections = this.curriculum
         let params = {
           "templateId": this.tempId,
           "name": this.template.name,
@@ -234,7 +245,12 @@ export class TemplateSubjectsComponent implements OnInit {
           "subjects": this.subjects
         }
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
-          then(res => {
+          then(res => {        
+            this.subArray = res.data.subjects[this.subIndex]
+            this.documents = res.data.subjects[this.subIndex].documents
+            this.curriculum = res.data.subjects[this.subIndex].sections
+            this.notes = res.data.subjects[this.subIndex].notes
+            this.subId = res.data.subjects[this.subIndex]._id
           })
         if (this.curriculum.length == 0)
           this.isEmpty = true

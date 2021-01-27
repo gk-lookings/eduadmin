@@ -28,12 +28,12 @@ export class EditTemplateComponent implements OnInit {
   isLoading: boolean;
   success: boolean;
 
-  tempIdControl = new FormControl('', [Validators.required]);
+  // tempIdControl = new FormControl('', [Validators.required]);
   tempNameFormControl = new FormControl('', Validators.required);
   boardFormControl = new FormControl('', Validators.required);
 
   createTemplateForm: FormGroup = new FormGroup({
-    tempId: this.tempIdControl,
+    // tempId: this.tempIdControl,
     tempName: this.tempNameFormControl,
     board:this.boardFormControl
   });
@@ -393,10 +393,10 @@ export class EditTemplateComponent implements OnInit {
       '';
   }
 
-  getIDErrorMessage() {
-    return this.tempIdControl.hasError('required') ? '*You must enter a value' :
-      '';
-  }
+  // getIDErrorMessage() {
+  //   return this.tempIdControl.hasError('required') ? '*You must enter a value' :
+  //     '';
+  // }
 
 
   getBoardErrorMessage() {

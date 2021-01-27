@@ -4,13 +4,13 @@
     <form name="createTemplateForm" class="temPlateFrm" [formGroup]="createTemplateForm">
         <div class="row">
             <div class="col-md-4 col-sm-5">
-                <div class="inputField" style="margin-top: 3%;">
+                <!-- <div class="inputField" style="margin-top: 3%;">
                     <label for="tempId">ID*</label>
                     <span><i>Unique Id that used to identify the template</i></span>
                     <input [(ngModel)]="tempId" required type="text" autocomplete="off" [formControl]="tempIdControl" matInput placeholder="ID" name="tempId">
                     <p class="errorInput" [ngClass]="(tempIdControl.invalid && (tempIdControl.dirty || tempIdControl.touched)) ? 'errorShow' : ''" *ngIf="tempIdControl.invalid && (tempIdControl.dirty || tempIdControl.touched)">{{getIDErrorMessage()}}</p>
-                </div>
-                <div class="inputField">
+                </div> -->
+                <div class="inputField" style="margin-top: 3%;">
                     <label for="tempName">Name*</label>
                     <span><i>Name that used to identify the template</i></span>
                     <input [(ngModel)]="tempName" autocomplete="off" required name="tempName" [formControl]="tempNameFormControl" matInput placeholder="Name">

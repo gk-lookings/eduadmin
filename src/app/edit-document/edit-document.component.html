@@ -12,9 +12,8 @@
                     <p class="errorInput" [ngClass]="(tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="tempNameFormControl.invalid && (tempNameFormControl.dirty || tempNameFormControl.touched)">{{getNameErrorMessage()}}</p>
                 </div>
                 <div class="inputField">
-                    <label for="tempSubject">Subject <span>(optional)</span></label>
-                    <span><i>Subject that used to identity the document</i></span>
-                    <input [(ngModel)]="tempSubject" type="text" autocomplete="off" matInput [formControl]="tempSubjectControl" placeholder="Subject" name="tempSubject">
+                    <label for="tempSubject">Description <span>(optional)</span></label>
+                    <input [(ngModel)]="tempSubject" type="text" autocomplete="off" matInput [ngModelOptions]="{standalone: true}" placeholder="Description" name="tempSubject">
                     <!-- <p class="errorInput" [ngClass]="(tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)) ? 'errorShow' : ''" *ngIf="tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)">{{getSubErrorMessage()}}</p> -->
                 </div>
                 <div class="inputField">
@@ -80,6 +79,10 @@
             <label>Files</label>
             <div class="fileItem" *ngFor="let item of documentData.files">
                 <span>{{item && item.name}}</span>
+                <div>
+                    <mat-icon style="margin-right: 10px;" (click)=viewFile(item.url,item.type)>visibility</mat-icon>
+                    <mat-icon style="margin-right: 20px;" (click)="deleteDocFile(item)">delete</mat-icon>
+                </div>
             </div>
         </div>
     </div>

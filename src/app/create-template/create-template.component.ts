@@ -14,6 +14,8 @@ import { MatDialog } from '@angular/material';
 import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
+import { UUID } from 'angular2-uuid';
+
 @Component({
   selector: 'app-create-template',
   templateUrl: './create-template.component.html',
@@ -82,10 +84,11 @@ export class CreateTemplateComponent implements OnInit {
 
   selectedIndexs = []
 
+  uuidValue:string;
+
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
-    // this.getSubjects();
     this.dropdownSettings = {
       singleSelection: true,
       textField: 'board',
@@ -94,6 +97,7 @@ export class CreateTemplateComponent implements OnInit {
     };
 
     this.getFIlterItems()
+    
   }
 
   createBoard(){
@@ -114,58 +118,7 @@ export class CreateTemplateComponent implements OnInit {
     })
   }
 
-  // createArray(type, obj, i) {
-  //   if (type == 'department') {
-  //     if (!this.departmentArray.includes(obj)) {
-  //       this.departmentArray = obj ;
-  //       (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.add('add')
-  //       console.log("added");
-        
-  //     }
-  //     else {
-  //       console.log("remoced");
-  //       let index = this.departmentArray.findIndex(element => element == obj)
-  //       this.departmentArray.splice(index, 1);
-  //       (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.remove('add')
-  //     }
-  //   }
-  //   if (type == 'class') {
-  //     if (!this.classArray.includes(obj)) {
-  //       this.classArray.push(obj);
-  //       (<HTMLInputElement>document.getElementById("classId_" + i)).classList.add('add')
-  //     }
-  //     else {
-  //       let index = this.classArray.findIndex(element => element == obj);
-  //       this.classArray.splice(index, 1);
-  //       (<HTMLInputElement>document.getElementById("classId_" + i)).classList.remove('add')
-  //     }
-  //   }
-  //   if (type == 'semester') {
-  //     if (!this.semesterArray.includes(obj)) {
-  //       this.semesterArray.push(obj);
-  //       (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.add('add')
-  //     }
-  //     else {
-  //       let index = this.semesterArray.findIndex(element => element == obj)
-  //       this.semesterArray.splice(index, 1);
-  //       (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.remove('add')
-  //     }
-  //   }
-  //   if (type == 'grades') {
-  //     if (!this.gradesArray.includes(obj)) {
-  //       this.gradesArray.push(obj);
-  //       (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.add('add')
-  //     }
-  //     else {
-  //       let index = this.gradesArray.findIndex(element => element == obj);
-  //       this.gradesArray.splice(index, 1);
-  //       (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.remove('add')
-  //     }
-  //   }
-  // }
-
   setRow(type, obj, i){
-
     if (type == 'department') {
       this.departIndex = i
       this.departmentArray = obj
@@ -292,7 +245,7 @@ export class CreateTemplateComponent implements OnInit {
         image = res.data.imageURL
         if (res.status === 200) {
           let params = {
-            // "templateId": this.tempId,
+            "templateId": UUID.UUID(),
             "name": this.tempName,
             "descriptionTags": this.tags,
             "logo": image,
@@ -313,12 +266,8 @@ export class CreateTemplateComponent implements OnInit {
                 this.responseMessage = 'Template created succefully..!'
                 setTimeout(() => {
                   this.responseMessage = ''
-                  this.router.navigate(['dashboard/template-list']);
+                  this.router.navigate(['/dashboard/template/subject', res.data.id]);
                 }, 2000);
-                // this.tags = []
-                // this.files = []
-                // this.selectedItems= []
-                // this.createTemplateForm.reset();
               }
               else {
                 this.success = false
@@ -333,7 +282,7 @@ export class CreateTemplateComponent implements OnInit {
     }
     else {
       let params = {
-        // "templateId": this.tempId,
+        "templateId": UUID.UUID(),
         "name": this.tempName,
         "descriptionTags": this.tags,
         "filters" : {

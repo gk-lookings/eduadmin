@@ -7,7 +7,7 @@
     <div class="userList">
         <div class="headingLst">
             <span style="flex: 2;">TEMPLATE</span>
-            <span style="flex: 3;">ID</span>
+            <span style="flex: 3;">BOARD</span>
             <span style="margin-right: 20px; ">CREATED AT</span>
             <span style="flex: 3;">ACTIONS</span>
         </div>
@@ -17,7 +17,7 @@
                 <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
                 <h1>{{item && item.name}}</h1>
             </div>
-            <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.templateId}}</span>
+            <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.filters.board}}</span>
             <span style="margin-right: 20px;" [routerLink]="['/dashboard/template/subject', item._id]">
                 {{item && item.createdAt | dateAgo}}
             </span>

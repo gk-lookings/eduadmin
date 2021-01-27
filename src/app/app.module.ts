@@ -92,6 +92,7 @@ import { WarningPopupComponent } from './warning-popup/warning-popup.component';
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { ViewFileComponent } from './view-file/view-file.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+// import { uuidmod } from 'angular2-uuid';
 
 @NgModule({
   declarations: [
@@ -179,7 +180,8 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
       confirmButtonType: 'danger', // set defaults here
     }),
     NgMultiSelectDropDownModule.forRoot(),
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    // UUID
   ],
   entryComponents: [
     CreateSubjectComponent,

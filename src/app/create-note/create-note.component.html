@@ -13,7 +13,7 @@
                 </div>
                 <div class="inputField">
                     <label for="tempSubject">Description</label>
-                    <input [(ngModel)]="tempSubject" required type="text" autocomplete="off" matInput [formControl]="tempSubjectControl" placeholder="Description" name="tempSubject">
+                    <input [(ngModel)]="tempSubject" type="text" autocomplete="off" matInput [ngModelOptions]="{standalone: true}" placeholder="Description" name="tempSubject">
                     <!-- <p class="errorInput" [ngClass]="(tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)) ? 'errorShow' : ''" *ngIf="tempSubjectControl.invalid && (tempSubjectControl.dirty || tempSubjectControl.touched)">{{getSubErrorMessage()}}</p> -->
                 </div>
                 <div class="inputField">
