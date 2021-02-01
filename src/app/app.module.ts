@@ -92,6 +92,8 @@ import { WarningPopupComponent } from './warning-popup/warning-popup.component';
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { ViewFileComponent } from './view-file/view-file.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { UploadPictureComponent } from './upload-picture/upload-picture.component';
 // import { uuidmod } from 'angular2-uuid';
 
 @NgModule({
@@ -132,6 +134,8 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     WarningPopupComponent,
     UploadFileComponent,
     ViewFileComponent,
+    CreatePostComponent,
+    UploadPictureComponent,
 
   ],
   imports: [
@@ -192,7 +196,8 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     FilterAddModelComponent,
     WarningPopupComponent,
     UploadFileComponent,
-    ViewFileComponent
+    ViewFileComponent,
+    UploadPictureComponent
   ],
   providers: 
     [

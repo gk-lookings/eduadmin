@@ -21,12 +21,13 @@ import { EditDocumentComponent } from './edit-document/edit-document.component';
 import { EditNoteComponent } from './edit-note/edit-note.component';
 import { ClassRoomListComponent } from './class-room-list/class-room-list.component';
 import { ClassRoomDetailComponent } from './class-room-detail/class-room-detail.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  
+
   {
     path: 'dashboard', component: DashboardComponent,
     canActivate: [AuthGuard],
@@ -38,15 +39,15 @@ const routes: Routes = [
       { path: 'edit-template/:tempId', component: EditTemplateComponent },
       { path: 'subject/:subName/:tempId', component: TemplateDetailComponent },
       { path: 'template/subject/:tempId', component: TemplateSubjectsComponent },
-      
+
       { path: 'subject-listing', component: SubjectListingComponent },
-    
+
       { path: 'documents/:subName/:tempId', component: DocumentListComponent },
       { path: 'create-document/:subName/:tempId', component: CreateDocumentComponent },
       { path: 'edit-document/:subName/:tempId/:documentId', component: EditDocumentComponent },
 
       { path: 'curriculam/:subName/:tempId', component: CurriculamComponent },
-    
+
       { path: 'users', component: UsersListComponent },
       { path: 'user/:userId', component: UserDetailComponent },
 
@@ -56,10 +57,12 @@ const routes: Routes = [
       { path: 'notes/:subName/:tempId', component: NotesComponent },
       { path: 'create-note/:subName/:tempId', component: CreateNoteComponent },
       { path: 'edit-note/:subName/:tempId/:noteId', component: EditNoteComponent },
+
+      { path: 'create-post', component: CreatePostComponent }
     ]
   },
- { path: '**', redirectTo: '/login', pathMatch: 'full' },
-  
+  { path: '**', redirectTo: '/login', pathMatch: 'full' },
+
 ];
 const routerOptions: ExtraOptions = {
   anchorScrolling: 'enabled',

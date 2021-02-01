@@ -10,23 +10,3 @@
     z-index: 1;
     position: relative;
 }
-
-
-/* 
-.userList {
-    border: 2px solid #b7eae5;
-    margin-top: 10px;
-    border-radius: 3px;
-}
-
-.headingLst {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background: #B7EAE5;
-}
-
-.headingLst span {
-    flex: 1;
-} */

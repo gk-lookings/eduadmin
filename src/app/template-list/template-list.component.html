@@ -4,6 +4,58 @@
         <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search template" name="searchkey">
         <button class="inputSubmit" style="margin: 0; margin-left: 10px;" [routerLink]="['/dashboard/create-template']" routerLinkActive="router-link-active">Create</button>
     </div>
+    <!-- <div class="row align-items-center setFlex">
+        <div class="col-md-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Board</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let item of filters" (click)="selectBoard(item)" [value]="item.board">
+                        {{item.board}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Department</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let item of departments" [value]="item" (click)="selectDepartment(item)">
+                        {{item}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field appearance="fill">
+                <mat-label>Class</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let item of class" [value]="item" (click)="selectClass(item)">
+                        {{item}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field appearance="fill">
+                <mat-label>Semester</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let item of semester" [value]="item" (click)="selectSemester(item)">
+                        {{item}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field appearance="fill">
+                <mat-label>Grade</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let item of grade" [value]="item" (click)="selectGrade(item)">
+                        {{item}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div> -->
     <div class="userList">
         <div class="headingLst">
             <span style="flex: 2;">TEMPLATE</span>

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GET_TEMPLATE, TEMPLATE_LIST } from '../config/endpoints';
+import { FILTER, GET_TEMPLATE, TEMPLATE_LIST } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 import { NgxSpinnerService } from "ngx-spinner";
 import { MatDialog } from '@angular/material';
@@ -34,10 +34,54 @@ export class TemplateListComponent implements OnInit {
              });
    }
 
+  filters
+  departments
+  semester
+  grade
+  class
+
+  boardSelected
+  departmentSelected
+  classSelected
+  gradeSelected
+  semesterSelected
+
   ngOnInit() {
     this.fetchList()
+    this.getFIlterItems()
   }
 
+  getFIlterItems(){
+    let params = {}
+    this.apiService.getResponse('get', FILTER, params).
+      then(res => {
+        if (res.status === 200) {
+        this.filters = res.data.filters
+        }
+      })
+  }
+
+
+
+  selectBoard(item){
+    this.departments = item.departments
+    this.semester = item.semester
+    this.grade = item.grade
+    this.class = item.class
+    
+  }
+  selectDepartment(item){
+
+  }
+  selectClass(item){
+    
+  }
+  selectSemester(item){
+    
+  }
+  selectGrade(item){
+    
+  }
   fetchList() {
     this.isEmpty = false
     if (!this.isLastpage) {

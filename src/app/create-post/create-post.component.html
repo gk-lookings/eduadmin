@@ -1,0 +1,282 @@
+<div class="__content_sec">
+    <h1 class="comm_title_h1 ">Create Post</h1>
+    <div class="stepsSetup">
+        <mat-horizontal-stepper labelPosition="bottom" #stepper>
+            <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Create</ng-template>
+                    <div class="">
+                        <div class="inputPostField">
+                            <label for="aboutBoard">About Board</label>
+                            <textarea [(ngModel)]="aboutBoard" [ngModelOptions]="{standalone: true}" type="text" autocomplete="off" matInput placeholder="Enter Board Details" name="aboutBoard"></textarea>
+                        </div>
+                        <div class="inputPostField">
+                            <label for="boardType">Board Type*</label>
+                            <div class="boardType">
+                                <span class="tyPe">Type</span>
+                                <div class="seleCt">
+                                    <mat-label></mat-label>
+                                    <mat-select [(value)]="boardType">
+                                        <mat-option value="sponsered">Sponsored Type</mat-option>
+                                        <mat-option value="registered">Registered Type</mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inputPostField">
+                            <label for="pictures">Pictures</label>
+                            <div class="d-inline">
+                                <img src="./../../assets/images/dummy.png" alt="">
+                                <div class="addPicture" matRipple (click)="addPictures()">
+                                    <mat-icon>add</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="actionArea">
+                        <button matRipple matStepperNext>Next <mat-icon>keyboard_arrow_right</mat-icon></button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Select Audience</ng-template>
+                    <div>
+                        <mat-tab-group>
+                            <mat-tab label="University">
+                                <div class="inputPostField">
+                                    <label for="boardType">Select Board/University</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="boardType">
+                                            <span class="tyPe">Board</span>
+                                            <div class="seleCt">
+                                                <mat-label></mat-label>
+                                                <mat-select placeholder="Select your option">
+                                                    <mat-option [value]="option.board" *ngFor="let option of dropdownList" (click)="selectBoard(option)">{{ option.board }}</mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </div>
+                                        <div class="boardType" *ngIf="departments.length > 0">
+                                            <span class="tyPe">Department</span>
+                                            <div class="seleCt">
+                                                <mat-label></mat-label>
+                                                <mat-select>
+                                                    <mat-option *ngFor="let item of departments" [value]="item" (click)="selectDepartment(item)">
+                                                        {{item}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </div>
+                                        <div class="boardType" *ngIf="class.length > 0">
+                                            <span class="tyPe">Class</span>
+                                            <div class="seleCt">
+                                                <mat-label></mat-label>
+                                                <mat-select>
+                                                    <mat-option *ngFor="let item of class" [value]="item" (click)="selectClass(item)">
+                                                        {{item}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </div>
+                                        <div class="boardType" *ngIf="semester.length > 0">
+                                            <span class="tyPe">Semester</span>
+                                            <div class="seleCt">
+                                                <mat-label></mat-label>
+                                                <mat-select>
+                                                    <mat-option *ngFor="let item of semester" [value]="item" (click)="selectSemester(item)">
+                                                        {{item}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </div>
+                                        <div class="boardType" *ngIf="grade.length > 0">
+                                            <span class="tyPe">Grade</span>
+                                            <div class="seleCt">
+                                                <mat-label></mat-label>
+                                                <mat-select>
+                                                    <mat-option *ngFor="let item of grade" [value]="item" (click)="selectGrade(item)">
+                                                        {{item}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button class="singleadd" (click)="addItem()" [disabled]="boardSelected == ''"> <mat-icon>add</mat-icon>Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inputPostField" style="width: 70%;">
+                                    <label for="boardType">Selected Board/University</label>
+                                    <div *ngFor="let item of selectedBoard" class="d-flex align-items-center justify-content-between singLeSe" style="margin-bottom: 15px;">
+                                        <div class="selectedItemList">
+                                            <a>{{ item.board}}</a>
+                                            <a *ngIf="item.department && item.department">{{ item.department && item.department}}</a>
+                                            <a *ngIf="item.class && item.class">{{ item.class && item.class}}</a>
+                                            <a *ngIf="item.semester && item.semester">{{ item.semester && item.semester}}</a>
+                                            <a *ngIf="item.grade && item.grade">{{ item.grade && item.grade}}</a>
+                                        </div>
+                                        <button class="removeBtn" (click)="removeItem(item)"><mat-icon>delete</mat-icon> Remove</button>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Templates">
+                                <div class="d-flex align-content-center mt-4">
+                                    <input class="searchField" [(ngModel)]="searchkeyTemp" [ngModelOptions]="{standalone: true}" required type="text" (ngModelChange)="searchTempResults($event)" autocomplete="off" matInput placeholder="Search template" name="searchkey">
+                                    <button class="inputSubmit" style="margin: 0; margin-left: 10px;" routerLinkActive="router-link-active">Search</button>
+                                </div>
+                                <div class="userList" (scroll)="scrollMeTemp()" style="max-height: 30vh; overflow-y: auto; overflow-x: hidden;">
+                                    <div class="headingLst">
+                                        <span style="flex: 4;">TEMPLATE</span>
+                                        <span style="flex: 3;">BOARD</span>
+                                        <span style="margin-right: 20px; ">CREATED AT</span>
+                                        <span style="flex: 1;">ACTIONS</span>
+                                    </div>
+
+                                    <div class="single-user" style="cursor: pointer;" *ngFor="let item of templates">
+                                        <div style="flex: 4;" class="userSet" [routerLink]="['/dashboard/template/subject', item._id]">
+                                            <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
+                                            <h1>{{item && item.name}}</h1>
+                                        </div>
+                                        <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.filters.board}}</span>
+                                        <span style="margin-right: 20px;" [routerLink]="['/dashboard/template/subject', item._id]">
+                                            {{item && item.createdAt | dateAgo}}
+                                        </span>
+                                        <span style="flex: 1;">
+                                            <button class="vieW" (click)="addTemplate(item)">ADD</button>
+                                        </span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoadingTemp">
+                                        <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+                                    </div>
+                                    <div class="empty" *ngIf="isEmptyTemp">
+                                        Sorry. No results not found. Modify your search.
+                                    </div>
+                                </div>
+
+                                <div class="inputPostField">
+                                    <label for="pictures">Selected Templates</label>
+                                    <div class="d-inline">
+                                        <div class="singleTempSelected" *ngFor="let item of templateSelected">
+                                            {{item && item.name}}
+                                            <mat-icon (click)="removeTemplate(item)">close</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </mat-tab>
+                            <mat-tab label="Classroom">
+                                <input class="searchField mt-4" [(ngModel)]="searchkeyClass" required type="text" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchClassResults($event)" autocomplete="off" matInput placeholder="Search classrooms" name="searchkey">
+                                <div class="userList" (scroll)="scrollMeClass()" style="max-height: 30vh; overflow-y: auto; overflow-x: hidden;">
+                                    <div class="headingLst">
+                                        <span style="flex: 4;">CLASSROOM</span>
+                                        <span style="flex: 3;">ID</span>
+                                        <span style="margin-right: 20px; ">NO OF STUDENTS</span>
+                                        <span style="flex: 1;">ACTIONS</span>
+                                    </div>
+                                    <div class="single-user" style="cursor: pointer;" *ngFor="let item of classes">
+                                        <div style="flex: 4;" class="userSet" [routerLink]="['/dashboard/class-room', item._id]">
+                                            <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
+                                            <h1>{{item && item.name}}</h1>
+                                        </div>
+                                        <span style="flex: 3;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>
+                                        <span style="margin-right: 20px;" [routerLink]="['/dashboard/class-room', item._id]">
+                                            {{item && item.members.length}}
+                                        </span>
+                                        <span style="flex: 1;">
+                                            <button class="vieW" (click)="addClassRoom(item)">ADD</button>
+                                        </span>
+                                    </div>
+
+
+                                    <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoadingClass">
+                                        <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+                                    </div>
+                                    <div class="empty" *ngIf="isEmptyClass">
+                                        Sorry. No results not found. Modify your search.
+                                    </div>
+                                </div>
+
+                                <div class="inputPostField">
+                                    <label for="pictures">Selected Classroom</label>
+                                    <div class="d-inline">
+                                        <div class="singleTempSelected" *ngFor="let item of classroomSelected">
+                                            {{item && item.name}}
+                                            <mat-icon (click)="removeClass(item)">close</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+
+                    <div class="actionArea">
+                        <button matRipple matStepperPrevious>Back <mat-icon>keyboard_arrow_left</mat-icon></button>
+                        <button matRipple matStepperNext style="margin-left: 20px;">Next <mat-icon>keyboard_arrow_right</mat-icon></button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Publish</ng-template>
+
+                <div class="finalItemSingle">
+                    <span>Title</span>
+                    <div class="finalSingDecs">
+                        {{aboutBoard && aboutBoard}}
+                    </div>
+                </div>
+                <div class="finalSponsored">
+                    <a>Type</a>
+                    <span>{{boardType && boardType}}</span>
+                </div>
+                <div class="finalItemSingle">
+                    <span>Pictures</span>
+                    <div class="finalSingDecs">
+                        <img src="./../../assets/images/dummy.png">
+                    </div>
+                </div>
+                <div class="finalItemSingle">
+                    <span>Selected Board/University</span>
+                    <div class="finalSingDecs d-flex flex-column align-items-start">
+                        <div class="selectedItemList mb-3" *ngFor="let item of selectedBoard">
+                            <a>{{ item.board}}</a>
+                            <a *ngIf="item.department && item.department">{{ item.department && item.department}}</a>
+                            <a *ngIf="item.class && item.class">{{ item.class && item.class}}</a>
+                            <a *ngIf="item.semester && item.semester">{{ item.semester && item.semester}}</a>
+                            <a *ngIf="item.grade && item.grade">{{ item.grade && item.grade}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="finalItemSingle">
+                    <span>Selected Templates</span>
+                    <div class="finalSingDecs">
+                        <div class="d-inline-block">
+                            <div class="singleTempSelected" *ngFor="let item of templateSelected">
+                                {{item && item.name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="finalItemSingle">
+                    <span>Selected Classroom</span>
+                    <div class="finalSingDecs">
+                        <div class="d-inline-block">
+                            <div class="singleTempSelected" *ngFor="let item of classroomSelected">
+                                {{item && item.name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="actionArea">
+                    <button matRipple matStepperPrevious>Previous <mat-icon>keyboard_arrow_left</mat-icon></button>
+                    <button matRipple matStepperNext style="margin-left: 20px;">Publish <mat-icon>done</mat-icon></button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</div>

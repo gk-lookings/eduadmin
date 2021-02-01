@@ -1,0 +1,290 @@
+::ng-deep .stepsSetup .mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container {
+    align-items: flex-start;
+    padding: 0 100px;
+}
+
+::ng-deep .stepsSetup .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+    padding: 14px 24px;
+}
+
+::ng-deep .stepsSetup .mat-step-icon {
+    height: 44px;
+    width: 44px;
+}
+
+.inputPostField {
+    margin: 3% 0;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.inputPostField textarea {
+    padding: 15px;
+    border: 1px solid #22877C;
+    height: 120px;
+    resize: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+
+.boardType {
+    width: 30%;
+    border: 1px solid #22877C;
+    border-radius: 5px;
+    display: flex;
+    margin-right: 15px;
+}
+
+.tyPe {
+    flex: 3;
+    padding: 10px;
+    background: #0000001a;
+    display: flex;
+    justify-content: center;
+}
+
+.seleCt {
+    flex: 7;
+    padding: 10px 15px;
+}
+
+::ng-deep .seleCt .mat-select-arrow-wrapper {
+    background: #22867c;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    top: -3px;
+}
+
+::ng-deep .seleCt .mat-select-arrow {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid;
+    margin: 0px 2px;
+    color: #fff;
+}
+
+.inputPostField img {
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-right: 15px;
+    float: left;
+}
+
+.addPicture {
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #22867c;
+    color: #22867c;
+    cursor: pointer;
+}
+
+.addPicture mat-icon {
+    font-size: 36px;
+    height: 36px;
+    width: 36px;
+}
+
+.actionArea {
+    margin-top: 2%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.actionArea button {
+    padding: 10px 20px;
+    background-color: #22867c;
+    color: #fff;
+    display: flex;
+    border: none;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.actionArea button mat-icon {
+    margin-left: 15px;
+}
+
+.singleadd {
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 6px;
+    justify-content: center;
+    float: left;
+    padding: 10px 25px;
+    background: #22877c;
+    cursor: pointer;
+    color: #fff;
+}
+
+.singleadd mat-icon {
+    background: #fff;
+    border-radius: 24px;
+    color: #22877c;
+    margin-right: 15px;
+    font-size: 19px;
+    height: 19px;
+    width: 19px;
+}
+
+.selectedItemList {
+    background: #00000024;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.selectedItemList a {
+    font-size: 17px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    color: #444;
+}
+
+.selectedItemList a:hover {
+    text-decoration: none;
+}
+
+.selectedItemList a::after {
+    content: '\25ba';
+    padding: 0 8px;
+    font-size: 14px;
+}
+
+.selectedItemList a:last-child::after {
+    display: none;
+}
+
+.removeBtn {
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #d40808;
+    color: #fff;
+    font-size: 16px;
+    width: 110px;
+}
+
+.removeBtn mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.singLeSe {
+    background: #fff;
+    animation: opacityDrop .3s;
+}
+
+@keyframes opacityDrop {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+.singleTempSelected {
+    display: flex;
+    align-items: center;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background: #00000020;
+    padding: 6px 13px;
+    border-radius: 6px;
+    animation: opacityDrop .3s;
+}
+
+.singleTempSelected mat-icon {
+    font-size: 15px;
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+    background: #757575;
+    color: #fff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.finalItemSingle span {
+    background: #B7EAE5;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    padding: 4px 15px;
+    border: none;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: #444;
+}
+
+.finalItemSingle {
+    border: 1px solid #B7EAE5;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.finalSingDecs {
+    padding: 15px;
+}
+
+.finalSingDecs img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.finalSponsored a {
+    display: flex;
+    background: #B7EAE5;
+    overflow: hidden;
+    padding: 8px 18px;
+    height: 100%;
+    align-items: center;
+}
+
+.finalSponsored {
+    border: 1px solid #22867c;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: flex;
+    width: max-content;
+    overflow: hidden;
+    align-items: center;
+    height: 46px;
+}
+
+.finalSponsored span {
+    padding: 8px 40px;
+    font-size: 17px;
+}

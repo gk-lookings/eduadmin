@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 @include mat-core();
-$md-edu: ( 50: #eaf9f7, 100: #caf0eb, 200: #a6e6de, 300: #82dbd1, 400: #68d4c7, 500: #4dccbd, 600: #46c7b7, 700: #3dc0ae, 800: #34b9a6, 900: #25ad98, A100: #ebfffc, A200: #b8fff3, A400: #85ffeb, A700: #6bffe7, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #000000, 900: #000000, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$md-edu: ( 50: #e4f0ef, 100: #bddbd8, 200: #91c3be, 300: #64aaa3, 400: #439890, 500: #22867c, 600: #1e7e74, 700: #197369, 800: #14695f, 900: #0c564c, A100: #8bffed, A200: #58ffe6, A400: #25ffde, A700: #0cffda, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
 $edu-app-primary: mat-palette($md-edu);
 $edu-app-accent: mat-palette($md-edu, A200, A100, A400);
 $edu-app-warn: mat-palette($mat-red);
