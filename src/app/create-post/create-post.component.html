@@ -53,6 +53,7 @@
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
                                                 <mat-select placeholder="Select your option">
+                                                    <mat-option value="all">All</mat-option>
                                                     <mat-option [value]="option.board" *ngFor="let option of dropdownList" (click)="selectBoard(option)">{{ option.board }}</mat-option>
                                                 </mat-select>
                                             </div>
@@ -62,6 +63,7 @@
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
                                                 <mat-select>
+                                                    <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of departments" [value]="item" (click)="selectDepartment(item)">
                                                         {{item}}
                                                     </mat-option>
@@ -73,6 +75,7 @@
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
                                                 <mat-select>
+                                                    <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of class" [value]="item" (click)="selectClass(item)">
                                                         {{item}}
                                                     </mat-option>
@@ -84,6 +87,7 @@
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
                                                 <mat-select>
+                                                    <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of semester" [value]="item" (click)="selectSemester(item)">
                                                         {{item}}
                                                     </mat-option>
@@ -95,6 +99,7 @@
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
                                                 <mat-select>
+                                                    <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of grade" [value]="item" (click)="selectGrade(item)">
                                                         {{item}}
                                                     </mat-option>
@@ -125,7 +130,7 @@
                                     <input class="searchField" [(ngModel)]="searchkeyTemp" [ngModelOptions]="{standalone: true}" required type="text" (ngModelChange)="searchTempResults($event)" autocomplete="off" matInput placeholder="Search template" name="searchkey">
                                     <button class="inputSubmit" style="margin: 0; margin-left: 10px;" routerLinkActive="router-link-active">Search</button>
                                 </div>
-                                <div class="userList" (scroll)="scrollMeTemp()" style="max-height: 30vh; overflow-y: auto; overflow-x: hidden;">
+                                <div class="userList" (scroll)="scrollMeTemp($event)" style="max-height: 30vh; overflow-y: auto; overflow-x: hidden;">
                                     <div class="headingLst">
                                         <span style="flex: 4;">TEMPLATE</span>
                                         <span style="flex: 3;">BOARD</span>
@@ -168,7 +173,7 @@
                             </mat-tab>
                             <mat-tab label="Classroom">
                                 <input class="searchField mt-4" [(ngModel)]="searchkeyClass" required type="text" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchClassResults($event)" autocomplete="off" matInput placeholder="Search classrooms" name="searchkey">
-                                <div class="userList" (scroll)="scrollMeClass()" style="max-height: 30vh; overflow-y: auto; overflow-x: hidden;">
+                                <div class="userList" (scroll)="scrollMeClass($event)" style="max-height: 30vh; overflow-y: auto; overflow-x: hidden;">
                                     <div class="headingLst">
                                         <span style="flex: 4;">CLASSROOM</span>
                                         <span style="flex: 3;">ID</span>
