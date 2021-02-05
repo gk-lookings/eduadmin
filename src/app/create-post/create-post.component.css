@@ -288,3 +288,8 @@
     padding: 8px 40px;
     font-size: 17px;
 }
+
+.addedCss {
+    background: #888;
+    transition: 0.4s;
+}

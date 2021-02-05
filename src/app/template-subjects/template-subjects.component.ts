@@ -275,6 +275,8 @@ export class TemplateSubjectsComponent implements OnInit {
     const dialo = this.dialog.open(UploadFileComponent).afterClosed().subscribe(files => {
       if(files)
       {
+        console.log("fielss" , files);
+        
         this.isDocumentFileEmpty = false
         this.isLoadingDocFile = true
         if (files.length != 0) {
@@ -284,19 +286,27 @@ export class TemplateSubjectsComponent implements OnInit {
             let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/document/' + files[i].lastModified + '.' + re.exec(files[i].name)[1], formData)
             fileArray.push(elem)
           }
+
+          
+          
           Promise.all(fileArray).then(res => {
-            for (let m = 0; m < files.length; m++) {
-              for (let n = 0; n < res.length; n++) {
-                newArray.push({
-                  "_id": files[m].lastModified + files[m].name,
-                  "name": files[m].name,
-                  "size": files[m].size,
-                  "type": files[m].type,
-                  "url": res[n].data.imageURL,
-                  "createdAt": new Date()
-                })
-              }
-            }
+            console.log("file Array", res);
+            
+            // for (let m = 0; m < files.length; m++) {
+            //   for (let n = 0; n < res.length; n++) {
+            //     newArray.push({
+            //       "_id": files[m].lastModified + files[m].name,
+            //       "name": files[m].name,
+            //       "size": files[m].size,
+            //       "type": files[m].type,
+            //       "url": res[n].data.imageURL,
+            //       "createdAt": new Date()
+            //     })
+            //   }
+            // }
+
+            console.log("new array", newArray);
+            
             this.isLoadingDocFile = false
             this.documents[this.selectedDocIndex].files= this.selectedDocument.files.concat(newArray)
             this.subjects[this.subIndex].documents = this.documents
@@ -308,16 +318,16 @@ export class TemplateSubjectsComponent implements OnInit {
               "about": this.template.about,
               "subjects": this.subjects
             }
-            this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
-              then(res => {
-                if (res.status === 200) {
-                  this.subArray = res.data.subjects[this.subIndex]
-                  this.documents = res.data.subjects[this.subIndex].documents
-                  this.curriculum = res.data.subjects[this.subIndex].sections
-                  this.notes = res.data.subjects[this.subIndex].notes
-                  this.subId = res.data.subjects[this.subIndex]._id
-                }
-              })
+            // this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+            //   then(res => {
+            //     if (res.status === 200) {
+            //       this.subArray = res.data.subjects[this.subIndex]
+            //       this.documents = res.data.subjects[this.subIndex].documents
+            //       this.curriculum = res.data.subjects[this.subIndex].sections
+            //       this.notes = res.data.subjects[this.subIndex].notes
+            //       this.subId = res.data.subjects[this.subIndex]._id
+            //     }
+            //   })
     
           }).catch(err => {
             console.log("error", err);

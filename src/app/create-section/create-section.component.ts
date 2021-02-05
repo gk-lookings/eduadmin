@@ -63,14 +63,18 @@ export class CreateSectionComponent implements OnInit {
     this.subject_detail.sections = tempArr
 
     let params = {
-      "templateId": this.template.id,
-      "name": this.template.name,
-      "descriptionTags": this.template.descriptionTags,
-      "active": this.template.active,
-      "about": this.template.about,
-      "subjects": this.subjects.concat(this.subject_detail)
+      "title": this.subName,
+      "description": this.subDesc
     }
-    this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+    // let params = {
+    //   "templateId": this.template.id,
+    //   "name": this.template.name,
+    //   "descriptionTags": this.template.descriptionTags,
+    //   "active": this.template.active,
+    //   "about": this.template.about,
+    //   "subjects": this.subjects.concat(this.subject_detail)
+    // }
+    this.apiService.getResponse('put', GET_TEMPLATE + this.template._id + '/append?type=section&subjectId=' + this.ids.subjectName, params).
       then(res => {
         if (res.status === 200) {
           this.isLoading = false
@@ -78,7 +82,7 @@ export class CreateSectionComponent implements OnInit {
           this.responseMessage = 'Section has been created succefully.!'
           setTimeout(() => {
             this.responseMessage = ''
-          }, 3000);
+          }, 2000);
           this.createForm.reset()
           this.dialogRef.close(res)
         }

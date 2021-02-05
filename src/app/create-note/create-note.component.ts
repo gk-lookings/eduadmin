@@ -89,22 +89,13 @@ export class CreateNoteComponent implements OnInit {
           }
         }
 
-        let tempArr = this.subject_detail.notes.concat({
+        let params = {
           "title": this.tempName,
           "description": this.tempSubject,
           "files": newArray
-        })
-        this.subject_detail.notes = tempArr
-
-        let params = {
-          "templateId": this.template.id,
-          "name": this.template.name,
-          "descriptionTags": this.template.descriptionTags,
-          "active": this.template.active,
-          "about": this.template.about,
-          "subjects": this.subjects.concat(this.subject_detail)
         }
-        this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+
+        this.apiService.getResponse('put', GET_TEMPLATE + this.template._id + '/append?type=note&subjectId=' + this.subjectName, params).
           then(res => {
             if (res.status === 200) {
               this.isLoading = false
@@ -113,10 +104,9 @@ export class CreateNoteComponent implements OnInit {
               setTimeout(() => {
                 this.responseMessage = ''
                 this._location.back()
-              }, 3000);
+              }, 1000);
               this.createTemplateForm.reset()
               this.files = []
-
             }
           })
 
@@ -125,21 +115,11 @@ export class CreateNoteComponent implements OnInit {
       })
     }
     else {
-      let tempArr = this.subject_detail.notes.concat({
+      let params = {
         "title": this.tempName,
         "description": this.tempSubject,
-      })
-      this.subject_detail.notes = tempArr
-
-      let params = {
-        "templateId": this.template.id,
-        "name": this.template.name,
-        "descriptionTags": this.template.descriptionTags,
-        "active": this.template.active,
-        "about": this.template.about,
-        "subjects": this.subjects.concat(this.subject_detail)
       }
-      this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+      this.apiService.getResponse('put', GET_TEMPLATE + this.template._id + '/append?type=note&subjectId=' + this.subjectName, params).
         then(res => {
           if (res.status === 200) {
             this.isLoading = false
@@ -148,7 +128,7 @@ export class CreateNoteComponent implements OnInit {
             setTimeout(() => {
               this.responseMessage = ''
               this._location.back()
-            }, 3000);
+            }, 1000);
             this.createTemplateForm.reset()
             this.files = []
           }

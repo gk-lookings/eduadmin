@@ -52,7 +52,7 @@
                                 {{item && item.files.length}}
                             </span>
                             <div>
-                                <mat-icon style="margin-right: 10px;" [routerLink]="['/dashboard/edit-document', subId, tempId, item && item._id]">edit</mat-icon>
+                                <!-- <mat-icon style="margin-right: 10px;" [routerLink]="['/dashboard/edit-document', subId, tempId, item && item._id]">edit</mat-icon> -->
                                 <mat-icon style="margin-right: 20px;" (click)="deleteDoc(item, i)">delete</mat-icon>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                     <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                         <span>{{item && item.title}}</span>
                                         <div class="d-flex justify-content-between align-items-center panelAction">
-                                            <mat-icon (click)="editSection(item)">edit</mat-icon>
+                                            <!-- <mat-icon (click)="editSection(item)">edit</mat-icon> -->
                                             <mat-icon (click)="deleteSection(item)">delete</mat-icon>
                                         </div>
                                     </div>
@@ -143,7 +143,7 @@
                                 {{item && item.files.length}}
                             </span>
                             <div>
-                                <mat-icon style="margin-right: 10px;" [routerLink]="['/dashboard/edit-note', subId, tempId, item && item._id]">edit</mat-icon>
+                                <!-- <mat-icon style="margin-right: 10px;" [routerLink]="['/dashboard/edit-note', subId, tempId, item && item._id]">edit</mat-icon> -->
                                 <mat-icon style="margin-right: 20px;" (click)="deleteNote(item, i)">delete</mat-icon>
                             </div>
                         </div>

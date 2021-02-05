@@ -26,7 +26,7 @@
                         <div class="inputPostField">
                             <label for="pictures">Pictures</label>
                             <div class="d-inline">
-                                <img src="./../../assets/images/dummy.png" alt="">
+                                <img src="./assets/images/dummy.png" alt="">
                                 <div class="addPicture" matRipple (click)="addPictures()">
                                     <mat-icon>add</mat-icon>
                                 </div>
@@ -52,7 +52,7 @@
                                             <span class="tyPe">Board</span>
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
-                                                <mat-select placeholder="Select your option">
+                                                <mat-select placeholder="Select your option" [(ngModel)]="boardSelected" [ngModelOptions]="{standalone: true}">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option [value]="option.board" *ngFor="let option of dropdownList" (click)="selectBoard(option)">{{ option.board }}</mat-option>
                                                 </mat-select>
@@ -62,7 +62,7 @@
                                             <span class="tyPe">Department</span>
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
-                                                <mat-select>
+                                                <mat-select [(ngModel)]="departmentSelected" [ngModelOptions]="{standalone: true}">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of departments" [value]="item" (click)="selectDepartment(item)">
                                                         {{item}}
@@ -74,7 +74,7 @@
                                             <span class="tyPe">Class</span>
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
-                                                <mat-select>
+                                                <mat-select [(ngModel)]="classSelected" [ngModelOptions]="{standalone: true}">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of class" [value]="item" (click)="selectClass(item)">
                                                         {{item}}
@@ -86,7 +86,7 @@
                                             <span class="tyPe">Semester</span>
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
-                                                <mat-select>
+                                                <mat-select [(ngModel)]="semesteSelected" [ngModelOptions]="{standalone: true}">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of semester" [value]="item" (click)="selectSemester(item)">
                                                         {{item}}
@@ -98,7 +98,7 @@
                                             <span class="tyPe">Grade</span>
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
-                                                <mat-select>
+                                                <mat-select [(ngModel)]="gradetSelected" [ngModelOptions]="{standalone: true}">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of grade" [value]="item" (click)="selectGrade(item)">
                                                         {{item}}
@@ -138,7 +138,7 @@
                                         <span style="flex: 1;">ACTIONS</span>
                                     </div>
 
-                                    <div class="single-user" style="cursor: pointer;" *ngFor="let item of templates">
+                                    <div class="single-user" style="cursor: pointer;" *ngFor="let item of templates; let i = index; ">
                                         <div style="flex: 4;" class="userSet" [routerLink]="['/dashboard/template/subject', item._id]">
                                             <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
                                             <h1>{{item && item.name}}</h1>
@@ -148,7 +148,7 @@
                                             {{item && item.createdAt | dateAgo}}
                                         </span>
                                         <span style="flex: 1;">
-                                            <button class="vieW" (click)="addTemplate(item)">ADD</button>
+                                            <button class="vieW" (click)="addTemplate(item, i)" id="item{{i}}">ADD</button>
                                         </span>
                                     </div>
 
@@ -180,7 +180,7 @@
                                         <span style="margin-right: 20px; ">NO OF STUDENTS</span>
                                         <span style="flex: 1;">ACTIONS</span>
                                     </div>
-                                    <div class="single-user" style="cursor: pointer;" *ngFor="let item of classes">
+                                    <div class="single-user" style="cursor: pointer;" *ngFor="let item of classes; let i = index;">
                                         <div style="flex: 4;" class="userSet" [routerLink]="['/dashboard/class-room', item._id]">
                                             <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
                                             <h1>{{item && item.name}}</h1>
@@ -190,7 +190,7 @@
                                             {{item && item.members.length}}
                                         </span>
                                         <span style="flex: 1;">
-                                            <button class="vieW" (click)="addClassRoom(item)">ADD</button>
+                                            <button class="vieW" (click)="addClassRoom(item, i)" id="itemClass{{i}}">ADD</button>
                                         </span>
                                     </div>
 
@@ -279,7 +279,7 @@
 
                 <div class="actionArea">
                     <button matRipple matStepperPrevious>Previous <mat-icon>keyboard_arrow_left</mat-icon></button>
-                    <button matRipple matStepperNext style="margin-left: 20px;">Publish <mat-icon>done</mat-icon></button>
+                    <button matRipple matStepperNext style="margin-left: 20px;" (click)="publish()">Publish <mat-icon>done</mat-icon></button>
                 </div>
             </mat-step>
         </mat-horizontal-stepper>

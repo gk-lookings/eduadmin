@@ -242,7 +242,6 @@ export class EditTemplateComponent implements OnInit {
     this.apiService.getResponse('get', FILTER, params).
       then(res => {
         if (res.status === 200) {
-        console.log("resulrt  filt", res);
         this.dropdownList = res.data.filters
         }
       })
@@ -254,18 +253,9 @@ export class EditTemplateComponent implements OnInit {
     this.board = item.board
     for (let i = 0; i < this.dropdownList.length; i++) {
       let element = this.dropdownList[i];
-      console.log("this.dropdownList[i].id", this.dropdownList[i].id);
-      console.log(" item.id,",  item.id);
-      
-      
-
       if(this.dropdownList[i].id == item.id)
-      {
-        
-        
+      {      
         this.departments = this.dropdownList[i].department
-        console.log("sdsd", this.departments);
-        
         this.classes = this.dropdownList[i].class;
         this.semesters = this.dropdownList[i].semester;
         this.grades = this.dropdownList[i].grade
@@ -482,25 +472,19 @@ export class EditTemplateComponent implements OnInit {
       this.tags.splice(index, 1);
     }
   }
-
-  setRow(type, obj, i){
-
-    if (type == 'department') {
-      this.departIndex = i
-      this.departmentArray = obj
-    }
-    if (type == 'class') {
-      this.classIndex = i
-      this.classArray = obj
-    }
-    if (type == 'semester') {
-      this.semesterIndex = i
-      this.semesterArray = obj
-    }
-    if (type == 'grade') {
-      this.gradeIndex = i
-      this.gradesArray = obj
-    }
+  setRow(type, obj){
+    // if (type == 'department') {
+    //   this.departmentArray = obj
+    // }
+    // if (type == 'class') {
+    //   this.classArray = obj
+    // }
+    // if (type == 'semester') {
+    //   this.semesterArray = obj
+    // }
+    // if (type == 'grade') {
+    //   this.gradesArray = obj
+    // }
   }
 
   departmentSelect(){

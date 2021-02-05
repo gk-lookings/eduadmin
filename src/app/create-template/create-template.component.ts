@@ -118,24 +118,22 @@ export class CreateTemplateComponent implements OnInit {
     })
   }
 
-  setRow(type, obj, i){
+  setRow(type, obj){
     if (type == 'department') {
-      this.departIndex = i
       this.departmentArray = obj
     }
     if (type == 'class') {
-      this.classIndex = i
       this.classArray = obj
     }
     if (type == 'semester') {
-      this.semesterIndex = i
       this.semesterArray = obj
     }
     if (type == 'grade') {
-      this.gradeIndex = i
       this.gradesArray = obj
     }
   }
+
+  
 
   addFilterElement(type) {
     if (type == 'department') {

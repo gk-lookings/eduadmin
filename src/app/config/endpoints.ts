@@ -23,6 +23,10 @@ const GET_TEMPLATE                  = HOST + 'template/'
 const DASHBOARD                     = HOST + 'misc/global-stats'
 
 const FILTER                        = HOST + 'filter'
+const FILTER_SUGGET                 = HOST + '​filter​/suggest'
+
+
+const CREATE_POST                   = HOST + 'post/admin-post'
 
 
 export {
@@ -41,6 +45,8 @@ export {
     USER_DETAILS,
     FILTER,
     USER_DEACTIVATE,
-    USER_ACTIVATE
+    USER_ACTIVATE,
+    CREATE_POST,
+    FILTER_SUGGET
 
 }
