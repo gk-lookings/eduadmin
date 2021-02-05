@@ -86,7 +86,7 @@
                                             <span class="tyPe">Semester</span>
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
-                                                <mat-select [(ngModel)]="semesteSelected" [ngModelOptions]="{standalone: true}">
+                                                <mat-select [(ngModel)]="semesterSelected" [ngModelOptions]="{standalone: true}">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of semester" [value]="item" (click)="selectSemester(item)">
                                                         {{item}}
@@ -98,7 +98,7 @@
                                             <span class="tyPe">Grade</span>
                                             <div class="seleCt">
                                                 <mat-label></mat-label>
-                                                <mat-select [(ngModel)]="gradetSelected" [ngModelOptions]="{standalone: true}">
+                                                <mat-select [(ngModel)]="gradeSelected" [ngModelOptions]="{standalone: true}">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option *ngFor="let item of grade" [value]="item" (click)="selectGrade(item)">
                                                         {{item}}
