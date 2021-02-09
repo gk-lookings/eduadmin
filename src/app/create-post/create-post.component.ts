@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { CLASSROOM_LIST, CREATE_POST, FILTER, FILTER_SUGGET, GET_TEMPLATE, TEMPLATE_LIST } from '../config/endpoints';
+import { CLASSROOM_LIST, CREATE_POST, FILTER, FILTER_SUGGET, GET_TEMPLATE, HOST, TEMPLATE_LIST } from '../config/endpoints';
 import { ApiService } from '../services';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
@@ -19,51 +19,54 @@ export class CreatePostComponent implements OnInit {
 
   // createFields
   aboutBoard
-  boardType='sponsered'
+  boardType = 'post'
+  propertyType = 'sponsered'
 
   // audience
-  dropdownList=[]
-  selectedBoard=[]
+  dropdownList = []
+  selectedBoard = []
 
-  departments=[]
-  semester=[]
-  grade=[]
-  class=[]
+  departments = []
+  semester = []
+  grade = []
+  class = []
 
-  
-  boardSelected=''
-  departmentSelected=''
-  classSelected=''
-  gradeSelected=''
-  semesterSelected=''
+
+  boardSelected = ''
+  departmentSelected = ''
+  classSelected = ''
+  gradeSelected = ''
+  semesterSelected = ''
 
   isLoadingTemp
-  templates =[]
+  templates = []
   isLastpageTemp = false
   isEmptyTemp = false
   currentPageTemp = 0
-  searchkeyTemp=''
+  searchkeyTemp = ''
   txtTemplateChanged = new Subject<string>();
-  templateSelected=[]
+  templateSelected = []
   templateSelectedIds = []
 
-  searchkeyClass=''
+  searchkeyClass = ''
   isLoadingClass = true
   classes = []
   isLastpageClass = false
   isEmptyClass = false
   currentPageClass = 0
   txtClassChanged = new Subject<string>();
-  classroomSelected=[]
-  classroomSelectedIds=[]
+  classroomSelected = []
+  classroomSelectedIds = []
 
   isAdded = false
 
+  filesList=[]
+  isLoadingPic  = false
   constructor(
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
-    public dialog : MatDialog
-    ) {
+    public dialog: MatDialog
+  ) {
     this.txtTemplateChanged.pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(model => {
         this.searchkeyTemp = model;
@@ -84,7 +87,7 @@ export class CreatePostComponent implements OnInit {
         this.isLoadingClass = false
         this.fetchClassList()
       });
-    }
+  }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -99,25 +102,53 @@ export class CreatePostComponent implements OnInit {
     this.fetchClassList()
   }
 
-  addPictures(){
-    let open =this.dialog.open(UploadPictureComponent).afterClosed().subscribe(res => {
-      if (res)
-      {
-        console.log("files", res);
+  addPictures() {
+    let open = this.dialog.open(UploadPictureComponent).afterClosed().subscribe(res => {
+      let newArray = []
+      var fileArray = []
+      var re = /(?:\.([^.]+))?$/;
+      if (res) {
+        this.isLoadingPic = true
+        for (let i = 0; i < res.length; i++) {
+          const formData = new FormData();
+          formData.append('file', res[i]);
+          let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=admin-post/' + res[i].lastModified + '.' + re.exec(res[i].name)[1], formData)
+          fileArray.push(elem)
+        }
+        Promise.all(fileArray).then(result => {
+          this.isLoadingPic = false
+          for (let m = 0; m < res.length; m++) {
+            for (let n = m; n < result.length; n++) {
+              let item = {
+                "_id": res[m].lastModified + res[m].name,
+                "name": res[m].name,
+                "size": res[m].size,
+                "type": res[m].type,
+                "url": result[n].data.imageURL,
+                "createdAt": new Date()
+              }
+              if(m==n)
+              newArray.push(item)
+            }
+          }
+          this.filesList = this.filesList.concat(newArray)
+        }).catch(err => {
+          console.log("error", err);
+        })
       }
     })
   }
 
-  getFIlterItems(){
+  getFIlterItems() {
     let params = {}
     this.apiService.getResponse('get', FILTER, params).
       then(res => {
         if (res.status === 200) {
-        this.dropdownList = res.data.filters
+          this.dropdownList = res.data.filters
         }
       })
   }
-  selectBoard(item){
+  selectBoard(item) {
     // this.departments = item.department
     // this.semester = item.semester
     // this.grade = item.grade
@@ -127,37 +158,36 @@ export class CreatePostComponent implements OnInit {
     // this.classSelected = ''
     // this.semesterSelected = ''
     // this.gradeSelected = ''
-    let params = { term: item.board, offset: 0, count : 10 }
-    this.apiService.getResponse('get', FILTER +'/suggest', params).
-        then(res => {
-          if (res.status === 200) {
-            console.log("resulrt  filt", res.data.filters);
-            // this.dropdownList = res.data.filters[0]
-            this.departments = res.data.filters[0].department
-            this.semester = res.data.filters[0].semester
-            this.grade = res.data.filters[0].grade
-            this.class = res.data.filters[0].class
-            }
-        })
+    let params = { term: item.board, offset: 0, count: 10 }
+    this.apiService.getResponse('get', FILTER + '/suggest', params).
+      then(res => {
+        if (res.status === 200) {
+          console.log("resulrt  filt", res.data.filters);
+          // this.dropdownList = res.data.filters[0]
+          this.departments = res.data.filters[0].department
+          this.semester = res.data.filters[0].semester
+          this.grade = res.data.filters[0].grade
+          this.class = res.data.filters[0].class
+        }
+      })
   }
-  selectDepartment(item){
+  selectDepartment(item) {
     this.departmentSelected = item
-    
+
   }
-  selectClass(item){
+  selectClass(item) {
     this.classSelected = item
-    
+
   }
-  selectSemester(item){
+  selectSemester(item) {
     this.semesterSelected = item
-    
+
   }
-  selectGrade(item){
+  selectGrade(item) {
     this.gradeSelected = item
   }
 
-  addItem()
-  {
+  addItem() {
     let item = {
       board: this.boardSelected,
       department: this.departmentSelected,
@@ -165,19 +195,20 @@ export class CreatePostComponent implements OnInit {
       semester: this.semesterSelected,
       grade: this.gradeSelected
     }
-      this.selectedBoard.push(item)
+    this.selectedBoard.push(item)
   }
   containsObject(obj, list) {
+    console.log("list", list);
+    
     var i;
     for (i = 0; i < list.length; i++) {
-        if (list[i] === obj) {
-            return true;
-        }
+      if (list[i] === obj) {
+        return true;
+      }
     }
-
     return false;
-}
-  removeItem(item){
+  }
+  removeItem(item) {
     let index = this.selectedBoard.indexOf(item)
     this.selectedBoard.splice(index, 1)
   }
@@ -185,14 +216,14 @@ export class CreatePostComponent implements OnInit {
     this.isEmptyTemp = false
     if (!this.isLastpageTemp) {
       this.isLoadingTemp = true;
-      let params = { term: this.searchkeyTemp, offset: this.currentPageTemp, count : 7 }
+      let params = { term: this.searchkeyTemp, offset: this.currentPageTemp, count: 7 }
       this.apiService.getResponse('get', TEMPLATE_LIST, params).
         then(res => {
           this.isLoadingTemp = false;
           if (res.status === 200) {
             this.templates = this.templates.concat(res.data.templates)
             this.isLastpageTemp = (res.data.templates.length == 0) ? true : false
-            if(this.templates.length == 0)
+            if (this.templates.length == 0)
               this.isEmptyTemp = true
           }
         })
@@ -207,20 +238,20 @@ export class CreatePostComponent implements OnInit {
     }
   }
 
-  searchTempResults(query:string) {
+  searchTempResults(query: string) {
     this.txtTemplateChanged.next(query);
   }
- 
 
-  addTemplate(item, i){
-    if(!this.templateSelected.includes(item)){
+
+  addTemplate(item, i) {
+    if (!this.templateSelected.includes(item)) {
       this.templateSelected.push(item)
       this.templateSelectedIds.push(item._id);
       (<HTMLInputElement>document.getElementById("item" + i)).innerHTML = 'ADDED';
       (<HTMLInputElement>document.getElementById("item" + i)).classList.add('addedCss')
     }
   }
-  removeTemplate(item){
+  removeTemplate(item) {
     let i
     let index = this.templateSelected.indexOf(item)
     this.templateSelected.splice(index, 1)
@@ -237,20 +268,20 @@ export class CreatePostComponent implements OnInit {
     if (!this.isLastpageClass) {
       this.isLoadingClass = true;
       this.isEmptyClass = false
-      let params = { term: this.searchkeyClass, offset: this.currentPageClass, count : 6 }
+      let params = { term: this.searchkeyClass, offset: this.currentPageClass, count: 6 }
       this.apiService.getResponse('get', CLASSROOM_LIST, params).
         then(res => {
           this.isLoadingClass = false;
           if (res.status === 200) {
             this.classes = this.classes.concat(res.data.classRooms)
             this.isLastpageClass = (res.data.classRooms.length == 0) ? true : false
-            if(this.classes.length == 0)
-            this.isEmptyClass = true
+            if (this.classes.length == 0)
+              this.isEmptyClass = true
           }
         })
     }
   }
-  searchClassResults(query:string) {
+  searchClassResults(query: string) {
     this.txtClassChanged.next(query);
   }
   scrollMeClass(event) {
@@ -262,23 +293,21 @@ export class CreatePostComponent implements OnInit {
     }
   }
 
-  addClassRoom(item, i){
-    if(!this.classroomSelected.includes(item))
-    { 
+  addClassRoom(item, i) {
+    if (!this.classroomSelected.includes(item)) {
       this.classroomSelected.push(item)
       this.classroomSelectedIds.push(item._id);
       (<HTMLInputElement>document.getElementById("itemClass" + i)).innerHTML = 'ADDED';
-    (<HTMLInputElement>document.getElementById("itemClass" + i)).classList.add('addedCss')
+      (<HTMLInputElement>document.getElementById("itemClass" + i)).classList.add('addedCss')
     }
-    
+
   }
-  removeClass(item){
+  removeClass(item) {
     let index = this.classroomSelected.indexOf(item)
     this.classroomSelected.splice(index, 1)
     this.classroomSelectedIds.splice(this.classroomSelected.indexOf(item._id), 1)
-    
+
     for (let m = 0; m < this.classes.length; m++) {
-      console.log("this.classes[m], item", this.classes[m], item);
       if (this.classes[m] == item) {
         (<HTMLInputElement>document.getElementById("itemClass" + m)).innerHTML = 'ADD';
         (<HTMLInputElement>document.getElementById("itemClass" + m)).classList.remove('addedCss')
@@ -286,25 +315,22 @@ export class CreatePostComponent implements OnInit {
     }
   }
 
-  publish(){
-    console.log("template Ids", this.templateSelectedIds);
-    console.log("class Ids", this.classroomSelectedIds);
-    console.log("board", this.selectedBoard);
-
+  publish() {
     let params = {
       "templateIds": this.templateSelectedIds,
       "classRoomIds": this.classroomSelectedIds,
       "data": {
         "content": this.aboutBoard,
+        "documents": this.filesList
       },
       "filters": this.selectedBoard,
     }
-
     this.apiService.getResponse('post', CREATE_POST, params).
       then(res => {
         console.log("res", res);
+        if (res.status === 200) {
+        alert("Published Successfully. !")
+        }
       })
-    
   }
 }
-

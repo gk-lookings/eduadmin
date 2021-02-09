@@ -17,6 +17,7 @@ export class FilterAddModelComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialog : MatDialogRef<FilterAddModelComponent>) { }
 
   ngOnInit() {
+    this.title= this.data && this.data.title
   }
 
   close(){

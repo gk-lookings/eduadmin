@@ -139,7 +139,9 @@
             </div> -->
             <div class="col-md-4 col-sm-5">
                 <div class="inputFieldSelect" style="margin-top: 0;">
-                    <div class="align-items-center d-flex mb-3"><label for="tempId">Select Board/University</label> <button matRipple (click)="createBoard()">Create</button> </div>
+                    <div class="align-items-center d-flex mb-3"><label for="tempId">Select Board/University</label>
+                        <!-- <button matRipple (click)="createBoard()">Create</button>  -->
+                    </div>
                     <div class="nm">
                         <mat-select [(value)]="selectedItems" [(ngModel)]="selectedItems" [formControl]="boardFormControl" placeholder="Select your option">
                             <mat-option [value]="option.board" *ngFor="let option of dropdownList" (click)="onItemSelect(option)">{{ option.board }}</mat-option>
@@ -161,7 +163,9 @@
 
                         <div class="inputFieldSelect" style="margin-top: 0;" *ngIf="isDepartment">
                             <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Department</label>
-                                <mat-icon (click)="departmentSelect()">close</mat-icon><button matRipple (click)="addFilterElement('department')">Add + </button> </div>
+                                <mat-icon (click)="departmentSelect()">close</mat-icon>
+                                <!-- <button matRipple (click)="addFilterElement('department')">Add + </button> -->
+                            </div>
                             <div class="nm">
                                 <mat-select [(value)]="departmentArray" [(ngModel)]="departmentArray" [ngModelOptions]="{standalone: true}" placeholder="Select your option">
                                     <mat-option [value]="option" *ngFor="let option of departments" (click)="setRow('department', $event)">{{ option }}</mat-option>
@@ -171,7 +175,9 @@
 
                         <div class="inputFieldSelect " style="margin-top: 0;" *ngIf="isClass">
                             <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Class</label>
-                                <mat-icon (click)="classSelect()">close</mat-icon><button matRipple (click)="addFilterElement('class')">Add + </button> </div>
+                                <mat-icon (click)="classSelect()">close</mat-icon>
+                                <!-- <button matRipple (click)="addFilterElement('class')">Add + </button> -->
+                            </div>
                             <div class="nm">
                                 <mat-select [(value)]="classArray" [(ngModel)]="classArray" [ngModelOptions]="{standalone: true}" placeholder="Select your option">
                                     <mat-option [value]="option" *ngFor="let option of classes" (click)="setRow('class', $event)">{{ option }}</mat-option>
@@ -181,7 +187,9 @@
 
                         <div class="inputFieldSelect " style="margin-top: 0;" *ngIf="isSemester">
                             <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Semester</label>
-                                <mat-icon (click)="semesterSelect()">close</mat-icon><button matRipple (click)="addFilterElement('semester')">Add + </button> </div>
+                                <mat-icon (click)="semesterSelect()">close</mat-icon>
+                                <!-- <button matRipple (click)="addFilterElement('semester')">Add + </button>  -->
+                            </div>
                             <div class="nm">
                                 <mat-select [(value)]="semesterArray" [(ngModel)]="semesterArray" [ngModelOptions]="{standalone: true}" placeholder="Select your option">
                                     <mat-option [value]="option" *ngFor="let option of semesters" (click)="setRow('semester', $event)">{{ option }}</mat-option>
@@ -191,7 +199,9 @@
 
                         <div class="inputFieldSelect " style="margin-top: 0;" *ngIf="isGrade">
                             <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Grade</label>
-                                <mat-icon (click)="gradeSelect()">close</mat-icon><button matRipple (click)="addFilterElement('grade')">Add + </button> </div>
+                                <mat-icon (click)="gradeSelect()">close</mat-icon>
+                                <!-- <button matRipple (click)="addFilterElement('grade')">Add + </button> -->
+                            </div>
                             <div class="nm">
                                 <mat-select [(value)]="gradesArray" [(ngModel)]="gradesArray" [ngModelOptions]="{standalone: true}" placeholder="Select your option">
                                     <mat-option [value]="option" *ngFor="let option of grades" (click)="setRow('grade', $event)">{{ option }}</mat-option>

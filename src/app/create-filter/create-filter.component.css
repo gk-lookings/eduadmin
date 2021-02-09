@@ -1,0 +1,67 @@
+.expPanelBoard {
+    box-shadow: none !important;
+    border-bottom: 1px solid #b7eae5;
+}
+
+::ng-deep .expPanelBoard .mat-expansion-indicator {
+    background: #22877c;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    border-radius: 30px;
+    color: #fff !important;
+}
+
+::ng-deep .expPanelBoard .mat-expansion-indicator::after {
+    color: rgb(255 255 255);
+    position: relative;
+}
+
+::ng-deep .expPanelBoard .mat-expanded .mat-expansion-indicator::after {
+    bottom: 2px;
+    right: .1mm;
+}
+
+.editBoard,
+.deleteBoard {
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    border-radius: 30px;
+    color: #fff !important;
+    background: #d67238;
+    border: none;
+}
+
+.editBoard mat-icon,
+.deleteBoard mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+}
+
+.expPanel {
+    box-shadow: none !important;
+    border-bottom: 1px solid #ccc;
+}
+
+.innerPanelHeader {
+    padding: 0 !important;
+}
+
+.numbIndicator {
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    border-radius: 30px;
+    background: #ccc;
+    border: none;
+    margin-right: 10px;
+    font-size: 11px;
+}

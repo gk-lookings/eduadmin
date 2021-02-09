@@ -85,7 +85,9 @@
                 </div>
                 <div class="col-md-4 col-sm-5">
                     <div class="inputFieldSelect" style="margin-top: 0;">
-                        <div class="align-items-center d-flex mb-3"><label for="tempId">Select Board/University</label> <button matRipple (click)="createBoard()">Create</button> </div>
+                        <div class="align-items-center d-flex mb-3"><label for="tempId">Select Board/University</label>
+                            <!-- <button matRipple (click)="createBoard()">Create</button> -->
+                        </div>
                         <ng-multiselect-dropdown placeholder="Select your option" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" [formControl]="boardFormControl" (onSelect)="onItemSelect($event)">
                         </ng-multiselect-dropdown>
                         <p class="errorInput" [ngClass]="boardFormControl.invalid ? 'errorShow' : ''" *ngIf="boardFormControl.invalid">{{getBoardErrorMessage()}}</p>
@@ -104,7 +106,9 @@
                         <div style="padding: 0 10px;">
                             <div class="inputFieldSelect" style="margin-top: 0;" *ngIf="isDepartment">
                                 <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Department</label>
-                                    <mat-icon (click)="departmentSelect()">close</mat-icon><button matRipple (click)="addFilterElement('department')">Add + </button> </div>
+                                    <mat-icon (click)="departmentSelect()">close</mat-icon>
+                                    <!-- <button matRipple (click)="addFilterElement('department')">Add + </button> -->
+                                </div>
                                 <ng-multiselect-dropdown placeholder="Select your option" [data]="departments" [settings]="dropdownSettings" (onSelect)="setRow('department', $event)">
                                 </ng-multiselect-dropdown>
                             </div>
@@ -116,13 +120,17 @@
                             </div>
                             <div class="inputFieldSelect" style="margin-top: 0;" *ngIf="isSemester">
                                 <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Semester</label>
-                                    <mat-icon (click)="semesterSelect()">close</mat-icon><button matRipple (click)="addFilterElement('semester')">Add + </button> </div>
+                                    <mat-icon (click)="semesterSelect()">close</mat-icon>
+                                    <!-- <button matRipple (click)="addFilterElement('semester')">Add + </button>  -->
+                                </div>
                                 <ng-multiselect-dropdown placeholder="Select your option" [data]="semesters" [settings]="dropdownSettings" (onSelect)="setRow('semester', $event)">
                                 </ng-multiselect-dropdown>
                             </div>
                             <div class="inputFieldSelect" style="margin-top: 0;" *ngIf="isGrade">
                                 <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Grade</label>
-                                    <mat-icon (click)="gradeSelect()">close</mat-icon><button matRipple (click)="addFilterElement('grade')">Add + </button> </div>
+                                    <mat-icon (click)="gradeSelect()">close</mat-icon>
+                                    <!-- <button matRipple (click)="addFilterElement('grade')">Add + </button>  -->
+                                </div>
                                 <ng-multiselect-dropdown placeholder="Select your option" [data]="grades" [settings]="dropdownSettings" (onSelect)="setRow('grade', $event)">
                                 </ng-multiselect-dropdown>
                             </div>

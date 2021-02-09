@@ -1,0 +1,91 @@
+<div class="__content_sec">
+    <h1 class="comm_title_h1 ">University/Board</h1>
+    <div class="d-flex align-content-center">
+        <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search University/Board" name="searchkey">
+        <button class="inputSubmit" style="margin: 0; margin-left: 10px;" (click)="createBoard()">Create</button>
+    </div>
+    <div class="userList">
+        <div class="headingLst">
+            <span style="flex: 8; margin-left: 13px;">University/Board</span>
+            <span style="flex: 0; margin-right: 20px;">ACTIONS</span>
+        </div>
+
+        <mat-accordion class="example-headers-align" *ngIf="!isLoading">
+            <mat-expansion-panel *ngFor="let item of filtersList" class="expPanelBoard">
+                <mat-expansion-panel-header class="panelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+                    <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                        <span style="font-weight: 500;">{{item && item.board}}</span>
+                        <div class="d-flex justify-content-between align-items-center panelAction">
+                            <button class="editBoard" title="Edit" (click)="editBoard(item)"><mat-icon>edit</mat-icon></button>
+                            <button class="deleteBoard" style="margin: 0 6px; background: #CC4D4D;" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="removeBoard(item.id)" (cancel)="cancelClicked = true"><mat-icon>delete</mat-icon></button>
+                        </div>
+                    </div>
+                </mat-expansion-panel-header>
+                <div style="padding: 0 20px;">
+                    <mat-accordion class="example-headers-align">
+                        <mat-expansion-panel class="expPanel">
+                            <mat-expansion-panel-header class="innerPanelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <span class="d-flex"> <span class="numbIndicator">1</span> Department</span>
+                                    <div class="d-flex justify-content-between align-items-center panelAction">
+                                        <button class="vieW" style="margin: 0 4px;" (click)="addFilterElement('department',item.id, item.department)">Add +</button>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel-header>
+                            <div class="pt-2">
+                                <span class="d-flex mb-2" *ngFor="let depart of item.department; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{depart && depart}}</span>
+                            </div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel class="expPanel">
+                            <mat-expansion-panel-header class="innerPanelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <span class="d-flex"><span class="numbIndicator">2</span>Class</span>
+                                    <div class="d-flex justify-content-between align-items-center panelAction">
+                                        <button class="vieW" style="margin: 0 4px;" (click)="addFilterElement('class',item.id, item.class)">Add +</button>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel-header>
+                            <div class="pt-2">
+                                <span class="d-flex mb-2" *ngFor="let class of item.class; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{class && class}}</span>
+                            </div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel class="expPanel">
+                            <mat-expansion-panel-header class="innerPanelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <span class="d-flex"><span class="numbIndicator">3</span>Semester</span>
+                                    <div class="d-flex justify-content-between align-items-center panelAction">
+                                        <button class="vieW" style="margin: 0 4px;" (click)="addFilterElement('semester',item.id, item.semester)">Add +</button>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel-header>
+                            <div class="pt-2">
+                                <span class="d-flex mb-2" *ngFor="let sem of item.semester; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{sem && sem}}</span>
+                            </div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel class="expPanel">
+                            <mat-expansion-panel-header class="innerPanelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <span class="d-flex"><span class="numbIndicator">4</span>Grade</span>
+                                    <div class="d-flex justify-content-between align-items-center panelAction">
+                                        <button class="vieW" style="margin: 0 4px;" (click)="addFilterElement('grade',item.id, item.grade)">Add +</button>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel-header>
+                            <div class="pt-2">
+                                <span class="d-flex mb-2" *ngFor="let grad of item.grade; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{grad && grad}}</span>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoading">
+            <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+        </div>
+        <div class="empty" *ngIf="isEmpty">
+            Sorry. No results not found. Modify your search.
+        </div>
+    </div>
+
+</div>

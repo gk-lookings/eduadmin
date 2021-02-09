@@ -229,7 +229,6 @@ export class CreateTemplateComponent implements OnInit {
         this.grades = this.dropdownList[i].grade
       }
     }    
-
   }
 
   submitForm() {

@@ -6,27 +6,48 @@
                 <form [formGroup]="firstFormGroup">
                     <ng-template matStepLabel>Create</ng-template>
                     <div class="">
-                        <div class="inputPostField">
-                            <label for="aboutBoard">About Board</label>
-                            <textarea [(ngModel)]="aboutBoard" [ngModelOptions]="{standalone: true}" type="text" autocomplete="off" matInput placeholder="Enter Board Details" name="aboutBoard"></textarea>
-                        </div>
-                        <div class="inputPostField">
-                            <label for="boardType">Board Type*</label>
-                            <div class="boardType">
-                                <span class="tyPe">Type</span>
-                                <div class="seleCt">
-                                    <mat-label></mat-label>
-                                    <mat-select [(value)]="boardType">
-                                        <mat-option value="sponsered">Sponsored Type</mat-option>
-                                        <mat-option value="registered">Registered Type</mat-option>
-                                    </mat-select>
+                        <div class="d-flex align-items-center">
+                            <div class="inputPostField" style="width: 30%; margin-right: 1%;">
+                                <label for="boardType">Board*</label>
+                                <div class="boardType" style="width: 100%;">
+                                    <span class="tyPe">Type</span>
+                                    <div class="seleCt">
+                                        <mat-label></mat-label>
+                                        <mat-select [(value)]="boardType">
+                                            <mat-option value="post">Post</mat-option>
+                                            <mat-option value="event">Event</mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inputPostField" style="width: 30%;">
+                                <label for="boardType">Property*</label>
+                                <div class="boardType" style="width: 100%;">
+                                    <span class="tyPe">Type</span>
+                                    <div class="seleCt">
+                                        <mat-label></mat-label>
+                                        <mat-select [(value)]="propertyType">
+                                            <mat-option value="sponsered">Sponsored</mat-option>
+                                            <mat-option value="registered">Registered</mat-option>
+                                        </mat-select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="inputPostField">
+                            <label for="aboutBoard">About Board</label>
+                            <textarea [(ngModel)]="aboutBoard" [ngModelOptions]="{standalone: true}" type="text" autocomplete="off" matInput placeholder="Enter Board Details" name="aboutBoard"></textarea>
+                        </div>
+
+                        <div class="inputPostField">
                             <label for="pictures">Pictures</label>
                             <div class="d-inline">
-                                <img src="./assets/images/dummy.png" alt="">
+                                <ng-container *ngIf="filesList.length > 0">
+                                    <img *ngFor="let item of filesList" src="{{item && item.url}}">
+                                </ng-container>
+                                <div class="addPicture" *ngIf="isLoadingPic" style="margin-right: 15px;background: #00000012;border: none;">
+                                    <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
+                                </div>
                                 <div class="addPicture" matRipple (click)="addPictures()">
                                     <mat-icon>add</mat-icon>
                                 </div>
@@ -238,7 +259,9 @@
                 <div class="finalItemSingle">
                     <span>Pictures</span>
                     <div class="finalSingDecs">
-                        <img src="./../../assets/images/dummy.png">
+                        <ng-container *ngIf="filesList.length > 0">
+                            <img *ngFor="let item of filesList" src="{{item && item.url}}">
+                        </ng-container>
                     </div>
                 </div>
                 <div class="finalItemSingle">

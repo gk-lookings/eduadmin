@@ -94,6 +94,7 @@ import { ViewFileComponent } from './view-file/view-file.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { UploadPictureComponent } from './upload-picture/upload-picture.component';
+import { CreateFilterComponent } from './create-filter/create-filter.component';
 // import { uuidmod } from 'angular2-uuid';
 
 @NgModule({
@@ -136,6 +137,7 @@ import { UploadPictureComponent } from './upload-picture/upload-picture.componen
     ViewFileComponent,
     CreatePostComponent,
     UploadPictureComponent,
+    CreateFilterComponent,
 
   ],
   imports: [
