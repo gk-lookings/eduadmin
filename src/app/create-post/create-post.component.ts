@@ -343,6 +343,7 @@ export class CreatePostComponent implements OnInit {
           this.responseMessage = 'Post has been published succefully.!'
           setTimeout(() => {
             this.responseMessage = ''
+            this.reloadComponent()
           }, 3000);
           this.templateSelectedIds = []
           this.classroomSelectedIds = []
@@ -369,4 +370,11 @@ export class CreatePostComponent implements OnInit {
         }
       })
   }
+
+  reloadComponent() {
+    let currentUrl = this.router.url;
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate([currentUrl]);
+    }
 }
