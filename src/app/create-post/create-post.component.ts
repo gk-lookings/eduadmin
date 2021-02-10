@@ -6,6 +6,7 @@ import { ApiService } from '../services';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { UploadPictureComponent } from '../upload-picture/upload-picture.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -62,10 +63,16 @@ export class CreatePostComponent implements OnInit {
 
   filesList=[]
   isLoadingPic  = false
+
+  responseMessage=''
+  success
+  isLoadingPublish
+
   constructor(
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public router:Router
   ) {
     this.txtTemplateChanged.pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(model => {
@@ -120,7 +127,7 @@ export class CreatePostComponent implements OnInit {
           for (let m = 0; m < res.length; m++) {
             for (let n = m; n < result.length; n++) {
               let item = {
-                "_id": res[m].lastModified + res[m].name,
+                // "_id": res[m].lastModified + res[m].name,
                 "name": res[m].name,
                 "size": res[m].size,
                 "type": res[m].type,
@@ -316,6 +323,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   publish() {
+    this.isLoadingPublish = true
     let params = {
       "templateIds": this.templateSelectedIds,
       "classRoomIds": this.classroomSelectedIds,
@@ -329,7 +337,35 @@ export class CreatePostComponent implements OnInit {
       then(res => {
         console.log("res", res);
         if (res.status === 200) {
-        alert("Published Successfully. !")
+
+          this.isLoadingPublish = false
+          this.success = true
+          this.responseMessage = 'Post has been published succefully.!'
+          setTimeout(() => {
+            this.responseMessage = ''
+          }, 3000);
+          this.templateSelectedIds = []
+          this.classroomSelectedIds = []
+          this.classroomSelected = []
+          this.templateSelected = []
+          this.aboutBoard = ''
+          this.selectedBoard = []
+          this.filesList = []
+
+          this.searchkeyTemp = '';
+          this.templates = []
+          this.isLastpageTemp = false
+          this.currentPageTemp = 0
+          this.isLoadingTemp = false
+          this.isEmptyTemp = false
+          this.fetchTemplateList()
+
+          this.searchkeyClass = '';
+          this.classes = []
+          this.isLastpageClass = false
+          this.currentPageClass = 0
+          this.isLoadingClass = false
+          this.fetchClassList()
         }
       })
   }

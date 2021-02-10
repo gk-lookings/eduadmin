@@ -298,12 +298,13 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="actionArea">
                     <button matRipple matStepperPrevious>Previous <mat-icon>keyboard_arrow_left</mat-icon></button>
-                    <button matRipple matStepperNext style="margin-left: 20px;" (click)="publish()">Publish <mat-icon>done</mat-icon></button>
+                    <button matRipple style="margin-left: 20px;" (click)="publish()" *ngIf="!isLoadingPublish">Publish <mat-icon>done</mat-icon></button>
+                    <button matRipple style="margin-left: 20px;" *ngIf="isLoadingPublish">Publish <mat-spinner style="margin-left: 15px;" diameter="20"></mat-spinner></button>
                 </div>
+                <div class="responseMessage" [ngClass]="success ? 'success' : ''">
+                    {{responseMessage && responseMessage}}</div>
             </mat-step>
         </mat-horizontal-stepper>
     </div>

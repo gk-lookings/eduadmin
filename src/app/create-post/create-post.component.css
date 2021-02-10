@@ -293,3 +293,16 @@
     background: #888;
     transition: 0.4s;
 }
+
+::ng-deep .actionArea .mat-progress-spinner circle,
+ ::ng-deep .actionArea .mat-spinner circle {
+    stroke: #ffffff;
+}
+
+.responseMessage {
+    margin-top: 20px;
+}
+
+.success {
+    color: #8BC34A !important;
+}
