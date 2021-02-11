@@ -7,6 +7,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { UploadPictureComponent } from '../upload-picture/upload-picture.component';
 import { Router } from '@angular/router';
+import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
 @Component({
   selector: 'app-create-post',
@@ -22,6 +23,12 @@ export class CreatePostComponent implements OnInit {
   aboutBoard
   boardType = 'post'
   propertyType = 'sponsered'
+
+  author
+  isLoadingProfPic = false
+  profilePic
+  profileUrl
+
 
   // audience
   dropdownList = []
@@ -61,10 +68,10 @@ export class CreatePostComponent implements OnInit {
 
   isAdded = false
 
-  filesList=[]
-  isLoadingPic  = false
+  filesList = []
+  isLoadingPic = false
 
-  responseMessage=''
+  responseMessage = ''
   success
   isLoadingPublish
 
@@ -72,7 +79,7 @@ export class CreatePostComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
     public dialog: MatDialog,
-    public router:Router
+    public router: Router
   ) {
     this.txtTemplateChanged.pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(model => {
@@ -127,15 +134,14 @@ export class CreatePostComponent implements OnInit {
           for (let m = 0; m < res.length; m++) {
             for (let n = m; n < result.length; n++) {
               let item = {
-                // "_id": res[m].lastModified + res[m].name,
                 "name": res[m].name,
                 "size": res[m].size,
                 "type": res[m].type,
                 "url": result[n].data.imageURL,
                 "createdAt": new Date()
               }
-              if(m==n)
-              newArray.push(item)
+              if (m == n)
+                newArray.push(item)
             }
           }
           this.filesList = this.filesList.concat(newArray)
@@ -155,22 +161,13 @@ export class CreatePostComponent implements OnInit {
         }
       })
   }
+
   selectBoard(item) {
-    // this.departments = item.department
-    // this.semester = item.semester
-    // this.grade = item.grade
-    // this.class = item.class
-    // this.boardSelected = item.board
-    // this.departmentSelected =''
-    // this.classSelected = ''
-    // this.semesterSelected = ''
-    // this.gradeSelected = ''
     let params = { term: item.board, offset: 0, count: 10 }
     this.apiService.getResponse('get', FILTER + '/suggest', params).
       then(res => {
         if (res.status === 200) {
           console.log("resulrt  filt", res.data.filters);
-          // this.dropdownList = res.data.filters[0]
           this.departments = res.data.filters[0].department
           this.semester = res.data.filters[0].semester
           this.grade = res.data.filters[0].grade
@@ -204,9 +201,8 @@ export class CreatePostComponent implements OnInit {
     }
     this.selectedBoard.push(item)
   }
+
   containsObject(obj, list) {
-    console.log("list", list);
-    
     var i;
     for (i = 0; i < list.length; i++) {
       if (list[i] === obj) {
@@ -215,10 +211,12 @@ export class CreatePostComponent implements OnInit {
     }
     return false;
   }
+
   removeItem(item) {
     let index = this.selectedBoard.indexOf(item)
     this.selectedBoard.splice(index, 1)
   }
+
   fetchTemplateList() {
     this.isEmptyTemp = false
     if (!this.isLastpageTemp) {
@@ -236,6 +234,7 @@ export class CreatePostComponent implements OnInit {
         })
     }
   }
+
   scrollMeTemp(event) {
     if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight)) {
       if (!this.isLastpageTemp) {
@@ -249,7 +248,6 @@ export class CreatePostComponent implements OnInit {
     this.txtTemplateChanged.next(query);
   }
 
-
   addTemplate(item, i) {
     if (!this.templateSelected.includes(item)) {
       this.templateSelected.push(item)
@@ -258,6 +256,7 @@ export class CreatePostComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("item" + i)).classList.add('addedCss')
     }
   }
+
   removeTemplate(item) {
     let i
     let index = this.templateSelected.indexOf(item)
@@ -288,9 +287,11 @@ export class CreatePostComponent implements OnInit {
         })
     }
   }
+
   searchClassResults(query: string) {
     this.txtClassChanged.next(query);
   }
+
   scrollMeClass(event) {
     if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight)) {
       if (!this.isLastpageClass) {
@@ -309,11 +310,11 @@ export class CreatePostComponent implements OnInit {
     }
 
   }
+
   removeClass(item) {
     let index = this.classroomSelected.indexOf(item)
     this.classroomSelected.splice(index, 1)
     this.classroomSelectedIds.splice(this.classroomSelected.indexOf(item._id), 1)
-
     for (let m = 0; m < this.classes.length; m++) {
       if (this.classes[m] == item) {
         (<HTMLInputElement>document.getElementById("itemClass" + m)).innerHTML = 'ADD';
@@ -323,58 +324,88 @@ export class CreatePostComponent implements OnInit {
   }
 
   publish() {
-    this.isLoadingPublish = true
-    let params = {
-      "templateIds": this.templateSelectedIds,
-      "classRoomIds": this.classroomSelectedIds,
-      "data": {
-        "content": this.aboutBoard,
-        "documents": this.filesList
-      },
-      "filters": this.selectedBoard,
+    this.responseMessage = ''
+    if (this.templateSelectedIds && this.classroomSelectedIds && this.selectedBoard && this.author) {
+      this.isLoadingPublish = true
+      let params = {
+        "templateIds": this.templateSelectedIds,
+        "classRoomIds": this.classroomSelectedIds,
+        "data": {
+          "content": this.aboutBoard,
+          "documents": this.filesList
+        },
+        "filters": this.selectedBoard,
+      }
+      this.apiService.getResponse('post', CREATE_POST, params).
+        then(res => {
+          console.log("res", res);
+          if (res.status === 200) {
+            this.isLoadingPublish = false
+            this.success = true
+            this.responseMessage = 'Post has been published succefully.!'
+            setTimeout(() => {
+              this.responseMessage = ''
+              this.reloadComponent()
+            }, 3000);
+            this.templateSelectedIds = []
+            this.classroomSelectedIds = []
+            this.classroomSelected = []
+            this.templateSelected = []
+            this.aboutBoard = ''
+            this.selectedBoard = []
+            this.filesList = []
+
+            this.searchkeyTemp = '';
+            this.templates = []
+            this.isLastpageTemp = false
+            this.currentPageTemp = 0
+            this.isLoadingTemp = false
+            this.isEmptyTemp = false
+            this.fetchTemplateList()
+
+            this.searchkeyClass = '';
+            this.classes = []
+            this.isLastpageClass = false
+            this.currentPageClass = 0
+            this.isLoadingClass = false
+            this.fetchClassList()
+          }
+        })
     }
-    this.apiService.getResponse('post', CREATE_POST, params).
-      then(res => {
-        console.log("res", res);
-        if (res.status === 200) {
-
-          this.isLoadingPublish = false
-          this.success = true
-          this.responseMessage = 'Post has been published succefully.!'
-          setTimeout(() => {
-            this.responseMessage = ''
-            this.reloadComponent()
-          }, 3000);
-          this.templateSelectedIds = []
-          this.classroomSelectedIds = []
-          this.classroomSelected = []
-          this.templateSelected = []
-          this.aboutBoard = ''
-          this.selectedBoard = []
-          this.filesList = []
-
-          this.searchkeyTemp = '';
-          this.templates = []
-          this.isLastpageTemp = false
-          this.currentPageTemp = 0
-          this.isLoadingTemp = false
-          this.isEmptyTemp = false
-          this.fetchTemplateList()
-
-          this.searchkeyClass = '';
-          this.classes = []
-          this.isLastpageClass = false
-          this.currentPageClass = 0
-          this.isLoadingClass = false
-          this.fetchClassList()
-        }
-      })
+    else {
+      this.responseMessage = 'Please fill out the required field to proceed.!'
+    }
   }
 
   reloadComponent() {
     let currentUrl = this.router.url;
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate([currentUrl]);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+  }
+
+  uploadProfPic(event) {
+    if (event[0].type.indexOf("image") != -1) {
+      this.isLoadingProfPic = true
+      var re = /(?:\.([^.]+))?$/;
+      const formData = new FormData();
+      formData.append('file', event[0]);
+      this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=admin-post/logo/' + event[0].lastModified + '.' + re.exec(event[0].name)[1], formData).
+        then(res => {
+          console.log("res", res);
+          this.profileUrl = res.data.imageURL
+          this.isLoadingProfPic = false
+          this.profilePic = {
+            "name": event[0].name,
+            "size": event[0].size,
+            "type": event[0].type,
+            "url": res.data.imageURL,
+            "createdAt": new Date()
+          }
+        })
     }
+    else {
+      let open = this.dialog.open(WarningPopupComponent, { data: 'Only "image" files are allowed.' })
+    }
+  }
 }

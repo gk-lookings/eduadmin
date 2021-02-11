@@ -8,5 +8,10 @@
         <mat-icon *ngIf="item && item.verified" style="color: #22877C;">check_circle</mat-icon>
         <mat-icon *ngIf="item && !item.verified" style="color: #D8D8D8;">cancel</mat-icon>
     </span>
-    <button class="activator" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate(item._id)" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
+    <ng-container *ngIf="item.role != 'ADMIN'">
+        <button class="activator" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate(item._id)" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
+    </ng-container>
+    <ng-container *ngIf="item.role == 'ADMIN'">
+        <button class="activator" style="background: #e6e6e6; cursor: no-drop;">Disabled</button>
+    </ng-container>
 </div>

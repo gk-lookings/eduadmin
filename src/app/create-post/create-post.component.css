@@ -303,6 +303,42 @@
     margin-top: 20px;
 }
 
+.error {
+    color: red;
+}
+
 .success {
     color: #8BC34A !important;
+}
+
+.inputPostField label {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.inputPostField input {
+    padding: 10px;
+    border: 1px solid #22877C;
+    border-radius: 5px;
+}
+
+.profPicSec {
+    display: flex;
+    align-items: center;
+}
+
+.profPicSec img {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.profPicSec .addPicture {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.profPicSec a {
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
 }

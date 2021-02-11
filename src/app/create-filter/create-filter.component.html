@@ -11,7 +11,7 @@
         </div>
 
         <mat-accordion class="example-headers-align" *ngIf="!isLoading">
-            <mat-expansion-panel *ngFor="let item of filtersList" class="expPanelBoard">
+            <mat-expansion-panel *ngFor="let item of filtersList; let j=index;" class="expPanelBoard">
                 <mat-expansion-panel-header class="panelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
                     <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                         <span style="font-weight: 500;">{{item && item.board}}</span>
@@ -33,7 +33,10 @@
                                 </div>
                             </mat-expansion-panel-header>
                             <div class="pt-2">
-                                <span class="d-flex mb-2" *ngFor="let depart of item.department; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{depart && depart}}</span>
+                                <span class="d-flex mb-2 align-items-center" *ngFor="let depart of item.department; let i = index;">
+                                    <span class="numbIndicator">{{i+1}}</span>{{depart && depart}}
+                                <mat-icon class="removeSubCat" (click)="removeSubItem(item, depart, j, 'department')">close</mat-icon>
+                                </span>
                             </div>
                         </mat-expansion-panel>
                         <mat-expansion-panel class="expPanel">
@@ -46,7 +49,9 @@
                                 </div>
                             </mat-expansion-panel-header>
                             <div class="pt-2">
-                                <span class="d-flex mb-2" *ngFor="let class of item.class; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{class && class}}</span>
+                                <span class="d-flex mb-2 align-items-center" *ngFor="let class of item.class; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{class && class}}
+                                <mat-icon class="removeSubCat" (click)="removeSubItem(item, class, j, 'class')">close</mat-icon>
+                                </span>
                             </div>
                         </mat-expansion-panel>
                         <mat-expansion-panel class="expPanel">
@@ -59,7 +64,9 @@
                                 </div>
                             </mat-expansion-panel-header>
                             <div class="pt-2">
-                                <span class="d-flex mb-2" *ngFor="let sem of item.semester; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{sem && sem}}</span>
+                                <span class="d-flex mb-2 align-items-center" *ngFor="let sem of item.semester; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{sem && sem}}
+                                <mat-icon class="removeSubCat" (click)="removeSubItem(item, sem, j, 'semester')">close</mat-icon>
+                                </span>
                             </div>
                         </mat-expansion-panel>
                         <mat-expansion-panel class="expPanel">
@@ -72,7 +79,9 @@
                                 </div>
                             </mat-expansion-panel-header>
                             <div class="pt-2">
-                                <span class="d-flex mb-2" *ngFor="let grad of item.grade; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{grad && grad}}</span>
+                                <span class="d-flex mb-2 align-items-center" *ngFor="let grad of item.grade; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{grad && grad}}
+                                <mat-icon class="removeSubCat" (click)="removeSubItem(item, grade, j, 'grade')">close</mat-icon>
+                                </span>
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>

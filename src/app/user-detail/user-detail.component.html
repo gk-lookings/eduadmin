@@ -10,8 +10,12 @@
                 <p class="border-bottom mb-0">Status : {{isActive ? 'Active' : 'In Active'}}</p>
             </div>
         </div>
-        <div>
+        <div *ngIf="user.role != 'ADMIN'">
             <button class="activate" style="margin: 0;" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
+
+        </div>
+        <div *ngIf="user.role == 'ADMIN'">
+            <button class="activate" style="background: #e6e6e6; cursor: no-drop;">Disabled</button>
         </div>
     </div>
     <h1 class="comm_title_h1" style="margin-bottom: 10px;">Classrooms</h1>
