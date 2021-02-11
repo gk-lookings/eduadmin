@@ -22,7 +22,7 @@ export class CreatePostComponent implements OnInit {
   // createFields
   aboutBoard
   boardType = 'post'
-  propertyType = 'sponsered'
+  propertyType = 'true'
 
   author
   isLoadingProfPic = false
@@ -335,6 +335,10 @@ export class CreatePostComponent implements OnInit {
           "documents": this.filesList
         },
         "filters": this.selectedBoard,
+        "notifyUsers": true,
+        "isSponsored": this.propertyType,
+        "boardType": this.boardType,
+        "promoterId": "5ffd41474984c2465fdf5b2f"
       }
       this.apiService.getResponse('post', CREATE_POST, params).
         then(res => {
