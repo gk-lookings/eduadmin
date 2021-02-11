@@ -80,7 +80,7 @@
                             </mat-expansion-panel-header>
                             <div class="pt-2">
                                 <span class="d-flex mb-2 align-items-center" *ngFor="let grad of item.grade; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{grad && grad}}
-                                <mat-icon class="removeSubCat" (click)="removeSubItem(item, grade, j, 'grade')">close</mat-icon>
+                                <mat-icon class="removeSubCat" (click)="removeSubItem(item, grad, j, 'grade')">close</mat-icon>
                                 </span>
                             </div>
                         </mat-expansion-panel>
