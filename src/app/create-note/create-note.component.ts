@@ -77,7 +77,8 @@ export class CreateNoteComponent implements OnInit {
       }
       Promise.all(fileArray).then(res => {
         for (let m = 0; m < this.files.length; m++) {
-          for (let n = 0; n < res.length; n++) {
+          for (let n = m; n < res.length; n++) {
+            if(m==n) {
             newArray.push({
               "_id": this.files[m].lastModified + this.files[m].name,
               "name": this.files[m].name,
@@ -86,6 +87,7 @@ export class CreateNoteComponent implements OnInit {
               "url": res[n].data.imageURL,
               "createdAt": new Date()
             })
+          }
           }
         }
 
