@@ -3,7 +3,7 @@ import { ApiService } from './../services';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LOGIN } from '../config/endpoints';
 
 //login dfdsxcz ted
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     password: this.passwordFormControl
   });
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient) { }
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient,  private state : ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -61,6 +61,12 @@ export class LoginComponent implements OnInit {
         if (res.status === 200) {
           this.success = true;
           this.authService.setCurrentUser(res)
+          
+          let redirector = this.state.snapshot.queryParamMap.get('returnUrl');
+          if(redirector) {
+            this.router.navigate([this.state.snapshot.queryParamMap.get('returnUrl')]);
+          }
+          else
           this.router.navigate(['dashboard/home']);
         }
         else {
