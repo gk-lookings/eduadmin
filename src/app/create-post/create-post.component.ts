@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { CLASSROOM_LIST, CREATE_POST, FILTER, FILTER_SUGGET, GET_TEMPLATE, HOST, TEMPLATE_LIST } from '../config/endpoints';
+import { CLASSROOM_LIST, CREATE_POST, FILTER, FILTER_SUGGET, GET_TEMPLATE, HOST, TEMPLATE_LIST, USERS_LIST } from '../config/endpoints';
 import { ApiService } from '../services';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
@@ -28,6 +28,10 @@ export class CreatePostComponent implements OnInit {
   isLoadingProfPic = false
   profilePic
   profileUrl
+  users
+  txtUserChanged = new Subject<string>();
+  userList
+
 
 
   // audience
@@ -114,6 +118,29 @@ export class CreatePostComponent implements OnInit {
     this.getFIlterItems()
     this.fetchTemplateList()
     this.fetchClassList()
+    this.getAuthors()
+  }
+
+  getAuthors(){
+    let params = { term: '', offset: 0, count :100 }
+    this.apiService.getResponse('get', USERS_LIST, params).
+      then(res => {
+        if (res.status === 200) {
+          this.users = res.data.users
+          this.userList = res.data.users
+
+        }
+      })
+  }
+  onKey(query) {
+    this.users = this.search(query)
+    console.log("users", this.users);
+    
+  }
+
+  search(value: string) { 
+    let filter = value.toLowerCase();
+    return this.userList.filter(option => option.firstName.toLowerCase().startsWith(filter));
   }
 
   addPictures() {
@@ -338,7 +365,7 @@ export class CreatePostComponent implements OnInit {
         "notifyUsers": true,
         "isSponsored": this.propertyType,
         "boardType": this.boardType,
-        "promoterId": "5ffd41474984c2465fdf5b2f"
+        "promoterId": this.author
       }
       this.apiService.getResponse('post', CREATE_POST, params).
         then(res => {
