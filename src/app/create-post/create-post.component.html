@@ -42,7 +42,7 @@
                                     <span class="tyPe">Name</span>
                                     <div class="seleCt">
                                         <mat-label></mat-label>
-                                        <mat-select [(value)]="author">
+                                        <mat-select [(value)]="author" [(ngModel)]="author">
                                             <div class="divSearch">
                                                 <input class="inputSearch" (keyup)="onKey($event.target.value)">
                                                 <img src="./../../assets/images/icons/search.png" alt="">

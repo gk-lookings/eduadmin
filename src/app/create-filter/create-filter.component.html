@@ -1,7 +1,7 @@
 <div class="__content_sec">
     <h1 class="comm_title_h1 ">University/Board</h1>
     <div class="d-flex align-content-center">
-        <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search University/Board" name="searchkey">
+        <input class="searchField" [(ngModel)]="searchkey" required type="text" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search University/Board" name="searchkey">
         <button class="inputSubmit" style="margin: 0; margin-left: 10px;" (click)="createBoard()">Create</button>
     </div>
     <div class="userList">

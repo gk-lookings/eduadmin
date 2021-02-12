@@ -114,7 +114,7 @@ export class CreateFilterComponent implements OnInit {
           this.apiService.getResponse('put', FILTER + '/' + id, params).
             then(res => {
               if (res.status === 200) {
-                this.getFIlterItems()
+                // this.getFIlterItems()
               }
             })
         }
@@ -130,7 +130,7 @@ export class CreateFilterComponent implements OnInit {
           this.apiService.getResponse('put', FILTER + '/' + id, params).
             then(res => {
               if (res.status === 200) {
-                this.getFIlterItems()
+                // this.getFIlterItems()
               }
             })
         }
@@ -146,7 +146,7 @@ export class CreateFilterComponent implements OnInit {
           this.apiService.getResponse('put', FILTER + '/' + id, params).
             then(res => {
               if (res.status === 200) {
-                this.getFIlterItems()
+                // this.getFIlterItems()
               }
             })
         }
@@ -162,7 +162,7 @@ export class CreateFilterComponent implements OnInit {
           this.apiService.getResponse('put', FILTER + '/' + id, params).
             then(res => {
               if (res.status === 200) {
-                this.getFIlterItems()
+                // this.getFIlterItems()
               }
             })
         }

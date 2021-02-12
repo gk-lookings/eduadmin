@@ -16,6 +16,10 @@ body {
     font-family: 'PT Sans', sans-serif !important;
 }
 
+mat-option {
+    font-family: 'PT Sans', sans-serif !important;
+}
+
 mat-icon {
     cursor: pointer;
 }
