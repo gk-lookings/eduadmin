@@ -20,6 +20,11 @@ mat-option {
     font-family: 'PT Sans', sans-serif !important;
 }
 
+.mat-select,
+mat-select {
+    font-family: 'PT Sans', sans-serif !important;
+}
+
 mat-icon {
     cursor: pointer;
 }

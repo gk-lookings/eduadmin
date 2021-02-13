@@ -3,8 +3,9 @@
         <img src="{{item && item.profilePic ? item.profilePic : './assets/images/unavailable.png'}}" alt="">
         <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
     </div>
-    <span style="margin-left: 20px;" [routerLink]="['/dashboard/user', item._id]">{{item && item.email}}</span>
-    <span style="margin-right: 20px;" [routerLink]="['/dashboard/user', item._id]">
+    <span [routerLink]="['/dashboard/user', item._id]">{{item && item.email}}</span>
+    <span [routerLink]="['/dashboard/user', item._id]">{{item && item.role}}</span>
+    <span [routerLink]="['/dashboard/user', item._id]">
         <mat-icon *ngIf="item && item.verified" style="color: #22877C;">check_circle</mat-icon>
         <mat-icon *ngIf="item && !item.verified" style="color: #D8D8D8;">cancel</mat-icon>
     </span>

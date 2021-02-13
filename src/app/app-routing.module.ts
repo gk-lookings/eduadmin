@@ -24,6 +24,7 @@ import { ClassRoomDetailComponent } from './class-room-detail/class-room-detail.
 import { CreatePostComponent } from './create-post/create-post.component';
 import { FilterAddModelComponent } from './filter-add-model/filter-add-model.component';
 import { CreateFilterComponent } from './create-filter/create-filter.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 
 const routes: Routes = [
@@ -61,6 +62,7 @@ const routes: Routes = [
       { path: 'edit-note/:subName/:tempId/:noteId', component: EditNoteComponent },
 
       { path: 'create-post', component: CreatePostComponent },
+      { path: 'create-user', component: CreateUserComponent },
 
       { path: 'filter', component: CreateFilterComponent }
     ]

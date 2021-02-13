@@ -28,9 +28,9 @@ export class CreatePostComponent implements OnInit {
   isLoadingProfPic = false
   profilePic
   profileUrl
-  users
+  users = []
   txtUserChanged = new Subject<string>();
-  userList
+  userList =[]
 
 
 
@@ -126,9 +126,12 @@ export class CreatePostComponent implements OnInit {
     this.apiService.getResponse('get', USERS_LIST, params).
       then(res => {
         if (res.status === 200) {
-          this.users = res.data.users
-          this.userList = res.data.users
-
+          for (let i = 0; i < res.data.users.length; i++) {
+            if (res.data.users[i].role == "PROMOTER") {
+              this.users.push(res.data.users[i])
+              this.userList.push(res.data.users[i])
+            }
+          }         
         }
       })
   }

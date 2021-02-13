@@ -11,14 +11,18 @@
 
 
 <div class="__content_sec">
-    <h1 class="comm_title_h1 ">Students</h1>
-    <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search users" name="searchkey">
+    <h1 class="comm_title_h1 ">Users</h1>
+    <div class="d-flex align-content-center">
+        <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search users" name="searchkey">
+        <button class="inputSubmit" style="margin: 0; margin-left: 10px;" [routerLink]="['/dashboard/create-user']" routerLinkActive="router-link-active">Create</button>
+    </div>
     <div class="userList">
         <div class="headingLst">
             <span>NAME</span>
-            <span style="margin-left: 20px;">EMAIL</span>
-            <span style="margin-right: 20px;">VERIFIED</span>
-            <div style="margin-right: 60px;">ACTIONS</div>
+            <span>EMAIL</span>
+            <span>ROLE</span>
+            <span>VERIFIED</span>
+            <div style="margin-right: 45px;">ACTIONS</div>
         </div>
         <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
         <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoading">

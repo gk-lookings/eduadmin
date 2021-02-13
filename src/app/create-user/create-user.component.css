@@ -1,0 +1,37 @@
+::ng-deep .userForm .mat-progress-spinner circle,
+ ::ng-deep .userForm .mat-spinner circle {
+    stroke: #ffffff;
+}
+
+.responseMessage {
+    margin-top: 20px;
+}
+
+.success {
+    color: #8BC34A !important;
+}
+
+.userForm .inputField {
+    margin: 3% 0 !important;
+}
+
+.nnn {
+    display: flex !important;
+    border: 2px solid #4DCCBD !important;
+    align-items: center !important;
+    height: 55px !important;
+    width: 100%;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.52857143;
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border-radius: 4px;
+}
+
+::ng-deep .nnn .mat-select-value-text span {
+    color: #555 !important;
+}

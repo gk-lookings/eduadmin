@@ -17,28 +17,13 @@ export class AppComponent {
     private router: Router,
     private authenticationService: AuthenticationService,
     @Inject(DOCUMENT) private _document: HTMLDocument
-  ){}
+  ) { }
 
   ngOnInit() {
-    // const currentUser = this.authenticationService.getcurrentUser();
-    // if (!currentUser)
-    // this.router.navigate(['/login']);
-    // else
-    // this.router.navigate(['dashboard/home']);    
-
-
     const currentUser = this.authenticationService.getcurrentUser();
-    var url = window.location.href;   
-    let temp = url.split('/').length
-    let navigator = url.split('/').splice(temp - 2, temp - 1)
-    if (!currentUser) {
-      if (navigator[1] == "home")
-        this.router.navigate(['/login'], { queryParams: { returnUrl: 'dashboard/home' } });
-      else if (navigator[1] != "")
-        this.router.navigate(['/login'], { queryParams: { returnUrl: this.state.url } });
-      else
-        this.router.navigate(['/login'])
-    }
-
+    if (!currentUser)
+    this.router.navigate(['/login']);
+    else
+    this.router.navigate(['dashboard/home']);    
   }
 }

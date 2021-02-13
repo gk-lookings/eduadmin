@@ -95,6 +95,10 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { UploadPictureComponent } from './upload-picture/upload-picture.component';
 import { CreateFilterComponent } from './create-filter/create-filter.component';
+import { CreateUserComponent } from './create-user/create-user.component';
+
+import {Ng2TelInputModule} from 'ng2-tel-input';
+
 // import { uuidmod } from 'angular2-uuid';
 
 @NgModule({
@@ -138,6 +142,7 @@ import { CreateFilterComponent } from './create-filter/create-filter.component';
     CreatePostComponent,
     UploadPictureComponent,
     CreateFilterComponent,
+    CreateUserComponent,
 
   ],
   imports: [
@@ -186,7 +191,8 @@ import { CreateFilterComponent } from './create-filter/create-filter.component';
       confirmButtonType: 'danger', // set defaults here
     }),
     NgMultiSelectDropDownModule.forRoot(),
-    NgxDocViewerModule,
+    NgxDocViewerModule, 
+    Ng2TelInputModule
     // UUID
   ],
   entryComponents: [
