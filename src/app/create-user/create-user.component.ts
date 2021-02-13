@@ -4,17 +4,10 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { FILTER, HOST, SUBJECT, TEMPLATE_CREATE, TEMPLATE_LIST, USER_DETAILS } from '../config/endpoints';
+import { HOST,USER_DETAILS } from '../config/endpoints';
 import { Location } from '@angular/common';
-import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
-
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
-
-import { UUID } from 'angular2-uuid';
 
 
 
@@ -24,7 +17,7 @@ import { UUID } from 'angular2-uuid';
   styleUrls: ['./create-user.component.css']
 })
 export class CreateUserComponent implements OnInit {
-
+  hide
   tempId: string;
   tempName: string;
   responseMessage: string;
