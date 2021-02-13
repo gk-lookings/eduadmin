@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE, HOST } from '../config/endpoints';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-create-note',
   templateUrl: './create-note.component.html',
@@ -37,7 +38,7 @@ export class CreateNoteComponent implements OnInit {
   files: any[] = [];
   fileArray: any[] = [];
   
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public _location: Location,
+  constructor(private apiService: ApiService, private router: Router, private _snackBar: MatSnackBar, private authService: AuthenticationService, private http: HttpClient, public _location: Location,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -102,13 +103,16 @@ export class CreateNoteComponent implements OnInit {
             if (res.status === 200) {
               this.isLoading = false
               this.success = true
-              this.responseMessage = 'Note has been created succefully.!'
+              let snackBarRef = this._snackBar.open('Note has been created succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
               setTimeout(() => {
                 this.responseMessage = ''
                 this._location.back()
-              }, 1000);
+              }, 500);
               this.createTemplateForm.reset()
               this.files = []
+            }
+            else {
+              let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
             }
           })
 
@@ -126,13 +130,16 @@ export class CreateNoteComponent implements OnInit {
           if (res.status === 200) {
             this.isLoading = false
             this.success = true
-            this.responseMessage = 'Note has been created succefully.!'
+            let snackBarRef = this._snackBar.open('Note has been created succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
             setTimeout(() => {
               this.responseMessage = ''
               this._location.back()
-            }, 1000);
+            }, 500);
             this.createTemplateForm.reset()
             this.files = []
+          }
+          else {
+            let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
           }
         })
     }

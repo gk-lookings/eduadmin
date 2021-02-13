@@ -35,3 +35,12 @@
 ::ng-deep .nnn .mat-select-value-text span {
     color: #555 !important;
 }
+
+.visChange {
+    position: absolute;
+    right: 15px;
+    top: 46px;
+    bottom: 0;
+    z-index: 11;
+    cursor: pointer;
+}

@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { CLASSROOM_LIST, CREATE_POST, FILTER, FILTER_SUGGET, GET_TEMPLATE, HOST, TEMPLATE_LIST, USERS_LIST } from '../config/endpoints';
 import { ApiService } from '../services';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { UploadPictureComponent } from '../upload-picture/upload-picture.component';
 import { Router } from '@angular/router';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
@@ -37,6 +37,8 @@ export class CreatePostComponent implements OnInit {
   // audience
   dropdownList = []
   selectedBoard = []
+
+  selectedBoardSend =[]
 
   departments = []
   semester = []
@@ -83,7 +85,7 @@ export class CreatePostComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
     public dialog: MatDialog,
-    public router: Router
+    public router: Router, private _snackBar: MatSnackBar
   ) {
     this.txtTemplateChanged.pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(model => {
@@ -122,23 +124,29 @@ export class CreatePostComponent implements OnInit {
   }
 
   getAuthors(){
+    this.users = []
+    this.userList = []
     let params = { term: '', offset: 0, count :100 }
     this.apiService.getResponse('get', USERS_LIST, params).
       then(res => {
         if (res.status === 200) {
-          for (let i = 0; i < res.data.users.length; i++) {
-            if (res.data.users[i].role == "PROMOTER") {
-              this.users.push(res.data.users[i])
-              this.userList.push(res.data.users[i])
+          if (this.propertyType == 'true') {
+            for (let i = 0; i < res.data.users.length; i++) {
+              if (res.data.users[i].role == "PROMOTER") {
+                this.users.push(res.data.users[i])
+                this.userList.push(res.data.users[i])
+              }
             }
-          }         
+          }
+          else {
+            this.users = res.data.users
+            this.userList = res.data.users
+          }
         }
       })
   }
   onKey(query) {
     this.users = this.search(query)
-    console.log("users", this.users);
-    
   }
 
   search(value: string) { 
@@ -197,7 +205,6 @@ export class CreatePostComponent implements OnInit {
     this.apiService.getResponse('get', FILTER + '/suggest', params).
       then(res => {
         if (res.status === 200) {
-          console.log("resulrt  filt", res.data.filters);
           this.departments = res.data.filters[0].department
           this.semester = res.data.filters[0].semester
           this.grade = res.data.filters[0].grade
@@ -229,7 +236,16 @@ export class CreatePostComponent implements OnInit {
       semester: this.semesterSelected,
       grade: this.gradeSelected
     }
+    let send = {
+      board: this.boardSelected == 'all' ? '' : this.boardSelected,
+      department: this.departmentSelected == 'all' ? '' : this.departmentSelected,
+      class: this.classSelected == 'all' ? '' : this.classSelected,
+      semester: this.semesterSelected == 'all' ? '' : this.semesterSelected,
+      grade: this.gradeSelected == 'all' ? '' : this.gradeSelected,
+    }
+
     this.selectedBoard.push(item)
+    this.selectedBoardSend.push(send)
   }
 
   containsObject(obj, list) {
@@ -245,6 +261,7 @@ export class CreatePostComponent implements OnInit {
   removeItem(item) {
     let index = this.selectedBoard.indexOf(item)
     this.selectedBoard.splice(index, 1)
+    this.selectedBoardSend.splice(index, 1)
   }
 
   fetchTemplateList() {
@@ -355,7 +372,7 @@ export class CreatePostComponent implements OnInit {
 
   publish() {
     this.responseMessage = ''
-    if (this.templateSelectedIds && this.classroomSelectedIds && this.selectedBoard && this.author) {
+    if (this.templateSelectedIds && this.classroomSelectedIds && this.selectedBoard.length !=0 && this.author) {
       this.isLoadingPublish = true
       let params = {
         "templateIds": this.templateSelectedIds,
@@ -364,7 +381,7 @@ export class CreatePostComponent implements OnInit {
           "content": this.aboutBoard,
           "documents": this.filesList
         },
-        "filters": this.selectedBoard,
+        "filters": this.selectedBoardSend,
         "notifyUsers": true,
         "isSponsored": this.propertyType,
         "boardType": this.boardType,
@@ -376,11 +393,11 @@ export class CreatePostComponent implements OnInit {
           if (res.status === 200) {
             this.isLoadingPublish = false
             this.success = true
-            this.responseMessage = 'Post has been published succefully.!'
+            let snackBarRef = this._snackBar.open('Post has been published succefully.!', '', { duration: 2500, panelClass: 'snackbar' });
             setTimeout(() => {
               this.responseMessage = ''
               this.reloadComponent()
-            }, 3000);
+            }, 500);
             this.templateSelectedIds = []
             this.classroomSelectedIds = []
             this.classroomSelected = []
@@ -403,6 +420,9 @@ export class CreatePostComponent implements OnInit {
             this.currentPageClass = 0
             this.isLoadingClass = false
             this.fetchClassList()
+          }
+          else {
+            let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 2000, panelClass: 'snackbar' });
           }
         })
     }

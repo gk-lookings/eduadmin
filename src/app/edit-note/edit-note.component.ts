@@ -8,7 +8,7 @@ import { GET_TEMPLATE, HOST } from '../config/endpoints';
 import { Location } from '@angular/common';
 import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
 import { ViewFileComponent } from '../view-file/view-file.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-edit-note',
@@ -47,7 +47,7 @@ export class EditNoteComponent implements OnInit {
 
   noteData
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public _location: Location,
+  constructor(private apiService: ApiService, private router: Router, private _snackBar: MatSnackBar,private authService: AuthenticationService, private http: HttpClient, public _location: Location,
     private activatedRoute: ActivatedRoute, public dialog : MatDialog) { }
 
   ngOnInit() {
@@ -128,7 +128,7 @@ export class EditNoteComponent implements OnInit {
             if (res.status === 200) {
               this.isLoading = false
               this.success = true
-              this.responseMessage = 'Note has been updated succefully.!'
+              let snackBarRef = this._snackBar.open('Note has been updated succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
               setTimeout(() => {
                 this.responseMessage = ''
               }, 3000);
@@ -159,7 +159,7 @@ export class EditNoteComponent implements OnInit {
           if (res.status === 200) {
             this.isLoading = false
             this.success = true
-            this.responseMessage = 'Note has been updated succefully.!'
+            let snackBarRef = this._snackBar.open('Note has been updated succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
             setTimeout(() => {
               this.responseMessage = ''
             }, 3000);

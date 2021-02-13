@@ -40,7 +40,8 @@
             <div class="col-md-4">
                 <div class="inputField">
                     <label for="password">Password*</label>
-                    <input [(ngModel)]="password" autocomplete="off" required name="password" [formControl]="passwordControl" matInput placeholder="Password">
+                    <input [(ngModel)]="password" autocomplete="off" required name="password" [type]="hide  ? 'text' : 'password'" [formControl]="passwordControl" matInput placeholder="Password">
+                    <mat-icon class="visChange" matSuffix (click)="hide  = !hide ">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                     <p class="errorInput" [ngClass]="(passwordControl.invalid && (passwordControl.dirty || passwordControl.touched)) ? 'errorShow' : ''" *ngIf="passwordControl.invalid && (passwordControl.dirty || passwordControl.touched)">{{getPasswordErrorMessage()}}</p>
                 </div>
             </div>

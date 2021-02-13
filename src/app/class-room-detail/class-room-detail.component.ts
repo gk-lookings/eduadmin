@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CLASSROOM } from '../config/endpoints';
+import { CLASSROOM, GET_TEMPLATE } from '../config/endpoints';
 import { ApiService } from '../services';
 
 @Component({
@@ -22,6 +22,8 @@ export class ClassRoomDetailComponent implements OnInit {
   classId = this.activatedRoute.snapshot.params['classId'];
   classMeta
 
+  template
+
   constructor(private apiService: ApiService, public _location: Location, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -36,6 +38,8 @@ export class ClassRoomDetailComponent implements OnInit {
         this.isLoading = false;
         if (res.status === 200) {
           this.class = res.data
+          if(res.data.templateId)
+          this.fetchTemplate(res.data.templateId)
           this.isActive  = res.data.active
         }
       })
@@ -56,6 +60,17 @@ export class ClassRoomDetailComponent implements OnInit {
       then(res => {
         if (res.status === 200) {
           this.classMeta = res.data
+        }
+      })
+  }
+
+
+  fetchTemplate(id){
+    let params = {}
+    this.apiService.getResponse('get', GET_TEMPLATE + id, params).
+      then(res => {
+        if (res.status === 200) {
+          this.template = res.data
         }
       })
   }

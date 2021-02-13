@@ -10,7 +10,7 @@ import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
@@ -86,7 +86,7 @@ export class CreateTemplateComponent implements OnInit {
 
   uuidValue:string;
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService, private router: Router, private _snackBar: MatSnackBar, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.dropdownSettings = {
@@ -260,15 +260,15 @@ export class CreateTemplateComponent implements OnInit {
               this.isLoading = false;
               if (res.status === 200) {
                 this.success = true
-                this.responseMessage = 'Template created succefully..!'
+                let snackBarRef = this._snackBar.open('Template has been created succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
                 setTimeout(() => {
                   this.responseMessage = ''
                   this.router.navigate(['/dashboard/template/subject', res.data.id]);
-                }, 2000);
+                }, 500);
               }
               else {
                 this.success = false
-                this.responseMessage = res.error.data
+                  let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
               }
             })
         }
@@ -296,15 +296,15 @@ export class CreateTemplateComponent implements OnInit {
           this.isLoading = false;
           if (res.status === 200) {
             this.success = true
-            this.responseMessage = 'Template created succefully..!'
+            let snackBarRef = this._snackBar.open('Template has been created succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
             setTimeout(() => {
               this.responseMessage = ''
               this.router.navigate(['/dashboard/template/subject', res.data.id]);
-            }, 1000);
+            }, 500);
           }
           else {
             this.success = false
-            this.responseMessage = res.error.data
+            let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
           }
         })
     }

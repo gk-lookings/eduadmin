@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE, HOST, LOGIN } from '../config/endpoints';
 import { Location } from '@angular/common';
 import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ViewFileComponent } from '../view-file/view-file.component';
 
 @Component({
@@ -51,7 +51,8 @@ export class EditDocumentComponent implements OnInit {
     private http: HttpClient,
     public _location: Location,
     private activatedRoute: ActivatedRoute,
-    public dialog : MatDialog
+    public dialog : MatDialog,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -132,7 +133,7 @@ export class EditDocumentComponent implements OnInit {
             if (res.status === 200) {
               this.isLoading = false
               this.success = true
-              this.responseMessage = 'Document has been updated succefully.!'
+              let snackBarRef = this._snackBar.open('Document has been updated succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
               setTimeout(() => {
                 this.responseMessage = ''
               }, 3000);
@@ -165,7 +166,7 @@ export class EditDocumentComponent implements OnInit {
           if (res.status === 200) {
             this.isLoading = false
             this.success = true
-            this.responseMessage = 'Document has been updated succefully.!'
+            let snackBarRef = this._snackBar.open('Document has been updated succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
             setTimeout(() => {
               this.responseMessage = ''
             }, 3000);

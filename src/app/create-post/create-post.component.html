@@ -27,8 +27,8 @@
                                     <div class="seleCt">
                                         <mat-label></mat-label>
                                         <mat-select [(value)]="propertyType">
-                                            <mat-option value="true">Sponsored</mat-option>
-                                            <mat-option value="false">Not Sponsored</mat-option>
+                                            <mat-option value="true" (click)="getAuthors()">Sponsored</mat-option>
+                                            <mat-option value="false" (click)="getAuthors()">Not Sponsored</mat-option>
                                         </mat-select>
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@
                                 <div class="inputPostField" style="width: 70%;">
                                     <label for="boardType">Selected Board/University</label>
                                     <div *ngFor="let item of selectedBoard" class="d-flex align-items-center justify-content-between singLeSe" style="margin-bottom: 15px;">
-                                        <div class="selectedItemList">
+                                        <div class="selectedItemList" style="text-transform: capitalize;">
                                             <a>{{ item.board}}</a>
                                             <a *ngIf="item.department && item.department">{{ item.department && item.department}}</a>
                                             <a *ngIf="item.class && item.class">{{ item.class && item.class}}</a>
@@ -313,7 +313,7 @@
                 <div class="finalItemSingle">
                     <span>Selected Board/University</span>
                     <div class="finalSingDecs d-flex flex-column align-items-start">
-                        <div class="selectedItemList mb-3" *ngFor="let item of selectedBoard">
+                        <div class="selectedItemList mb-3" *ngFor="let item of selectedBoard" style="text-transform: capitalize;">
                             <a>{{ item.board}}</a>
                             <a *ngIf="item.department && item.department">{{ item.department && item.department}}</a>
                             <a *ngIf="item.class && item.class">{{ item.class && item.class}}</a>

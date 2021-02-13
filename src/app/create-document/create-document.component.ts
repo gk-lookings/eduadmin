@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE, HOST, LOGIN } from '../config/endpoints';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-create-document',
@@ -43,7 +44,7 @@ export class CreateDocumentComponent implements OnInit {
     private authService: AuthenticationService,
     private http: HttpClient,
     public _location: Location,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute, private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -113,19 +114,18 @@ export class CreateDocumentComponent implements OnInit {
             if (res.status === 200) {
               this.isLoading = false
               this.success = true
-              this.responseMessage = 'Document has been created succefully.!'
+              let snackBarRef = this._snackBar.open('Document has been created succefully..!', '', { duration: 1500, panelClass: 'snackbar' });
               setTimeout(() => {
                 this.responseMessage = ''
                 this._location.back()
-              }, 3000);
+              }, 500);
               this.createTemplateForm.reset()
               this.files = []
             }
             else {
-              this.responseMessage = res.error.data
+              let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
             }
           })
-
       }).catch(err => {
         console.log("error", err);
       })
@@ -147,15 +147,15 @@ export class CreateDocumentComponent implements OnInit {
           if (res.status === 200) {
             this.isLoading = false
             this.success = true
-            this.responseMessage = 'Document has been created succefully.!'
+            let snackBarRef = this._snackBar.open('Document has been created succefully..!', '', { duration: 1500, panelClass: 'snackbar' });
             setTimeout(() => {
               this.responseMessage = ''
               this._location.back()
-            }, 1000);
+            }, 500);
             this.createTemplateForm.reset()
           }
           else {
-            this.responseMessage = res.error.data
+            let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
           }
         })
     }

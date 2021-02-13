@@ -11,7 +11,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
@@ -86,7 +86,7 @@ export class EditTemplateComponent implements OnInit {
 
   currentFilter
 
-  constructor(private apiService: ApiService, public _location: Location, private router: Router, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService, public _location: Location, private router: Router, private _snackBar: MatSnackBar, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getFIlterItems()
@@ -119,52 +119,6 @@ export class EditTemplateComponent implements OnInit {
     })
   }
 
-  // createArray(type, obj, i) {
-  //   if (type == 'department') {
-  //     if (!this.departmentArray.includes(obj)) {
-  //       this.departmentArray.push(obj);
-  //       (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.add('add')
-  //     }
-  //     else {
-  //       let index = this.departmentArray.findIndex(element => element == obj)
-  //       this.departmentArray.splice(index, 1);
-  //       (<HTMLInputElement>document.getElementById("departmentId_" + i)).classList.remove('add')
-  //     }
-  //   }
-  //   if (type == 'class') {
-  //     if (!this.classArray.includes(obj)) {
-  //       this.classArray.push(obj);
-  //       (<HTMLInputElement>document.getElementById("classId_" + i)).classList.add('add')
-  //     }
-  //     else {
-  //       let index = this.classArray.findIndex(element => element == obj);
-  //       this.classArray.splice(index, 1);
-  //       (<HTMLInputElement>document.getElementById("classId_" + i)).classList.remove('add')
-  //     }
-  //   }
-  //   if (type == 'semester') {
-  //     if (!this.semesterArray.includes(obj)) {
-  //       this.semesterArray.push(obj);
-  //       (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.add('add')
-  //     }
-  //     else {
-  //       let index = this.semesterArray.findIndex(element => element == obj)
-  //       this.semesterArray.splice(index, 1);
-  //       (<HTMLInputElement>document.getElementById("semesterId_" + i)).classList.remove('add')
-  //     }
-  //   }
-  //   if (type == 'grades') {
-  //     if (!this.gradesArray.includes(obj)) {
-  //       this.gradesArray.push(obj);
-  //       (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.add('add')
-  //     }
-  //     else {
-  //       let index = this.gradesArray.findIndex(element => element == obj);
-  //       this.gradesArray.splice(index, 1);
-  //       (<HTMLInputElement>document.getElementById("gradeId_" + i)).classList.remove('add')
-  //     }
-  //   }
-  // }
 
   addFilterElement(type) {
     if (type == 'department') {
@@ -318,7 +272,7 @@ export class EditTemplateComponent implements OnInit {
               this.isLoading = false;
               if (res.status === 200) {
                 this.success = true
-                this.responseMessage = 'Template has been updated succefully..!'
+                let snackBarRef = this._snackBar.open('Template has been updated succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
                 setTimeout(() => {
                   this.responseMessage = ''
                 }, 3000);
@@ -335,7 +289,7 @@ export class EditTemplateComponent implements OnInit {
                   })
               }
               else {
-                this.responseMessage = res.error.data
+                let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
               }
             })
         }
@@ -363,14 +317,14 @@ export class EditTemplateComponent implements OnInit {
           this.isLoading = false;
           if (res.status === 200) {
             this.success = true
-            this.responseMessage = 'Template has been updated succefully..!'
+            let snackBarRef = this._snackBar.open('Template has been updated succefully.!', '', { duration: 1500, panelClass: 'snackbar' });
             setTimeout(() => {
               this.responseMessage = ''
               this._location.back()
             }, 2000);
           }
           else {
-            this.responseMessage = res.error.data
+            let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
           }
         })
     }

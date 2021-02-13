@@ -10,7 +10,7 @@ import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
@@ -58,7 +58,7 @@ export class CreateUserComponent implements OnInit {
 
 
 
-  constructor(private apiService: ApiService, public _location: Location, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService, private _snackBar: MatSnackBar, public _location: Location, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -83,11 +83,6 @@ export class CreateUserComponent implements OnInit {
     return this.passwordControl.hasError('required') ? '*You must enter a value' :
       '';
   }
-
-
-
-
-
 
   submitForm() {
     this.isLoading = true
@@ -115,10 +110,11 @@ export class CreateUserComponent implements OnInit {
               this.isLoading = false;
               if (res.status === 200) {
                 this.success = true
-                this.responseMessage = 'User created succefully..!'
+                let snackBarRef = this._snackBar.open('User created succefully..!', '', { duration: 1500, panelClass: 'snackbar' });
                 setTimeout(() => {
                   this.responseMessage = ''
-                }, 2000);
+                  this.router.navigate(['/dashboard/users']);
+                }, 500);
               }
               else {
                 this.success = false
@@ -147,9 +143,10 @@ export class CreateUserComponent implements OnInit {
           this.isLoading = false;
           if (res.status === 200) {
             this.success = true
-            this.responseMessage = 'User created succefully..!'
+            let snackBarRef = this._snackBar.open('User created succefully..!', '', { duration: 1500, panelClass: 'snackbar' });
             setTimeout(() => {
               this.responseMessage = ''
+              this.router.navigate(['/dashboard/users']);
             }, 1000);
           }
           else {

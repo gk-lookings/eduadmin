@@ -45,22 +45,16 @@
         <div></div>
         <div></div>
     </div>
-    <!-- <h1 class="comm_title_h1">Activities</h1>
-    <div class="recent_set">
-        <p>Today</p>
-        <ul>
-            <li>Cusat cse s6 class created</li>
-            <li>User tom@gmail.com is deactivated</li>
-            <li>New classroom iitcses6madras created </li>
-        </ul>
+    <h1 class="comm_title_small_h1 mt-5" *ngIf="template">Associated Template</h1>
+    <div class="d-flex align-items-center" *ngIf="template">
+        <img class="proPic" src="{{template && template.logo ? template.logo : './assets/images/unavailable.png'}}" alt="">
+        <div>
+            <p class="border-bottom mb-0">{{template && template.name}}</p>
+            <p class="border-bottom mb-0">Created On : {{template && template.createdAt | dateAgo}}</p>
+            <p class="border-bottom mb-0">Status : {{template && template.active ? 'Active' : 'In Active'}}</p>
+            <p class="border-bottom mb-0">Board : {{template && template.filters && template.filters.board}}</p>
+        </div>
     </div>
-    <div class="recent_set">
-        <p>22 Sep 2020</p>
-        <ul>
-            <li>Cusat cse s6 class created</li>
-            <li>User tom@gmail.com is deactivated</li>
-        </ul>
-    </div> -->
 </div>
 
 <div class="d-flex flex-column justify-content-center align-items-center" style="height: 70vh;" *ngIf="isLoading">
