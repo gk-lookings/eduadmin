@@ -47,7 +47,7 @@
                                                 <input class="inputSearch" (keyup)="onKey($event.target.value)">
                                                 <img src="./../../assets/images/icons/search.png" alt="">
                                             </div>
-                                            <mat-option *ngFor="let item of users" [value]="item._id">
+                                            <mat-option *ngFor="let item of users" [value]="item._id" (click)="authorSet(item)">
                                                 <div class="d-flex align-items-center">
                                                     <img style="width: 30px; object-fit: contain; margin-right: 10px;" src="{{item && item.profilePic ? item.profilePic : './assets/images/unavailable.png'}}" alt=""> {{item && item.firstName}} {{item &&
                                                     item.lastName}}
@@ -293,14 +293,27 @@
                 <ng-template matStepLabel>Publish</ng-template>
 
                 <div class="finalItemSingle">
-                    <span>Title</span>
+                    <span>About</span>
                     <div class="finalSingDecs">
                         {{aboutBoard && aboutBoard}}
                     </div>
                 </div>
-                <div class="finalSponsored">
-                    <a>Type</a>
-                    <span>{{boardType && boardType}}</span>
+                <div class="d-flex align-items-center">
+                    <div class="finalSponsored">
+                        <a>Board Type</a>
+                        <span style="text-transform: capitalize;">{{boardType && boardType}}</span>
+                    </div>
+
+                    <div class="finalSponsored" style="margin-left: 20px;">
+                        <a>Property Type</a>
+                        <span style="text-transform: capitalize;">{{propertyType == 'true' ? 'Sponsored' : 'Not Sponsored'}}</span>
+                    </div>
+
+                    <div class="finalSponsored" style="margin-left: 20px;">
+                        <a>Author</a>
+                        <span style="text-transform: capitalize;">{{selectedAuthor && selectedAuthor}}</span>
+                    </div>
+
                 </div>
                 <div class="finalItemSingle">
                     <span>Pictures</span>
@@ -310,6 +323,8 @@
                         </ng-container>
                     </div>
                 </div>
+
+
                 <div class="finalItemSingle">
                     <span>Selected Board/University</span>
                     <div class="finalSingDecs d-flex flex-column align-items-start">
@@ -325,9 +340,9 @@
 
                 <div class="finalItemSingle">
                     <span>Selected Templates</span>
-                    <div class="finalSingDecs">
+                    <div class="finalSingDecs" *ngIf="templateSelected">
                         <div class="d-inline-block">
-                            <div class="singleTempSelected" *ngFor="let item of templateSelected">
+                            <div class="singleTempSelected" *ngFor="let item of templateSelected" style="text-transform: capitalize;">
                                 {{item && item.name}}
                             </div>
                         </div>
@@ -336,9 +351,9 @@
 
                 <div class="finalItemSingle">
                     <span>Selected Classroom</span>
-                    <div class="finalSingDecs">
+                    <div class="finalSingDecs" *ngIf="classroomSelected">
                         <div class="d-inline-block">
-                            <div class="singleTempSelected" *ngFor="let item of classroomSelected">
+                            <div class="singleTempSelected" *ngFor="let item of classroomSelected" style="text-transform: capitalize;">
                                 {{item && item.name}}
                             </div>
                         </div>

@@ -81,6 +81,8 @@ export class CreatePostComponent implements OnInit {
   success
   isLoadingPublish
 
+  selectedAuthor
+
   constructor(
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -145,6 +147,12 @@ export class CreatePostComponent implements OnInit {
         }
       })
   }
+
+  authorSet(item){
+    this.selectedAuthor = item.firstName + ' ' +item.lastName
+  }
+
+
   onKey(query) {
     this.users = this.search(query)
   }
@@ -372,7 +380,25 @@ export class CreatePostComponent implements OnInit {
 
   publish() {
     this.responseMessage = ''
-    if (this.templateSelectedIds && this.classroomSelectedIds && this.selectedBoard.length !=0 && this.author) {
+    if(!this.author && !this.aboutBoard && (this.selectedBoardSend || this.templateSelectedIds || this.classroomSelectedIds))
+    {
+      this.responseMessage = 'Please fill the required field to continue. !'
+    }
+    else if(!this.author)
+    {
+      this.responseMessage = 'Please select author.!'
+    }
+
+    else if(!this.aboutBoard)
+    {
+      this.responseMessage = 'Please add about section.!'
+    }
+    else if(this.selectedBoardSend.length ){
+      this.responseMessage = 'Please select the board/university.!'
+    }
+
+    else {
+      this.responseMessage = ''
       this.isLoadingPublish = true
       let params = {
         "templateIds": this.templateSelectedIds,
@@ -425,9 +451,6 @@ export class CreatePostComponent implements OnInit {
             let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 2000, panelClass: 'snackbar' });
           }
         })
-    }
-    else {
-      this.responseMessage = 'Please fill out the required field to proceed.!'
     }
   }
 
