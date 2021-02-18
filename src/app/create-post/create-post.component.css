@@ -127,7 +127,7 @@
     border: none;
     border-radius: 6px;
     justify-content: center;
-    float: left;
+    /* float: left; */
     padding: 10px 25px;
     background: #22877c;
     cursor: pointer;
@@ -364,4 +364,10 @@
 .divSearch {
     position: relative;
     width: -webkit-fill-available;
+}
+
+.urlRemark {
+    font-size: 13px;
+    margin: 10px 0;
+    color: #777;
 }

@@ -83,6 +83,11 @@ export class CreatePostComponent implements OnInit {
 
   selectedAuthor
 
+  externalLinkSet =[]
+  linkTitle
+  linkUrl
+  linkDescription
+
   constructor(
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -198,6 +203,23 @@ export class CreatePostComponent implements OnInit {
     })
   }
 
+
+  addLink(){
+    let item = { 
+      title : this.linkTitle,
+      url: this.linkUrl,
+      description : this.linkDescription
+    }    
+    if(this.linkUrl)
+    this.externalLinkSet.push(item)
+  }
+
+  removeLink(item)
+  {
+    let index = this.externalLinkSet.indexOf(item)
+    this.externalLinkSet.splice(index, 1)
+  }
+
   getFIlterItems() {
     let params = {}
     this.apiService.getResponse('get', FILTER, params).
@@ -209,6 +231,11 @@ export class CreatePostComponent implements OnInit {
   }
 
   selectBoard(item) {
+    this.departmentSelected = ''
+    this.classSelected = ''
+    this.semesterSelected = ''
+    this.gradeSelected = ''
+    
     let params = { term: item.board, offset: 0, count: 10 }
     this.apiService.getResponse('get', FILTER + '/suggest', params).
       then(res => {
@@ -393,7 +420,7 @@ export class CreatePostComponent implements OnInit {
     {
       this.responseMessage = 'Please add about section.!'
     }
-    else if(this.selectedBoardSend.length ){
+    else if(this.selectedBoardSend.length == 0 ){
       this.responseMessage = 'Please select the board/university.!'
     }
 
@@ -407,6 +434,7 @@ export class CreatePostComponent implements OnInit {
           "content": this.aboutBoard,
           "documents": this.filesList
         },
+        'externalInfo': this.externalLinkSet,
         "filters": this.selectedBoardSend,
         "notifyUsers": true,
         "isSponsored": this.propertyType,
