@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CLASSROOM, GET_TEMPLATE } from '../config/endpoints';
+import { CLASSROOM, GET_TEMPLATE, USER_DETAILS } from '../config/endpoints';
 import { ApiService } from '../services';
 
 @Component({
@@ -24,6 +24,9 @@ export class ClassRoomDetailComponent implements OnInit {
 
   template
 
+  userIdList =[]
+  userList=[]
+  userSet =[]
   constructor(private apiService: ApiService, public _location: Location, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -38,9 +41,16 @@ export class ClassRoomDetailComponent implements OnInit {
         this.isLoading = false;
         if (res.status === 200) {
           this.class = res.data
+          this.userSet = res.data.members
+          for (let i = 0; i < res.data.members.length; i++) {
+            let element = res.data.members[i].userId;
+            this.userIdList.push(element.toString())
+          }
           if(res.data.templateId)
           this.fetchTemplate(res.data.templateId)
           this.isActive  = res.data.active
+          this.fetchUserDetails(this.userIdList)
+          
         }
       })
   }
@@ -71,6 +81,35 @@ export class ClassRoomDetailComponent implements OnInit {
       then(res => {
         if (res.status === 200) {
           this.template = res.data
+        }
+      })
+  }
+
+
+
+  fetchUserDetails(id)
+  {
+    this.apiService.getResponse('post', USER_DETAILS+'/list', id).
+      then(res => {
+        if (res.status === 200) {
+          // console.log("users",res);
+          for (let m = 0; m < res.data.length; m++) {
+            for (let n = m; n < this.userSet.length; n++) {
+              if(m==n) {
+                this.userList.push({
+                  active: res.data[m].active,
+                  email: res.data[m].email,
+                  firstName: res.data[m].firstName,
+                  lastName: res.data[m].lastName,
+                  _id: res.data[m]._id,
+                  role:this.userSet[n].role
+              })
+            }
+          }
+          }
+
+
+
         }
       })
   }

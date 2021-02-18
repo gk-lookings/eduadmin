@@ -45,6 +45,25 @@
         <div></div>
         <div></div>
     </div>
+    <h1 class="comm_title_small_h1 mt-5" *ngIf="userList.length>0">Members</h1>
+    <div *ngIf="userList.length>0">
+        <div class="userList">
+            <div class="headingLst">
+                <span>USER</span>
+                <span style="margin-right: 20px;">ROLE</span>
+                <div style="margin-right: 20px;">ACTIONS</div>
+            </div>
+
+            <div class="single-user" style="cursor: pointer;" *ngFor="let item of userList; let i = index ;">
+                <div class="userSet">
+                    <img src="{{item && item.profilePic ? item.profilePic : './assets/images/unavailable.png'}}" alt="">
+                    <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
+                </div>
+                <span style="text-transform: capitalize;">{{item && item.role}}</span>
+                <button class="vieW" [routerLink]="['/dashboard/user', item._id]">View</button>
+            </div>
+        </div>
+    </div>
     <h1 class="comm_title_small_h1 mt-5" *ngIf="template">Associated Template</h1>
     <div class="d-flex align-items-center" *ngIf="template">
         <img class="proPic" src="{{template && template.logo ? template.logo : './assets/images/unavailable.png'}}" alt="">
@@ -55,6 +74,7 @@
             <p class="border-bottom mb-0">Board : {{template && template.filters && template.filters.board}}</p>
         </div>
     </div>
+
 </div>
 
 <div class="d-flex flex-column justify-content-center align-items-center" style="height: 70vh;" *ngIf="isLoading">

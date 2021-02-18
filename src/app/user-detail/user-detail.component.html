@@ -1,6 +1,6 @@
 <div class="__content_sec" *ngIf="!isLoading">
     <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
-        <mat-icon matRipple [routerLink]="['/dashboard/users']" title="Go back" style="margin-right: 20px;">west</mat-icon>{{user && user.firstName}} {{user && user.lastName}} </h1>
+        <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{user && user.firstName}} {{user && user.lastName}} </h1>
     <div class="d-flex justify-content-between align-items-center mb-4 pt-2 ">
         <div class="d-flex justify-content-between align-items-center">
             <img class="proPic" src="{{user && user.profilePic ? user.profilePic : './assets/images/unavailable.png'}}" alt="">
