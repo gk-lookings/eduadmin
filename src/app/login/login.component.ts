@@ -61,6 +61,13 @@ export class LoginComponent implements OnInit {
         if (res.status === 200) {
           this.success = true;
           this.authService.setCurrentUser(res)
+          // this.router.navigate(['dashboard/home']);
+
+          let redirector = this.state.snapshot.queryParamMap.get('returnUrl');
+          if(redirector) {
+            this.router.navigate([this.state.snapshot.queryParamMap.get('returnUrl')]);
+          }
+          else
           this.router.navigate(['dashboard/home']);
         }
         else {

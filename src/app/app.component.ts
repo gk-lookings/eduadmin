@@ -20,10 +20,27 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
+    // const currentUser = this.authenticationService.getcurrentUser();
+    // if (!currentUser)
+    // this.router.navigate(['/login']);
+    // else
+    // this.router.navigate(['dashboard/home']);    
+
     const currentUser = this.authenticationService.getcurrentUser();
-    if (!currentUser)
-    this.router.navigate(['/login']);
-    else
-    this.router.navigate(['dashboard/home']);    
+    let url = window.location.href;   
+    let temp = url.split('/').length
+    let navigator = url.split('/').splice(temp - 2, temp - 1)
+    
+    console.log("url", this.state);
+    
+    if (!currentUser) {
+      if (navigator[1] != "")
+        this.router.navigate(['/login'], { queryParams: { returnUrl: this.state.url } });
+      else
+        this.router.navigate(['/login'])
+    }
+    else{
+      this.router.navigate(['dashboard/home']);
+    }
   }
 }
