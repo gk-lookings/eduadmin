@@ -28,6 +28,8 @@ export class CreateSubjectComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, @Inject(MAT_DIALOG_DATA) public template: any ,private http: HttpClient, public dialogRef : MatDialogRef<CreateSubjectComponent>) { }
 
   ngOnInit() {
+    console.log("template", this.template);
+    
   }
 
   getNameErrorMessage() {

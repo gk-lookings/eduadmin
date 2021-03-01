@@ -43,7 +43,7 @@ export class TemplateSubjectsComponent implements OnInit {
   selectedNoteIndex
   selectedDocIndex
 
-  isLoadingNoteFile =false
+  isLoadingNoteFile = false
   isLoadingDocFile = false
   isSelectedDoc = false
   isSelectedNote = false
@@ -106,15 +106,26 @@ export class TemplateSubjectsComponent implements OnInit {
   createSub() {
     const open = this.dialog.open(CreateSubjectComponent, { data: this.template })
     open.afterClosed().subscribe(result => {
+      if (this.subjects.length == 0)
+        this.subIndex = 0
       this.isEmpty = false
       if (result) {
         this.subjects = result.data.subjects
+        let params = {}
+        this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
+          then(res => {
+            if (res.status === 200) {
+              this.template = res.data
+              this.subjects = res.data.subjects
+            }
+          })
+
       }
     })
   }
 
 
-  deleteSub(sub) {
+  deleteSub(sub, subindex) {
     const opendialog = this.dialog.open(ConfirmDeleteModelComponent).afterClosed().subscribe(result => {
       if (result) {
         var index = this.subjects.indexOf(sub)
@@ -129,8 +140,21 @@ export class TemplateSubjectsComponent implements OnInit {
         }
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
-            // this.fetchSubjects()
-            this.subArray = ''
+            if (res.status === 200) {
+              this.template = res.data
+              this.subjects = res.data.subjects
+              if (this.subjects.length != 0) {
+                this.subArray = res.data.subjects[0]
+                this.documents = res.data.subjects[0].documents
+                this.curriculum = res.data.subjects[0].sections
+                this.notes = res.data.subjects[0].notes
+                this.subId = res.data.subjects[0]._id
+                this.subIndex = 0
+              }
+              if (this.subjects.length == 0)
+                this.isEmpty = true
+            }
+
           })
       }
     })
@@ -159,7 +183,7 @@ export class TemplateSubjectsComponent implements OnInit {
         this.notes = res.data.subjects[this.subIndex].notes
         this.subId = res.data.subjects[this.subIndex]._id
 
-        
+
       }
     })
   }
@@ -241,7 +265,7 @@ export class TemplateSubjectsComponent implements OnInit {
           "subjects": this.subjects
         }
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
-          then(res => {        
+          then(res => {
             this.subArray = res.data.subjects[this.subIndex]
             this.documents = res.data.subjects[this.subIndex].documents
             this.curriculum = res.data.subjects[this.subIndex].sections
@@ -258,21 +282,17 @@ export class TemplateSubjectsComponent implements OnInit {
     this.selectedDocument = item
     this.selectedDocIndex = i
     if (item.files.length == 0)
-    this.isDocumentFileEmpty = true
+      this.isDocumentFileEmpty = true
     else
-    this.isDocumentFileEmpty = false
-      this.isSelectedDoc = true
+      this.isDocumentFileEmpty = false
+    this.isSelectedDoc = true
   }
-  uploadDocFile()
-  {
+  uploadDocFile() {
     let newArray = []
     var fileArray = []
     var re = /(?:\.([^.]+))?$/;
     const dialo = this.dialog.open(UploadFileComponent).afterClosed().subscribe(files => {
-      if(files)
-      {
-        console.log("fielss" , files);
-        
+      if (files) {
         this.isDocumentFileEmpty = false
         this.isLoadingDocFile = true
         if (files.length != 0) {
@@ -281,26 +301,28 @@ export class TemplateSubjectsComponent implements OnInit {
             formData.append('file', files[i]);
             let elem = this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/' + this.template.id + '/document/' + files[i].lastModified + '.' + re.exec(files[i].name)[1], formData)
             fileArray.push(elem)
-          }          
+          }
           Promise.all(fileArray).then(res => {
-            
             for (let m = 0; m < files.length; m++) {
               for (let n = m; n < res.length; n++) {
-                if(m==n) {
-                newArray.push({
-                  "_id": files[m].lastModified + files[m].name,
-                  "name": files[m].name,
-                  "size": files[m].size,
-                  "type": files[m].type,
-                  "url": res[n].data.imageURL,
-                  "createdAt": new Date()
-                })
+                if (m == n) {
+                  newArray.push({
+                    "_id": files[m].lastModified + files[m].name,
+                    "name": files[m].name,
+                    "size": files[m].size,
+                    "type": files[m].type,
+                    "url": res[n].data.imageURL,
+                    "createdAt": new Date()
+                  })
+                }
               }
-            }
             }
 
             this.isLoadingDocFile = false
-            this.documents[this.selectedDocIndex].files= this.selectedDocument.files.concat(newArray)
+            let selec = this.selectedDocument.files
+            this.selectedDocument.files = selec.concat(newArray)
+            this.documents[this.selectedDocIndex].files = this.selectedDocument.files
+
             this.subjects[this.subIndex].documents = this.documents
             let params = {
               "templateId": this.template.id,
@@ -320,7 +342,7 @@ export class TemplateSubjectsComponent implements OnInit {
                   this.subId = res.data.subjects[this.subIndex]._id
                 }
               })
-    
+
           }).catch(err => {
             console.log("error", err);
           })
@@ -333,20 +355,18 @@ export class TemplateSubjectsComponent implements OnInit {
     this.selectedNote = item
     this.selectedNoteIndex = i
     if (item.files.length == 0)
-    this.isNoteFileEmpty = true
+      this.isNoteFileEmpty = true
     else
-    this.isNoteFileEmpty = false
-      this.isSelectedNote = true
+      this.isNoteFileEmpty = false
+    this.isSelectedNote = true
   }
 
-  uploadNoteFile()
-  {
+  uploadNoteFile() {
     let newArray = []
     var fileArray = []
     var re = /(?:\.([^.]+))?$/;
     const dialo = this.dialog.open(UploadFileComponent).afterClosed().subscribe(files => {
-      if(files)
-      {
+      if (files) {
         this.isNoteFileEmpty = false
         this.isLoadingNoteFile = true
         if (files.length != 0) {
@@ -359,23 +379,25 @@ export class TemplateSubjectsComponent implements OnInit {
           Promise.all(fileArray).then(res => {
             for (let m = 0; m < files.length; m++) {
               for (let n = m; n < res.length; n++) {
-                if(m==n) {
-                newArray.push({
-                  "_id": files[m].lastModified + files[m].name,
-                  "name": files[m].name,
-                  "size": files[m].size,
-                  "type": files[m].type,
-                  "url": res[n].data.imageURL,
-                  "createdAt": new Date()
-                })
+                if (m == n) {
+                  newArray.push({
+                    "_id": files[m].lastModified + files[m].name,
+                    "name": files[m].name,
+                    "size": files[m].size,
+                    "type": files[m].type,
+                    "url": res[n].data.imageURL,
+                    "createdAt": new Date()
+                  })
                 }
               }
             }
 
-            
+
 
             this.isLoadingNoteFile = false
-            this.notes[this.selectedNoteIndex].files= this.selectedNote.files.concat(newArray)
+            let selec = this.selectedNote.files
+            this.selectedNote.files = selec.concat(newArray)
+            this.notes[this.selectedNoteIndex].files = this.selectedNote.files
             this.subjects[this.subIndex].notes = this.notes
             let params = {
               "templateId": this.template.id,
@@ -395,7 +417,7 @@ export class TemplateSubjectsComponent implements OnInit {
                   this.subId = res.data.subjects[this.subIndex]._id
                 }
               })
-    
+
           }).catch(err => {
             console.log("error", err);
           })
@@ -410,7 +432,7 @@ export class TemplateSubjectsComponent implements OnInit {
       if (result) {
         var index = this.selectedDocument.files.indexOf(item)
         this.selectedDocument.files.splice(index, 1)
-        this.documents[this.selectedDocIndex].files= this.selectedDocument.files
+        this.documents[this.selectedDocIndex].files = this.selectedDocument.files
         this.subjects[this.subIndex].documents = this.documents
 
         let params = {
@@ -436,7 +458,7 @@ export class TemplateSubjectsComponent implements OnInit {
       if (result) {
         var index = this.selectedNote.files.indexOf(item)
         this.selectedNote.files.splice(index, 1)
-        this.notes[this.selectedNoteIndex].files= this.selectedNote.files
+        this.notes[this.selectedNoteIndex].files = this.selectedNote.files
         this.subjects[this.subIndex].notes = this.notes
 
         let params = {
@@ -458,8 +480,7 @@ export class TemplateSubjectsComponent implements OnInit {
     })
   }
 
-  viewFile(src, type)
-  {
-    const opendialog = this.dialog.open(ViewFileComponent, { data: { src : src, type : type }})
+  viewFile(src, type) {
+    const opendialog = this.dialog.open(ViewFileComponent, { data: { src: src, type: type } })
   }
 }
