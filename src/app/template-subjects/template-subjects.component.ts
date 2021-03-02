@@ -165,11 +165,17 @@ export class TemplateSubjectsComponent implements OnInit {
     open.afterClosed().subscribe(res => {
       this.isEmpty = false
       if (res) {
-        this.subArray = res.data.subjects[this.subIndex]
-        this.documents = res.data.subjects[this.subIndex].documents
-        this.curriculum = res.data.subjects[this.subIndex].sections
-        this.notes = res.data.subjects[this.subIndex].notes
-        this.subId = res.data.subjects[this.subIndex]._id
+        let params = {}
+        this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
+          then(res => {
+            if (res.status === 200) {
+              for (let i = 0; i < res.data.subjects.length; i++) {
+                if (res.data.subjects[i]._id == this.subId) {
+                  this.curriculum = res.data.subjects[i].sections
+                }
+              }
+            }
+          })
       }
     })
   }

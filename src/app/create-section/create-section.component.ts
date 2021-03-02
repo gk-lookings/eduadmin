@@ -51,6 +51,8 @@ export class CreateSectionComponent implements OnInit {
             }
           }
         }
+        console.log("subje", this.subject_detail);
+        
       })
   }
 
@@ -62,19 +64,19 @@ export class CreateSectionComponent implements OnInit {
     })
     this.subject_detail.sections = tempArr
 
-    let params = {
-      "title": this.subName,
-      "description": this.subDesc
-    }
     // let params = {
-    //   "templateId": this.template.id,
-    //   "name": this.template.name,
-    //   "descriptionTags": this.template.descriptionTags,
-    //   "active": this.template.active,
-    //   "about": this.template.about,
-    //   "subjects": this.subjects.concat(this.subject_detail)
+    //   "title": this.subName,
+    //   "description": this.subDesc
     // }
-    this.apiService.getResponse('put', GET_TEMPLATE + this.template._id + '/append?type=section&subjectId=' + this.ids.subjectName, params).
+    let params = {
+      "templateId": this.template.id,
+      "name": this.template.name,
+      "descriptionTags": this.template.descriptionTags,
+      "active": this.template.active,
+      "about": this.template.about,
+      "subjects": this.subjects.concat(this.subject_detail)
+    }
+    this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
       then(res => {
         if (res.status === 200) {
           this.isLoading = false
