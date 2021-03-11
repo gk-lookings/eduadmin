@@ -1,8 +1,20 @@
-.subFrm {
-    width: 530px;
+::ng-deep .docForm .mat-progress-spinner circle,
+ ::ng-deep .docForm .mat-spinner circle {
+    stroke: #ffffff;
 }
 
-::ng-deep .subFrm .mat-progress-spinner circle,
- ::ng-deep .subFrm .mat-spinner circle {
-    stroke: #ffffff;
+.responseMessage {
+    margin-top: 20px;
+}
+
+.success {
+    color: #8BC34A !important;
+}
+
+.inputField textarea {
+    border: 2px solid #4DCCBD;
+    border-radius: 3px;
+    padding: 10px 15px;
+    min-height: 250px;
+    resize: vertical;
 }

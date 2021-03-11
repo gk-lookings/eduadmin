@@ -1,25 +1,26 @@
-<div class="container">
-    <h1 class="comm_title_small_h1 " style="margin-top: 10px;">Create Section</h1>
-    <div class="subFrm">
-        <form name="createForm" [formGroup]="createForm">
-            <div class="inputField">
-                <label for="subName">Name*</label>
-                <input [(ngModel)]="subName" autocomplete="off" required name="subName" [formControl]="subNameFormControl" matInput placeholder="Name">
-                <p class="errorInput" [ngClass]="(subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)">{{getNameErrorMessage()}}</p>
-            </div>
+<div class="__content_sec">
+    <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
+        <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>Create Section </h1>
+    <div class="row">
+        <div class="col-md-4">
+            <form name="createForm" [formGroup]="createForm" class="docForm">
+                <div class="inputField">
+                    <label for="subName">Name*</label>
+                    <input [(ngModel)]="subName" autocomplete="off" required name="subName" [formControl]="subNameFormControl" matInput placeholder="Name">
+                    <p class="errorInput" [ngClass]="(subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)">{{getNameErrorMessage()}}</p>
+                </div>
 
-            <div class="inputField">
-                <label for="subName">Description</label>
-                <input [(ngModel)]="subDesc" autocomplete="off" required name="subDesc" [formControl]="subNameFormControl" matInput placeholder="Name">
-            </div>
+                <div class="inputField">
+                    <label for="subDesc">Description <span>(optional)</span></label>
+                    <textarea [(ngModel)]="subDesc" autocomplete="off" name="subDesc" [formControl]="subDesControl" matInput placeholder="Description"></textarea>
+                </div>
 
-            <div class="d-flex justify-content-end">
-                <button class="inputCancel" (click)="dialogRef.close()">Close</button>
-                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Create</button>
-                <button class="inputSubmit" style="margin-left: 10px;" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
-            </div>
-            <div class="responseMessage" [ngClass]="success ? 'success' : ''">
-                {{responseMessage && responseMessage}}</div>
-        </form>
+
+                <button class="inputSubmit" [disabled]="createForm.status !== 'VALID'" (click)="submitForm()" *ngIf="!isLoading">Create</button>
+                <button class="inputSubmit" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
+                <div class="responseMessage" [ngClass]="success ? 'success' : ''">
+                    {{responseMessage && responseMessage}}</div>
+            </form>
+        </div>
     </div>
 </div>

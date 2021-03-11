@@ -219,6 +219,7 @@
     padding: 6px 13px;
     border-radius: 6px;
     animation: opacityDrop .3s;
+    font-size: 14px;
 }
 
 .singleTempSelected mat-icon {
@@ -271,6 +272,7 @@
     padding: 8px 18px;
     height: 100%;
     align-items: center;
+    font-size: 14px;
 }
 
 .finalSponsored {

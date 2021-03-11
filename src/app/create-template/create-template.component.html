@@ -114,7 +114,8 @@
                             </div>
                             <div class="inputFieldSelect " style="margin-top: 0;" *ngIf="isClass">
                                 <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Class</label>
-                                    <mat-icon (click)="classSelect()">close</mat-icon><button matRipple (click)="addFilterElement('class')">Add + </button> </div>
+                                    <!-- <mat-icon (click)="classSelect()">close</mat-icon><button matRipple (click)="addFilterElement('class')">Add + </button>  -->
+                                </div>
                                 <ng-multiselect-dropdown placeholder="Select your option" [data]="classes" [settings]="dropdownSettings" (onSelect)="setRow('class', $event)">
                                 </ng-multiselect-dropdown>
                             </div>

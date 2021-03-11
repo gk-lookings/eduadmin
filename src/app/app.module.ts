@@ -197,7 +197,7 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
   ],
   entryComponents: [
     CreateSubjectComponent,
-    CreateSectionComponent,
+    // CreateSectionComponent,
     LogOutModelComponent,
     ConfirmDeleteModelComponent,
     EditSectionComponent,

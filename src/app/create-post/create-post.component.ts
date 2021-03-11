@@ -407,9 +407,9 @@ export class CreatePostComponent implements OnInit {
 
   publish() {
     this.responseMessage = ''
-    if(!this.author && !this.aboutBoard && (this.selectedBoardSend || this.templateSelectedIds || this.classroomSelectedIds))
+    if(this.selectedBoardSend.length == 0 && this.templateSelectedIds.length == 0 && this.classroomSelectedIds.length == 0)
     {
-      this.responseMessage = 'Please fill the required field to continue. !'
+      this.responseMessage = 'Please select atleast board/university, classroom or template'
     }
     else if(!this.author)
     {
@@ -420,9 +420,6 @@ export class CreatePostComponent implements OnInit {
     {
       this.responseMessage = 'Please add about section.!'
     }
-    else if(this.selectedBoardSend.length == 0 ){
-      this.responseMessage = 'Please select the board/university.!'
-    }
 
     else {
       this.responseMessage = ''
@@ -432,9 +429,10 @@ export class CreatePostComponent implements OnInit {
         "classRoomIds": this.classroomSelectedIds,
         "data": {
           "content": this.aboutBoard,
-          "documents": this.filesList
+          "documents": this.filesList,
+          'externalInfo': this.externalLinkSet,
         },
-        'externalInfo': this.externalLinkSet,
+        
         "filters": this.selectedBoardSend,
         "notifyUsers": true,
         "isSponsored": this.propertyType,

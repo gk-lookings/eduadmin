@@ -362,6 +362,7 @@ mat-icon {
     justify-content: space-between;
     padding: 10px;
     background: #B7EAE5;
+    font-size: 15px;
 }
 
 .headingLst span {
@@ -393,7 +394,7 @@ mat-icon {
     border: none;
     padding: 2px 0px;
     color: #fff;
-    font-size: 15px;
+    font-size: 14px;
     border-radius: 3px;
     transition: 0.5s;
     cursor: pointer;
@@ -433,6 +434,7 @@ mat-icon {
     border-radius: 3px;
     background: #22877c;
     color: #fff;
+    font-size: 14px;
 }
 
 .ediT {
@@ -442,6 +444,7 @@ mat-icon {
     border-radius: 3px;
     background: #D67238;
     color: #fff;
+    font-size: 14px;
 }
 
 .empty {

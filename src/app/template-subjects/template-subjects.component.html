@@ -98,7 +98,7 @@
                 </mat-tab>
                 <mat-tab label="Curriculam">
                     <div class="d-flex justify-content-end">
-                        <a class="createItem" (click)="createSection()">Create Section</a>
+                        <a class="createItem" [routerLink]="['/dashboard/create-section',subId,tempId]" routerLinkActive="router-link-active">Create Section</a>
                     </div>
                     <div class="mt-2">
                         <mat-accordion class="example-headers-align">

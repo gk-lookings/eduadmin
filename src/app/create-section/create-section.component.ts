@@ -1,8 +1,9 @@
+import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
+import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 
@@ -30,7 +31,16 @@ export class CreateSectionComponent implements OnInit {
     subDesc: this.subDesControl
   });
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public ids: any, public dialogRef: MatDialogRef<CreateSectionComponent>) { }
+  tempId = this.activatedRoute.snapshot.params['tempId'];
+  subjectName = this.activatedRoute.snapshot.params['subName'];
+
+  constructor(private apiService: ApiService,
+    private router: Router, 
+    private authService: AuthenticationService,
+     private http: HttpClient,
+     public _location: Location,
+     private activatedRoute: ActivatedRoute,
+     private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.fetchTemplate()
@@ -38,12 +48,12 @@ export class CreateSectionComponent implements OnInit {
 
   fetchTemplate() {
     let params = {}
-    this.apiService.getResponse('get', GET_TEMPLATE + this.ids.tempId, params).
+    this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
       then(res => {
         if (res.status === 200) {
           this.template = res.data
           for (let i = 0; i < res.data.subjects.length; i++) {
-            if (res.data.subjects[i]._id == this.ids.subjectName) {
+            if (res.data.subjects[i]._id == this.subjectName) {
               this.subject_detail = res.data.subjects[i];
             }
             else {
@@ -51,7 +61,6 @@ export class CreateSectionComponent implements OnInit {
             }
           }
         }
-        console.log("subje", this.subject_detail);
         
       })
   }
@@ -81,12 +90,15 @@ export class CreateSectionComponent implements OnInit {
         if (res.status === 200) {
           this.isLoading = false
           this.success = true
-          this.responseMessage = 'Section has been created succefully.!'
+          let snackBarRef = this._snackBar.open('Section has been created succefully..!', '', { duration: 1500, panelClass: 'snackbar' });
           setTimeout(() => {
             this.responseMessage = ''
-          }, 2000);
+            this._location.back()
+          }, 500);
           this.createForm.reset()
-          this.dialogRef.close(res)
+        }
+        else {
+          let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
         }
       })
   }

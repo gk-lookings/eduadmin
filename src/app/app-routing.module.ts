@@ -25,6 +25,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { FilterAddModelComponent } from './filter-add-model/filter-add-model.component';
 import { CreateFilterComponent } from './create-filter/create-filter.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { CreateSectionComponent } from './create-section/create-section.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,8 @@ const routes: Routes = [
 
       { path: 'create-post', component: CreatePostComponent },
       { path: 'create-user', component: CreateUserComponent },
+
+      { path: 'create-section/:subName/:tempId', component: CreateSectionComponent },
 
       { path: 'filter', component: CreateFilterComponent }
     ]
