@@ -106,10 +106,30 @@ export class TemplateSubjectsComponent implements OnInit {
   createSub() {
     const open = this.dialog.open(CreateSubjectComponent, { data: this.template })
     open.afterClosed().subscribe(result => {
-      if (this.subjects.length == 0)
-        this.subIndex = 0
       this.isEmpty = false
-      if (result) {
+      if (this.subjects.length == 0){
+        console.log("here", this.subjects);
+        this.subIndex = 0
+        if (result) {        
+          this.subjects = result.data.subjects
+          let params = {}
+          this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
+            then(res => {
+              if (res.status === 200) {
+                this.template = res.data
+                this.subjects = res.data.subjects
+                this.subArray = res.data.subjects[0]
+                this.documents = res.data.subjects[0].documents
+                this.curriculum = res.data.subjects[0].sections
+                this.notes = res.data.subjects[0].notes
+                this.subId = res.data.subjects[0]._id
+              }
+            })
+  
+        }
+      }
+     else {
+       if(result){        
         this.subjects = result.data.subjects
         let params = {}
         this.apiService.getResponse('get', GET_TEMPLATE + this.tempId, params).
@@ -120,7 +140,7 @@ export class TemplateSubjectsComponent implements OnInit {
             }
           })
 
-      }
+      }}
     })
   }
 
@@ -141,8 +161,11 @@ export class TemplateSubjectsComponent implements OnInit {
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
             if (res.status === 200) {
+              
+              
               this.template = res.data
               this.subjects = res.data.subjects
+              console.log("subjec here", this.subjects);
               if (this.subjects.length != 0) {
                 this.subArray = res.data.subjects[0]
                 this.documents = res.data.subjects[0].documents
@@ -152,7 +175,10 @@ export class TemplateSubjectsComponent implements OnInit {
                 this.subIndex = 0
               }
               if (this.subjects.length == 0)
-                this.isEmpty = true
+                {
+                  this.isEmpty = true
+                  this.subArray = ''
+                }
             }
 
           })

@@ -24,7 +24,7 @@
                 <span *ngIf="subIndex !== i">&nbsp;</span>
                 <mat-icon style="color: #fff;" (click)="deleteSub(item, i)" *ngIf="subIndex === i">delete</mat-icon>
             </div>
-            <a class="singleAdd" (click)="createSub()" title="Create Subject">+</a>
+            <a class="singleAdd" (click)="createSub()" title="Create Subject">Add Subject <mat-icon>add</mat-icon></a>
         </div>
 
 
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                 </mat-tab>
-                <mat-tab label="Curriculam">
+                <mat-tab label="Curriculum">
                     <div class="d-flex justify-content-end">
                         <a class="createItem" [routerLink]="['/dashboard/create-section',subId,tempId]" routerLinkActive="router-link-active">Create Section</a>
                     </div>
