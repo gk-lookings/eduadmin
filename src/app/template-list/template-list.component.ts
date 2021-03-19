@@ -112,7 +112,7 @@ export class TemplateListComponent implements OnInit {
         this.apiService.getResponse('delete', GET_TEMPLATE + id, params).
           then(res => {
             if (res.status === 200) {
-              let par = { term: this.searchkey, offset: 0, count :10 }
+              let par = { term: this.searchkey, offset: 0, count :30 }
               this.apiService.getResponse('get', TEMPLATE_LIST, par).
                 then(res => {
                   if (res.status === 200) {

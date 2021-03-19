@@ -63,6 +63,7 @@ export class CreateTemplateComponent implements OnInit {
   isClass
   isSemester
   isGrade
+  isScheme
 
 
 
@@ -81,6 +82,10 @@ export class CreateTemplateComponent implements OnInit {
   grades = [];
   gradesArray =''
   gradeIndex
+
+  schemes = []
+  schemesArray =''
+  schemeIndex
 
   selectedIndexs = []
 
@@ -130,6 +135,9 @@ export class CreateTemplateComponent implements OnInit {
     }
     if (type == 'grade') {
       this.gradesArray = obj
+    }
+    if (type == 'scheme') {
+      this.schemesArray = obj
     }
   }
 
@@ -204,6 +212,23 @@ export class CreateTemplateComponent implements OnInit {
           }
       })
     }
+    if (type == 'scheme') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
+        if (result)
+          {
+            this.schemes.push(result)
+            let params = {
+              scheme : this.schemes,
+            }
+            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
+              then(res => {
+                if (res.status === 200) {
+                  this.getFIlterItems()
+                }
+              })
+          }
+      })
+    }
   }
 
   getFIlterItems(){
@@ -227,6 +252,7 @@ export class CreateTemplateComponent implements OnInit {
         this.classes = this.dropdownList[i].class;
         this.semesters = this.dropdownList[i].semester;
         this.grades = this.dropdownList[i].grade
+        this.schemes = this.dropdownList[i].scheme
       }
     }    
   }
@@ -238,7 +264,7 @@ export class CreateTemplateComponent implements OnInit {
     if (this.files.length != 0) {
       const formData = new FormData();
       formData.append('file', this.files[0]);
-      this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/template/logo/' + this.tempName + '.' + re.exec(this.files[0].name)[1], formData).then(res => {
+      this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=template/template/logo/' + UUID.UUID() + '.' + re.exec(this.files[0].name)[1], formData).then(res => {
         image = res.data.imageURL
         if (res.status === 200) {
           let params = {
@@ -252,6 +278,7 @@ export class CreateTemplateComponent implements OnInit {
               "semester": this.semesterArray,
               "grade": this.gradesArray,
               "class": this.classArray,
+              'scheme':this.schemesArray,
               'filterId':this.filterId
             }
           }
@@ -288,6 +315,7 @@ export class CreateTemplateComponent implements OnInit {
           "semester": this.semesterArray,
           "grade": this.gradesArray,
           "class": this.classArray,
+          'scheme':this.schemesArray,
           'filterId':this.filterId
         }
       }
@@ -456,6 +484,17 @@ export class CreateTemplateComponent implements OnInit {
     }
     else
     this.isGrade  = true
+  }
+
+  schemeSelect(){
+    if(this.isScheme)
+    {
+      this.isScheme = false
+      this.schemeIndex = -1
+      this.schemesArray  =''
+    }
+    else
+    this.isScheme  = true
   }
 
 }

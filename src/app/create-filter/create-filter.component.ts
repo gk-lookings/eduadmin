@@ -168,6 +168,22 @@ export class CreateFilterComponent implements OnInit {
         }
       })
     }
+    if (type == 'scheme') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Add Scheme', title: '' }, disableClose: true }).afterClosed().subscribe(result => {
+        if (result) {
+          content.push(result);
+          let params = {
+            scheme: content,
+          }
+          this.apiService.getResponse('put', FILTER + '/' + id, params).
+            then(res => {
+              if (res.status === 200) {
+                // this.getFIlterItems()
+              }
+            })
+        }
+      })
+    }
   }
 
   getFIlterItems() {
@@ -249,6 +265,19 @@ export class CreateFilterComponent implements OnInit {
       this.apiService.getResponse('put', FILTER + '/' + filterId, params).
         then(res => {
           console.log("res grade", res);
+        })
+    }
+    if (type == 'scheme') {
+      content = item.scheme
+      index = content.indexOf(depart)
+      content.splice(index, 1)
+      this.filtersList[i].scheme = content
+      let params = {
+        scheme: content,
+      }
+      this.apiService.getResponse('put', FILTER + '/' + filterId, params).
+        then(res => {
+          console.log("res scheme", res);
         })
     }
   }

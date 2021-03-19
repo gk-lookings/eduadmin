@@ -53,7 +53,7 @@ export class EditTemplateComponent implements OnInit {
   isLoadingTotal
   
   dropdownList = [];
-  selectedItems=[];
+  selectedItems;
   dropdownSettings: IDropdownSettings = {};
   filterId
   board
@@ -63,41 +63,57 @@ export class EditTemplateComponent implements OnInit {
   isClass
   isSemester
   isGrade
+  isScheme
 
 
 
   departments = [];
-  departmentArray=''
+  departmentArray
   departIndex
 
   classes = [];
-  classArray = ''
+  classArray
   classIndex
 
   semesters = [];
-  semesterArray = ''
+  semesterArray
   semesterIndex
 
   grades = [];
-  gradesArray =''
+  gradesArray
   gradeIndex
+
+  schemes = []
+  schemeArray
+  schemeIndex
 
   selectedIndexs = []
 
   currentFilter
 
-  constructor(private apiService: ApiService, public _location: Location, private router: Router, private _snackBar: MatSnackBar, private spinner: NgxSpinnerService, private authService: AuthenticationService, private http: HttpClient, private activatedRoute: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(
+    private apiService: ApiService,
+    public _location: Location,
+    private router: Router,
+    private _snackBar: MatSnackBar,
+    private spinner: NgxSpinnerService, 
+    private authService: AuthenticationService, 
+    private http: HttpClient, 
+    private activatedRoute: ActivatedRoute, 
+    public dialog: MatDialog) { 
+     
+    }
 
   ngOnInit() {
     this.getFIlterItems()
     this.getDetail()
-    this.dropdownSettings = {
-      singleSelection: true,
-      idField: 'board',
-      textField: 'board',
-      defaultOpen: false,
-      allowSearchFilter: false
-    };   
+    // this.dropdownSettings = {
+    //   singleSelection: true,
+    //   idField: 'board',
+    //   textField: 'board',
+    //   defaultOpen: false,
+    //   allowSearchFilter: false
+    // };   
 
   }
 
@@ -201,32 +217,27 @@ export class EditTemplateComponent implements OnInit {
       })
   }
 
-  onItemSelect(item: any) {
-    
+  onItemSelect(item) {
     this.filterId = item.id
     this.board = item.board
     for (let i = 0; i < this.dropdownList.length; i++) {
-      let element = this.dropdownList[i];
       if(this.dropdownList[i].id == item.id)
       {      
         this.departments = this.dropdownList[i].department
         this.classes = this.dropdownList[i].class;
         this.semesters = this.dropdownList[i].semester;
         this.grades = this.dropdownList[i].grade
+        this.schemes = this.dropdownList[i].scheme
       }
-    }    
-
+    }
   }
 
   getDetail() {
     let params = {}
-    this.spinner.show();
     this.isLoadingTotal = true
     this.apiService.getResponse('get', GET_TEMPLATE + this.__tempId, params).
       then(res => {
-        this.spinner.hide();        
         if (res.status === 200) {
-          this.isLoadingTotal = false
           this.tempName = res.data.name
           this.tempId = res.data.templateId
           this.tags = res.data.descriptionTags
@@ -236,8 +247,30 @@ export class EditTemplateComponent implements OnInit {
           this.semesterArray = res.data.filters.semester
           this.classArray = res.data.filters.class
           this.gradesArray = res.data.filters.grade
+          this.schemeArray = res.data.filters.scheme
           this.currentFilter =  res.data.filters
+          if(this.departmentArray)
+          {
+            this.isDepartment = true
+          }
+          if(this.semesterArray)
+          {
+            this.isSemester = true
+          }
+          if(this.classArray)
+          {
+            this.isClass = true
+          }
+          if(this.gradesArray)
+          {
+            this.isGrade = true
+          }
+          if(this.schemeArray)
+          {
+            this.isScheme = true
+          }
           this.onItemSelect({id : res.data.filters.filterId, board : res.data.filters.board})
+          this.isLoadingTotal = false
           
         }
       })
@@ -264,6 +297,7 @@ export class EditTemplateComponent implements OnInit {
               "semester": this.semesterArray,
               "grade": this.gradesArray,
               "class": this.classArray,
+              'scheme':this.schemeArray,
               'filterId':this.filterId
             }
           }
@@ -309,6 +343,7 @@ export class EditTemplateComponent implements OnInit {
           "semester": this.semesterArray,
           "grade": this.gradesArray,
           "class": this.classArray,
+          'scheme':this.schemeArray,
           'filterId':this.filterId
         }
       }
@@ -482,6 +517,17 @@ export class EditTemplateComponent implements OnInit {
     }
     else
     this.isGrade  = true
+  }
+
+  schemeSelect(){
+    if(this.isScheme)
+    {
+      this.isScheme = false
+      this.schemeIndex = -1
+      this.schemeArray  =''
+    }
+    else
+    this.isScheme  = true
   }
 
 }

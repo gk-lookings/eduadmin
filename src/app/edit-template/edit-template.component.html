@@ -158,6 +158,7 @@
                         <a (click)="classSelect()" [ngClass]="{'highLightGreen': isClass}">Class</a>
                         <a (click)="semesterSelect()" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
                         <a (click)="gradeSelect()" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
+                        <a (click)="schemeSelect()" [ngClass]="{'highLightGreen': isScheme}">Scheme</a>
                     </div>
                     <div style="padding: 0 10px;">
 
@@ -205,6 +206,17 @@
                             <div class="nm">
                                 <mat-select [(value)]="gradesArray" [(ngModel)]="gradesArray" [ngModelOptions]="{standalone: true}" placeholder="Select your option">
                                     <mat-option [value]="option" *ngFor="let option of grades" (click)="setRow('grade', $event)">{{ option }}</mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+
+                        <div class="inputFieldSelect " style="margin-top: 0;" *ngIf="isScheme">
+                            <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Scheme</label>
+                                <mat-icon (click)="schemeSelect()">close</mat-icon>
+                            </div>
+                            <div class="nm">
+                                <mat-select [(value)]="schemesArray" [(ngModel)]="schemesArray" [ngModelOptions]="{standalone: true}" placeholder="Select your option">
+                                    <mat-option [value]="option" *ngFor="let option of scheme" (click)="setRow('scheme', $event)">{{ option }}</mat-option>
                                 </mat-select>
                             </div>
                         </div>
