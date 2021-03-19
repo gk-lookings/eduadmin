@@ -215,8 +215,8 @@
                                 <mat-icon (click)="schemeSelect()">close</mat-icon>
                             </div>
                             <div class="nm">
-                                <mat-select [(value)]="schemesArray" [(ngModel)]="schemesArray" [ngModelOptions]="{standalone: true}" placeholder="Select your option">
-                                    <mat-option [value]="option" *ngFor="let option of scheme" (click)="setRow('scheme', $event)">{{ option }}</mat-option>
+                                <mat-select [(value)]="schemeArray" [(ngModel)]="schemeArray" [ngModelOptions]="{standalone: true}" placeholder="Select your option">
+                                    <mat-option [value]="option" *ngFor="let option of schemes" (click)="setRow('scheme', $event)">{{ option }}</mat-option>
                                 </mat-select>
                             </div>
                         </div>
