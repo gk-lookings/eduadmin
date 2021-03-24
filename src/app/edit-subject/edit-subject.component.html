@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="comm_title_small_h1 " style="margin-top: 10px;">Create Subject</h1>
+    <h1 class="comm_title_small_h1 " style="margin-top: 10px;">Update Subject</h1>
     <div class="subFrm">
         <form name="createForm" [formGroup]="createForm">
             <div class="inputField">
@@ -9,8 +9,7 @@
             </div>
             <div class="d-flex justify-content-end">
                 <button class="inputCancel" (click)="dialogRef.close()">Cancel</button>
-                <button class="inputSubmit" style="margin-left: 10px;" *ngIf="!isLoading" [disabled]="createForm.status !== 'VALID'" (click)="submitForm()">Create</button>
-                <button class="inputSubmit" style="margin-left: 10px;" *ngIf="isLoading"><mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner></button>
+                <button class="inputSubmit" style="margin-left: 10px;" [disabled]="createForm.status !== 'VALID'" (click)="submit()">Update</button>
             </div>
             <div class="responseMessage" [ngClass]="success ? 'success' : ''">
                 {{responseMessage && responseMessage}}</div>

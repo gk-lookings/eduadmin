@@ -35,6 +35,7 @@
                             <div class="pt-2">
                                 <span class="d-flex mb-2 align-items-center" *ngFor="let depart of item.department; let i = index;">
                                     <span class="numbIndicator">{{i+1}}</span>{{depart && depart}}
+                                <mat-icon class="removeSubCat" (click)="editSubItem(item, depart, j, 'department')">edit</mat-icon>
                                 <mat-icon class="removeSubCat" (confirm)="removeSubItem(item, depart, j, 'department')" (cancel)="cancelClicked = true" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="right">close</mat-icon>
                                 </span>
                             </div>
@@ -50,6 +51,7 @@
                             </mat-expansion-panel-header>
                             <div class="pt-2">
                                 <span class="d-flex mb-2 align-items-center" *ngFor="let class of item.class; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{class && class}}
+                                <mat-icon class="removeSubCat" (click)="editSubItem(item, class, j, 'class')">edit</mat-icon>
                                 <mat-icon class="removeSubCat" (confirm)="removeSubItem(item, class, j, 'class')" (cancel)="cancelClicked = true" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="right">close</mat-icon>
                                 </span>
                             </div>
@@ -65,6 +67,7 @@
                             </mat-expansion-panel-header>
                             <div class="pt-2">
                                 <span class="d-flex mb-2 align-items-center" *ngFor="let sem of item.semester; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{sem && sem}}
+                                <mat-icon class="removeSubCat" (click)="editSubItem(item, sem, j, 'semester')">edit</mat-icon>
                                 <mat-icon class="removeSubCat" (confirm)="removeSubItem(item, sem, j, 'semester')" (cancel)="cancelClicked = true" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="right">close</mat-icon>
                                 </span>
                             </div>
@@ -80,6 +83,7 @@
                             </mat-expansion-panel-header>
                             <div class="pt-2">
                                 <span class="d-flex mb-2 align-items-center" *ngFor="let grad of item.grade; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{grad && grad}}
+                                <mat-icon class="removeSubCat" (click)="editSubItem(item, grad, j, 'grade')">edit</mat-icon>
                                 <mat-icon class="removeSubCat" (confirm)="removeSubItem(item, grad, j, 'grade')" (cancel)="cancelClicked = true" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="right">close</mat-icon>
                                 </span>
                             </div>
@@ -95,6 +99,7 @@
                             </mat-expansion-panel-header>
                             <div class="pt-2">
                                 <span class="d-flex mb-2 align-items-center" *ngFor="let scheme of item.scheme; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{scheme && scheme}}
+                                <mat-icon class="removeSubCat" (click)="editSubItem(item, scheme, j, 'scheme')">edit</mat-icon>
                                 <mat-icon class="removeSubCat" (confirm)="removeSubItem(item, scheme, j, 'scheme')" (cancel)="cancelClicked = true" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="right">close</mat-icon>
                                 </span>
                             </div>

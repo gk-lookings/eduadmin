@@ -20,8 +20,9 @@
         <div class="d-inline-block">
             <div *ngFor="let item of subjects; let i = index;" (click)="setRow(item,i)" class="singleSubItem" [ngClass]="{'activeItem': subIndex === i}">
                 <span class="singleLetter">{{item && item.subject | slice:0:1}}</span>
-                <span class="text-capitalize">{{item && item.subject | slice:0:18}}</span>
+                <span class="text-capitalize" style="flex: 1;margin-left: 10px">{{item && item.subject | slice:0:18}}</span>
                 <span *ngIf="subIndex !== i">&nbsp;</span>
+                <mat-icon style="color: #fff;" (click)="editSub(item, i)">edit</mat-icon>
                 <mat-icon style="color: #fff;" (click)="deleteSub(item, i)" *ngIf="subIndex === i">delete</mat-icon>
             </div>
             <a class="singleAdd" (click)="createSub()" title="Create Subject">Add Subject <mat-icon>add</mat-icon></a>

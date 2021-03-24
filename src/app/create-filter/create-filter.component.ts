@@ -99,8 +99,6 @@ export class CreateFilterComponent implements OnInit {
     })
   }
 
-
-
   addFilterElement(type, id, data) {
     let content = []
     content = data
@@ -211,6 +209,104 @@ export class CreateFilterComponent implements OnInit {
       })
   }
 
+  editSubItem(item, depart, i, type) {
+    let filterId = item.id
+    let content
+    let index
+
+    if (type == 'department') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Edit Department', title: depart }, disableClose: true }).afterClosed().subscribe(result => {
+        if (result) { 
+          content = item.department
+          index = content.indexOf(depart)
+          content[index] = result;
+          let params = {
+            department: content,
+          }
+          this.apiService.getResponse('put', FILTER + '/' + filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                // this.getFIlterItems()
+              }
+            })
+        }
+      })
+    }
+    if (type == 'class') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Edit Class', title: depart }, disableClose: true }).afterClosed().subscribe(result => {
+        if (result) {
+          content = item.class
+          index = content.indexOf(depart)
+          content[index] = result;
+          let params = {
+            class: content,
+          }
+          this.apiService.getResponse('put', FILTER + '/' + filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                // this.getFIlterItems()
+              }
+            })
+        }
+      })
+    }
+    if (type == 'semester') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Edit Semester', title: depart }, disableClose: true }).afterClosed().subscribe(result => {
+        if (result) {
+          content = item.semester
+          index = content.indexOf(depart)
+          content[index] = result;
+          let params = {
+            semester: content,
+          }
+          this.apiService.getResponse('put', FILTER + '/' + filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                // this.getFIlterItems()
+              }
+            })
+        }
+      })
+    }
+    if (type == 'grade') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Edit Grade', title: depart }, disableClose: true }).afterClosed().subscribe(result => {
+        if (result) {
+          content = item.grade
+          index = content.indexOf(depart)
+          content[index] = result;
+          let params = {
+            grade: content,
+          }
+          this.apiService.getResponse('put', FILTER + '/' + filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                // this.getFIlterItems()
+              }
+            })
+        }
+      })
+    }
+    if (type == 'scheme') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Edit Scheme', title: depart }, disableClose: true }).afterClosed().subscribe(result => {
+        if (result) {
+          content = item.scheme
+          index = content.indexOf(depart)
+          content[index] = result;
+          let params = {
+            scheme: content,
+          }
+          this.apiService.getResponse('put', FILTER + '/' + filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                // this.getFIlterItems()
+              }
+            })
+        }
+      })
+    }
+
+  }
+
   removeSubItem(item, depart, i, type) {
     let filterId = item.id
     let content
@@ -225,7 +321,6 @@ export class CreateFilterComponent implements OnInit {
       }
       this.apiService.getResponse('put', FILTER + '/' + filterId, params).
         then(res => {
-          console.log("res depetment", res);
         })
     }
     if (type == 'class') {
@@ -238,7 +333,6 @@ export class CreateFilterComponent implements OnInit {
       }
       this.apiService.getResponse('put', FILTER + '/' + filterId, params).
         then(res => {
-          console.log("res class", res);
         })
     }
     if (type == 'semester') {
@@ -251,7 +345,6 @@ export class CreateFilterComponent implements OnInit {
       }
       this.apiService.getResponse('put', FILTER + '/' + filterId, params).
         then(res => {
-          console.log("res semester", res);
         })
     }
     if (type == 'grade') {
@@ -264,7 +357,6 @@ export class CreateFilterComponent implements OnInit {
       }
       this.apiService.getResponse('put', FILTER + '/' + filterId, params).
         then(res => {
-          console.log("res grade", res);
         })
     }
     if (type == 'scheme') {
@@ -277,7 +369,6 @@ export class CreateFilterComponent implements OnInit {
       }
       this.apiService.getResponse('put', FILTER + '/' + filterId, params).
         then(res => {
-          console.log("res scheme", res);
         })
     }
   }

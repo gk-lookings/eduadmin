@@ -74,9 +74,11 @@
     margin-right: 14px;
     font-size: 15px;
     height: 45px;
-    min-width: 180px;
+    min-width: 210px;
     cursor: pointer;
     transition: 0.3s;
+    white-space: pre;
+    margin-bottom: 15px;
 }
 
 .activeItem {

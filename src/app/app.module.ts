@@ -98,6 +98,7 @@ import { CreateFilterComponent } from './create-filter/create-filter.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 
 import {Ng2TelInputModule} from 'ng2-tel-input';
+import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 
 // import { uuidmod } from 'angular2-uuid';
 
@@ -143,6 +144,7 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     UploadPictureComponent,
     CreateFilterComponent,
     CreateUserComponent,
+    EditSubjectComponent,
 
   ],
   imports: [
@@ -197,7 +199,7 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
   ],
   entryComponents: [
     CreateSubjectComponent,
-    // CreateSectionComponent,
+    EditSubjectComponent,
     LogOutModelComponent,
     ConfirmDeleteModelComponent,
     EditSectionComponent,

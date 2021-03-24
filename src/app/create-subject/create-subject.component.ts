@@ -29,7 +29,6 @@ export class CreateSubjectComponent implements OnInit {
 
   ngOnInit() {
     console.log("template", this.template);
-    
   }
 
   getNameErrorMessage() {

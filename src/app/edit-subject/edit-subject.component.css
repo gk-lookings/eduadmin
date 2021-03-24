@@ -1,0 +1,8 @@
+.subFrm {
+    width: 530px;
+}
+
+::ng-deep .subFrm .mat-progress-spinner circle,
+ ::ng-deep .subFrm .mat-spinner circle {
+    stroke: #ffffff;
+}

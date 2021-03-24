@@ -14,6 +14,7 @@ import { CreateSectionComponent } from '../create-section/create-section.compone
 import { EditSectionComponent } from '../edit-section/edit-section.component';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
 import { ViewFileComponent } from '../view-file/view-file.component';
+import { EditSubjectComponent } from '../edit-subject/edit-subject.component';
 
 @Component({
   selector: 'app-template-subjects',
@@ -103,6 +104,30 @@ export class TemplateSubjectsComponent implements OnInit {
     )
   }
 
+  editSub(item, i) {
+    let index
+    const open = this.dialog.open(EditSubjectComponent, { data: item.subject })
+    open.afterClosed().subscribe(result => {
+      if (result) {
+        index = this.subjects.indexOf(item)
+        this.subjects[index].subject = result
+        let params = {
+          "templateId": this.template._id,
+          "name": this.template.name,
+          "descriptionTags": this.template.descriptionTags,
+          "active": this.template.active,
+          "about": this.template.about,
+          "subjects": this.subjects
+        }
+        this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+          then(res => {
+            if (res.status === 200) {
+            }
+          })
+      }
+    })
+  }
+
   createSub() {
     const open = this.dialog.open(CreateSubjectComponent, { data: this.template })
     open.afterClosed().subscribe(result => {
@@ -125,7 +150,6 @@ export class TemplateSubjectsComponent implements OnInit {
                 this.subId = res.data.subjects[0]._id
               }
             })
-  
         }
       }
      else {
