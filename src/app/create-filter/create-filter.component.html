@@ -104,6 +104,22 @@
                                 </span>
                             </div>
                         </mat-expansion-panel>
+                        <mat-expansion-panel class="expPanel">
+                            <mat-expansion-panel-header class="innerPanelHeader" [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <span class="d-flex"><span class="numbIndicator">6</span>Course</span>
+                                    <div class="d-flex justify-content-between align-items-center panelAction">
+                                        <button class="vieW" style="margin: 0 4px;" (click)="addFilterElement('course',item.id, item.course)">Add +</button>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel-header>
+                            <div class="pt-2">
+                                <span class="d-flex mb-2 align-items-center" *ngFor="let course of item.course; let i = index;"><span class="numbIndicator">{{i+1}}</span>{{course && course}}
+                                <mat-icon class="removeSubCat" (click)="editSubItem(item, course, j, 'course')">edit</mat-icon>
+                                <mat-icon class="removeSubCat" (confirm)="removeSubItem(item, course, j, 'course')" (cancel)="cancelClicked = true" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="right">close</mat-icon>
+                                </span>
+                            </div>
+                        </mat-expansion-panel>
                     </mat-accordion>
                 </div>
             </mat-expansion-panel>

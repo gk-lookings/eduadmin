@@ -103,6 +103,7 @@
                             <a (click)="semesterSelect()" [ngClass]="{'highLightGreen': isSemester}">Semester</a>
                             <a (click)="gradeSelect()" [ngClass]="{'highLightGreen': isGrade}">Grade</a>
                             <a (click)="schemeSelect()" [ngClass]="{'highLightGreen': isScheme}">Scheme</a>
+                            <a (click)="courseSelect()" [ngClass]="{'highLightGreen': isCourse}">Course</a>
                         </div>
                         <div style="padding: 0 10px;">
                             <div class="inputFieldSelect" style="margin-top: 0;" *ngIf="isDepartment">
@@ -142,6 +143,14 @@
                                     <!-- <button matRipple (click)="addFilterElement('grade')">Add + </button>  -->
                                 </div>
                                 <ng-multiselect-dropdown placeholder="Select your option" [data]="schemes" [settings]="dropdownSettings" (onSelect)="setRow('scheme', $event)">
+                                </ng-multiselect-dropdown>
+                            </div>
+                            <div class="inputFieldSelect" style="margin-top: 0;" *ngIf="isCourse">
+                                <div class="align-items-center d-flex mb-3 smD"><label for="tempId">Select Course</label>
+                                    <mat-icon (click)="courseSelect()">close</mat-icon>
+                                    <!-- <button matRipple (click)="addFilterElement('grade')">Add + </button>  -->
+                                </div>
+                                <ng-multiselect-dropdown placeholder="Select your option" [data]="course" [settings]="dropdownSettings" (onSelect)="setRow('course', $event)">
                                 </ng-multiselect-dropdown>
                             </div>
                         </div>

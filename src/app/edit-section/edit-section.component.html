@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="comm_title_small_h1 " style="margin-top: 10px;">Create Section</h1>
+    <h1 class="comm_title_small_h1 " style="margin-top: 10px;">Update Section</h1>
     <div class="subFrm">
         <form name="createForm" [formGroup]="createForm">
             <div class="inputField">
@@ -8,9 +8,9 @@
                 <p class="errorInput" [ngClass]="(subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)) ? 'errorShow' : ''" *ngIf="subNameFormControl.invalid && (subNameFormControl.dirty || subNameFormControl.touched)">{{getNameErrorMessage()}}</p>
             </div>
 
-            <div class="inputField">
+            <div class="inputField ssd">
                 <label for="subDesc">Description</label>
-                <input [(ngModel)]="subDesc" autocomplete="off" name="subDesc" matInput placeholder="Description" [ngModelOptions]="{standalone: true}">
+                <textarea [(ngModel)]="subDesc" autocomplete="off" name="subDesc" matInput placeholder="Description" [ngModelOptions]="{standalone: true}"></textarea>
             </div>
 
             <div class="d-flex justify-content-end">

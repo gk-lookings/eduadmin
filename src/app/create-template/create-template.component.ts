@@ -64,6 +64,7 @@ export class CreateTemplateComponent implements OnInit {
   isSemester
   isGrade
   isScheme
+  isCourse
 
 
 
@@ -86,6 +87,10 @@ export class CreateTemplateComponent implements OnInit {
   schemes = []
   schemesArray =''
   schemeIndex
+
+  course = []
+  courseArray =''
+  courseIndex
 
   selectedIndexs = []
 
@@ -138,6 +143,9 @@ export class CreateTemplateComponent implements OnInit {
     }
     if (type == 'scheme') {
       this.schemesArray = obj
+    }
+    if (type == 'course') {
+      this.courseArray = obj
     }
   }
 
@@ -253,6 +261,7 @@ export class CreateTemplateComponent implements OnInit {
         this.semesters = this.dropdownList[i].semester;
         this.grades = this.dropdownList[i].grade
         this.schemes = this.dropdownList[i].scheme
+        this.course = this.dropdownList[i].course
       }
     }    
   }
@@ -279,6 +288,7 @@ export class CreateTemplateComponent implements OnInit {
               "grade": this.gradesArray,
               "class": this.classArray,
               'scheme':this.schemesArray,
+              'course':this.courseArray,
               'filterId':this.filterId
             }
           }
@@ -316,6 +326,7 @@ export class CreateTemplateComponent implements OnInit {
           "grade": this.gradesArray,
           "class": this.classArray,
           'scheme':this.schemesArray,
+          'course':this.courseArray,
           'filterId':this.filterId
         }
       }
@@ -495,6 +506,16 @@ export class CreateTemplateComponent implements OnInit {
     }
     else
     this.isScheme  = true
+  }
+  courseSelect(){
+    if(this.isCourse)
+    {
+      this.isCourse = false
+      this.courseIndex = -1
+      this.courseArray  =''
+    }
+    else
+    this.isCourse  = true
   }
 
 }

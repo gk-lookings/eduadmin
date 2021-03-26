@@ -182,6 +182,26 @@ export class CreateFilterComponent implements OnInit {
         }
       })
     }
+    if (type == 'course') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Add Course', title: '' }, disableClose: true }).afterClosed().subscribe(result => {
+        if (result) {
+          console.log("rese", result);
+          
+          console.log("content", content);
+          
+          content.push(result);
+          let params = {
+            course: content,
+          }
+          this.apiService.getResponse('put', FILTER + '/' + id, params).
+            then(res => {
+              if (res.status === 200) {
+                // this.getFIlterItems()
+              }
+            })
+        }
+      })
+    }
   }
 
   getFIlterItems() {
@@ -305,6 +325,25 @@ export class CreateFilterComponent implements OnInit {
       })
     }
 
+    if (type == 'course') {
+      const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Edit Course', title: depart }, disableClose: true }).afterClosed().subscribe(result => {
+        if (result) {
+          content = item.course
+          index = content.indexOf(depart)
+          content[index] = result;
+          let params = {
+            course: content,
+          }
+          this.apiService.getResponse('put', FILTER + '/' + filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                // this.getFIlterItems()
+              }
+            })
+        }
+      })
+    }
+
   }
 
   removeSubItem(item, depart, i, type) {
@@ -366,6 +405,18 @@ export class CreateFilterComponent implements OnInit {
       this.filtersList[i].scheme = content
       let params = {
         scheme: content,
+      }
+      this.apiService.getResponse('put', FILTER + '/' + filterId, params).
+        then(res => {
+        })
+    }
+    if (type == 'course') {
+      content = item.course
+      index = content.indexOf(depart)
+      content.splice(index, 1)
+      this.filtersList[i].course = content
+      let params = {
+        course: content,
       }
       this.apiService.getResponse('put', FILTER + '/' + filterId, params).
         then(res => {

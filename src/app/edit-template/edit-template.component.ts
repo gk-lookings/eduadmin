@@ -64,7 +64,7 @@ export class EditTemplateComponent implements OnInit {
   isSemester
   isGrade
   isScheme
-
+  isCourse
 
 
   departments = [];
@@ -86,6 +86,10 @@ export class EditTemplateComponent implements OnInit {
   schemes = []
   schemeArray
   schemeIndex
+
+  course = []
+  courseArray
+  courseIndex
 
   selectedIndexs = []
 
@@ -228,6 +232,7 @@ export class EditTemplateComponent implements OnInit {
         this.semesters = this.dropdownList[i].semester;
         this.grades = this.dropdownList[i].grade
         this.schemes = this.dropdownList[i].scheme
+        this.course = this.dropdownList[i].course
       }
     }
   }
@@ -248,6 +253,7 @@ export class EditTemplateComponent implements OnInit {
           this.classArray = res.data.filters.class
           this.gradesArray = res.data.filters.grade
           this.schemeArray = res.data.filters.scheme
+          this.courseArray = res.data.filters.course
           this.currentFilter =  res.data.filters
           if(this.departmentArray)
           {
@@ -268,6 +274,10 @@ export class EditTemplateComponent implements OnInit {
           if(this.schemeArray)
           {
             this.isScheme = true
+          }
+          if(this.courseArray)
+          {
+            this.isCourse = true
           }
           this.onItemSelect({id : res.data.filters.filterId, board : res.data.filters.board})
           this.isLoadingTotal = false
@@ -298,6 +308,7 @@ export class EditTemplateComponent implements OnInit {
               "grade": this.gradesArray,
               "class": this.classArray,
               'scheme':this.schemeArray,
+              'course':this.courseArray,
               'filterId':this.filterId
             }
           }
@@ -344,6 +355,7 @@ export class EditTemplateComponent implements OnInit {
           "grade": this.gradesArray,
           "class": this.classArray,
           'scheme':this.schemeArray,
+          'course':this.courseArray,
           'filterId':this.filterId
         }
       }
@@ -528,6 +540,17 @@ export class EditTemplateComponent implements OnInit {
     }
     else
     this.isScheme  = true
+  }
+
+  courseSelect(){
+    if(this.isCourse)
+    {
+      this.isCourse = false
+      this.courseIndex = -1
+      this.courseArray  =''
+    }
+    else
+    this.isCourse  = true
   }
 
 }

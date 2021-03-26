@@ -233,6 +233,8 @@ export class TemplateSubjectsComponent implements OnInit {
   editSection(item) {
     const opendial = this.dialog.open(EditSectionComponent, { data: { tempId: this.tempId, item: item, subjectName: this.subId } }).afterClosed().subscribe(res => {
       if (res) {
+        console.log("res", res);
+        
         this.subArray = res.data.subjects[this.subIndex]
         this.documents = res.data.subjects[this.subIndex].documents
         this.curriculum = res.data.subjects[this.subIndex].sections
