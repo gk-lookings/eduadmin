@@ -211,12 +211,15 @@ export class CreateFilterComponent implements OnInit {
         if (res.status === 200) {
           this.isLoading = false
           this.filtersList = res.data.filters
+          if (res.data.filters.length == 0)
+            this.isEmpty = true
         }
       })
   }
 
   getFIlterSuggest() {
     this.isLoading = true
+    this.isEmpty = false
     let params = { term: this.searchkey, offset: 0, count: 10 }
     this.apiService.getResponse('get', FILTER + '/suggest', params).
       then(res => {
