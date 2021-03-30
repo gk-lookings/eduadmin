@@ -1,4 +1,5 @@
-const HOST                          = 'https://obscure-springs-41892.herokuapp.com/api/'
+// const HOST                          = 'https://obscure-springs-41892.herokuapp.com/api/'
+const HOST                          = 'https://api.classteam.io/'
 const LOGIN                         = HOST + 'auth/login'
 
 const USER_DETAILS                  = HOST + 'user'
