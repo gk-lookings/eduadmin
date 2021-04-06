@@ -16,6 +16,7 @@ import { WarningPopupComponent } from '../warning-popup/warning-popup.component'
 
 import { UUID } from 'angular2-uuid';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-create-template',
   templateUrl: './create-template.component.html',
@@ -35,7 +36,7 @@ export class CreateTemplateComponent implements OnInit {
   createTemplateForm: FormGroup = new FormGroup({
     // tempId: this.tempIdControl,
     tempName: this.tempNameFormControl,
-    board:this.boardFormControl
+    board: this.boardFormControl
   });
 
   files: any[] = [];
@@ -53,7 +54,7 @@ export class CreateTemplateComponent implements OnInit {
   subSelected = [];
 
   dropdownList = [];
-  selectedItems=[];
+  selectedItems = [];
   dropdownSettings: IDropdownSettings = {};
   filterId
   board
@@ -69,7 +70,7 @@ export class CreateTemplateComponent implements OnInit {
 
 
   departments = [];
-  departmentArray=''
+  departmentArray = ''
   departIndex
 
   classes = [];
@@ -81,24 +82,25 @@ export class CreateTemplateComponent implements OnInit {
   semesterIndex
 
   grades = [];
-  gradesArray =''
+  gradesArray = ''
   gradeIndex
 
   schemes = []
-  schemesArray =''
+  schemesArray = ''
   schemeIndex
 
   course = []
-  courseArray =''
+  courseArray = ''
   courseIndex
 
   selectedIndexs = []
 
-  uuidValue:string;
+  uuidValue: string;
 
-  constructor(private apiService: ApiService, private router: Router, private _snackBar: MatSnackBar, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService, private dashboard: DashboardComponent, private router: Router, private _snackBar: MatSnackBar, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.dashboard.setPageTitle('Create Templete');
     this.dropdownSettings = {
       singleSelection: true,
       textField: 'board',
@@ -107,28 +109,27 @@ export class CreateTemplateComponent implements OnInit {
     };
 
     this.getFIlterItems()
-    
+
   }
 
-  createBoard(){
+  createBoard() {
     const open = this.dialog.open(FilterAddModelComponent, { data: 'Board/University', disableClose: true }).afterClosed().subscribe(result => {
-      if (result)
-        {
-          let params = {
-            "board": result,
-          }
-          this.apiService.getResponse('post', FILTER, params).
-            then(res => {
-              if (res.status === 200) {
-                this.getFIlterItems()
-              }
-            })
+      if (result) {
+        let params = {
+          "board": result,
         }
-      
+        this.apiService.getResponse('post', FILTER, params).
+          then(res => {
+            if (res.status === 200) {
+              this.getFIlterItems()
+            }
+          })
+      }
+
     })
   }
 
-  setRow(type, obj){
+  setRow(type, obj) {
     if (type == 'department') {
       this.departmentArray = obj
     }
@@ -149,102 +150,97 @@ export class CreateTemplateComponent implements OnInit {
     }
   }
 
-  
+
 
   addFilterElement(type) {
     if (type == 'department') {
       const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
-        if (result)
-          {
-            this.departments.push(result)
-            let params = {
-              department : this.departments,
-            }
-            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
-              then(res => {
-                if (res.status === 200) {
-                  this.getFIlterItems()
-                }
-              })
+        if (result) {
+          this.departments.push(result)
+          let params = {
+            department: this.departments,
           }
+          this.apiService.getResponse('put', FILTER + '/' + this.filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                this.getFIlterItems()
+              }
+            })
+        }
       })
     }
     if (type == 'class') {
       const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
-        if (result)
-          {
-            this.classes.push(result)
-            let params = {
-              class : this.classes,
-            }
-            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
-              then(res => {
-                if (res.status === 200) {
-                  this.getFIlterItems()
-                }
-              })
+        if (result) {
+          this.classes.push(result)
+          let params = {
+            class: this.classes,
           }
+          this.apiService.getResponse('put', FILTER + '/' + this.filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                this.getFIlterItems()
+              }
+            })
+        }
       })
     }
     if (type == 'semester') {
       const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
-        if (result)
-          {
-            this.semesters.push(result)
-            let params = {
-              semester : this.semesters,
-            }
-            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
-              then(res => {
-                if (res.status === 200) {
-                  this.getFIlterItems()
-                }
-              })
+        if (result) {
+          this.semesters.push(result)
+          let params = {
+            semester: this.semesters,
           }
+          this.apiService.getResponse('put', FILTER + '/' + this.filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                this.getFIlterItems()
+              }
+            })
+        }
       })
     }
     if (type == 'grade') {
       const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
-        if (result)
-          {
-            this.grades.push(result)
-            let params = {
-              grade : this.grades,
-            }
-            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
-              then(res => {
-                if (res.status === 200) {
-                  this.getFIlterItems()
-                }
-              })
+        if (result) {
+          this.grades.push(result)
+          let params = {
+            grade: this.grades,
           }
+          this.apiService.getResponse('put', FILTER + '/' + this.filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                this.getFIlterItems()
+              }
+            })
+        }
       })
     }
     if (type == 'scheme') {
       const open = this.dialog.open(FilterAddModelComponent, { data: type, disableClose: true }).afterClosed().subscribe(result => {
-        if (result)
-          {
-            this.schemes.push(result)
-            let params = {
-              scheme : this.schemes,
-            }
-            this.apiService.getResponse('put', FILTER+'/'+this.filterId, params).
-              then(res => {
-                if (res.status === 200) {
-                  this.getFIlterItems()
-                }
-              })
+        if (result) {
+          this.schemes.push(result)
+          let params = {
+            scheme: this.schemes,
           }
+          this.apiService.getResponse('put', FILTER + '/' + this.filterId, params).
+            then(res => {
+              if (res.status === 200) {
+                this.getFIlterItems()
+              }
+            })
+        }
       })
     }
   }
 
-  getFIlterItems(){
+  getFIlterItems() {
     let params = {}
     this.apiService.getResponse('get', FILTER, params).
       then(res => {
         if (res.status === 200) {
-        this.dropdownList = res.data.filters
+          this.dropdownList = res.data.filters
         }
       })
   }
@@ -254,8 +250,7 @@ export class CreateTemplateComponent implements OnInit {
     this.board = item.board
     for (let i = 0; i < this.dropdownList.length; i++) {
       const element = this.dropdownList[i];
-      if(element.id == item.id)
-      {
+      if (element.id == item.id) {
         this.departments = this.dropdownList[i].department
         this.classes = this.dropdownList[i].class;
         this.semesters = this.dropdownList[i].semester;
@@ -263,7 +258,7 @@ export class CreateTemplateComponent implements OnInit {
         this.schemes = this.dropdownList[i].scheme
         this.course = this.dropdownList[i].course
       }
-    }    
+    }
   }
 
   submitForm() {
@@ -281,15 +276,15 @@ export class CreateTemplateComponent implements OnInit {
             "name": this.tempName,
             "descriptionTags": this.tags,
             "logo": image,
-            "filters" : {
+            "filters": {
               "board": this.board,
               "department": this.departmentArray,
               "semester": this.semesterArray,
               "grade": this.gradesArray,
               "class": this.classArray,
-              'scheme':this.schemesArray,
-              'course':this.courseArray,
-              'filterId':this.filterId
+              'scheme': this.schemesArray,
+              'course': this.courseArray,
+              'filterId': this.filterId
             }
           }
           this.apiService.getResponse('post', TEMPLATE_CREATE, params).
@@ -305,7 +300,7 @@ export class CreateTemplateComponent implements OnInit {
               }
               else {
                 this.success = false
-                  let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
+                let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 1500, panelClass: 'snackbar' });
               }
             })
         }
@@ -319,15 +314,15 @@ export class CreateTemplateComponent implements OnInit {
         "templateId": UUID.UUID(),
         "name": this.tempName,
         "descriptionTags": this.tags,
-        "filters" : {
+        "filters": {
           "board": this.board,
           "department": this.departmentArray,
           "semester": this.semesterArray,
           "grade": this.gradesArray,
           "class": this.classArray,
-          'scheme':this.schemesArray,
-          'course':this.courseArray,
-          'filterId':this.filterId
+          'scheme': this.schemesArray,
+          'course': this.courseArray,
+          'filterId': this.filterId
         }
       }
       this.apiService.getResponse('post', TEMPLATE_CREATE, params).
@@ -398,7 +393,7 @@ export class CreateTemplateComponent implements OnInit {
 
   deleteFile(index: number) {
     this.files = []
-  } 
+  }
 
   uploadFilesSimulator(index: number) {
     setTimeout(() => {
@@ -453,69 +448,63 @@ export class CreateTemplateComponent implements OnInit {
     }
   }
 
-  
-  departmentSelect(){
-    if(this.isDepartment)
-    {
-      this.isDepartment= false
+
+  departmentSelect() {
+    if (this.isDepartment) {
+      this.isDepartment = false
       this.departIndex = -1
       this.departmentArray = ''
     }
-    else{
-      this.isDepartment=true
+    else {
+      this.isDepartment = true
     }
   }
-  classSelect(){
-    if(this.isClass)
-    {
+  classSelect() {
+    if (this.isClass) {
       this.isClass = false
       this.classIndex = -1
-      this.classArray =''
+      this.classArray = ''
     }
     else
-    this.isClass = true
+      this.isClass = true
   }
 
-  semesterSelect(){
-    if(this.isSemester)
-    {
+  semesterSelect() {
+    if (this.isSemester) {
       this.isSemester = false
-      this.semesterIndex = -1 
+      this.semesterIndex = -1
       this.semesterArray = ''
     }
     else
       this.isSemester = true
   }
-  gradeSelect(){
-    if(this.isGrade)
-    {
+  gradeSelect() {
+    if (this.isGrade) {
       this.isGrade = false
       this.gradeIndex = -1
-      this.gradesArray  =''
+      this.gradesArray = ''
     }
     else
-    this.isGrade  = true
+      this.isGrade = true
   }
 
-  schemeSelect(){
-    if(this.isScheme)
-    {
+  schemeSelect() {
+    if (this.isScheme) {
       this.isScheme = false
       this.schemeIndex = -1
-      this.schemesArray  =''
+      this.schemesArray = ''
     }
     else
-    this.isScheme  = true
+      this.isScheme = true
   }
-  courseSelect(){
-    if(this.isCourse)
-    {
+  courseSelect() {
+    if (this.isCourse) {
       this.isCourse = false
       this.courseIndex = -1
-      this.courseArray  =''
+      this.courseArray = ''
     }
     else
-    this.isCourse  = true
+      this.isCourse = true
   }
 
 }

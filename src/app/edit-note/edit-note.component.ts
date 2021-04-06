@@ -10,6 +10,7 @@ import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-del
 import { ViewFileComponent } from '../view-file/view-file.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-edit-note',
   templateUrl: './edit-note.component.html',
@@ -47,10 +48,11 @@ export class EditNoteComponent implements OnInit {
 
   noteData
 
-  constructor(private apiService: ApiService, private router: Router, private _snackBar: MatSnackBar,private authService: AuthenticationService, private http: HttpClient, public _location: Location,
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent, private router: Router, private _snackBar: MatSnackBar,private authService: AuthenticationService, private http: HttpClient, public _location: Location,
     private activatedRoute: ActivatedRoute, public dialog : MatDialog) { }
 
   ngOnInit() {
+this.dashboard.setPageTitle('Update Note');
     this.fetchTemplate()
   }
 

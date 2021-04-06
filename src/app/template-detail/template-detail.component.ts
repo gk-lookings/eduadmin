@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GET_TEMPLATE } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-template-detail',
   templateUrl: './template-detail.component.html',
@@ -22,7 +23,7 @@ export class TemplateDetailComponent implements OnInit {
   curriculum_count = 0
   notes_count = 0
 
-  constructor(private apiService: ApiService,public _location: Location, private router: Router, private authService: AuthenticationService, private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService) { }
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent,public _location: Location, private router: Router, private authService: AuthenticationService, private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.fetchList()

@@ -6,6 +6,7 @@
             <img class="proPic" src="{{user && user.profilePic ? user.profilePic : './assets/images/unavailable.png'}}" alt="">
             <div>
                 <p class="border-bottom mb-0">{{user && user.email}}</p>
+                <p class="border-bottom mb-0">{{user && user.phone}}</p>
                 <p class="border-bottom mb-0">Joined On : {{user && user.createdAt | dateAgo}}</p>
                 <p class="border-bottom mb-0">Status : {{isActive ? 'Active' : 'In Active'}}</p>
             </div>

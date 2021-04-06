@@ -6,6 +6,7 @@ import { GET_TEMPLATE } from '../config/endpoints';
 import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
 import { ApiService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-document-list',
   templateUrl: './document-list.component.html',
@@ -23,7 +24,7 @@ export class DocumentListComponent implements OnInit {
     public dialog : MatDialog,
     public _location: Location,
     private activatedRoute: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService, private dashboard : DashboardComponent
     ) { }
 
   ngOnInit() {

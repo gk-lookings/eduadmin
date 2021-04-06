@@ -9,6 +9,7 @@ import { UploadPictureComponent } from '../upload-picture/upload-picture.compone
 import { Router } from '@angular/router';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -30,7 +31,7 @@ export class CreatePostComponent implements OnInit {
   profileUrl
   users = []
   txtUserChanged = new Subject<string>();
-  userList =[]
+  userList = []
 
 
 
@@ -38,7 +39,7 @@ export class CreatePostComponent implements OnInit {
   dropdownList = []
   selectedBoard = []
 
-  selectedBoardSend =[]
+  selectedBoardSend = []
 
   departments = []
   semester = []
@@ -83,14 +84,14 @@ export class CreatePostComponent implements OnInit {
 
   selectedAuthor
 
-  externalLinkSet =[]
+  externalLinkSet = []
   linkTitle
   linkUrl
   linkDescription
 
   constructor(
     private _formBuilder: FormBuilder,
-    private apiService: ApiService,
+    private apiService: ApiService, private dashboard: DashboardComponent,
     public dialog: MatDialog,
     public router: Router, private _snackBar: MatSnackBar
   ) {
@@ -117,6 +118,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dashboard.setPageTitle('Create Post');
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -130,10 +132,10 @@ export class CreatePostComponent implements OnInit {
     this.getAuthors()
   }
 
-  getAuthors(){
+  getAuthors() {
     this.users = []
     this.userList = []
-    let params = { term: '', offset: 0, count :100 }
+    let params = { term: '', offset: 0, count: 100 }
     this.apiService.getResponse('get', USERS_LIST, params).
       then(res => {
         if (res.status === 200) {
@@ -153,8 +155,8 @@ export class CreatePostComponent implements OnInit {
       })
   }
 
-  authorSet(item){
-    this.selectedAuthor = item.firstName + ' ' +item.lastName
+  authorSet(item) {
+    this.selectedAuthor = item.firstName + ' ' + item.lastName
   }
 
 
@@ -162,7 +164,7 @@ export class CreatePostComponent implements OnInit {
     this.users = this.search(query)
   }
 
-  search(value: string) { 
+  search(value: string) {
     let filter = value.toLowerCase();
     return this.userList.filter(option => option.firstName.toLowerCase().startsWith(filter));
   }
@@ -204,18 +206,17 @@ export class CreatePostComponent implements OnInit {
   }
 
 
-  addLink(){
-    let item = { 
-      title : this.linkTitle,
+  addLink() {
+    let item = {
+      title: this.linkTitle,
       url: this.linkUrl,
-      description : this.linkDescription
-    }    
-    if(this.linkUrl)
-    this.externalLinkSet.push(item)
+      description: this.linkDescription
+    }
+    if (this.linkUrl)
+      this.externalLinkSet.push(item)
   }
 
-  removeLink(item)
-  {
+  removeLink(item) {
     let index = this.externalLinkSet.indexOf(item)
     this.externalLinkSet.splice(index, 1)
   }
@@ -235,7 +236,7 @@ export class CreatePostComponent implements OnInit {
     this.classSelected = ''
     this.semesterSelected = ''
     this.gradeSelected = ''
-    
+
     let params = { term: item.board, offset: 0, count: 10 }
     this.apiService.getResponse('get', FILTER + '/suggest', params).
       then(res => {
@@ -407,17 +408,14 @@ export class CreatePostComponent implements OnInit {
 
   publish() {
     this.responseMessage = ''
-    if(this.selectedBoardSend.length == 0 && this.templateSelectedIds.length == 0 && this.classroomSelectedIds.length == 0)
-    {
+    if (this.selectedBoardSend.length == 0 && this.templateSelectedIds.length == 0 && this.classroomSelectedIds.length == 0) {
       this.responseMessage = 'Please select atleast board/university, classroom or template'
     }
-    else if(!this.author)
-    {
+    else if (!this.author) {
       this.responseMessage = 'Please select author.!'
     }
 
-    else if(!this.aboutBoard)
-    {
+    else if (!this.aboutBoard) {
       this.responseMessage = 'Please add about section.!'
     }
 
@@ -432,7 +430,7 @@ export class CreatePostComponent implements OnInit {
           "documents": this.filesList,
           'externalInfo': this.externalLinkSet,
         },
-        
+
         "filters": this.selectedBoardSend,
         "notifyUsers": true,
         "isSponsored": this.propertyType,

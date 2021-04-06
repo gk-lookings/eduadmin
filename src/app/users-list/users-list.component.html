@@ -11,7 +11,7 @@
 
 
 <div class="__content_sec">
-    <h1 class="comm_title_h1 ">Users</h1>
+    <!-- <h1 class="comm_title_h1 ">Users</h1> -->
     <div class="d-flex align-content-center">
         <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search users" name="searchkey">
         <button class="inputSubmit" style="margin: 0; margin-left: 10px;" [routerLink]="['/dashboard/create-user']" routerLinkActive="router-link-active">Create</button>
@@ -20,6 +20,7 @@
         <div class="headingLst">
             <span>NAME</span>
             <span>EMAIL</span>
+            <span>PHONE</span>
             <span>ROLE</span>
             <span>VERIFIED</span>
             <div style="margin-right: 45px;">ACTIONS</div>

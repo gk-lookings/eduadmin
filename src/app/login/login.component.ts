@@ -8,6 +8,7 @@ import { LOGIN } from '../config/endpoints';
 
 //login dfdsxcz ted
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     password: this.passwordFormControl
   });
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient,  private state : ActivatedRoute) { }
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent, private router: Router, private authService: AuthenticationService, private http: HttpClient,  private state : ActivatedRoute) { }
 
   ngOnInit() {
   }

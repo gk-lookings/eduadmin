@@ -1,6 +1,7 @@
 <div class="__content_sec">
     <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
-        <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>Create User </h1>
+        <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>
+    </h1>
 
     <form name="createTemplateForm" [formGroup]="createForm" class="userForm">
         <div class="row">
@@ -63,17 +64,23 @@
             <div class="col-md-4">
                 <div class="inputField" style="margin: 3% 0;">
                     <label for="tempLogo">Profile pic<span>(optional)</span></label>
-                    <div class="fileUploadSet" appDnd (fileDropped)="onFileDropped($event)">
+                    <!-- appDnd (fileDropped)="onFileDropped($event)" -->
+                    <div class="fileUploadSet">
                         <div>
                             <h1>Upload a photo</h1>
-                            <p>You can either upload photo or drag it here</p>
+                            <p>You can upload a photo of user here</p>
                         </div>
                         <div class="icon">
                             <img src="./assets/images/icons/photo_cam.png" alt="">
                         </div>
-                        <input type="file" class="hidInput" accept="image/*" [multiple]="false" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)" />
-                    </div>
+                        <input type="file" class="hidInput" accept="image/*" [multiple]="false" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files, $event)" />
 
+                    </div>
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" (imageCropped)="imageCropped($event)"></image-cropper>
+                    <div>
+                        <button class="inputSubmit" *ngIf="imageChangedEvent" style="width: 100px; font-size: 15px; margin: 5px;border: none; padding: 4px 0;" (click)="croppedImageSend()">Confirm</button>
+                        <span *ngIf="imageChangedEvent" style="margin:0 5px"><i>Confirm to upload photo</i></span>
+                    </div>
                     <div class="files-list">
                         <div class="single-file" *ngFor="let file of files; let i = index">
                             <div class="file-icon" style="width: 50px">

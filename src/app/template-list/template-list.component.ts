@@ -8,6 +8,7 @@ import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-del
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-template-list',
   templateUrl: './template-list.component.html',
@@ -15,24 +16,24 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class TemplateListComponent implements OnInit {
   isLoading
-  templates =[]
+  templates = []
   isLastpage = false
   isEmpty = false
   currentPage = 0
-  searchkey=''
+  searchkey = ''
   txtQueryChanged = new Subject<string>();
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private spinner: NgxSpinnerService, public dialog :MatDialog) {
+  constructor(private apiService: ApiService, private dashboard: DashboardComponent, private router: Router, private authService: AuthenticationService, private spinner: NgxSpinnerService, public dialog: MatDialog) {
     this.txtQueryChanged.pipe(debounceTime(1000), distinctUntilChanged())
-            .subscribe(model => {
-              this.searchkey = model;
-              this.templates= []
-              this.isLastpage = false
-              this.currentPage = 0
-              this.isLoading = false
-              this.isEmpty= false
-              this.fetchList()
-             });
-   }
+      .subscribe(model => {
+        this.searchkey = model;
+        this.templates = []
+        this.isLastpage = false
+        this.currentPage = 0
+        this.isLoading = false
+        this.isEmpty = false
+        this.fetchList()
+      });
+  }
 
   filters
   departments
@@ -47,60 +48,61 @@ export class TemplateListComponent implements OnInit {
   semesterSelected
 
   ngOnInit() {
+    this.dashboard.setPageTitle('Template');
     this.fetchList()
     this.getFIlterItems()
   }
 
-  getFIlterItems(){
+  getFIlterItems() {
     let params = {}
     this.apiService.getResponse('get', FILTER, params).
       then(res => {
         if (res.status === 200) {
-        this.filters = res.data.filters
+          this.filters = res.data.filters
         }
       })
   }
 
 
 
-  selectBoard(item){
+  selectBoard(item) {
     this.departments = item.departments
     this.semester = item.semester
     this.grade = item.grade
     this.class = item.class
-    
-  }
-  selectDepartment(item){
 
   }
-  selectClass(item){
-    
+  selectDepartment(item) {
+
   }
-  selectSemester(item){
-    
+  selectClass(item) {
+
   }
-  selectGrade(item){
-    
+  selectSemester(item) {
+
+  }
+  selectGrade(item) {
+
   }
   fetchList() {
     this.isEmpty = false
     if (!this.isLastpage) {
       this.isLoading = true;
-      let params = { term: this.searchkey, offset: this.currentPage, count :30 }
+      let params = { term: this.searchkey, offset: this.currentPage, count: 30 }
       this.apiService.getResponse('get', TEMPLATE_LIST, params).
         then(res => {
           this.isLoading = false;
           if (res.status === 200) {
             this.templates = this.templates.concat(res.data.templates)
             this.isLastpage = (res.data.templates.length == 0) ? true : false
-            if(this.templates.length == 0)
+            if (this.templates.length == 0)
               this.isEmpty = true
           }
         })
     }
   }
 
-  searchResults(query:string) {
+  searchResults(query: string) {
     this.txtQueryChanged.next(query);
   }
 
@@ -112,13 +114,13 @@ export class TemplateListComponent implements OnInit {
         this.apiService.getResponse('delete', GET_TEMPLATE + id, params).
           then(res => {
             if (res.status === 200) {
-              let par = { term: this.searchkey, offset: 0, count :30 }
+              let par = { term: this.searchkey, offset: 0, count: 30 }
               this.apiService.getResponse('get', TEMPLATE_LIST, par).
                 then(res => {
                   if (res.status === 200) {
                     this.templates = res.data.templates
                     this.isLastpage = (res.data.templates.length == 0) ? true : false
-                    if(this.templates.length == 0)
+                    if (this.templates.length == 0)
                       this.isEmpty = true
                   }
                 })

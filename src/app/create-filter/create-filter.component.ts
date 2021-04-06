@@ -8,6 +8,7 @@ import { FILTER } from '../config/endpoints';
 import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 import { ApiService, AuthenticationService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-create-filter',
   templateUrl: './create-filter.component.html',
@@ -29,7 +30,7 @@ export class CreateFilterComponent implements OnInit {
   isLoading = true
   isEmpty = false
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) {
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) {
     this.txtQueryChanged.pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(model => {
         this.isEmpty = false
@@ -44,6 +45,7 @@ export class CreateFilterComponent implements OnInit {
   }
 
   ngOnInit() {
+this.dashboard.setPageTitle('University/Board');
     this.getFIlterItems()
   }
 

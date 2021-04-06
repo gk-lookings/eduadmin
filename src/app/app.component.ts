@@ -10,7 +10,7 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'edu-app';
+  title = 'Classteam';
   state: RouterStateSnapshot;
   elements
   constructor(

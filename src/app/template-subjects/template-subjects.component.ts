@@ -16,6 +16,7 @@ import { UploadFileComponent } from '../upload-file/upload-file.component';
 import { ViewFileComponent } from '../view-file/view-file.component';
 import { EditSubjectComponent } from '../edit-subject/edit-subject.component';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-template-subjects',
   templateUrl: './template-subjects.component.html',
@@ -53,7 +54,7 @@ export class TemplateSubjectsComponent implements OnInit {
   isNoteFileEmpty = false
 
   constructor(
-    private apiService: ApiService,
+    private apiService: ApiService, private dashboard : DashboardComponent,
     public _location: Location,
     private router: Router,
     private authService: AuthenticationService,
@@ -63,6 +64,7 @@ export class TemplateSubjectsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+this.dashboard.setPageTitle('Template');
     this.fetchSubjects()
   }
 

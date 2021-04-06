@@ -15,6 +15,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { FilterAddModelComponent } from '../filter-add-model/filter-add-model.component';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-edit-template',
   templateUrl: './edit-template.component.html',
@@ -96,7 +97,7 @@ export class EditTemplateComponent implements OnInit {
   currentFilter
 
   constructor(
-    private apiService: ApiService,
+    private apiService: ApiService, private dashboard : DashboardComponent,
     public _location: Location,
     private router: Router,
     private _snackBar: MatSnackBar,
@@ -109,6 +110,7 @@ export class EditTemplateComponent implements OnInit {
     }
 
   ngOnInit() {
+this.dashboard.setPageTitle('Update Templete');
     this.getFIlterItems()
     this.getDetail()
     // this.dropdownSettings = {

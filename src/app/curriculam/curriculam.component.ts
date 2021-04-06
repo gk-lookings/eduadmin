@@ -8,6 +8,7 @@ import { CreateSectionComponent } from '../create-section/create-section.compone
 import { EditSectionComponent } from '../edit-section/edit-section.component';
 import { ApiService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-curriculam',
   templateUrl: './curriculam.component.html',
@@ -24,7 +25,7 @@ export class CurriculamComponent implements OnInit {
   constructor(private dialog: MatDialog,
     public _location: Location,
     private activatedRoute: ActivatedRoute,
-    private apiService: ApiService) { }
+    private apiService: ApiService, private dashboard : DashboardComponent) { }
 
   ngOnInit() {
     this.fetchTemplate()

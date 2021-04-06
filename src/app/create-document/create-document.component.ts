@@ -8,6 +8,7 @@ import { GET_TEMPLATE, HOST, LOGIN } from '../config/endpoints';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-create-document',
   templateUrl: './create-document.component.html',
@@ -39,7 +40,7 @@ export class CreateDocumentComponent implements OnInit {
 
   files: any[] = [];
   constructor(
-    private apiService: ApiService,
+    private apiService: ApiService, private dashboard : DashboardComponent,
     private router: Router,
     private authService: AuthenticationService,
     private http: HttpClient,
@@ -48,6 +49,7 @@ export class CreateDocumentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+this.dashboard.setPageTitle('Create Document');
     this.fetchTemplate()
   }
 

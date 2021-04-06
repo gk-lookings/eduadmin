@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE, HOST } from '../config/endpoints';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-create-note',
   templateUrl: './create-note.component.html',
@@ -38,10 +39,11 @@ export class CreateNoteComponent implements OnInit {
   files: any[] = [];
   fileArray: any[] = [];
   
-  constructor(private apiService: ApiService, private router: Router, private _snackBar: MatSnackBar, private authService: AuthenticationService, private http: HttpClient, public _location: Location,
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent, private router: Router, private _snackBar: MatSnackBar, private authService: AuthenticationService, private http: HttpClient, public _location: Location,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+this.dashboard.setPageTitle('Create Note');
     this.fetchTemplate()
   }
 

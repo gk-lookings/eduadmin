@@ -6,6 +6,7 @@ import { SUBJECT } from '../config/endpoints';
 import { CreateSubjectComponent } from '../create-subject/create-subject.component';
 import { ApiService, AuthenticationService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-subject-listing',
   templateUrl: './subject-listing.component.html',
@@ -17,7 +18,7 @@ export class SubjectListingComponent implements OnInit {
   subjects = []
   isLastpage = false
   currentPage = 0
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private spinner: NgxSpinnerService, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent, private router: Router, private authService: AuthenticationService, private spinner: NgxSpinnerService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.fetchList()

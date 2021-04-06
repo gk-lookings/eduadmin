@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CLASSROOM, ACTIVITY, USER_DETAILS, USER_DEACTIVATE } from '../config/endpoints';
 import { ApiService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -29,9 +30,10 @@ export class UserDetailComponent implements OnInit {
   classRooms=[]
   userId = this.activatedRoute.snapshot.params['userId'];
 
-  constructor(private apiService: ApiService, public _location: Location, private activatedRoute: ActivatedRoute) { }
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent, public _location: Location, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+this.dashboard.setPageTitle('User');
     this.fetchUserActivity()
     this.fetchUser()
   }

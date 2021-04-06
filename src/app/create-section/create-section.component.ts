@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-create-section',
   templateUrl: './create-section.component.html',
@@ -34,7 +35,7 @@ export class CreateSectionComponent implements OnInit {
   tempId = this.activatedRoute.snapshot.params['tempId'];
   subjectName = this.activatedRoute.snapshot.params['subName'];
 
-  constructor(private apiService: ApiService,
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent,
     private router: Router, 
     private authService: AuthenticationService,
      private http: HttpClient,
@@ -43,6 +44,7 @@ export class CreateSectionComponent implements OnInit {
      private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
+this.dashboard.setPageTitle('Create Section');
     this.fetchTemplate()
   }
 

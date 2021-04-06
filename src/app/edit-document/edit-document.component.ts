@@ -10,6 +10,7 @@ import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-del
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ViewFileComponent } from '../view-file/view-file.component';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-edit-document',
   templateUrl: './edit-document.component.html',
@@ -45,7 +46,7 @@ export class EditDocumentComponent implements OnInit {
 
   files: any[] = [];
   constructor(
-    private apiService: ApiService,
+    private apiService: ApiService, private dashboard : DashboardComponent,
     private router: Router,
     private authService: AuthenticationService,
     private http: HttpClient,
@@ -56,6 +57,7 @@ export class EditDocumentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+this.dashboard.setPageTitle('Update Document');
     this.fetchTemplate()
   }
 

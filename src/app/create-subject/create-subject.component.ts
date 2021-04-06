@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { GET_TEMPLATE, SUBJECT } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-create-subject',
   templateUrl: './create-subject.component.html',
@@ -25,7 +26,7 @@ export class CreateSubjectComponent implements OnInit {
     subName: this.subNameFormControl
   });
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, @Inject(MAT_DIALOG_DATA) public template: any ,private http: HttpClient, public dialogRef : MatDialogRef<CreateSubjectComponent>) { }
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent, private router: Router, private authService: AuthenticationService, @Inject(MAT_DIALOG_DATA) public template: any ,private http: HttpClient, public dialogRef : MatDialogRef<CreateSubjectComponent>) { }
 
   ngOnInit() {
     console.log("template", this.template);

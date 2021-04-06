@@ -4,6 +4,7 @@
         <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
     </div>
     <span [routerLink]="['/dashboard/user', item._id]">{{item && item.email}}</span>
+    <span [routerLink]="['/dashboard/user', item._id]">{{item && item.phone}}</span>
     <span [routerLink]="['/dashboard/user', item._id]">{{item && item.role}}</span>
     <span [routerLink]="['/dashboard/user', item._id]">
         <mat-icon *ngIf="item && item.verified" style="color: #22877C;">check_circle</mat-icon>

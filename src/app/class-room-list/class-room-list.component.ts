@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CLASSROOM_LIST } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-class-room-list',
   templateUrl: './class-room-list.component.html',
@@ -18,7 +19,7 @@ export class ClassRoomListComponent implements OnInit {
   isEmpty = false
   currentPage = 0
   txtQueryChanged = new Subject<string>();
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) {
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog, private dashboard : DashboardComponent) {
     this.txtQueryChanged.pipe(debounceTime(1000), distinctUntilChanged())
     .subscribe(model => {
       this.searchkey = model;
@@ -32,6 +33,7 @@ export class ClassRoomListComponent implements OnInit {
 
   ngOnInit() {
     this.fetchList()
+    this.dashboard.setPageTitle('Classrooms');
   }
 
   searchResults(query:string) {

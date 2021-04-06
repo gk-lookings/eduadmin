@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { CLASSROOM_LIST, USERS_LIST } from '../config/endpoints';
+import { USERS_LIST } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
-
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -20,7 +20,7 @@ export class UsersListComponent implements OnInit {
   isEmpty = false
   txtQueryChanged = new Subject<string>();
   
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) {
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog, private dashboardComp : DashboardComponent) {
     this.txtQueryChanged.pipe(debounceTime(1000), distinctUntilChanged())
             .subscribe(model => {
               this.searchkey = model;
@@ -34,6 +34,7 @@ export class UsersListComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.dashboardComp.setPageTitle('Users')
     this.fetchList()
   }
 

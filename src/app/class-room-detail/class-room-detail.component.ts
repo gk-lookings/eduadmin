@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CLASSROOM, GET_TEMPLATE, USER_DETAILS } from '../config/endpoints';
 import { ApiService } from '../services';
-
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-class-room-detail',
   templateUrl: './class-room-detail.component.html',
@@ -27,11 +27,12 @@ export class ClassRoomDetailComponent implements OnInit {
   userIdList =[]
   userList=[]
   userSet =[]
-  constructor(private apiService: ApiService, public _location: Location, private activatedRoute: ActivatedRoute) { }
+  constructor(private apiService: ApiService,public _location: Location, private activatedRoute: ActivatedRoute, private dashboard : DashboardComponent) { }
 
   ngOnInit() {
     this.fetchCalss()
     this.fetchMeta()
+    this.dashboard.setPageTitle('Classroom');
   }
   fetchCalss() {
     this.isLoading = true;

@@ -6,6 +6,7 @@ import { ApiService } from '../services';
 import { ConfirmDeleteModelComponent } from '../confirm-delete-model/confirm-delete-model.component';
 import { MatDialog } from '@angular/material';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -25,7 +26,7 @@ export class NotesComponent implements OnInit {
   constructor(
     public _location: Location,
     private activatedRoute: ActivatedRoute,
-    private apiService: ApiService,
+    private apiService: ApiService, private dashboard : DashboardComponent,
     public dialog : MatDialog
   ) { }
 

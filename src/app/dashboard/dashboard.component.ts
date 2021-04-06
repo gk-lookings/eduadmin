@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LogOutModelComponent } from '../log-out-model/log-out-model.component';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,6 +20,8 @@ export class DashboardComponent implements OnInit {
   .pipe(
     map(result => result.matches)
   );
+
+  page_title =''
 
   constructor(private router: Router, private breakpointObserver: BreakpointObserver, media: MediaMatcher, private dialog: MatDialog) { 
     this.mobileQuery = media.matchMedia('(max-width: 1024px)');
@@ -49,6 +50,10 @@ export class DashboardComponent implements OnInit {
     else {
       document.querySelector('.scrollTop').classList.remove('d-flex');
     }
+  }
+  setPageTitle(title)
+  {
+    this.page_title = title
   }
 
 }

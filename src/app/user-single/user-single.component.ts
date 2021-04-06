@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { USERS_LIST, USER_ACTIVATE, USER_DEACTIVATE, USER_DETAILS } from '../config/endpoints';
 import { ApiService } from '../services';
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-user-single',
   templateUrl: './user-single.component.html',
@@ -16,7 +17,7 @@ export class UserSingleComponent implements OnInit {
   confirmClicked = false;
   cancelClicked = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private dashboard : DashboardComponent) { }
 
   ngOnInit() {
     this.isActive = this.item && this.item.active

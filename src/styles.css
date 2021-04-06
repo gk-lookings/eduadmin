@@ -179,6 +179,7 @@ mat-icon {
     width: 100%;
     position: relative;
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .comm_title_h1 {
@@ -374,6 +375,7 @@ mat-icon {
     height: 35px;
     border-radius: 5px;
     border: 1px solid #ddd;
+    object-fit: contain;
 }
 
 .userSet h1 {

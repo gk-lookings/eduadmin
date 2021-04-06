@@ -53,7 +53,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { DateAgoPipe } from './pipe/date-ago.pipe';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
+import { ImageCropperModule } from 'ngx-image-cropper';
 // components
 
 import { LoginComponent } from './login/login.component';
@@ -194,7 +194,8 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
     }),
     NgMultiSelectDropDownModule.forRoot(),
     NgxDocViewerModule, 
-    Ng2TelInputModule
+    Ng2TelInputModule,
+    ImageCropperModule
     // UUID
   ],
   entryComponents: [

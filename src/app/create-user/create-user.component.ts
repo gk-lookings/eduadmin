@@ -4,13 +4,15 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { HOST,USER_DETAILS } from '../config/endpoints';
+import { HOST, USER_DETAILS } from '../config/endpoints';
 import { Location } from '@angular/common';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
 
 
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -39,7 +41,7 @@ export class CreateUserComponent implements OnInit {
   files: any[] = [];
   phone
 
-
+  imageChangedEvent: any = '';
   firstName
   lastName
   phoneNumber
@@ -48,12 +50,13 @@ export class CreateUserComponent implements OnInit {
   userType = 'PROMOTER'
 
   countryCode = 91
+  fileToSend
 
 
-
-  constructor(private apiService: ApiService, private _snackBar: MatSnackBar, public _location: Location, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService, private dashboard: DashboardComponent, private _snackBar: MatSnackBar, public _location: Location, private router: Router, private authService: AuthenticationService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.dashboard.setPageTitle('Create User');
   }
 
 
@@ -94,7 +97,7 @@ export class CreateUserComponent implements OnInit {
             "profilePic": image,
             "email": this.email,
             "phone": this.phoneNumber,
-            "countryCode": "+"+this.countryCode,
+            "countryCode": "+" + this.countryCode,
             "role": this.userType,
             "active": true
           }
@@ -127,7 +130,7 @@ export class CreateUserComponent implements OnInit {
         "lastName": this.lastName,
         "email": this.email,
         "phone": this.phoneNumber,
-        "countryCode": "+"+this.countryCode,
+        "countryCode": "+" + this.countryCode,
         "role": this.userType,
         "active": true
       }
@@ -156,9 +159,12 @@ export class CreateUserComponent implements OnInit {
 
 
   onFileDropped($event) {
+    
+    console.log("eve", $event);
     if ($event[0].type.indexOf("image") != -1) {
       this.files = []
-      this.prepareFilesList($event);
+      // this.prepareFilesList($event);
+      this.imageChangedEvent = $event;
     }
     else {
       let open = this.dialog.open(WarningPopupComponent, { data: 'Only "image" files are allowed.' })
@@ -166,15 +172,44 @@ export class CreateUserComponent implements OnInit {
 
   }
 
-  fileBrowseHandler(files) {
+  fileBrowseHandler(files, event) {
+    console.log("event", event);
     if (files[0].type.indexOf("image") != -1) {
       this.files = []
-      this.prepareFilesList(files);
+      this.imageChangedEvent = event;
     }
     else {
       let open = this.dialog.open(WarningPopupComponent, { data: 'Only "image" files are allowed.' })
     }
   }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.fileToSend = this.base64ToFile(
+      event.base64,
+      this.imageChangedEvent.target.files[0].name,
+    )
+  }
+
+  croppedImageSend() {    
+    let fileSet:any = [{}]
+    fileSet.push(this.fileToSend)
+    fileSet.splice(0, 1)
+    this.prepareFilesList(fileSet);
+  }
+
+  base64ToFile(data, filename) {
+    const arr = data.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    let u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  }
+
 
   deleteFile(index: number) {
     this.files = []
