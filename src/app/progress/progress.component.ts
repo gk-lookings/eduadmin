@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-progress',
   templateUrl: './progress.component.html',

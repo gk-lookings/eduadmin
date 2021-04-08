@@ -439,7 +439,6 @@ export class CreatePostComponent implements OnInit {
       }
       this.apiService.getResponse('post', CREATE_POST, params).
         then(res => {
-          console.log("res", res);
           if (res.status === 200) {
             this.isLoadingPublish = false
             this.success = true
@@ -493,7 +492,6 @@ export class CreatePostComponent implements OnInit {
       formData.append('file', event[0]);
       this.apiService.getResponse('post', HOST + 'misc/s3-upload?path=admin-post/logo/' + event[0].lastModified + '.' + re.exec(event[0].name)[1], formData).
         then(res => {
-          console.log("res", res);
           this.profileUrl = res.data.imageURL
           this.isLoadingProfPic = false
           this.profilePic = {

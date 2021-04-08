@@ -135,7 +135,6 @@ this.dashboard.setPageTitle('Template');
     open.afterClosed().subscribe(result => {
       this.isEmpty = false
       if (this.subjects.length == 0){
-        console.log("here", this.subjects);
         this.subIndex = 0
         if (result) {        
           this.subjects = result.data.subjects
@@ -191,7 +190,6 @@ this.dashboard.setPageTitle('Template');
               
               this.template = res.data
               this.subjects = res.data.subjects
-              console.log("subjec here", this.subjects);
               if (this.subjects.length != 0) {
                 this.subArray = res.data.subjects[0]
                 this.documents = res.data.subjects[0].documents
@@ -235,8 +233,6 @@ this.dashboard.setPageTitle('Template');
   editSection(item) {
     const opendial = this.dialog.open(EditSectionComponent, { data: { tempId: this.tempId, item: item, subjectName: this.subId } }).afterClosed().subscribe(res => {
       if (res) {
-        console.log("res", res);
-        
         this.subArray = res.data.subjects[this.subIndex]
         this.documents = res.data.subjects[this.subIndex].documents
         this.curriculum = res.data.subjects[this.subIndex].sections

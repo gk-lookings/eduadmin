@@ -159,8 +159,6 @@ export class CreateUserComponent implements OnInit {
 
 
   onFileDropped($event) {
-    
-    console.log("eve", $event);
     if ($event[0].type.indexOf("image") != -1) {
       this.files = []
       // this.prepareFilesList($event);
@@ -173,7 +171,6 @@ export class CreateUserComponent implements OnInit {
   }
 
   fileBrowseHandler(files, event) {
-    console.log("event", event);
     if (files[0].type.indexOf("image") != -1) {
       this.files = []
       this.imageChangedEvent = event;

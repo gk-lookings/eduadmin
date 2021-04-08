@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
-import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-confirm-delete-model',
   templateUrl: './confirm-delete-model.component.html',

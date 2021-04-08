@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
-import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-upload-picture',
   templateUrl: './upload-picture.component.html',

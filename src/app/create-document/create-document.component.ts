@@ -7,8 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GET_TEMPLATE, HOST, LOGIN } from '../config/endpoints';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
-
 import { DashboardComponent } from '../dashboard/dashboard.component';
+
 @Component({
   selector: 'app-create-document',
   templateUrl: './create-document.component.html',
@@ -40,7 +40,7 @@ export class CreateDocumentComponent implements OnInit {
 
   files: any[] = [];
   constructor(
-    private apiService: ApiService, private dashboard : DashboardComponent,
+    private apiService: ApiService, private dashboard: DashboardComponent,
     private router: Router,
     private authService: AuthenticationService,
     private http: HttpClient,
@@ -49,7 +49,7 @@ export class CreateDocumentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-this.dashboard.setPageTitle('Create Document');
+    this.dashboard.setPageTitle('Create Document');
     this.fetchTemplate()
   }
 
@@ -86,15 +86,15 @@ this.dashboard.setPageTitle('Create Document');
       Promise.all(fileArray).then(res => {
         for (let m = 0; m < this.files.length; m++) {
           for (let n = m; n < res.length; n++) {
-            if(m==n) {
-            newArray.push({
-              "_id": this.files[m].lastModified + this.files[m].name,
-              "name": this.files[m].name,
-              "size": this.files[m].size,
-              "type": this.files[m].type,
-              "url": res[n].data.imageURL,
-              "createdAt": new Date()
-            })
+            if (m == n) {
+              newArray.push({
+                "_id": this.files[m].lastModified + this.files[m].name,
+                "name": this.files[m].name,
+                "size": this.files[m].size,
+                "type": this.files[m].type,
+                "url": res[n].data.imageURL,
+                "createdAt": new Date()
+              })
             }
           }
         }

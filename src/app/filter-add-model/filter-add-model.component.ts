@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-filter-add-model',
   templateUrl: './filter-add-model.component.html',

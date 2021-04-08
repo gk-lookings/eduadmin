@@ -1,12 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
-import { GET_TEMPLATE, SUBJECT } from '../config/endpoints';
-import { ApiService, AuthenticationService } from '../services';
 
-import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-edit-subject',
   templateUrl: './edit-subject.component.html',

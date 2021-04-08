@@ -186,11 +186,7 @@ this.dashboard.setPageTitle('University/Board');
     }
     if (type == 'course') {
       const open = this.dialog.open(FilterAddModelComponent, { data: { data: 'Add Course', title: '' }, disableClose: true }).afterClosed().subscribe(result => {
-        if (result) {
-          console.log("rese", result);
-          
-          console.log("content", content);
-          
+        if (result) {          
           content.push(result);
           let params = {
             course: content,

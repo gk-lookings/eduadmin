@@ -93,7 +93,6 @@ export class ClassRoomDetailComponent implements OnInit {
     this.apiService.getResponse('post', USER_DETAILS+'/list', id).
       then(res => {
         if (res.status === 200) {
-          // console.log("users",res);
           for (let m = 0; m < res.data.length; m++) {
             for (let n = m; n < this.userSet.length; n++) {
               if(m==n) {

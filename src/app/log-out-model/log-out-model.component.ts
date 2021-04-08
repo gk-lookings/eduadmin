@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { AuthenticationService } from './../services'
 import { Router } from '@angular/router';
-
-import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-log-out-model',
   templateUrl: './log-out-model.component.html',
