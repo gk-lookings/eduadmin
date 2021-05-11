@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FILTER, GET_TEMPLATE, TEMPLATE_LIST } from '../config/endpoints';
+import { FILTER, GET_TEMPLATE, TEMPLATE_COMPLETE_LIST, TEMPLATE_LIST } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 import { NgxSpinnerService } from "ngx-spinner";
 import { MatDialog } from '@angular/material';
@@ -89,7 +89,7 @@ export class TemplateListComponent implements OnInit {
     if (!this.isLastpage) {
       this.isLoading = true;
       let params = { term: this.searchkey, offset: this.currentPage, count: 30 }
-      this.apiService.getResponse('get', TEMPLATE_LIST, params).
+      this.apiService.getResponse('get', (this.searchkey == '') ? TEMPLATE_COMPLETE_LIST : TEMPLATE_LIST, params).
         then(res => {
           this.isLoading = false;
           if (res.status === 200) {
@@ -115,7 +115,7 @@ export class TemplateListComponent implements OnInit {
           then(res => {
             if (res.status === 200) {
               let par = { term: this.searchkey, offset: 0, count: 30 }
-              this.apiService.getResponse('get', TEMPLATE_LIST, par).
+              this.apiService.getResponse('get', (this.searchkey == '') ? TEMPLATE_COMPLETE_LIST : TEMPLATE_LIST, par).
                 then(res => {
                   if (res.status === 200) {
                     this.templates = res.data.templates

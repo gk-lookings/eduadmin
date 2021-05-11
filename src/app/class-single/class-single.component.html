@@ -4,6 +4,7 @@
         <h1>{{item && item.name}}</h1>
     </div>
     <span style="margin-left: 20px;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>
+    <span style="margin-left: 20px;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.createdAt | dateAgo}}</span>
     <span style="margin-right: 20px;" [routerLink]="['/dashboard/class-room', item._id]">
         {{item && item.members.length}}
     </span>

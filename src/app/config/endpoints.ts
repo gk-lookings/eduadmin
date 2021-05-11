@@ -17,6 +17,7 @@ const EVENTS                        = HOST + 'event'
 
 const SUBJECT                       = HOST + 'subject'
 
+const TEMPLATE_COMPLETE_LIST        = HOST + 'template/list'
 const TEMPLATE_LIST                 = HOST + 'template/search'
 const TEMPLATE_CREATE               = HOST + 'template'
 const GET_TEMPLATE                  = HOST + 'template/'
@@ -34,6 +35,7 @@ export {
     HOST,
     LOGIN,
     EVENTS,
+    TEMPLATE_COMPLETE_LIST,
     TEMPLATE_LIST,
     TEMPLATE_CREATE,
     GET_TEMPLATE,
@@ -48,6 +50,5 @@ export {
     USER_DEACTIVATE,
     USER_ACTIVATE,
     CREATE_POST,
-    FILTER_SUGGET
-
+    FILTER_SUGGET,
 }
