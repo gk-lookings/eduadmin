@@ -89,6 +89,8 @@ export class CreatePostComponent implements OnInit {
   linkUrl
   linkDescription
 
+  isNotify = false
+
   constructor(
     private _formBuilder: FormBuilder,
     private apiService: ApiService, private dashboard: DashboardComponent,
@@ -153,10 +155,22 @@ export class CreatePostComponent implements OnInit {
           }
         }
       })
+
+      if (this.propertyType == 'true') {
+        this.isNotify = false
+      }
+      else{
+        this.isNotify = true
+      }
   }
 
   authorSet(item) {
     this.selectedAuthor = item.firstName + ' ' + item.lastName
+  }
+
+  getValueNotify(event)
+  {
+    this.isNotify = event.checked
   }
 
 
@@ -236,7 +250,6 @@ export class CreatePostComponent implements OnInit {
     this.classSelected = ''
     this.semesterSelected = ''
     this.gradeSelected = ''
-
     let params = { term: item.board, offset: 0, count: 10 }
     this.apiService.getResponse('get', FILTER + '/suggest', params).
       then(res => {
@@ -432,7 +445,7 @@ export class CreatePostComponent implements OnInit {
         },
 
         "filters": this.selectedBoardSend,
-        "notifyUsers": true,
+        "notifyUsers": this.isNotify,
         "isSponsored": this.propertyType,
         "boardType": this.boardType,
         "promoterId": this.author
