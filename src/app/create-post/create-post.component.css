@@ -61,6 +61,11 @@
     background-color: rgb(183 234 229);
 }
 
+::ng-deep .seleCt .mat-slide-toggle {
+    height: 16px;
+    line-height: 16px;
+}
+
 ::ng-deep .seleCt .mat-select-arrow-wrapper {
     background: #22867c;
     border-radius: 16px;
