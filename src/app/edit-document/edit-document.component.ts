@@ -109,18 +109,22 @@ this.dashboard.setPageTitle('Update Document');
       Promise.all(fileArray).then(res => {
         for (let m = 0; m < this.files.length; m++) {
           for (let n = 0; n < res.length; n++) {
-            newArray.push({
-              "_id": this.files[m].lastModified + this.files[m].name,
-              "name": this.files[m].name,
-              "size": this.files[m].size,
-              "type": this.files[m].type,
-              "url": res[n].data.imageURL,
-              "createdAt": new Date()
-            })
+            if (m == n) {
+              newArray.push({
+                "_id": this.files[m].lastModified + this.files[m].name,
+                "name": this.files[m].name,
+                "size": this.files[m].size,
+                "type": this.files[m].type,
+                "url": res[n].data.imageURL,
+                "createdAt": new Date()
+              })
+            }
           }
         }
 
-        this.subject_detail.documents[this.index].files= this.subject_detail.documents[this.index].files.concat(newArray)
+        // this.subject_detail.documents[this.index].files= this.subject_detail.documents[this.index].files.concat(newArray)
+
+        this.subject_detail.documents[this.index].files= this.documentData.files.concat(newArray)
 
         let params = {
           "templateId": this.template.id,
