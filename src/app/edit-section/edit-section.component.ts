@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { GET_TEMPLATE } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 
-import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-edit-section',
   templateUrl: './edit-section.component.html',
@@ -31,10 +30,9 @@ export class EditSectionComponent implements OnInit {
   });
   sections = []
   index
-  constructor(private apiService: ApiService, private dashboard : DashboardComponent, private router: Router, private authService: AuthenticationService, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<EditSectionComponent>) { }
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthenticationService, private http: HttpClient, @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<EditSectionComponent>) { }
 
   ngOnInit() {
-this.dashboard.setPageTitle('Update Section');
     this.fetchTemplate()
   }
 
