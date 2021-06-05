@@ -186,8 +186,6 @@ this.dashboard.setPageTitle('Template');
         this.apiService.getResponse('put', GET_TEMPLATE + this.tempId, params).
           then(res => {
             if (res.status === 200) {
-              
-              
               this.template = res.data
               this.subjects = res.data.subjects
               if (this.subjects.length != 0) {
@@ -233,11 +231,15 @@ this.dashboard.setPageTitle('Template');
   editSection(item) {
     const opendial = this.dialog.open(EditSectionComponent, { data: { tempId: this.tempId, item: item, subjectName: this.subId } }).afterClosed().subscribe(res => {
       if (res) {
-        this.subArray = res.data.subjects[this.subIndex]
-        this.documents = res.data.subjects[this.subIndex].documents
-        this.curriculum = res.data.subjects[this.subIndex].sections
-        this.notes = res.data.subjects[this.subIndex].notes
-        this.subId = res.data.subjects[this.subIndex]._id
+
+        console.log("res", res);
+        this.subjects[this.subIndex].sections[res.index] = res.result
+        this.curriculum = this.subjects[this.subIndex].sections
+        // this.subArray = res.data.subjects[this.subIndex]
+        // this.documents = res.data.subjects[this.subIndex].documents
+        // this.curriculum = res.data.subjects[this.subIndex].sections
+        // this.notes = res.data.subjects[this.subIndex].notes
+        // this.subId = res.data.subjects[this.subIndex]._id
 
 
       }
