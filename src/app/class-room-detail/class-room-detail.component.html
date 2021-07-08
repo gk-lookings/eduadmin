@@ -6,7 +6,7 @@
             <button class="activator" style="padding: 8px 0px; font-size: 16px;" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
         </div>
     </div>
-    <div class="cover_class" [ngStyle]="{'background-image': 'url(' + (class.cover ? class.cover : './../../assets/images/class_cover.png') + ')'}">
+    <div class="cover_class mt-2" [ngStyle]="{'background-image': 'url(' + (class.cover ? class.cover : './../../assets/images/class_cover.png') + ')'}">
         <div class="cover_content">
             <img class="profPic" style="box-shadow: 0px 0px 20px #0001;" src="{{class && class.logo ? class.logo : './assets/images/classroom_logo.png'}}" alt="">
             <div>
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <div class="mb-5 pt-5">
+    <div class="mb-5 mt-4">
         <h1 class="comm_title_small_h1 ">Details</h1>
         <div class="tempContent_Class">
             <span>
