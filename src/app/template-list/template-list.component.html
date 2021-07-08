@@ -66,7 +66,7 @@
 
         <div class="single-user" style="cursor: pointer;" *ngFor="let item of templates">
             <div style="flex: 2;" class="userSet" [routerLink]="['/dashboard/template/subject', item._id]">
-                <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
+                <img src="{{item && item.logo ? item.logo : './assets/images/default.png'}}" alt="">
                 <h1>{{item && item.name}}</h1>
             </div>
             <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.filters.board}}</span>

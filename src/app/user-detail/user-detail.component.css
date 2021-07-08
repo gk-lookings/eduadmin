@@ -66,7 +66,7 @@
 .tempContent {
     border: 1px solid #22877c;
     border-radius: 5px;
-    min-width: 600px;
+    min-width: 680px;
     width: auto;
     overflow: hidden;
 }
@@ -91,8 +91,8 @@
 }
 
 a.leftSe {
-    flex: 4 !important;
-    background: #b8b8b8a6;
+    flex: 2 !important;
+    background: #eee;
     padding: 12px;
     margin-right: 20px;
     font-weight: 500 !important;
@@ -100,10 +100,12 @@ a.leftSe {
 
 a.rightSe p {
     margin: 0;
-    background: #cecece;
+    margin-right: 10px;
+    background: #ddd;
     border-radius: 40px;
     padding: 2px 20px;
     font-size: 14px;
+    width: max-content;
 }
 
 a.rightSe {
