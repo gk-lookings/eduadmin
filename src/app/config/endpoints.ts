@@ -4,6 +4,8 @@ const LOGIN                         = HOST + 'auth/login'
 
 const USER_DETAILS                  = HOST + 'user'
 const USERS_LIST                    = HOST + 'user/search'
+const USER_COMPLETE                 = HOST + 'user/list'
+
 const USER_DEACTIVATE               = HOST + 'user/deactivate'
 const USER_ACTIVATE                 = HOST + 'user/activateUser'
 const ACTIVITY                      = HOST + 'activity'
@@ -51,4 +53,5 @@ export {
     USER_ACTIVATE,
     CREATE_POST,
     FILTER_SUGGET,
+    USER_COMPLETE
 }

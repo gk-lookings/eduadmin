@@ -1,6 +1,6 @@
 <div class="single-user" style="cursor: pointer;">
     <div class="userSet" [routerLink]="['/dashboard/class-room', item._id]">
-        <img src="{{item && item.logo ? item.logo : './assets/images/default.png'}}" alt="">
+        <img src="{{item && item.logo ? item.logo : './assets/images/classroom_logo.png'}}" alt="">
         <h1>{{item && item.name}}</h1>
     </div>
     <span style="margin-left: 20px;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>

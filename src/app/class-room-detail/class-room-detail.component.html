@@ -6,30 +6,38 @@
             <button class="activator" style="padding: 8px 0px; font-size: 16px;" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
         </div>
     </div>
+    <div class="cover_class" [ngStyle]="{'background-image': 'url(' + (class.cover ? class.cover : './../../assets/images/class_cover.png') + ')'}">
+        <div class="cover_content">
+            <img class="profPic" style="box-shadow: 0px 0px 20px #0001;" src="{{class && class.logo ? class.logo : './assets/images/classroom_logo.png'}}" alt="">
+            <div>
+                <h1>{{class && class.name}}</h1>
+                <h3>#{{class && class.classRoomId}}</h3>
+            </div>
+        </div>
+    </div>
     <div class="mb-5 pt-5">
-        <div class="d-flex">
-            <img class="proPic" src="{{class && class.logo ? class.logo : './assets/images/default.png'}}" alt="">
-            <div class="tempContent">
-                <span>
+        <h1 class="comm_title_small_h1 ">Details</h1>
+        <div class="tempContent_Class">
+            <span>
                     <a class="leftSe">Name</a>
                     <a>{{class && class.name}}</a>
                 </span>
 
-                <span>
+            <span>
                     <a class="leftSe">Created At</a>
                     <a>{{class && class.createdAt | dateAgo}}</a>
                 </span>
 
-                <span>
+            <span>
                     <a class="leftSe">Privacy Type</a>
                     <a> <mat-icon style="font-size: 18px; height: 18px; width: 28px;">lock</mat-icon>{{class && class.public ? 'Public' : 'Private'}}</a>
                 </span>
 
-                <span style="border-bottom: none;">
+            <span style="border-bottom: none;">
                     <a class="leftSe">Status</a>
-                    <a class="actv">{{class && class.active ? 'Active' : 'In Active'}}</a>
+                    <a class="actv" [ngClass]="isActive ? '' : 'red_actv'">{{isActive ? 'Active' : 'Inactive'}}
+                    </a>
                 </span>
-            </div>
         </div>
 
     </div>
@@ -75,7 +83,7 @@
 
             <div class="single-user" style="cursor: pointer;" *ngFor="let item of userList; let i = index ;">
                 <div class="userSet">
-                    <img src="{{item && item.profilePic ? item.profilePic : './assets/images/man.png'}}" alt="">
+                    <img src="{{item && item.profilePic ? item.profilePic : './assets/images/man.png'}}" alt="" style="border-radius: 35px; border: 1px solid #ddd; object-fit: cover;">
                     <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
                 </div>
                 <span style="text-transform: capitalize;">{{item && item.role}}</span>
@@ -84,8 +92,8 @@
         </div>
     </div>
     <h1 class="comm_title_small_h1 mt-5" *ngIf="template">Associated Template</h1>
-    <div class="d-flex align-items-center" *ngIf="template">
-        <img class="proPic" src="{{template && template.logo ? template.logo : './assets/images/default.png'}}" alt="">
+    <div class="d-flex" *ngIf="template">
+        <img class="profPic" src="{{template && template.logo ? template.logo : './assets/images/default.png'}}" alt="">
         <div>
             <p class="border-bottom mb-0">{{template && template.name}}</p>
             <p class="border-bottom mb-0">Created On : {{template && template.createdAt | dateAgo}}</p>

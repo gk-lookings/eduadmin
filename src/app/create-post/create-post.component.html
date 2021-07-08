@@ -49,8 +49,7 @@
                                             </div>
                                             <mat-option *ngFor="let item of users" [value]="item._id" (click)="authorSet(item)">
                                                 <div class="d-flex align-items-center">
-                                                    <img style="width: 30px; object-fit: contain; margin-right: 10px;" src="{{item && item.profilePic ? item.profilePic : './assets/images/unavailable.png'}}" alt=""> {{item && item.firstName}} {{item &&
-                                                    item.lastName}}
+                                                    <img style="width: 30px; object-fit: contain; margin-right: 10px;" src="{{item && item.profilePic ? item.profilePic : './assets/images/user.png'}}" alt=""> {{item && item.firstName}} {{item && item.lastName}}
                                                 </div>
                                             </mat-option>
                                         </mat-select>
@@ -235,7 +234,7 @@
 
                                     <div class="single-user" style="cursor: pointer;" *ngFor="let item of templates; let i = index; ">
                                         <div style="flex: 4;" class="userSet">
-                                            <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
+                                            <img src="{{item && item.logo ? item.logo : './assets/images/default.png'}}" alt="">
                                             <h1>{{item && item.name}}</h1>
                                         </div>
                                         <span style="flex: 3;">{{item && item.filters.board}}</span>
@@ -277,7 +276,7 @@
                                     </div>
                                     <div class="single-user" style="cursor: pointer;" *ngFor="let item of classes; let i = index;">
                                         <div style="flex: 4;" class="userSet">
-                                            <img src="{{item && item.logo ? item.logo : './assets/images/unavailable.png'}}" alt="">
+                                            <img src="{{item && item.logo ? item.logo : './assets/images/classroom_logo.png'}}" alt="">
                                             <h1>{{item && item.name}}</h1>
                                         </div>
                                         <span style="flex: 3;">{{item && item.classRoomId}}</span>

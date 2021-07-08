@@ -8,7 +8,7 @@
     </div>
     <div class="mb-5 pt-5 ">
         <div class="d-flex ">
-            <img class="proPic" src="{{user && user.profilePic ? user.profilePic : './assets/images/man.png'}}">
+            <img class="proPic" src="{{user && user.profilePic ? user.profilePic : './assets/images/user.png'}}">
             <div class="tempContent">
                 <span>
                     <a class="leftSe">Name</a>
@@ -53,7 +53,7 @@
 
             <div class="single-user" style="cursor: pointer;" *ngFor="let item of classRooms" [routerLink]="['/dashboard/class-room', item._id]">
                 <div class="userSet">
-                    <img src="{{item && item.logo ? item.logo : './assets/images/default.png'}}" alt="">
+                    <img src="{{item && item.logo ? item.logo : './assets/images/classroom_logo.png'}}" alt="">
                     <h1>{{item && item.name}}</h1>
                 </div>
                 <span style="margin-left: 20px;" [routerLink]="['/dashboard/class-room', item._id]">{{item && item.classRoomId}}</span>

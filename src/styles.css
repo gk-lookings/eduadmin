@@ -13,20 +13,43 @@ html {
 
 body {
     margin: 0;
-    font-family: 'PT Sans', sans-serif !important;
+    font-family: 'Manrope', sans-serif !important;
+    ;
 }
 
+
+/* 
 mat-option {
-    font-family: 'PT Sans', sans-serif !important;
+    font-family: 'Manrope', sans-serif !important;
+    ;
 }
 
 .mat-select,
 mat-select {
-    font-family: 'PT Sans', sans-serif !important;
-}
+    font-family: 'Manrope', sans-serif !important;
+    ;
+} */
 
 mat-icon {
     cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+div,
+button,
+.mat-select,
+mat-select,
+mat-option {
+    /* font: unset !important; */
+    font-family: 'Manrope', sans-serif !important;
 }
 
 .inputField {
@@ -196,6 +219,7 @@ mat-icon {
     margin-bottom: 40px;
     font-size: 17px;
     color: #777;
+    word-break: break-word;
 }
 
 .searchField {

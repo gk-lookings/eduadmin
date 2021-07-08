@@ -16,30 +16,29 @@
     background: #4dccbd !important;
 }
 
-.proPic {
-    width: 120px;
+.profPic {
+    width: 60px;
     border-radius: 5px;
-    margin-right: 20px;
-    height: 120px;
-    object-fit: contain;
+    margin-right: 15px;
+    height: 60px;
+    object-fit: cover;
 }
 
-.tempContent {
+.tempContent_Class {
     border: 1px solid #22877c;
     border-radius: 5px;
-    min-width: 680px;
-    width: auto;
+    width: 680px;
     overflow: hidden;
 }
 
-.tempContent span {
+.tempContent_Class span {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #b7eae5;
     overflow: hidden;
 }
 
-.tempContent span a {
+.tempContent_Class span a {
     flex: 7;
     display: flex;
     align-items: center;
@@ -47,7 +46,7 @@
     font-weight: 600;
 }
 
-.tempContent span a:hover {
+.tempContent_Class span a:hover {
     text-decoration: none;
 }
 
@@ -78,4 +77,43 @@ a.rightSe {
     text-transform: uppercase;
     font-size: 18px;
     color: #22877c !important;
+}
+
+.cover_class {
+    background-image: url('./../../assets/images/class_cover.png');
+    background: #4eccbd;
+    width: 100%;
+    height: 230px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.cover_content h1 {
+    font-size: 20px;
+    margin-bottom: 3px;
+    text-shadow: 0 0 10px #0005;
+}
+
+.cover_content h3 {
+    font-size: 16px;
+    margin: 0;
+    text-shadow: 0 0 10px #0005;
+}
+
+.cover_content {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    width: 100%;
+    background: linear-gradient( 360deg, rgb(0 0 0 / 55%) 0%, rgb(0 0 0 / 24%) 31%, rgb(255 255 255 / 0%) 100%);
+    padding: 15px;
+}
+
+.red_actv {
+    color: #CC4D4D !important;
 }
