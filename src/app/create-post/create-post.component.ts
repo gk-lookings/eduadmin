@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { ConfirmPublishModelComponent } from '../confirm-publish-model/confirm-publish-model.component';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -156,20 +157,19 @@ export class CreatePostComponent implements OnInit {
         }
       })
 
-      if (this.propertyType == 'true') {
-        this.isNotify = false
-      }
-      else{
-        this.isNotify = true
-      }
+    if (this.propertyType == 'true') {
+      this.isNotify = false
+    }
+    else {
+      this.isNotify = true
+    }
   }
 
   authorSet(item) {
     this.selectedAuthor = item.firstName + ' ' + item.lastName
   }
 
-  getValueNotify(event)
-  {
+  getValueNotify(event) {
     this.isNotify = event.checked
   }
 
@@ -226,8 +226,12 @@ export class CreatePostComponent implements OnInit {
       url: this.linkUrl,
       description: this.linkDescription
     }
-    if (this.linkUrl)
+    if (this.linkUrl) {
       this.externalLinkSet.push(item)
+      this.linkTitle = ''
+      this.linkUrl = ''
+      this.linkDescription = ''
+    }
   }
 
   removeLink(item) {
@@ -433,60 +437,68 @@ export class CreatePostComponent implements OnInit {
     }
 
     else {
-      this.responseMessage = ''
-      this.isLoadingPublish = true
-      let params = {
-        "templateIds": this.templateSelectedIds,
-        "classRoomIds": this.classroomSelectedIds,
-        "data": {
-          "content": this.aboutBoard,
-          "documents": this.filesList,
-          'externalInfo': this.externalLinkSet,
-        },
 
-        "filters": this.selectedBoardSend,
-        "notifyUsers": this.isNotify,
-        "isSponsored": this.propertyType,
-        "boardType": this.boardType,
-        "promoterId": this.author
-      }
-      this.apiService.getResponse('post', CREATE_POST, params).
-        then(res => {
-          if (res.status === 200) {
-            this.isLoadingPublish = false
-            this.success = true
-            let snackBarRef = this._snackBar.open('Post has been published succefully.!', '', { duration: 2500, panelClass: 'snackbar' });
-            setTimeout(() => {
-              this.responseMessage = ''
-              this.reloadComponent()
-            }, 500);
-            this.templateSelectedIds = []
-            this.classroomSelectedIds = []
-            this.classroomSelected = []
-            this.templateSelected = []
-            this.aboutBoard = ''
-            this.selectedBoard = []
-            this.filesList = []
+      let dialog = this.dialog.open(ConfirmPublishModelComponent).afterClosed().subscribe(res => {
 
-            this.searchkeyTemp = '';
-            this.templates = []
-            this.isLastpageTemp = false
-            this.currentPageTemp = 0
-            this.isLoadingTemp = false
-            this.isEmptyTemp = false
-            this.fetchTemplateList()
+        if(res)
+        {
 
-            this.searchkeyClass = '';
-            this.classes = []
-            this.isLastpageClass = false
-            this.currentPageClass = 0
-            this.isLoadingClass = false
-            this.fetchClassList()
+          this.responseMessage = ''
+          this.isLoadingPublish = true
+          let params = {
+            "templateIds": this.templateSelectedIds,
+            "classRoomIds": this.classroomSelectedIds,
+            "data": {
+              "content": this.aboutBoard,
+              "documents": this.filesList,
+              'externalInfo': this.externalLinkSet,
+            },
+    
+            "filters": this.selectedBoardSend,
+            "notifyUsers": this.isNotify,
+            "isSponsored": this.propertyType,
+            "boardType": this.boardType,
+            "promoterId": this.author
           }
-          else {
-            let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 2000, panelClass: 'snackbar' });
-          }
-        })
+          this.apiService.getResponse('post', CREATE_POST, params).
+            then(res => {
+              if (res.status === 200) {
+                this.isLoadingPublish = false
+                this.success = true
+                let snackBarRef = this._snackBar.open('Post has been published succefully.!', '', { duration: 2500, panelClass: 'snackbar' });
+                setTimeout(() => {
+                  this.responseMessage = ''
+                  this.reloadComponent()
+                }, 500);
+                this.templateSelectedIds = []
+                this.classroomSelectedIds = []
+                this.classroomSelected = []
+                this.templateSelected = []
+                this.aboutBoard = ''
+                this.selectedBoard = []
+                this.filesList = []
+    
+                this.searchkeyTemp = '';
+                this.templates = []
+                this.isLastpageTemp = false
+                this.currentPageTemp = 0
+                this.isLoadingTemp = false
+                this.isEmptyTemp = false
+                this.fetchTemplateList()
+    
+                this.searchkeyClass = '';
+                this.classes = []
+                this.isLastpageClass = false
+                this.currentPageClass = 0
+                this.isLoadingClass = false
+                this.fetchClassList()
+              }
+              else {
+                let snackBarRef = this._snackBar.open(res.error.data, '', { duration: 2000, panelClass: 'snackbar' });
+              }
+            })
+        }
+      } )
     }
   }
 

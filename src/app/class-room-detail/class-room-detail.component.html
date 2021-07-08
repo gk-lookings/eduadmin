@@ -30,7 +30,7 @@
 
             <span>
                     <a class="leftSe">Privacy Type</a>
-                    <a> <mat-icon style="font-size: 18px; height: 18px; width: 28px;">lock</mat-icon>{{class && class.public ? 'Public' : 'Private'}}</a>
+                    <a> <mat-icon style="font-size: 18px; height: 18px; width: 28px;" *ngIf="!class.public">lock</mat-icon>{{class && class.public ? 'Public' : 'Private'}}</a>
                 </span>
 
             <span style="border-bottom: none;">
@@ -83,7 +83,7 @@
 
             <div class="single-user" style="cursor: pointer;" *ngFor="let item of userList; let i = index ;">
                 <div class="userSet">
-                    <img src="{{item && item.profilePic ? item.profilePic : './assets/images/man.png'}}" alt="" style="border-radius: 35px; border: 1px solid #ddd; object-fit: cover;">
+                    <img src="{{item && item.profilePic ? item.profilePic : './assets/images/user.png'}}" alt="" style="border-radius: 35px">
                     <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
                 </div>
                 <span style="text-transform: capitalize;">{{item && item.role}}</span>

@@ -1,6 +1,6 @@
 <div class="single-user" style="cursor: pointer;">
     <div class="userSet" [routerLink]="['/dashboard/user', item._id]">
-        <img src="{{item && item.profilePic ? item.profilePic : './assets/images/user.png'}}" alt="" style="border-radius: 35px; border: 1px solid #ddd; object-fit: cover;">
+        <img src="{{item && item.profilePic ? item.profilePic : './assets/images/user.png'}}" alt="" style="border-radius: 35px;">
         <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
     </div>
     <span [routerLink]="['/dashboard/user', item._id]">{{item && item.email}}</span>

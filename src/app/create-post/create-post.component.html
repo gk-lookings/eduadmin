@@ -96,7 +96,7 @@
                             <label for="boardType">External Links</label>
                             <div class=" d-flex justify-content-between">
                                 <input [(ngModel)]="linkTitle" style="width: 21%;" autocomplete="off" required name="linkTitle" [ngModelOptions]="{standalone: true}" matInput placeholder="Title">
-                                <input [(ngModel)]="linkUrl" style="width: 31%;" autocomplete="off" required name="linkUrl" [ngModelOptions]="{standalone: true}" matInput placeholder="Url*">
+                                <input [(ngModel)]="linkUrl" pattern="(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?" style="width: 31%;" autocomplete="off" required name="linkUrl" [ngModelOptions]="{standalone: true}" matInput placeholder="Url*">
                                 <textarea [(ngModel)]="linkDescription" [ngModelOptions]="{standalone: true}" type="text" style="width: 35%; height: 55px;" autocomplete="off" matInput placeholder="External link Details" name="linkDescription"></textarea>
                                 <button class="singleadd" (click)="addLink()"> <mat-icon>add</mat-icon>Add</button>
                             </div>

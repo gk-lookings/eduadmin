@@ -99,6 +99,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
+import { ConfirmPublishModelComponent } from './confirm-publish-model/confirm-publish-model.component';
 
 // import { uuidmod } from 'angular2-uuid';
 
@@ -145,6 +146,7 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
     CreateFilterComponent,
     CreateUserComponent,
     EditSubjectComponent,
+    ConfirmPublishModelComponent,
 
   ],
   imports: [
@@ -208,7 +210,8 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
     WarningPopupComponent,
     UploadFileComponent,
     ViewFileComponent,
-    UploadPictureComponent
+    UploadPictureComponent,
+    ConfirmPublishModelComponent
   ],
   providers: 
     [

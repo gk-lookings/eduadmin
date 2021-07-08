@@ -14,21 +14,7 @@ html {
 body {
     margin: 0;
     font-family: 'Manrope', sans-serif !important;
-    ;
 }
-
-
-/* 
-mat-option {
-    font-family: 'Manrope', sans-serif !important;
-    ;
-}
-
-.mat-select,
-mat-select {
-    font-family: 'Manrope', sans-serif !important;
-    ;
-} */
 
 mat-icon {
     cursor: pointer;
@@ -398,8 +384,7 @@ mat-option {
     width: 35px;
     height: 35px;
     border-radius: 5px;
-    border: 1px solid #ddd;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .userSet h1 {
@@ -496,4 +481,16 @@ mat-option {
 
 .createItem:hover {
     text-decoration: none;
+}
+
+.mat-toolbar,
+.mat-toolbar h1,
+.mat-toolbar h2,
+.mat-toolbar h3,
+.mat-toolbar h4,
+.mat-toolbar h5,
+.mat-toolbar h6 {
+    font: 500 20px/32px "Manrope", sans-serif;
+    margin: 0;
+    font-family: 'Manrope', sans-serif !important;
 }
