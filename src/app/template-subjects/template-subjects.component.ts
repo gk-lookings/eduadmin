@@ -231,8 +231,6 @@ this.dashboard.setPageTitle('Template');
   editSection(item) {
     const opendial = this.dialog.open(EditSectionComponent, { data: { tempId: this.tempId, item: item, subjectName: this.subId } }).afterClosed().subscribe(res => {
       if (res) {
-
-        console.log("res", res);
         this.subjects[this.subIndex].sections[res.index] = res.result
         this.curriculum = this.subjects[this.subIndex].sections
         // this.subArray = res.data.subjects[this.subIndex]

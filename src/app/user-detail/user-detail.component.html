@@ -1,25 +1,47 @@
 <div class="__content_sec" *ngIf="!isLoading">
-    <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
-        <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{user && user.firstName}} {{user && user.lastName}} </h1>
-    <div class="d-flex justify-content-between align-items-center mb-4 pt-2 ">
-        <div class="d-flex justify-content-between align-items-center">
-            <img class="proPic" src="{{user && user.profilePic ? user.profilePic : './assets/images/unavailable.png'}}" alt="">
-            <div>
-                <p class="border-bottom mb-0">{{user && user.email}}</p>
-                <p class="border-bottom mb-0">{{user && user.phone}}</p>
-                <p class="border-bottom mb-0">Joined On : {{user && user.createdAt | dateAgo}}</p>
-                <p class="border-bottom mb-0">Status : {{isActive ? 'Active' : 'In Active'}}</p>
-            </div>
-        </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
+            <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{user && user.firstName}} {{user && user.lastName}} </h1>
         <div *ngIf="user.role != 'ADMIN'">
             <button class="activate" style="margin: 0;" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
-
         </div>
+    </div>
+    <div class="mb-5 pt-5 ">
+        <div class="d-flex ">
+            <img class="proPic" src="{{user && user.profilePic ? user.profilePic : './assets/images/unavailable.png'}}">
+            <div class="tempContent">
+                <span>
+                    <a class="leftSe">Name</a>
+                    <a>{{user && user.firstName}} {{user && user.lastName}}</a>
+                </span>
+
+                <span *ngIf="user.email">
+                    <a class="leftSe">Email</a>
+                    <a>{{user && user.email}}</a>
+                </span>
+
+                <span *ngIf="user.phone">
+                    <a class="leftSe">Phone</a>
+                    <a>{{user && user.phone}}</a>
+                </span>
+
+                <span>
+                    <a class="leftSe">Created At</a>
+                    <a>{{user && user.createdAt | dateAgo}}</a>
+                </span>
+
+                <span style="border-bottom: none;">
+                    <a class="leftSe">Status</a>
+                    <a class="actv">{{isActive ? 'Active' : 'In Active'}}</a>
+                </span>
+            </div>
+        </div>
+
         <div *ngIf="user.role == 'ADMIN'">
             <button class="activate" style="background: #e6e6e6; cursor: no-drop;">Disabled</button>
         </div>
     </div>
-    <h1 class="comm_title_h1" style="margin-bottom: 10px;">Classrooms</h1>
+    <h1 class="comm_title_h1" style="margin-bottom: 10px;" *ngIf="classRooms.length > 0">Classrooms</h1>
     <div *ngIf="classRooms.length > 0">
         <div class="userList">
             <div class="headingLst">

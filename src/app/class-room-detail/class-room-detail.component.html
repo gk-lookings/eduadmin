@@ -1,19 +1,37 @@
 <div class="__content_sec" *ngIf="!isLoading">
-    <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
-        <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{class && class.name}} </h1>
-    <div class="d-flex justify-content-between align-items-center mb-4 pt-2 ">
-        <div class="d-flex justify-content-between align-items-center">
-            <img class="proPic" src="{{class && class.logo ? class.logo : './assets/images/unavailable.png'}}" alt="">
-            <div>
-                <p class="border-bottom mb-0">{{class && class.name}}</p>
-                <p class="border-bottom mb-0">Created On : {{class && class.createdAt | dateAgo}}</p>
-                <p class="border-bottom mb-0">Status : {{class && class.active ? 'Active' : 'In Active'}}</p>
-                <p class="border-bottom mb-0">Privacy Type : {{class && class.public ? 'Public' : 'Private'}}</p>
-            </div>
-        </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
+            <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{class && class.name}} </h1>
         <div>
             <button class="activator" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
         </div>
+    </div>
+    <div class="mb-5 pt-5">
+        <div class="d-flex">
+            <img class="proPic" src="{{class && class.logo ? class.logo : './assets/images/unavailable.png'}}" alt="">
+            <div class="tempContent">
+                <span>
+                    <a class="leftSe">Name</a>
+                    <a>{{class && class.name}}</a>
+                </span>
+
+                <span>
+                    <a class="leftSe">Created At</a>
+                    <a>{{class && class.createdAt | dateAgo}}</a>
+                </span>
+
+                <span>
+                    <a class="leftSe">Privacy Type</a>
+                    <a> <mat-icon style="font-size: 18px; height: 18px; width: 28px;">lock</mat-icon>{{class && class.public ? 'Public' : 'Private'}}</a>
+                </span>
+
+                <span style="border-bottom: none;">
+                    <a class="leftSe">Status</a>
+                    <a class="actv">{{class && class.active ? 'Active' : 'In Active'}}</a>
+                </span>
+            </div>
+        </div>
+
     </div>
 
 

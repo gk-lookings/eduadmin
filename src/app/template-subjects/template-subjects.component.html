@@ -1,26 +1,53 @@
 <div class="__content_sec">
-    <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
-        <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{template && template.name}} </h1>
-    <div class="d-flex justify-content-between align-items-center mb-4 pt-2 ">
-        <div class="d-flex justify-content-between align-items-center">
-            <img class="proPic" src="{{template && template.logo ? template.logo : './assets/images/unavailable.png'}}" alt="">
-            <div>
-                <p class="border-bottom mb-0">{{template && template.name}}</p>
-                <p class="border-bottom mb-0">Created On : {{template && template.createdAt | dateAgo}}</p>
-                <p class="border-bottom mb-0">Status : {{template && template.active ? 'Active' : 'In Active'}}</p>
-            </div>
-        </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
+            <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{template && template.name}} </h1>
         <div class="d-flex justify-content-between align-items-center">
             <button class="ediT" [routerLink]="['/dashboard/edit-template', tempId]" style="margin: 0 4px;">Edit</button>
-            <button class="activator" (click)="deleteTemp(tempId)" style="padding: 3px 0px;">Delete</button>
+            <button class="activator" (click)="deleteTemp(tempId)">Delete</button>
         </div>
+    </div>
+    <div class="mb-5 pt-5 ">
+        <div class="d-flex ">
+            <img class="proPic" src="{{template && template.logo ? template.logo : './assets/images/unavailable.png'}}" alt="">
+            <div class="tempContent">
+                <span>
+                    <a class="leftSe">Name</a>
+                    <a>{{template && template.name}}</a>
+                </span>
+
+                <span>
+                    <a class="leftSe">Created At</a>
+                    <a>{{template && template.createdAt | dateAgo}}</a>
+                </span>
+
+                <span>
+                    <a class="leftSe">Board/University</a>
+                    <a class="rightSe">
+                        <p *ngIf="template && template.filters.board">{{template && template.filters.board}}</p>
+                        <p *ngIf="template && template.filters.class">{{template && template.filters.class}}</p>
+                        <p *ngIf="template && template.filters.course">{{template && template.filters.course}}</p>
+                        <p *ngIf="template && template.filters.department">{{template && template.filters.department}}</p>
+                        <p *ngIf="template && template.filters.grade">{{template && template.filters.grade}}</p>
+                        <p *ngIf="template && template.filters.scheme">{{template && template.filters.scheme}}</p>
+                        <p *ngIf="template && template.filters.semester">{{template && template.filters.semester}}</p>
+                    </a>
+                </span>
+
+                <span style="border-bottom: none;">
+                    <a class="leftSe">Status</a>
+                    <a class="actv">{{template && template.active ? 'Active' : 'In Active'}}</a>
+                </span>
+            </div>
+        </div>
+
     </div>
 
     <div class="opacityDrop">
         <div class="d-inline-block">
             <div *ngFor="let item of subjects; let i = index;" (click)="setRow(item,i)" class="singleSubItem" [ngClass]="{'activeItem': subIndex === i}">
                 <span class="singleLetter">{{item && item.subject | slice:0:1}}</span>
-                <span class="text-capitalize" style="flex: 1;margin-left: 10px">{{item && item.subject | slice:0:18}}</span>
+                <span class="text-capitalize" style="flex: 1;margin-left: 10px" [title]="item && item.subject">{{item && item.subject | slice:0:18}}</span>
                 <span *ngIf="subIndex !== i">&nbsp;</span>
                 <mat-icon style="color: #fff;" (click)="editSub(item, i)">edit</mat-icon>
                 <mat-icon style="color: #fff;" (click)="deleteSub(item, i)" *ngIf="subIndex === i">delete</mat-icon>

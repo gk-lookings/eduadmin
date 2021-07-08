@@ -17,9 +17,63 @@
 }
 
 .proPic {
-    width: 80px;
-    border-radius: 4px;
+    width: 120px;
+    border-radius: 5px;
     margin-right: 20px;
-    height: 80px;
+    height: 120px;
     object-fit: contain;
+}
+
+.tempContent {
+    border: 1px solid #22877c;
+    border-radius: 5px;
+    min-width: 600px;
+    width: auto;
+    overflow: hidden;
+}
+
+.tempContent span {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #b7eae5;
+    overflow: hidden;
+}
+
+.tempContent span a {
+    flex: 7;
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-weight: 600;
+}
+
+.tempContent span a:hover {
+    text-decoration: none;
+}
+
+a.leftSe {
+    flex: 4 !important;
+    background: #b8b8b8a6;
+    padding: 12px;
+    margin-right: 20px;
+    font-weight: 500 !important;
+}
+
+a.rightSe p {
+    margin: 0;
+    background: #cecece;
+    border-radius: 40px;
+    padding: 2px 20px;
+    font-size: 14px;
+}
+
+a.rightSe {
+    display: flex;
+    align-items: center;
+}
+
+.actv {
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #22877c !important;
 }
