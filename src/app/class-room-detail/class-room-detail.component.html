@@ -6,7 +6,7 @@
             <button class="activator" style="padding: 8px 0px; font-size: 16px;" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
         </div>
     </div>
-    <div class="cover_class mt-2" [ngStyle]="{'background-image': 'url(' + (class.cover ? class.cover : './../../assets/images/class_cover.png') + ')'}">
+    <div class="cover_class mt-2" [ngStyle]="{'background-image': 'url(' + (class.cover ? class.cover : './assets/images/class_cover.png') + ')'}">
         <div class="cover_content">
             <img class="profPic" style="box-shadow: 0px 0px 20px #0001;" src="{{class && class.logo ? class.logo : './assets/images/classroom_logo.png'}}" alt="">
             <div>
@@ -33,6 +33,24 @@
                     <a> <mat-icon style="font-size: 18px; height: 18px; width: 28px;" *ngIf="!class.public">lock</mat-icon>{{class && class.public ? 'Public' : 'Private'}}</a>
                 </span>
 
+            <span *ngIf="class.templateId">
+                    <a class="leftSe">Associated Template</a>
+                    <a>{{template && template.name}}</a>
+                </span>
+
+            <span *ngIf="class.templateId">
+                    <a class="leftSe">Board/University</a>
+                    <a class="rightSe">
+                        <p *ngIf="template && template.filters.board">{{template && template.filters.board}}</p>
+                        <p *ngIf="template && template.filters.class">{{template && template.filters.class}}</p>
+                        <p *ngIf="template && template.filters.course">{{template && template.filters.course}}</p>
+                        <p *ngIf="template && template.filters.department">{{template && template.filters.department}}</p>
+                        <p *ngIf="template && template.filters.grade">{{template && template.filters.grade}}</p>
+                        <p *ngIf="template && template.filters.scheme">{{template && template.filters.scheme}}</p>
+                        <p *ngIf="template && template.filters.semester">{{template && template.filters.semester}}</p>
+                    </a>
+                </span>
+
             <span style="border-bottom: none;">
                     <a class="leftSe">Status</a>
                     <a class="actv" [ngClass]="isActive ? '' : 'red_actv'">{{isActive ? 'Active' : 'Inactive'}}
@@ -44,7 +62,7 @@
 
 
     <h1 class="comm_title_small_h1 " *ngIf="class.about">About</h1>
-    <p class="comm_sub_title_small_p ">{{class && class.about}}</p>
+    <p class="comm_sub_title_small_p " style="color: #555;">{{class && class.about}}</p>
     <h1 class="comm_title_small_h1 ">Modules</h1>
     <div class="grid-column_set">
         <div class="periodic_block" matRipple>
@@ -80,15 +98,16 @@
                 <span style="margin-right: 20px;">ROLE</span>
                 <div style="margin-right: 20px;">ACTIONS</div>
             </div>
-
-            <div class="single-user" style="cursor: pointer;" *ngFor="let item of userList; let i = index ;">
-                <div class="userSet">
-                    <img src="{{item && item.profilePic ? item.profilePic : './assets/images/user.png'}}" alt="" style="border-radius: 35px">
-                    <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
+            <ng-container *ngFor="let item of userList; let i = index ;">
+                <div class="single-user" style="cursor: pointer;" [style.border]="((i+1)==userList.length) ? 'none':''">
+                    <div class="userSet">
+                        <img src="{{item && item.profilePic ? item.profilePic : './assets/images/user.png'}}" alt="" style="border-radius: 35px">
+                        <h1>{{item && item.firstName}} {{item && item.lastName}}</h1>
+                    </div>
+                    <span style="text-transform: capitalize;">{{item && item.role}}</span>
+                    <button class="vieW" [routerLink]="['/dashboard/user', item._id]">View</button>
                 </div>
-                <span style="text-transform: capitalize;">{{item && item.role}}</span>
-                <button class="vieW" [routerLink]="['/dashboard/user', item._id]">View</button>
-            </div>
+            </ng-container>
         </div>
     </div>
     <h1 class="comm_title_small_h1 mt-5" *ngIf="template">Associated Template</h1>
@@ -97,7 +116,7 @@
         <div>
             <p class="border-bottom mb-0">{{template && template.name}}</p>
             <p class="border-bottom mb-0">Created On : {{template && template.createdAt | dateAgo}}</p>
-            <p class="border-bottom mb-0">Status : {{template && template.active ? 'Active' : 'In Active'}}</p>
+            <p class="border-bottom mb-0">Status : {{template && template.active ? 'Active' : 'Inactive'}}</p>
             <p class="border-bottom mb-0">Board : {{template && template.filters && template.filters.board}}</p>
         </div>
     </div>

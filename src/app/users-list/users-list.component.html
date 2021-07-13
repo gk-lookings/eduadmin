@@ -1,17 +1,4 @@
-<!-- <div class="container-fluid">
-    <div class="row">
-        <mat-toolbar color="primary" class="__header justify-content-between">
-            <h1 style="font-size: 20px;">
-                <mat-icon matRipple [routerLink]="['/dashboard/home']" title="Goto Home">home</mat-icon>Users</h1>
-        </mat-toolbar>
-    </div>
-
-    
-</div> -->
-
-
 <div class="__content_sec">
-    <!-- <h1 class="comm_title_h1 ">Users</h1> -->
     <div class="d-flex align-content-center">
         <input class="searchField" [(ngModel)]="searchkey" required type="text" (ngModelChange)="searchResults($event)" autocomplete="off" matInput placeholder="Search users" name="searchkey">
         <button class="inputSubmit" style="margin: 0; margin-left: 10px;" [routerLink]="['/dashboard/create-user']" routerLinkActive="router-link-active">Create</button>
@@ -25,7 +12,9 @@
             <span>VERIFIED</span>
             <div style="margin-right: 45px;">ACTIONS</div>
         </div>
-        <app-user-single [item]="item" *ngFor="let item of users"></app-user-single>
+        <ng-container *ngFor="let item of users; let i = index;">
+            <app-user-single [item]="item" [last]="((i+1)==users.length) ? true : false"></app-user-single>
+        </ng-container>
         <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoading">
             <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
         </div>

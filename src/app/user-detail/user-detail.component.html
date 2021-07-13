@@ -5,6 +5,9 @@
         <div *ngIf="user.role != 'ADMIN'">
             <button class="activate" style="margin: 0; padding: 8px 0px; font-size: 16px;" [ngClass]="isActive ? '' : 'deactivated'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
         </div>
+        <div *ngIf="user.role == 'ADMIN'">
+            <button class="activate" style="background: #e6e6e6; cursor: no-drop;">Disabled</button>
+        </div>
     </div>
     <div class="mb-5 pt-5 ">
         <div class="d-flex ">
@@ -32,14 +35,12 @@
 
                 <span style="border-bottom: none;">
                     <a class="leftSe">Status</a>
-                    <a class="actv">{{isActive ? 'Active' : 'In Active'}}</a>
+                    <a class="actv">{{isActive ? 'Active' : 'Inactive'}}</a>
                 </span>
             </div>
         </div>
 
-        <div *ngIf="user.role == 'ADMIN'">
-            <button class="activate" style="background: #e6e6e6; cursor: no-drop;">Disabled</button>
-        </div>
+
     </div>
     <h1 class="comm_title_h1" style="margin-bottom: 10px;" *ngIf="classRooms.length > 0">Classrooms</h1>
     <div *ngIf="classRooms.length > 0">

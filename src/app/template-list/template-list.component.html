@@ -58,28 +58,32 @@
     </div> -->
     <div class="userList">
         <div class="headingLst">
-            <span style="flex: 2;">TEMPLATE</span>
+            <span style="flex: 3;">TEMPLATE</span>
             <span style="flex: 3;">BOARD</span>
             <span style="margin-right: 20px; ">CREATED AT</span>
+            <span style="flex: 1;">STATUS</span>
             <span style="flex: 3;">ACTIONS</span>
         </div>
-
-        <div class="single-user" style="cursor: pointer;" *ngFor="let item of templates">
-            <div style="flex: 2;" class="userSet" [routerLink]="['/dashboard/template/subject', item._id]">
-                <img src="{{item && item.logo ? item.logo : './assets/images/default.png'}}" alt="">
-                <h1>{{item && item.name}}</h1>
-            </div>
-            <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.filters.board}}</span>
-            <span style="margin-right: 20px;" [routerLink]="['/dashboard/template/subject', item._id]">
+        <ng-container *ngFor="let item of templates; let i = index;">
+            <div class="single-user" style="cursor: pointer;" [style.border]="((i+1)==templates.length) ? 'none':''">
+                <div style="flex: 3;" class="userSet" [routerLink]="['/dashboard/template/subject', item._id]">
+                    <img src="{{item && item.logo ? item.logo : './assets/images/default.png'}}" alt="">
+                    <h1>{{item && item.name}}</h1>
+                </div>
+                <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.filters.board}}</span>
+                <span style="margin-right: 20px;" [routerLink]="['/dashboard/template/subject', item._id]">
                 {{item && item.createdAt | dateAgo}}
             </span>
-            <span style="flex: 3;">
+                <span style="flex: 1;">
+                {{item && item.active ? 'Active' : 'Inactive'}}
+            </span>
+                <span style="flex: 3;">
                 <button class="ediT" [routerLink]="['/dashboard/edit-template', item._id]">EDIT</button>
                 <button class="vieW" [routerLink]="['/dashboard/template/subject', item._id]" style="margin: 0 4px;">VIEW</button>
                 <button class="activator" (click)="deleteTemp(item._id)">DELETE</button>
             </span>
-        </div>
-
+            </div>
+        </ng-container>
         <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoading">
             <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
         </div>

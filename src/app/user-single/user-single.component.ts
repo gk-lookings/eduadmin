@@ -9,6 +9,7 @@ import { ApiService } from '../services';
 })
 export class UserSingleComponent implements OnInit {
   @Input() item
+  @Input() last
   isActive
 
   popoverTitle = 'Are you sure?';
@@ -20,6 +21,8 @@ export class UserSingleComponent implements OnInit {
 
   ngOnInit() {
     this.isActive = this.item && this.item.active
+    console.log("last", this.last);
+    
   }
 
   deactivate(id)

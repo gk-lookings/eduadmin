@@ -22,7 +22,7 @@ export class ClassRoomDetailComponent implements OnInit {
   classId = this.activatedRoute.snapshot.params['classId'];
   classMeta
 
-  template
+  template 
 
   userIdList =[]
   userList=[]

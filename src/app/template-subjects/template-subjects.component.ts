@@ -53,6 +53,15 @@ export class TemplateSubjectsComponent implements OnInit {
   isDocumentFileEmpty = false
   isNoteFileEmpty = false
 
+  isActive
+
+
+  popoverTitle = 'Are you sure?';
+  popoverMessage = 'Are you really want to do this ?';
+  confirmClicked = false;
+  cancelClicked = false;
+
+
   constructor(
     private apiService: ApiService, private dashboard : DashboardComponent,
     public _location: Location,
@@ -76,6 +85,7 @@ this.dashboard.setPageTitle('Template');
         if (res.status === 200) {
           this.isLoading = false
           this.template = res.data
+          this.isActive  = res.data.active
           this.subjects = res.data.subjects
           if (this.subjects.length != 0) {
             this.subArray = res.data.subjects[0]
@@ -104,6 +114,35 @@ this.dashboard.setPageTitle('Template');
       }
     }
     )
+  }
+
+  deactivate() {
+    let params = {
+      "templateId": this.template._id,
+      "name": this.template.name,
+      "descriptionTags": this.template.descriptionTags,
+      "active": !this.isActive,
+      "about": this.template.about,
+      "subjects": this.subjects
+    }
+    this.apiService.getResponse('put', GET_TEMPLATE + this.template._id, params).
+      then(res => {
+        if (res.status === 200) {
+          this.template = res.data
+          this.isActive  = res.data.active
+          this.subjects = res.data.subjects
+          if (this.subjects.length != 0) {
+            this.subArray = res.data.subjects[0]
+            this.documents = res.data.subjects[0].documents
+            this.curriculum = res.data.subjects[0].sections
+            this.notes = res.data.subjects[0].notes
+            this.subId = res.data.subjects[0]._id
+            this.subIndex = 0
+          }
+          if (this.subjects.length == 0)
+            this.isEmpty = true
+        }
+      })
   }
 
   editSub(item, i) {

@@ -230,7 +230,6 @@ mat-option {
     flex-direction: column;
     justify-content: space-between;
     border-radius: 10px;
-    box-shadow: 0px 3px 6px #00000026;
     cursor: pointer;
     float: left;
     text-align: center;

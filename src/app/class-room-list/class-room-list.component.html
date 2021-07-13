@@ -7,9 +7,11 @@
             <span style="margin-left: 20px;">ID</span>
             <span style="margin-left: 20px;">CREATED AT</span>
             <span style="margin-right: 20px;">NO OF STUDENTS</span>
-            <div style="margin-right: 60px;">ACTIONS</div>
+            <div style="margin-right: 40px;">ACTIONS</div>
         </div>
-        <app-class-single [item]="item" *ngFor="let item of classes"></app-class-single>
+        <ng-container *ngFor="let item of classes">
+            <app-class-single [item]="item" [last]="((i+1)==classes.length) ? true : false"></app-class-single>
+        </ng-container>
         <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoading">
             <mat-spinner style="margin:0 auto;" diameter="30"></mat-spinner>
         </div>

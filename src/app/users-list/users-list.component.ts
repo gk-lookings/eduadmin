@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { USERS_LIST, USER_COMPLETE } from '../config/endpoints';
+import { USERS_LIST, USER_COMPLETE, USER_DEACTIVATE, USER_DETAILS } from '../config/endpoints';
 import { ApiService, AuthenticationService } from '../services';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
@@ -41,8 +41,9 @@ export class UsersListComponent implements OnInit {
   fetchList() {
     if (!this.isLastpage) {
       this.isLoading = true;
-      let params = { term: this.searchkey, offset: this.currentPage, count: 30 }
-      this.apiService.getResponse('get', (this.searchkey != '') ? USERS_LIST : USER_COMPLETE, params).
+      let params = { text: this.searchkey, offset: this.currentPage, count: 30 }
+      // (this.searchkey != '') ? USERS_LIST :
+      this.apiService.getResponse('get', USER_COMPLETE, params).
         then(res => {
           this.isLoading = false;
           if (res.status === 200) {
@@ -59,7 +60,6 @@ export class UsersListComponent implements OnInit {
     this.txtQueryChanged.next(query);
   }
 
-
   @HostListener("window:scroll", ['$event'])
   scrollMe(event) {
     if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight)) {
@@ -69,5 +69,7 @@ export class UsersListComponent implements OnInit {
       }
     }
   }
+
+
 
 }

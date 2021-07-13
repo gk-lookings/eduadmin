@@ -9,6 +9,7 @@ import { ApiService } from '../services';
 })
 export class ClassSingleComponent implements OnInit {
   @Input() item
+  @Input() last
   isActive
 
   popoverTitle = 'Are you sure?';

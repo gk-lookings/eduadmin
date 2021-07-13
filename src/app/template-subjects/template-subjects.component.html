@@ -3,8 +3,9 @@
         <h1 class="comm_title_small_h1 d-flex align-items-center pt-4">
             <mat-icon matRipple (click)="_location.back()" title="Go back" style="margin-right: 20px;">west</mat-icon>{{template && template.name}} </h1>
         <div class="d-flex justify-content-between align-items-center">
-            <button class="ediT" [routerLink]="['/dashboard/edit-template', tempId]" style="margin: 0 4px; padding: 8px 0px; font-size: 16px;">Edit</button>
-            <button class="activator" style="padding: 8px 0px; font-size: 16px;" (click)="deleteTemp(tempId)">Delete</button>
+            <button class="ediT" [routerLink]="['/dashboard/edit-template', tempId]" style=" padding: 8px 0px; font-size: 16px;">Edit</button>
+            <button class="activator" style="margin: 0 4px; padding: 8px 0px; font-size: 16px;" (click)="deleteTemp(tempId)">Delete</button>
+            <button class="vieW" style="padding: 8px 0px; font-size: 16px;" [ngClass]="isActive ? '' : 'deactivator'" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="left" (confirm)="deactivate()" (cancel)="cancelClicked = true">{{isActive ? 'Deactivate' : 'Activate'}}</button>
         </div>
     </div>
     <div class="mb-5 pt-5 ">
@@ -36,7 +37,7 @@
 
                 <span style="border-bottom: none;">
                     <a class="leftSe">Status</a>
-                    <a class="actv">{{template && template.active ? 'Active' : 'In Active'}}</a>
+                    <a class="actv">{{template && template.active ? 'Active' : 'Inactive'}}</a>
                 </span>
             </div>
         </div>
