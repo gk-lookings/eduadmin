@@ -9,7 +9,7 @@
             <span style="margin-right: 20px;">NO OF STUDENTS</span>
             <div style="margin-right: 40px;">ACTIONS</div>
         </div>
-        <ng-container *ngFor="let item of classes">
+        <ng-container *ngFor="let item of classes; let i = index;">
             <app-class-single [item]="item" [last]="((i+1)==classes.length) ? true : false"></app-class-single>
         </ng-container>
         <div class="d-flex justify-content-center" style="min-height: 40px; margin-top: 10px;" *ngIf="isLoading">
