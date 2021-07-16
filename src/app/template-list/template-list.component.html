@@ -59,10 +59,10 @@
     <div class="userList">
         <div class="headingLst">
             <span style="flex: 3;">TEMPLATE</span>
-            <span style="flex: 3;">BOARD</span>
+            <span style="flex: 2;">BOARD</span>
             <span style="margin-right: 20px; ">CREATED AT</span>
             <span style="flex: 1;">STATUS</span>
-            <span style="flex: 3;">ACTIONS</span>
+            <span style="flex: 3; margin-left: 15px;">ACTIONS</span>
         </div>
         <ng-container *ngFor="let item of templates; let i = index;">
             <div class="single-user" style="cursor: pointer;" [style.border]="((i+1)==templates.length) ? 'none':''">
@@ -70,16 +70,16 @@
                     <img src="{{item && item.logo ? item.logo : './assets/images/default.png'}}" alt="">
                     <h1>{{item && item.name}}</h1>
                 </div>
-                <span style="flex: 3;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.filters.board}}</span>
+                <span style="flex: 2;" [routerLink]="['/dashboard/template/subject', item._id]">{{item && item.filters.board}}</span>
                 <span style="margin-right: 20px;" [routerLink]="['/dashboard/template/subject', item._id]">
                 {{item && item.createdAt | dateAgo}}
             </span>
                 <span style="flex: 1;">
                 {{item && item.active ? 'Active' : 'Inactive'}}
             </span>
-                <span style="flex: 3;">
-                <button class="ediT" [routerLink]="['/dashboard/edit-template', item._id]">EDIT</button>
-                <button class="vieW" [routerLink]="['/dashboard/template/subject', item._id]" style="margin: 0 4px;">VIEW</button>
+                <span style="flex: 3; margin-left: 15px">
+                <button class="ediT" [routerLink]="['/dashboard/edit-template', item._id]" style="margin-right: 4px;">EDIT</button>
+                <button class="vieW" [routerLink]="['/dashboard/template/subject', item._id]" style="margin-right: 4px;" >VIEW</button>
                 <button class="activator" (click)="deleteTemp(item._id)">DELETE</button>
             </span>
             </div>

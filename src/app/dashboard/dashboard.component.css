@@ -23,6 +23,7 @@ span.logOut {
 .matListitem {
     display: flex;
     align-items: center;
+    margin-bottom: 4px;
 }
 
 .matListitem img {

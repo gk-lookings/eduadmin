@@ -408,7 +408,8 @@ mat-option {
     border-radius: 3px;
     transition: 0.5s;
     cursor: pointer;
-    width: 105px;
+    width: 95px;
+    margin: 4px 0;
 }
 
 .deactivator {
@@ -439,22 +440,24 @@ mat-option {
 
 .vieW {
     padding: 2px 0;
-    width: 100px;
+    width: 95px;
     border: none;
     border-radius: 3px;
     background: #22877c;
     color: #fff;
     font-size: 14px;
+    margin: 4px 0;
 }
 
 .ediT {
     padding: 2px 0;
-    width: 90px;
+    width: 95px;
     border: none;
     border-radius: 3px;
     background: #D67238;
     color: #fff;
     font-size: 14px;
+    margin: 4px 0;
 }
 
 .empty {
