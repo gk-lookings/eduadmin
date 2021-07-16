@@ -193,6 +193,7 @@ a.leftSe {
     padding: 12px;
     margin-right: 20px;
     font-weight: 500 !important;
+    min-width: 175px;
 }
 
 a.rightSe p {
