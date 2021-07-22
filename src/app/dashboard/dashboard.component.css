@@ -1,8 +1,8 @@
 span.logOut {
     font-size: 14px;
-    font-weight: 300;
     color: #4A4D5C;
     cursor: pointer;
+    letter-spacing: 1px;
 }
 
 .sideNav {

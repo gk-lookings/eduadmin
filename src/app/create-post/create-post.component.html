@@ -89,7 +89,7 @@
                             </div>
                         </div> -->
                         <div class="inputPostField">
-                            <label for="aboutBoard">About Board</label>
+                            <label for="aboutBoard">About Board*</label>
                             <textarea [(ngModel)]="aboutBoard" [ngModelOptions]="{standalone: true}" type="text" autocomplete="off" matInput placeholder="Enter Board Details" name="aboutBoard"></textarea>
                         </div>
                         <div class="inputPostField">
@@ -207,7 +207,7 @@
                                 </div>
                                 <div class="inputPostField" style="width: 70%;">
                                     <label for="boardType">Selected Board/University</label>
-                                    <div *ngFor="let item of selectedBoard" class="d-flex align-items-center justify-content-between singLeSe" style="margin-bottom: 15px;">
+                                    <div *ngFor="let item of selectedBoard" class="d-flex align-items-center justify-content-between singLeSe" style="margin-bottom: 5px;">
                                         <div class="selectedItemList" style="text-transform: capitalize;">
                                             <a>{{ item.board}}</a>
                                             <a *ngIf="item.department && item.department">{{ item.department && item.department}}</a>
@@ -346,9 +346,9 @@
                     </div>
 
                 </div>
-                <div class="finalItemSingle">
+                <div class="finalItemSingle" *ngIf="externalLinkSet">
                     <span>Selected External Links</span>
-                    <div class="finalSingDecs" *ngIf="externalLinkSet">
+                    <div class="finalSingDecs">
                         <div class="d-inline-block">
                             <div class="singleTempSelected" *ngFor="let item of externalLinkSet" style="text-transform: capitalize;">
                                 {{item && item.title ? item.title : item.url}}
@@ -356,7 +356,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="finalItemSingle">
+                <div class="finalItemSingle" *ngIf="filesList.length > 0">
                     <span>Pictures</span>
                     <div class="finalSingDecs">
                         <ng-container *ngIf="filesList.length > 0">
@@ -379,9 +379,9 @@
                     </div>
                 </div>
 
-                <div class="finalItemSingle">
+                <div class="finalItemSingle" *ngIf="templateSelected">
                     <span>Selected Templates</span>
-                    <div class="finalSingDecs" *ngIf="templateSelected">
+                    <div class="finalSingDecs">
                         <div class="d-inline-block">
                             <div class="singleTempSelected" *ngFor="let item of templateSelected" style="text-transform: capitalize;">
                                 {{item && item.name}}
@@ -390,9 +390,9 @@
                     </div>
                 </div>
 
-                <div class="finalItemSingle">
+                <div class="finalItemSingle" *ngIf="classroomSelected">
                     <span>Selected Classroom</span>
-                    <div class="finalSingDecs" *ngIf="classroomSelected">
+                    <div class="finalSingDecs">
                         <div class="d-inline-block">
                             <div class="singleTempSelected" *ngFor="let item of classroomSelected" style="text-transform: capitalize;">
                                 {{item && item.name}}

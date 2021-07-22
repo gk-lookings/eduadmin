@@ -5,7 +5,7 @@
     </div>
     <span [routerLink]="['/dashboard/user', item._id]">{{item && item.email}}</span>
     <span [routerLink]="['/dashboard/user', item._id]">{{item && item.phone}}</span>
-    <span [routerLink]="['/dashboard/user', item._id]">{{item && item.role}}</span>
+    <!-- <span [routerLink]="['/dashboard/user', item._id]">{{item && item.role}}</span> -->
     <span [routerLink]="['/dashboard/user', item._id]">
         <mat-icon *ngIf="item && item.verified" style="color: #22877C;">check_circle</mat-icon>
         <mat-icon *ngIf="item && !item.verified" style="color: #D8D8D8;">cancel</mat-icon>

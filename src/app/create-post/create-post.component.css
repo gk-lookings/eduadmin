@@ -93,6 +93,8 @@
     overflow: hidden;
     margin-right: 15px;
     float: left;
+    object-fit: contain;
+    border: 1px solid #0001;
 }
 
 .addPicture {
@@ -159,11 +161,17 @@
 }
 
 .selectedItemList {
-    background: #00000024;
-    padding: 10px;
-    border-radius: 5px;
     display: flex;
     align-items: center;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background: #00000020;
+    padding: 6px 13px;
+    border-radius: 6px;
+    -webkit-animation: opacityDrop .3s;
+    animation: opacityDrop .3s;
+    font-size: 14px;
 }
 
 .selectedItemList a {
@@ -189,7 +197,7 @@
 }
 
 .removeBtn {
-    padding: 8px;
+    padding: 6px;
     border: none;
     border-radius: 6px;
     margin-left: 20px;
@@ -198,7 +206,7 @@
     align-items: center;
     background: #d40808;
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     width: 110px;
 }
 
@@ -269,6 +277,7 @@
 
 .finalSingDecs {
     padding: 15px;
+    padding-bottom: 5px;
 }
 
 .finalSingDecs img {
@@ -277,16 +286,23 @@
     border-radius: 5px;
     overflow: hidden;
     margin-right: 10px;
+    object-fit: contain;
 }
 
 .finalSponsored a {
     display: flex;
     background: #B7EAE5;
     overflow: hidden;
-    padding: 8px 18px;
+    padding: 10px;
     height: 100%;
     align-items: center;
     font-size: 14px;
+    flex: 4;
+    text-align: center;
+    line-height: 1;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .finalSponsored {
@@ -294,15 +310,18 @@
     border-radius: 6px;
     margin-bottom: 20px;
     display: flex;
-    width: max-content;
     overflow: hidden;
     align-items: center;
     height: 46px;
+    width: 100%;
 }
 
 .finalSponsored span {
-    padding: 8px 40px;
-    font-size: 17px;
+    padding: 8px 20px;
+    font-size: 16px;
+    flex: 7;
+    text-align: center;
+    line-height: 1;
 }
 
 .addedCss {

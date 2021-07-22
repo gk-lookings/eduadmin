@@ -1,7 +1,7 @@
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="sideNav" [mode]="mobileQuery.matches ? 'over' : 'side'" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [opened]="!(isHandset$ | async)">
         <div class="logo text-center">
-            <img src="./assets/images/side_logo.png" alt="">
+            <img src="./assets/images/logo_final.png" alt="classteam" style="width: calc(100% - 30px);">
         </div>
         <mat-nav-list style="margin-top: 30px;">
             <mat-list-item [routerLink]="['/dashboard/home']" routerLinkActive="routeActive" class="matListitem" (click)="mobileQuery.matches ? drawer.toggle() : null">
